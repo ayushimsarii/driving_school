@@ -128,7 +128,56 @@
               <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
           </div>
           <div class="col">
-            
+            <?php
+include_once 'database.php';
+$result = mysqli_query($conn,"SELECT * FROM bank");
+?>
+            <?php
+if (mysqli_num_rows($result) > 0) {
+?>
+              <table id="myTable" border="0" cellspacing="2" cellpadding="2"> 
+      <tr> 
+          
+          <th> <font face="Arial"></font> ID </th>
+          <th> <font face="Arial"></font> Item </th>  
+          <th> <font face="Arial"></font> Radio </th> 
+          <th> <font face="Arial"></font> Remove </th>
+          
+      </tr>
+      <?php
+      $i=0;
+      while($row = mysqli_fetch_array($result)) {
+      ?>
+    <tr>
+      
+      <td><?php echo $row["id"]; ?></td>
+      <td><?php echo $row["item"]; ?></td>
+      <td><input type="radio" id="u1" name="radio" value="U">
+                      <label for="u1">U</label>
+                      <input type="radio" id="f1" name="radio" value="F">
+                      <label for="f1">F</label>
+                      <input type="radio" id="g1" name="radio" value="G">
+                      <label for="g1">G</label>
+                      <input type="radio" id="v1" name="radio" value="V">
+                      <label for="v1">V</label>
+                      <input type="radio" id="e1" name="radio" value="E">
+                      <label for="e1">E</label>
+                      <input type="radio" id="n1" name="radio" value="N">
+                      <label for="n1">N</label><br></td>
+      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+      </tr>
+      <?php
+      $i++;
+      }
+      ?>
+</table>
+ <?php
+}
+else
+{
+    echo "No result found";
+}
+?>
           </div>
         </div>
         
@@ -139,7 +188,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Item Bank Table</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -176,8 +225,8 @@
                           <td><input type="checkbox" name="checkbox" value=""></td>
                           <td><?php echo $row["id"]; ?></td>
                           <td><?php echo $row["item"]; ?></td>
-                          <td><button class="btn btn-primary"><a href="update.php?id=<?php echo $row["id"]; ?>">Update</a></button></td>
-                          <td><button class="btn btn-danger"><a href="delete.php?id=<?php echo $row["id"]; ?>">Delete</a></button></td>
+                          <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>">Update</a></button></td>
+                          <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>">Delete</a></td>
                           </tr>
                           <?php
                           $i++;
@@ -194,7 +243,7 @@
               </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input id="btnGet" type="submit" class="btn btn-primary" value="Save" name="Sub">
+        <input id="btnGet" type="submit" class="btn btn-primary" value="Select" name="Sub">
       </div>
     </div>
   </div>
@@ -233,6 +282,13 @@
             return false;
         });
     });
+</script>
+
+<script>
+function deleteRow(r) {
+  var i = r.parentNode.parentNode.rowIndex;
+  document.getElementById("myTable").deleteRow(i);
+}
 </script>
 
 </body>

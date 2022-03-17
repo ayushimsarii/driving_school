@@ -64,9 +64,8 @@
       		<?php include 'add.php' ?>
       		<form action="add.php" method="post" id="gradesheet" name="div">
       			<!--Item input box-->
-      			<label>Item</label>
-      				<input type="text" name="item" id="item1" value="">
-      				   <br>
+      			    <label>Item</label>
+      				<input type="text" name="item" id="item1" value=""><br>
       				<input type="submit" name="Insert" class="btn btn-primary" value="Insert">
       		</form>
       		<button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
