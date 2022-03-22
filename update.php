@@ -1,7 +1,7 @@
 <?php
 include_once 'database.php';
 if(count($_POST)>0) { 
-mysqli_query($conn,"UPDATE bank set id ='" . $_POST['id'] . "', item='" . $_POST['item'] . "'");
+mysqli_query($conn,"UPDATE bank set id='" . $_POST['id'] . "', item='" . $_POST['item'] . "'");
 $message = "Record Modified Successfully";
 }
 $result = mysqli_query($conn,"SELECT * FROM bank WHERE id='" . $_GET['id'] . "'");

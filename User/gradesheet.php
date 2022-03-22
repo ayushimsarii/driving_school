@@ -78,7 +78,7 @@
       		<div class="col">
       			<table>
       				<tr>
-      					<td><label>UP</label><input type="text" name="up"></td>
+      					<td><label>UP</label><input type="text" name="up" placeholder= "<?php echo $_SESSION['username']; ?>"></td>
       					<td><label>Ride</label><input type="text" name="ride"></td>
       				</tr>
       				<tr>
@@ -128,61 +128,61 @@
               <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
           </div>
           <div class="col">
-            <?php
-include_once 'database.php';
-$result = mysqli_query($conn,"SELECT * FROM bank");
-?>
-            <?php
-if (mysqli_num_rows($result) > 0) {
-?>
-              <table id="myTable" border="0" cellspacing="2" cellpadding="2"> 
-      <tr> 
-          
-          <th> <font face="Arial"></font> ID </th>
-          <th> <font face="Arial"></font> Item </th>  
-          <th> <font face="Arial"></font> Radio </th> 
-          <th> <font face="Arial"></font> Remove </th>
-          
-      </tr>
-      <?php
-      $i=0;
-      while($row = mysqli_fetch_array($result)) {
-      ?>
-    <tr>
-      
-      <td><?php echo $row["id"]; ?></td>
-      <td><?php echo $row["item"]; ?></td>
-      <td>
-        <?php include 'radio.php' ?>
-        <form action="radio.php" method="post" name="my-form">
-                      <input type="radio" id="u1" name="radio" value="U">
-                      <label for="u1">U</label>
-                      <form action="" name="my-form">
-                      <input type="radio" id="f1" name="radio" value="F">
-                      <label for="f1">F</label>
-                      <input type="radio" id="g1" name="radio" value="G">
-                      <label for="g1">G</label>
-                      <input type="radio" id="v1" name="radio" value="V">
-                      <label for="v1">V</label>
-                      <input type="radio" id="e1" name="radio" value="E">
-                      <label for="e1">E</label>
-                      <input type="radio" id="n1" name="radio" value="N">
-                      <label for="n1">N</label>
-                    <input class="btn btn-warning" type="button" name="radiobutton" value="Save"></form></td>
-      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
-      </tr>
-      <?php
-      $i++;
-      }
-      ?>
-</table>
- <?php
-}
-else
-{
-    echo "No result found";
-}
-?>
+                          <?php
+              include_once 'database1.php';
+              $result = mysqli_query($conn,"SELECT * FROM bank");
+              ?>
+                          <?php
+              if (mysqli_num_rows($result) > 0) {
+              ?>
+                            <table id="myTable" border="0" cellspacing="2" cellpadding="2"> 
+                    <tr> 
+                        
+                        <th> <font face="Arial"></font> ID </th>
+                        <th> <font face="Arial"></font> Item </th>  
+                        <th> <font face="Arial"></font> Radio </th> 
+                        <th> <font face="Arial"></font> Remove </th>
+                        
+                    </tr>
+                    <?php
+                    $i=0;
+                    while($row = mysqli_fetch_array($result)) {
+                    ?>
+                  <tr>
+                    
+                    <td><?php echo $row["id"]; ?></td>
+                    <td><?php echo $row["item"]; ?></td>
+                    <td><!-- 
+                      <?php include 'radio.php' ?> -->
+                      <form action="radio.php" method="post" name="my-form">
+                                    <input type="radio" id="u1" name="radio" value="U">
+                                    <label for="u1">U</label>
+                                    <form action="" name="my-form">
+                                    <input type="radio" id="f1" name="radio" value="F">
+                                    <label for="f1">F</label>
+                                    <input type="radio" id="g1" name="radio" value="G">
+                                    <label for="g1">G</label>
+                                    <input type="radio" id="v1" name="radio" value="V">
+                                    <label for="v1">V</label>
+                                    <input type="radio" id="e1" name="radio" value="E">
+                                    <label for="e1">E</label>
+                                    <input type="radio" id="n1" name="radio" value="N">
+                                    <label for="n1">N</label>
+                                  <input class="btn btn-warning" type="button" name="radiobutton" value="Save"></form></td>
+                    <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+                    </tr>
+                    <?php
+                    $i++;
+                    }
+                    ?>
+              </table>
+               <?php
+              }
+              else
+              {
+                  echo "No result found";
+              }
+              ?>
           </div>
         </div>
         
@@ -200,7 +200,7 @@ else
           </div>
           <div class="modal-body">
                    <?php
-                    include_once 'database.php';
+                    include_once 'database1.php';
                     $result = mysqli_query($conn,"SELECT * FROM bank");
                     ?>
                     <!DOCTYPE html>
@@ -230,8 +230,8 @@ else
                           <td><input type="checkbox" name="checkbox" value=""></td>
                           <td><?php echo $row["id"]; ?></td>
                           <td><?php echo $row["item"]; ?></td>
-                          <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
-                          <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td>
+                          <td><a class="btn btn-primary" href="update.php?id=<?php echo $row['id']; ?>><i class="fas fa-edit"></i></a></button></td>
+                          <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row['id']; ?>"><i class="fas fa-trash"></i></a></td>
                           </tr>
                           <?php
                           $i++;
