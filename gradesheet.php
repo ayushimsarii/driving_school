@@ -6,11 +6,11 @@
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="css/bootstrap.css" rel="stylesheet">
 	<!-- JavaScript Bundle with Popper -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="js/jquery.mim.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <style type="text/css">
@@ -110,13 +110,13 @@
 
       <!--Second Container-->
        <div class="container">
-         <div class="row">
+        <div class="row">
           <center>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            ADD
-          </button>
-        </center>
-         </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              ADD
+            </button>
+          </center>
+        </div>
        </div>
       <!-- Button trigger modal -->
 
@@ -142,6 +142,7 @@ if (mysqli_num_rows($result) > 0) {
           <th> <font face="Arial"></font> Item </th>  
           <th> <font face="Arial"></font> Radio </th> 
           <th> <font face="Arial"></font> Remove </th>
+          <th colspan="2"> <font face="Arial"></font> Operation </th>
           
       </tr>
       <?php
@@ -150,8 +151,8 @@ if (mysqli_num_rows($result) > 0) {
       ?>
     <tr>
       
-      <td><?php echo $row["id"]; ?></td>
-      <td><?php echo $row["item"]; ?></td>
+      <td type="text" name="id"><?php echo $row["id"]; ?></td>
+      <td type="text" name="item"><?php echo $row["item"]; ?></td>
       <td>
         <?php include 'radio.php' ?>
         <form action="radio.php" method="post" name="my-form">
@@ -168,8 +169,11 @@ if (mysqli_num_rows($result) > 0) {
                       <label for="e1">E</label>
                       <input type="radio" id="n1" name="radio" value="N">
                       <label for="n1">N</label>
-                    <input class="btn btn-warning" type="button" name="radiobutton" value="Save"></form></td>
-      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+                    <input class="btn btn-warning" type="submit" name="radiobtn" value="Save">
+                  </form></td>
+     <!--  <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+      <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
+      <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td> -->
       </tr>
       <?php
       $i++;
@@ -199,53 +203,30 @@ else
             </button>
           </div>
           <div class="modal-body">
-                   <?php
-                    include_once 'database.php';
-                    $result = mysqli_query($conn,"SELECT * FROM bank");
-                    ?>
-                    <!DOCTYPE html>
-                    <html>
-                     <head>
-                       <title> Retrive data</title>
-                       
-                     </head>
-                    <body>
-                    <?php
-                    if (mysqli_num_rows($result) > 0) {
-                    ?>
-                    
-                        <table id="Table1" border="0" cellspacing="2" cellpadding="2"> 
-                          <tr> 
-                              <th> <font face="Arial"></font> Check </th>
-                              <th> <font face="Arial"></font> ID </th>
-                              <th> <font face="Arial"></font> Item </th>  
-                              <th colspan="2"> <font face="Arial"></font> Operations </th> 
-                              
-                          </tr>
-                          <?php
-                          $i=0;
-                          while($row = mysqli_fetch_array($result)) {
-                          ?>
-                        <tr>
-                          <td><input type="checkbox" name="checkbox" value=""></td>
-                          <td><?php echo $row["id"]; ?></td>
-                          <td><?php echo $row["item"]; ?></td>
-                          <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
-                          <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td>
-                          </tr>
-                          <?php
-                          $i++;
-                          }
-                          ?>
-                    </table>
-                     <?php
-                    }
-                    else
-                    {
-                        echo "No result found";
-                    }
-                    ?>
-              </div>
+              <div class="container-fluid">
+    <button class="btn btn-info" onclick="add_more()"><i class="fas fa-plus"></i></button>
+  </div>
+
+
+
+
+      <div class="container" id="container">
+        <center>
+          <?php include 'add.php' ?>
+          <form action="add.php" method="post" id="gradesheet" name="div">
+            <!--Item input box-->
+                <label>Item</label>
+              <input type="text" name="item" id="item1" value=""><br>
+              <input type="submit" name="Insert" class="btn btn-primary" value="Insert">
+          </form>
+          <button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
+            <button class="btn btn-secondary" onclick="remove()"><i class="fas fa-minus"></i></button><br>
+            <button class="btn btn-success" type="submit"><a href="gradesheet.php">Gradesheet</a></button><br>
+        </center>
+      </div>    
+          </div>
+             
+    
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <input id="btnGet" type="submit" class="btn btn-primary" value="Select" name="Sub" onclick="GetSelected()">
@@ -276,7 +257,7 @@ else
         }
  
         //Display selected Row data in Alert Box.
-        document.write("gradesheet.php",message);
+        document.write(message);
     }
 </script>
 <!--REmove item fron gradesheet-->
@@ -305,6 +286,31 @@ function deleteRow(r) {
       }
     }
 </script> -->
+<script type="text/javascript">
+
+function InsertRecord()  
+        {  
+            var txtid = document.getElementById('txtid').value;  
+            var txtname = document.getElementById('txtname').value;  
+            var txtsalary = document.getElementById('txtsalary').value;  
+            var txtcity = document.getElementById('txtcity').value;  
+            if (txtid.length != 0 || txtname.length !=0 || txtsalary.length !=0|| txtcity.length !=0)  
+            {  
+                var connection = new ActiveXObject("ADODB.Connection");  
+                var connectionstring = "Data Source=.;Initial Catalog=EmpDetail;Persist Security Info=True;User ID=sa;Password=****;Provider=SQLOLEDB";  
+                connection.Open(connectionstring);  
+                var rs = new ActiveXObject("ADODB.Recordset");  
+                rs.Open("insert into Emp_Info values('" + txtid + "','" + txtname + "','" + txtsalary + "','" + txtcity + "')", connection);  
+                alert("Insert Record Successfuly");  
+                txtid.value = " ";  
+                connection.close();  
+            }  
+            else  
+            {              
+                alert("Please Enter Employee \n Id \n Name \n Salary \n City ");  
+            }  
+        } 
+      </script> 
 
 </body>
 </html>

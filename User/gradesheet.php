@@ -150,8 +150,8 @@
                     ?>
                   <tr>
                     
-                    <td><?php echo $row["id"]; ?></td>
-                    <td><?php echo $row["item"]; ?></td>
+                    <td type="text" name="id"><?php echo $row["id"]; ?></td>
+                    <td type="text" name="item"><?php echo $row["item"]; ?></td>
                     <td><!-- 
                       <?php include 'radio.php' ?> -->
                       <form action="radio.php" method="post" name="my-form">
@@ -276,7 +276,7 @@
         }
  
         //Display selected Row data in Alert Box.
-        document.write("gradesheet.php",message);
+          alert(message);
     }
 </script>
 <!--REmove item fron gradesheet-->

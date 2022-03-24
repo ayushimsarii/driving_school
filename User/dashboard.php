@@ -11,26 +11,28 @@ include("auth_session.php");
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	<link href="css/bootstrap.css" rel="stylesheet">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="js/jquery.mim.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
 <style type="text/css">
-input
+  select,option
 	{
 		margin: 5px;
 		padding: 5px;
 		/*width: auto;*/
 	}
-	/*.row
-	{
-		border: 1px solid black;
-		border-radius: 15px;
-	}*/
+	input,
+  label
+  {
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+  }
 	.container
 	{
 		margin-top: 10px;
@@ -73,12 +75,21 @@ input
     color: red;
     font-weight: bold;
     font-size: larger; 
-}
-a
-{
-	text-decoration: none;
-	color: white;
-}
+  }
+  a
+  {
+  	text-decoration: none;
+  	color: white;
+  }
+  h6
+  {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+    font-size: x-large;
+    display: table-cell;
+  }
 </style>
 <body>
 
@@ -90,34 +101,64 @@ a
 	<div class="container">
       	<div class="row">
       		<div class="col">
-      			<table>
-      				<tr>
-      					<td><label>UP</label><input type="text" name="up" placeholder= <?php echo $_SESSION['username']; ?> ></td>
-      					<td><label>Ride</label><input type="text" name="ride"></td>
-      				</tr>
-      				<tr>
-	      				<td><label>Status</label><input type="text" name="status"></td>
-	      				<td><label>Status</label><input type="text" name="status"></td>
-	      			</tr>
-	      			<tr>
-	      				<td><label>Instructor</label><input type="text" name="ins"></td>
-	      				<td><label>Time</label><input type="time" name="time"></td>
-	      			</tr>
-	      			<tr>
-		      			<td><label>Vehicle Number</label><input type="Number" name="veh"></td>
-		      			<td><label>Position</label><input type="text" name="pos"></td>
-		      		</tr>
-      		    </table>
+
+            <?php
+
+$con = mysqli_connect("localhost","root","","test");
+if (!$con) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT id, name, role, phone, email FROM users WHERE username = '" . $_SESSION['username'] . "'";
+$result = $con->query($sql);
+if(!$sql){
+  die(mysqli_error($con));
+}
+
+if ($result->num_rows > 0) {
+ 
+    while ($row = $result->fetch_assoc()) {
+        echo "Hello, " . $row['name'] . " (" . $row['email'] . ").";
+         
+        // $Subitem = $row["Subitem"];
+        // $radiosub = $row["radiosub"]; 
+
+        print '<table>
+              <tr>
+                <td><label>Id</label><input type="text" name="up" placeholder= '.$row['id'].' ></td>
+                <td><label>Name</label><input type="text" name="ride" placeholder= '.$row['name'].'></td>
+              </tr>
+              <tr>
+                <td><label>Role</label><input type="text" name="status" placeholder= '.$row['role'].'></td>
+                <td><label>Phone</label><input type="text" name="status" placeholder= '.$row['phone'].'></td>
+              </tr>
+              <tr>
+                <td><label for="Instructor">Instructor</label>
+                    <select id="Instructor" name="Instructor">
+                      <option value="volvo">Instructor-1</option>
+                      <option value="saab">Instructor-2</option>
+                      <option value="fiat">Instructor-3</option>
+                      <option value="audi">Instructor-4</option>
+                    </select></td>
+                <td><label>Time</label><input type="time" name="time"></td>
+              </tr>
+              </table>';
+
+    }
+
+    $result->free();
+} 
+?>
       		</div>
 
       		<div class="col">
       			<h4>Prereuisites</h4>
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
+      			<h6>Academic</h6>
+      			<h6>Academic</h6>
+            <h6>Academic</h6><br>
+            <h6>Academic</h6>
+            <h6>Academic</h6>
+            <h6>Academic</h6>
       		</div>
       	</div>
       </div>
@@ -125,7 +166,7 @@ a
       <div class="container">
       	<h2>PHASE 1</h2>
       	<div>
-      		<button class="btn btn-success">Actual</button>
+      		<button class="btn btn-success"><a href="Actual.php">Actual</a></button>
       		<button class="btn btn-success"><a href="sim.php">Sim</a></button>
       	</div>
       </div>

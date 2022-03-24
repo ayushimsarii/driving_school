@@ -11,6 +11,12 @@
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['username'])) {
         // removes backslashes
+        $name = stripslashes($_REQUEST['name']);
+        $name = mysqli_real_escape_string($con, $name);
+        $role = stripslashes($_REQUEST['role']);
+        $role = mysqli_real_escape_string($con, $role);
+        $phone = stripslashes($_REQUEST['phone']);
+        $phone = mysqli_real_escape_string($con, $phone);
         $username = stripslashes($_REQUEST['username']);
         //escapes special characters in a string
         $username = mysqli_real_escape_string($con, $username);
@@ -19,8 +25,8 @@
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($con, $password);
         $create_datetime = date("Y-m-d H:i:s");
-        $query    = "INSERT into `users` (username, password, email, create_datetime)
-                     VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
+        $query    = "INSERT into `users` (name, role, phone, username, password, email, create_datetime)
+                     VALUES ('$name', '$role', '$phone','$username', '" . md5($password) . "', '$email', '$create_datetime')";
         $result   = mysqli_query($con, $query);
         if ($result) {
             echo "<div class='form'>
@@ -36,10 +42,19 @@
     } else {
 ?>
     <form class="form" action="" method="post">
-        <h1 class="login-title">Registration</h1>
+        <fieldset>
+            <legend>Personal Info</legend>
+            <input type="text" class="login-input" name="name" placeholder="Full Name" required />
+            <input type="text" class="login-input" name="role" placeholder="Your Role">
+            <input type="tel" class="login-input" name="phone" placeholder="Enter Your Phone Number">
+            <!-- <input type="file" name="photo" placeholder="Insert Photo"> -->
+          </fieldset>
+        <fieldset>
+        <legend class="login-title">Registration</legend>
         <input type="text" class="login-input" name="username" placeholder="Username" required />
         <input type="text" class="login-input" name="email" placeholder="Email Adress">
         <input type="password" class="login-input" name="password" placeholder="Password">
+        </fieldset>
         <input type="submit" name="submit" value="Register" class="login-button">
         <p class="link"><a href="login.php">Click to Login</a></p>
     </form>
