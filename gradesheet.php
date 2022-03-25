@@ -68,12 +68,60 @@
     color: white;
     font-weight: bold;
   }
+  .lockshow
+  {
+    display: none;
+    border: 1px solid black;
+    margin: 10px, 10px, 10px, 10px;
+    height: 750px;
+    text-align: center;
+   /* background-color: black;*/
+  }
+  .opacity
+  {
+   border: 1px solid white;
+   height: 730px;
+   background-color: white;
+   opacity: 0.6;
 
+  }
+  .center 
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /*border: 5px solid #FFFF00;*/
+    padding: 10px;
+  }
+  #overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
 </style>
 <body>
+  
+  <div class="lockshow" id="overlay">
+    <div class="container" id="opacity">
+      <center class="center">
+        <h1 style="color: red;">The Sheet Has been Locked</h1>
+        <i style="font-size: 50px;" class="fas fa-lock"></i><br>
+        <button style="background-color: green; margin: 5px;" class="btn btn-success" onclick="Unlock()">Unlock</button>
+      </center>
+    </div>
+  </div>
 
 	<!--first container-->
-      <div class="container">
+      <div class="container" id="lock1">
       	<div class="row">
       		<div class="col">
       			<table>
@@ -109,7 +157,7 @@
       </div>
 
       <!--Second Container-->
-       <div class="container">
+       <div class="container" id="lock2">
         <div class="row">
           <center>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -120,7 +168,7 @@
        </div>
       <!-- Button trigger modal -->
 
-      <div class="container">
+      <div class="container" id="lock3">
         <div class="row">
           <div class="col">
               <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
@@ -154,8 +202,7 @@ if (mysqli_num_rows($result) > 0) {
       <td type="text" name="id"><?php echo $row["id"]; ?></td>
       <td type="text" name="item"><?php echo $row["item"]; ?></td>
       <td>
-        <?php include 'radio.php' ?>
-        <form action="radio.php" method="post" name="my-form">
+        <form>
                       <input type="radio" id="u1" name="radio" value="U">
                       <label for="u1">U</label>
                       <form action="" name="my-form">
@@ -169,11 +216,10 @@ if (mysqli_num_rows($result) > 0) {
                       <label for="e1">E</label>
                       <input type="radio" id="n1" name="radio" value="N">
                       <label for="n1">N</label>
-                    <input class="btn btn-warning" type="submit" name="radiobtn" value="Save">
-                  </form></td>
-     <!--  <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+                    </form></td>
+      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
       <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
-      <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td> -->
+      <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td>
       </tr>
       <?php
       $i++;
@@ -187,6 +233,12 @@ else
     echo "No result found";
 }
 ?>
+<?php include 'radio.php' ?>
+<form action="radio.php" method="post" name="my-form">
+<input class="btn btn-warning" type="submit" name="radiobtn" value="Save">
+</form>
+<button class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
+<!-- <button class="btn btn-success">Unlock</button> -->
           </div>
         </div>
         
@@ -237,80 +289,7 @@ else
 
 <!--Checkbox fetching and display on alert box-->
 
-<script type="text/javascript">
-    function GetSelected() {
-        //Reference the Table.
-        var grid = document.getElementById("Table1");
- 
-        //Reference the CheckBoxes in Table.
-        var checkBoxes = grid.getElementsByTagName("INPUT");
-        var message = "Id item \n";
- 
-        //Loop through the CheckBoxes.
-        for (var i = 0; i < checkBoxes.length; i++) {
-            if (checkBoxes[i].checked) {
-                var row = checkBoxes[i].parentNode.parentNode;
-                message += row.cells[1].innerHTML;
-                message += "   " + row.cells[2].innerHTML;
-                message += "\n";
-            }
-        }
- 
-        //Display selected Row data in Alert Box.
-        document.write(message);
-    }
-</script>
-<!--REmove item fron gradesheet-->
-<script>
-function deleteRow(r) {
-  var i = r.parentNode.parentNode.rowIndex;
-  document.getElementById("myTable").deleteRow(i);
-}
-</script>
-
-<!--Radio option storing-->
-
-<!-- <script type="text/javascript">
-  const myForm = document.forms['my-form']
-
-  myForm.radioChoice = {}
-
-  myForm.oninput = ({target}) =>
-    {
-    if( target.type === 'radio')
-      {
-      if (!myForm.radioChoice[target.name])
-        myForm.radioChoice[target.name] = target.value
-      else
-        myForm[target.name].value = myForm.radioChoice[target.name]
-      }
-    }
-</script> -->
-<script type="text/javascript">
-
-function InsertRecord()  
-        {  
-            var txtid = document.getElementById('txtid').value;  
-            var txtname = document.getElementById('txtname').value;  
-            var txtsalary = document.getElementById('txtsalary').value;  
-            var txtcity = document.getElementById('txtcity').value;  
-            if (txtid.length != 0 || txtname.length !=0 || txtsalary.length !=0|| txtcity.length !=0)  
-            {  
-                var connection = new ActiveXObject("ADODB.Connection");  
-                var connectionstring = "Data Source=.;Initial Catalog=EmpDetail;Persist Security Info=True;User ID=sa;Password=****;Provider=SQLOLEDB";  
-                connection.Open(connectionstring);  
-                var rs = new ActiveXObject("ADODB.Recordset");  
-                rs.Open("insert into Emp_Info values('" + txtid + "','" + txtname + "','" + txtsalary + "','" + txtcity + "')", connection);  
-                alert("Insert Record Successfuly");  
-                txtid.value = " ";  
-                connection.close();  
-            }  
-            else  
-            {              
-                alert("Please Enter Employee \n Id \n Name \n Salary \n City ");  
-            }  
-        } 
-      </script> 
+<script src="sheet.js"></script>
 
 </body>
 </html>
