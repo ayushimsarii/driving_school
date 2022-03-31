@@ -74,7 +74,7 @@
     border: 1px solid black;
     margin: 10px, 10px, 10px, 10px;
     height: 750px;
-    text-align: center;
+    /*text-align: center;*/
    /* background-color: black;*/
   }
   .opacity
@@ -103,6 +103,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  text-align: right;
   background-color: rgba(0,0,0,0.5);
   z-index: 2;
   cursor: pointer;
@@ -113,8 +114,15 @@
   <div class="lockshow" id="overlay">
     <div class="container" id="opacity">
       <center class="center">
-        <h1 style="color: red;">The Sheet Has been Locked</h1>
-        <i style="font-size: 50px;" class="fas fa-lock"></i><br>
+        <!-- <h1 style="color: red;">The Sheet Has been Locked</h1> -->
+        <i style="font-size: 50px; margin: 5px; padding: 5px;" class="fas fa-lock"></i><br>
+        <label style="color: white;">Instructor</label>
+        <select style="height: 40px; margin: 5px; padding: 5px;">
+          <option>Instructor-1</option>
+          <option>Instructor-1</option>
+          <option>Instructor-1</option>
+          <option>Instructor-1</option>
+        </select><br>
         <button style="background-color: green; margin: 5px;" class="btn btn-success" onclick="Unlock()">Unlock</button>
       </center>
     </div>
