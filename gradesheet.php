@@ -108,6 +108,15 @@
   z-index: 2;
   cursor: pointer;
 }
+ul
+{
+  list-style: none;
+}
+button
+{
+  margin: 5px;
+  padding: 5px;
+}
 </style>
 <body>
   
@@ -197,6 +206,7 @@ if (mysqli_num_rows($result) > 0) {
           <th> <font face="Arial"></font> ID </th>
           <th> <font face="Arial"></font> Item </th>  
           <th> <font face="Arial"></font> Radio </th> 
+          <th> <font face="Arial"></font> SubItem </th>
           <th> <font face="Arial"></font> Remove </th>
           <th colspan="2"> <font face="Arial"></font> Operation </th>
           
@@ -225,6 +235,7 @@ if (mysqli_num_rows($result) > 0) {
                       <input type="radio" id="n1" name="radio" value="N">
                       <label for="n1">N</label>
                     </form></td>
+      <td type="text" name="item"><?php echo $row["subitem"]; ?></td>
       <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
       <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
       <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td>
@@ -275,8 +286,13 @@ else
           <?php include 'add.php' ?>
           <form action="add.php" method="post" id="gradesheet" name="div">
             <!--Item input box-->
-                <label>Item</label>
-              <input type="text" name="item" id="item1" value=""><br>
+              <!-- <label>Item</label><br> -->
+              <input type="text" name="item" id="item1" value="" placeholder="Enter Item"><br>
+              <ul>
+                <li>
+                  <input type="text" name="subitem" value="" placeholder="Enter SubItem">
+                </li>
+              </ul>
               <input type="submit" name="Insert" class="btn btn-primary" value="Insert">
           </form>
           <button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
@@ -287,10 +303,10 @@ else
           </div>
              
     
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <input id="btnGet" type="submit" class="btn btn-primary" value="Select" name="Sub" onclick="GetSelected()">
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
