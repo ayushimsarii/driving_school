@@ -19,17 +19,6 @@
 	{
 		margin-top: 10px;
 	}
-	
-  /*th
-  {
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin: 5px;
-    width: 5px;
-    text-align: center;
-    /*width: 50px;*/
-  }*/
-
   table
   {
     margin-right: 5px;
@@ -47,24 +36,11 @@
   {
     background-color: #ddd;
   }
-  /*th 
-  {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #04AA6D;
-    color: white;
-  }*/
   .row
   {
     width: 100%;
     text-align: center;
   }
- 
-  /*#default
-  {
-    width: 1200px;
-  }*/
 </style>
 <body>
 	<div class="container">
@@ -73,10 +49,6 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itembank" id="item_bank">
               Item Bank
             </button>
-
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#subitembank" id="subitem_bank">
-              SubItem Bank
-            </button> -->
           </center>
 		</div>
 	</div>
@@ -91,33 +63,35 @@
 			      <td><b>Radio Grade</b></td>
 			      <td><b>Remove</b></td>
 			   </tr>
+         <tbody>
+           
+         </tbody>
 			    <form class="login" method="post" action="grades.php" enctype="multipart/form-data">
 
-				<?php
-				include 'grades.php';
-				// include 'database.php';
-				if(!isset($_GET['id'])){
-				$query11 = mysqli_query($conn,"SELECT * FROM itembank");
-				}else{
-				$id=$_GET['id'];
-				$query11 = mysqli_query($conn,"SELECT * FROM itembank where id IN ($id)");
-				}
-				if (mysqli_num_rows($query11) > 0) { $i=1;
-				while($user = mysqli_fetch_assoc($query11)) { 
+                  <?php
+                  include 'grades.php';
+                  if(!isset($_GET['id'])){
+                  $result = mysqli_query($conn,"SELECT * FROM itembank");
+                  }else{
+                  $id=$_GET['id'];
+                  $result = mysqli_query($conn,"SELECT * FROM itembank where id IN ($id)");
+                  }
+                  if (mysqli_num_rows($result) > 0) { $i=1;
+                  while($user = mysqli_fetch_array($result)) { 
 
 
-				?>
-				   <tr id="trleft">
-				      <td class="td"><?php echo $i;?></td>
-				      <td class="td"><?php echo $user['item'];?><br>
-				      	<!-- <button class="btn btn-info" type="button" data-toggle="modal" data-target="#subitem" id="subitem_bank"><i class="fas fa-plus-circle"></i></button> -->
-                <button class="btn btn-warning" type="button" id="left"><i class="fas fa-arrow-circle-left"></i></i></button>
-                <button class="btn btn-warning" type="button" id="right"><i class="fas fa-arrow-circle-right"></i></button>
+                  ?>
+				   <tr>
+				      <td><?php echo $i;?></td>
+				      <td><?php echo $user['item'];?><br>
+				      	<button class="btn btn-info" type="button" data-toggle="modal" data-target="#subitem" id="subitem_bank"><i class="fas fa-plus-circle"></i></button>
+                <!-- <button class="btn btn-warning" type="button" id="left"><i class="fas fa-arrow-circle-left"></i></i></button>
+                <button class="btn btn-warning" type="button" id="right"><i class="fas fa-arrow-circle-right"></i></button> -->
 				      </td>
               
 				      <input type="hidden" name="id" value="<?php echo $user['id'];?>">
 				      
-                    <td class="td">
+                    <td>
                        <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="U" <?php if($user['grade']=='U'){ ?> checked="" <?php } ?>/><span>&nbsp U  </span>
 
                        <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="F" <?php if($user['grade']=='F'){ ?> checked="" <?php } ?>/><span> F </span>
@@ -130,7 +104,7 @@
                     
                        <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="N" <?php if($user['grade']=='N'){ ?> checked="" <?php } ?>/><span> N </span>
                     </td>
-      <td class="td"><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
    </tr> 
    
    <!-- <tr class="blank_row" class="">
@@ -171,14 +145,11 @@
    </tr>
 <?php } ?>
 
-<td>
+<!-- <td>
 <input type="submit" class="btn btn-success" value="Save" name="gradesub">
-</td>
+</td> -->
 </form>
 </table></center>
-<!-- <form>
-  <input type="submit" class="btn btn-success" value="Submit" name="gradesub">
-</form> -->
           </div>
         </div>
 
@@ -303,7 +274,7 @@
                         while($user = mysqli_fetch_assoc($query11)) { 
                         ?>
                            <tr>
-                              <td><input type="checkbox"  name="users" value="<?php echo $user['id'];?>"/><span></span></td>
+                              <td><input type="checkbox"  name="users" value="<?php echo $user['item'];?>"/><span></span></td>
                               <td><?php echo $i;?></td>
                               <td id="fetch"><?php echo $user['item'];?>
                               </td>
@@ -393,8 +364,8 @@
                     <thead class="Success">
                          <tr>
                             <td><b>#</b></td>
-                            <td><b>Id</b></td>
-                            <td><b>Item</b></td>
+                            <td class="td"><b>Id</b></td>
+                            <td class="td"><b>Item</b></td>
                             <!-- <td><b>SubItem</b></td> -->
                             <td colspan="2"><b>Operation</b></td>
                           
@@ -405,12 +376,12 @@
 
                         $query11 = mysqli_query($conn,"SELECT * FROM subitem");
                         if (mysqli_num_rows($query11) > 0) { $i=1;
-                        while($user = mysqli_fetch_assoc($query11)) { 
+                        while($user1 = mysqli_fetch_assoc($query11)) { 
                         ?>
                            <tr>
-                              <td><input type="checkbox"  name="users" value="<?php echo $user['id'];?>"/><span></span></td>
-                              <td><?php echo $i;?></td>
-                              <td name="subitem1" id="subitem1"><?php echo $user['subitem'];?></td>
+                              <td><input type="checkbox"  name="check" value="<?php echo $user1['id'];?>"/><span></span></td>
+                              <td class="td"><?php echo $i;?></td>
+                              <td class="td"><?php echo $user1['subitem'];?></td>
                               <!-- <td><?php echo $user['subitem'];?></td> -->
 
                               <td><a class="btn btn-success" href="Subitemupdate.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-edit"></i></a></td>
@@ -426,7 +397,7 @@
                 </table>
               </div>
         <div class="modal-footer">
-          <button id="btnsub" type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
+          <button id="btnsub" type="button" class="btn btn-primary" data-dismiss="modal" onclick="GetSelected()">Select</button>
         </div>
     </div>
   </div>
@@ -469,64 +440,126 @@
             </div>
         </div>
 
+<!-- <h2 style="color:green">Create a checkbox and get its value</h2>  
+<h3> Are you a web developer? </h3>  
+Yes: <input type="checkbox" id="myCheck1" value="Yes, I'm a web developer">  
+No: <input type="checkbox" id="myCheck2" value="No, I'm not a web developer">  
+<br> <br>  
+<button onclick="checkCheckbox()">Submit</button> <br>  
+  
+<h4 style="color:green" id="result"></h3>   
+<h4 style="color:red" id="error"></h3>   
+  
+<script>  
+function checkCheckbox() {  
+  var yes = document.getElementById("myCheck1");  
+  var no = document.getElementById("myCheck2");  
+  if (yes.checked == true && no.checked == true){  
+    return document.getElementById("error").innerHTML = "Please mark only one checkbox either Yes or No";  
+  }  
+  else if (yes.checked == true){  
+    var y = document.getElementById("myCheck1").value;  
+    return document.getElementById("result").innerHTML = y;   
+  }   
+  else if (no.checked == true){  
+    var n = document.getElementById("myCheck2").value;  
+    return document.getElementById("result").innerHTML = n;  
+  }  
+  else {  
+    return document.getElementById("error").innerHTML = "*Please mark any of checkbox";  
+  }  
+}  
+</script>   -->
+
 <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
- <script type="text/javascript">
-   $(document).ready(function()
-   {
-      $("#left").click(function()
-      {
-        $("td").animate(
-        {
-          // margin-left: '10px',
-          // margin-right: '10px',
-          // float: 'left',
-          // text-align: 'left',
-          left: '450px',
-          // opacity: '0.5',
-          height: '20px',
-          width: '30px'
-        });
-      });
-   });
- </script>
-
- <!-- <script type="text/javascript">
-   $(document).ready(function()
-   {
-      $("#right").click(function()
-      {
-        $("td").animate(
-        {
-          // margin-left: '10px',
-          // margin-right: '10px',
-          float: 'left',
-          right: '450px',
-          // opacity: '0.5',
-          height: '30px',
-          width: '30px'
-        });
-      });
-   });
- </script> -->
-
- <script> 
-$(document).ready(function(){
-  $("#right").click(function(){
-    $("#default").animate({
-      left: '400px',
-      opacity: '0.5',
-      height: '50px',
-      width: '800px'
-    });
-  });
-});
-</script>
 
 <script>
+  
+  $(document).ready(function(){
+
+ $('#btnDel').click(function(){
+            var favorite = [];
+            $.each($("input[name='users']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            var users=favorite.join(",");
+         window.location.href = "http://localhost/Edu%20changed/pop.php?id="+ users;
+ // AJAX request
+   $.ajax({
+    url: 'ajax.php',
+    type: 'post',
+    data: {users: users},
+    success: function(response){ 
+      // Add response in Modal body
+      $('#student_details').html(response);
+        $("#default").hide();
+
+
+      // Display Modal
+     // $('#empModal').modal('show'); 
+    }
+  });
+ });
+});    
+
+
+    
+</script>
+
+<!-- <script>
+$(document).ready(function()
+{
+  $(document).on("click","#btnsub",function()
+  {
+    var selectedStudents = $(".default input[name='check']:checked").parents("tr").clone();
+    $(".default tbody").append(selectedStudents);
+    $('tr').append('<td><input type="radio" name="grade"  value="U"/><span>&nbsp U  </span>\
+\
+                       <input type="radio" name="grade"  value="F"/><span> F </span>\
+                  \
+                       <input type="radio" name="grade"  value="G"/><span> G </span>\
+                    \
+                       <input type="radio" name="grade"  value="V"/><span> V </span>\
+                   \
+                       <input type="radio" name="grade" value="E"/><span> E </span>\
+                    \
+                       <input type="radio" name="grade"  value="N"/><span> N </span></td>');
+  });
+  
+});
+
+</script> -->
+<!-- <script type="text/javascript">
+  $(function () {
+
+            $("#btnDel").click(function () {
+                var open = [];
+                $.each($("input:checkbox[name='users']:checked"), function () {
+                    open.push($(this).val());
+                });
+                function myFunction() {
+                var table = document.getElementById("default");
+                var row = table.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = "bnm";
+                cell2.innerHTML = "ghjk";
+                cell3.innerHTML = "bnm";
+                cell4.innerHTML = "ghjk";
+              }
+                alert("We remain open on: " + open.join(" \n"));
+            })
+
+        });
+</script> -->
+
+<!-- <script>
   $(document).ready(function(){
 
  $('#btnDel').click(function(){
@@ -555,80 +588,103 @@ $(document).ready(function(){
 });
 
     
-</script>
+</script> -->
 
-
-<!-- <script>
+<!-- <script type="text/javascript">
   $(document).ready(function(){
 
  $('#btnsub').click(function(){
             var favorite1 = [];
             $.each($("input[name='users']:checked"), function(){
-                favorite1.parents("td");
-                // favorite1.push($(this).val());
+                favorite.parents("td").siblings("#subitem1").appendTo($(".fetch").add(getselectedvalue);
             });
-            var users=favorite1.join(",");
-            $('.fetch').text(favorite1);
+            var users=favorite.join(",");
+         window.location.href = "http://localhost/Edu%20changed/pop.php?id="+ users;
+ // AJAX request
  });
 });
-
-    
 </script> -->
 
 <!-- <script type="text/javascript">
-    $(function () {
-        //Assign Click event to Button.
-        $("#btnsub").click(function () {
-            $('.blank_row').attr("checked", $(this).children('td').eq(0).is(":checked"));
- 
-            //Display selected Row data in Alert Box.
-            
-        });
-    });
+    document.getElementById('btnsub').onclick = function() {
+    var checkboxes = document.getElementsByName('check');
+    for (var checkbox of checkboxes)
+    {
+        if (checkbox.checked) {
+            document.body.append(checkbox.value + ' ');
+        }
+    }
+}
 </script> -->
-
-
-
 <script type="text/javascript">
   $(function(){
-    $(document).on("click","#btnsub", function(){
-      var getselectedvalue = $("#table1 input[name='users']:checked").parents("td").siblings("#subitem1").appendTo($(".fetch").add(getselectedvalue));
+    $(document).on("click","#btnsub", function()
+    {
+      var getselectedvalue = $("input[name='check']:checked").parents("td").siblings(".td");
+      $("#default").append(getselectedvalue);
     })
   })
 </script>
 
+
 <!-- <script type="text/javascript">
-   $('#btnsub').on('click', function() {
-            var array = [];
-            $("input:checked").each(function() {
-                array.push($(this).val());
-            });
-            var users = array.join(",");
-            $('.fetch').text(array);
-        });
+  $(function(){
+    $(document).on("click","#btnsub", function()
+    {
+      var getselectedvalue = $("input[name='check']:checked").parents("tr").clone("\n").appendTo($("#default").join(getselectedvalue));
+    })
+  })
 </script> -->
 
 <!-- <script type="text/javascript">
     function GetSelected() {
         //Reference the Table.
-        var grid = document.getElementById("Table1");
- 
-        //Reference the CheckBoxes in Table.
-        var checkBoxes = grid.getElementsByTagName("INPUT");
-        var message = "Id item \n";
+        // var grid = document.getElementById("table1");
+        // var getselectedvalue = document.getElementsByName('users');
+        // var answer = [];
+        //Reference the CheckBoxes in Table
+        var checkBoxes = document.getElementsByName("check");
+        var message = ' ';
  
         //Loop through the CheckBoxes.
         for (var i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked) {
-                var row = checkBoxes[i].parentNode.parentNode;
-                message += row.cells[1].innerHTML;
-                message += "   " + row.cells[2].innerHTML;
-                message += "\n";
+                message += '<form method="post" action="" enctype="multipart/form-data">\
+      <td><table>\
+         <tr>\
+            <td>\
+                <input type="hidden" class="uid" name="id" id="id" value="'.$user1["id"].'">\
+                <input class="btnclass" type="radio" name="grade" id="U"  value="U" /><span>  U </span>\
+            </td>\
+            <td>\
+               <input class="btnclass" type="radio" name="grade" id="F" value="F"/><span> F</span>\
+           </td>\
+            <td>\
+               <input class="btnclass" type="radio" name="grade" id="G" value="G" /><span> G</span>\
+            </td>\
+            <td>\
+               <input class="btnclass" type="radio" name="grade" id="V" value="V"/><span> V</span>\
+           </td>\
+            <td>\
+               <input class="btnclass" type="radio" name="grade" id="E" value="E" /><span> E</span>\
+            </td>\
+            <td>\
+               <input class="btnclass" type="radio" name="grade" id="N" value="N"/><span> N</span>\
+           </td><span id="status"></span>\
+         </tr>\
+      </table></td>\
+      </form>'
+      
             }
+
+      //       var sub = document.getElementById('blank_row')
+      // sub.innerHTML+=message
         }
  
         //Display selected Row data in Alert Box.
           alert(message);
+      //     var sub = document.getElementById('blank_row');
+      // sub.innerHTML+=message;
     }
 </script> -->
 
