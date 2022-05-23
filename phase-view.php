@@ -1,32 +1,4 @@
-<?php
-require "phasedb.php";
 
-/**
-* get students **/
-$Id = isset($_GET['id']) ? $_GET['id'] : "";
-$sql = "SELECT id, name FROM phase WHERE id = '".$Id."'";
-$st = $conn->query($sql);
-$phase = '';
-if ($st->num_rows > 0) 
-{
-	// output data of each row
-	$phase = $st->fetch_assoc();
-}
-
-/**
-* get students **/
-$sql = "SELECT id, name FROM phase";
-$st = $conn->query($sql);
-$phases = array();
-if ($st->num_rows > 0) 
-{
-	// output data of each row
-	while($row = $st->fetch_assoc()) 
-	{
-		$phases[] = $row;
-	}
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +21,7 @@ if ($st->num_rows > 0)
 		color: white;
 		text-decoration: none;
 	}
-	div
+	.container
 	{
 		margin: 5px;
 		padding: 5px;
@@ -72,304 +44,430 @@ if ($st->num_rows > 0)
 	{
 		width: 25%;
 	}
+	tr:nth-child(even)
+  {
+    background-color: #f2f2f2;
+  }
+  tr:hover 
+  {
+    background-color: #ddd;
+  }
 </style>
 <body>
+	<?php
+include_once 'header.php';
+?>
+<!--Fetching Phase Name-->
+					<?php if(isset($_GET['phase'])){?>
+					<div class="container">
+            <h1>Phase: <?php echo '<span style="color:red">'.$_GET['phase'].'</span>'?> </h1>
+          </div>
+<?php }  ?>
 
-					<p>&nbsp;</p>
-					<h2>Phase:  <b><font color="red"><?php echo ucfirst($phase['name']);?></font></b></h2> </div>
-					<p>&nbsp;</p>
-
-<div class="container">
+<!--Buttons for Classes-->
+<!-- <div class="container">
 	<button class="btn btn-warning"><a href="actual.php">Actual Page</a></button>
 	<button class="btn btn-warning"><a href="sim.php">Sim Page</a></button>
 	<button class="btn btn-warning"><a href="academic.php">Academic Page</a></button>
-</div>
-    <div class="container">
-    	<center>
-    	<div class="row">
-    		
-    			<h3>Class : <span>Actual</span></h3>
-		    		<form class="insert-phases" id="actual" method="post" action="">
+	<button class="btn btn-primary"><a href="All class data.php">Class Edit and Delete</a></button>
+</div> -->
+
+<!--Add Actual classes-->
+<div class="container">
+  <center>
+    <div class="row">
+    		<h3>Class : <span>Actual</span></h3>
+		    	<form class="insert-phases" id="actual" method="post" action="">
 						<div class="input-field">
 							<table class="table table-bordered" id="table-field-actual">
-								<?php
-								$conn = mysqli_connect("localhost","root","","class");
+										<?php
+										include('connect.php');
+										$error = '';
+										$output = '';
 
-								if (isset($_POST['submit_actual'])) 
-								{
-									$actual = $_POST['actual'];
-                                    $shortactual = $_POST['shortactual'];
-									foreach ($actual as $key => $value) 
-									{
-										
-										$sql = "INSERT INTO actual (actual, shortactual) VALUES ('".$value."', '".$shortactual[$key]."')";
+										//var_dump(isset($_POST["add1"]));
+										if (isset($_POST['submit_actual'])) 
+										{
+										    //var_dump(empty($_POST["name"] || empty($_POST["symbol"])));
+										    if($_POST["actual"]=="" || $_POST["actualsymbol"]=="")
+										    {
+										        $error = '<label class="text-danger">field is required</label>';
+										    }
+										    else
+										        {
+										            $actual = $_POST['actual'];
+		                                            $symbol = $_POST['actualsymbol'];
+										            $phase=$_GET['phase'];
+										            foreach ($actual as $key => $value) {
+										            $query ="INSERT into actual(actual, symbol, phase) values('".$value."', '".$symbol[$key]."','$phase')";
+										           
+										            //var_dump($query);
 
-										$query = mysqli_query($conn, $sql);
+										            $statement = $connect->prepare($query);
 
-									}
-								}
-							?>
-								<tr>
-									<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
-									<td class="short"><input maxlength="10" type="text" name="shortactual[]" class="form-control"></td>
-									<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
-								</tr>
+										            $statement->execute();
+
+										            $error = '<label class="text-success">Data Inserted Successfully</label>';
+										          }
+										        }
+										    }
+										?>
+										<tr>
+											<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
+											<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control"></td>
+											<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
+										</tr>
 							</table>
 						</div>
 							<center>
 								<button class="btn btn-success" type="submit" name="submit_actual">Save</button>
 							</center>
-					</form>	
-	
-    	</div>
-        </center>
+				</form>	
     </div>
+  </center>
+</div>
 
-     <div class="container">
-    	<center>
-    	<div class="row">
-    		
-    			<h3>Class : <span>Simulation</span></h3>
+<!--Adding Simulation Classes-->
+<div class="container">
+  <center>
+    <div class="row">
+    		<h3>Class : <span>Simulation</span></h3>
 		    		<form class="insert-phases" id="sim" method="post" action="">
-						<div class="input-field">
-							<table class="table table-bordered" id="table-field-sim">
-								<?php
-								$conn = mysqli_connect("localhost","root","","class");
+							<div class="input-field">
+								<table class="table table-bordered" id="table-field-sim">
+										<?php
+										include('connect.php');
+										$error = '';
+										$output = '';
 
-								if (isset($_POST['submit_sim'])) 
-								{
-									$sim = $_POST['sim'];
-                                    $shortsim = $_POST['shortsim'];
-									foreach ($sim as $key => $value) 
-									{
-										
-										$sql = "INSERT INTO sim (sim, shortsim) VALUES ('".$value."', '".$shortsim[$key]."')";
+										//var_dump(isset($_POST["add1"]));
+										if (isset($_POST['submit_sim'])) 
+										{
+										    //var_dump(empty($_POST["name"] || empty($_POST["symbol"])));
+										    if($_POST["sim"]=="" || $_POST["shortsim"]=="")
+										    {
+										        $error = '<label class="text-danger">field is required</label>';
+										    }
+										    else
+										        {
+										            $sim = $_POST['sim'];
+		                                            $shortsim = $_POST['shortsim'];
+										            $phase=$_GET['phase'];
+										            foreach ($sim as $key => $value) {
+										            $query ="INSERT into sim(sim, shortsim, phase) values('".$value."', '".$shortsim[$key]."','$phase')";
+										           
+										            //var_dump($query);
 
-										$query = mysqli_query($conn, $sql);
+										            $statement = $connect->prepare($query);
 
-									}
-								}
-							?>
-								<tr>
-									<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
-									<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>
-									<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
-								</tr>
-							</table>
-						</div>
-							<center>
-								<button class="btn btn-success" type="submit" name="submit_sim">Save</button>
-							</center>
-					</form>	
-	
-    	</div>
-        </center>
-    </div>
+										            $statement->execute();
 
-     <div class="container">
-    	<center>
-    	<div class="row">
-    		
-    			<h3>Class : <span>Academic</span></h3>
-		    		<form class="insert-phases" id="academic" method="post" action="">
+										            $error = '<label class="text-success">Data Inserted Successfully</label>';
+										          }
+										        }
+										    }
+										?>
+									<tr>
+										<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
+										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>
+										<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
+									</tr>
+								</table>
+							</div>
+								<center>
+									<button class="btn btn-success" type="submit" name="submit_sim">Save</button>
+								</center>
+						</form>	
+	  </div>
+	</center>
+</div>
+
+<!--Adding Academic classes-->
+<div class="container">
+  <center>
+    <div class="row">
+    		<h3>Class : <span>Academic</span></h3>
+		    	<form class="insert-phases" id="academic" method="post" action="">
 						<div class="input-field">
 							<table class="table table-bordered" id="table-field-academic">
-								<?php
-									$conn = mysqli_connect("localhost","root","","class");
+									<?php
+										include('connect.php');
+										$error1 = '';
+										// $output = '';
 
-									if (isset($_POST['submit_academic'])) 
-									{
-										$academic = $_POST['academic'];
-	                                    $shortacademic = $_POST['shortacademic'];
-										foreach ($academic as $key => $value) 
+										//var_dump(isset($_POST["add1"]));
+										if (isset($_POST['submit_academic'])) 
 										{
-											
-											$sql = "INSERT INTO academic (academic, shortacademic) VALUES ('".$value."', '".$shortacademic[$key]."')";
+										    //var_dump(empty($_POST["name"] || empty($_POST["symbol"])));
+										    if($_POST["academic"]=="" || $_POST["shortacademic"]=="")
+										    {
+										        $error1 = '<label class="text-danger">field is required</label>';
+										    }
+										    else
+										        {
+										            $academic = $_POST['academic'];
+		                                            $shortacademic = $_POST['shortacademic'];
+										            $phase=$_GET['phase'];
+										            foreach ($academic as $key => $value) {
+										            $query1 ="INSERT into academic(academic, shortacademic, phase) values('".$value."', '".$shortacademic[$key]."','$phase')";
+										           
+										            //var_dump($query);
 
-											$query = mysqli_query($conn, $sql);
+										            $statement1 = $connect->prepare($query1);
 
-										}
-									}
-								?>
-								<tr>
-									<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Academic Classes you want?"></td>
-									<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>
-									<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
-								</tr>
+										            $statement1->execute();
+
+										            $error1 = '<label class="text-success">Data Inserted Successfully</label>';
+										          }
+										        }
+										    }
+										?>
+									<tr>
+										<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Academic Classes you want?"></td>
+										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>
+										<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
+									</tr>
 							</table>
 						</div>
 							<center>
 								<button class="btn btn-success" type="submit" name="submit_academic">Save</button>
 							</center>
 					</form>	
-	
-    	</div>
-        </center>
     </div>
+  </center>
+</div>
+
+<!--Previous and Next Button-->
 
     <div class="container">
-		<button  class="btn btn-primary" type="submit"><a href="Next-home.php">Previous</a></button>
-		<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
+			<button  class="btn btn-primary" type="submit"><a href="Next-home.php">Previous</a></button>
+			<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
     </div>
 
+<!--Fetch Data of the classes-->
     <div class="container">
-    	<div class="row">
+    	<div class="row" style="width:100%;">
     		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 		    		<div class="col">
+		    			<?php
+$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
+
+$error = '';
+$output = '';
+
+
+$query = "SELECT * FROM actual ORDER BY id ASC";
+            $statement = $connect->prepare($query);
+            $statement->execute();
+
+            if($statement->rowCount() > 0)
+                {
+                    $result = $statement->fetchAll();
+                    foreach($result as $row)
+                    {
+                        $output .= '<tr>
+                       
+                        <td>'.$row["id"].'</td>
+                        <td>'.$row["actual"].'</td>
+                        <td>'.$row["symbol"].'</td>
+                        <td><button class="btn btn-success"><a href="actual-update.php?id='.$row["id"].'">Edit</a></button></td>
+                        <td><button class="btn btn-danger"><a href="actual-delete.php?id='.$row["id"].'">Delete</a></button></td>
+                        </tr>';
+                    }
+                }
+                else
+                {
+                    $output .= '
+                        <tr>
+                            <td colspan="2">No Data Found</td>
+                        </tr>
+                    ';
+                }
+
+                ?>
 						<center>
-							<table class="table table-striped" id="datatable">
-								
-								<thead class="Success">
-					            <tr>
-									<th>id</th>
-									<th>Actual Name</th>
-									<th>Symbols</th>
-								</tr>
-					                    </thead>
-                                        <tbody id="ty">
-					                        <?php
-					                        // session_start();
-					                        $conn = mysqli_connect("localhost","root","","class");
-					                        $select = mysqli_query($conn, "SELECT * FROM actual");
-					                        if (mysqli_num_rows($select) > 0) { $i=1;
-					                        while($row = mysqli_fetch_assoc($select)) { 
-					                        ?>
-					                           <tr>
-					                              <td><?php echo $i;?></td>
-					                              <td><?php echo $row['actual'];?></td>
-					                              <td><?php echo $row['shortactual'];?></td>
-					                            </tr>
-					                        <?php 
-					                        $i++; 
-					                      } 
-					                    }
-					                        ?>
-					                    </tbody>
-							</table>
+							<?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo "<script>alert('$error');</script>";
+                }?>
+
+                  <table class="table" id="datatable">
+                        <tr>
+                        <td>id</td>
+                            <td>Actual</td>
+                            <td>Symbol</td>
+                            <td colspan="2">Operations</td>
+                        </tr>
+                      
+                        <?php
+                        echo $output;
+                        ?>
+                    </table>
+            
 						</center>
 		            </div>
 
 		            <div class="col">
 						<center>
-							<table class="table table-striped">
-								
-								<thead class="Success">
-					                         <tr>
-									<th>id</th>
-									<th>sim Name</th>
-									<th>Symbols</th>
-								</tr>
-					                    </thead>
+							<?php
+$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
 
-					                        <?php
-					                        // session_start();
-					                        $conn = mysqli_connect("localhost","root","","class");
-					                        $select = mysqli_query($conn, "SELECT * FROM sim");
-					                        if (mysqli_num_rows($select) > 0) { $i=1;
-					                        while($row = mysqli_fetch_assoc($select)) { 
-					                        ?>
-					                           <tr>
-					                              <td><?php echo $i;?></td>
-					                              <td><?php echo $row['sim'];?></td>
-					                              <td><?php echo $row['shortsim'];?></td>
-					                            </tr>
-					                        <?php 
-					                        $i++; 
-					                      } 
-					                    }
-					                        ?>
-							</table>
+$error = '';
+$output = '';
+
+
+$query = "SELECT * FROM sim ORDER BY id ASC";
+            $statement = $connect->prepare($query);
+            $statement->execute();
+
+            if($statement->rowCount() > 0)
+                {
+                    $result = $statement->fetchAll();
+                    foreach($result as $row)
+                    {
+                        $output .= '<tr>
+                       
+                        <td>'.$row["id"].'</td>
+                        <td>'.$row["sim"].'</td>
+                        <td>'.$row["shortsim"].'</td>
+                        <td><button class="btn btn-success">Edit</button></td>
+                        <td><button class="btn btn-danger"><a href="sim-delete.php?id='.$row["id"].'">Delete</a></button></td>
+                        </tr>';
+                    }
+                }
+                else
+                {
+                    $output .= '
+                        <tr>
+                            <td colspan="2">No Data Found</td>
+                        </tr>
+                    ';
+                }
+
+                ?>
+						<center>
+							<?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo "<script>alert('$error');</script>";
+                }?>
+
+                  <table class="table" id="datatable">
+                        <tr>
+                        <td>id</td>
+                            <td>Sim</td>
+                            <td>Symbol</td>
+                            <td colspan="2">Operations</td>
+                        </tr>
+                      
+                        <?php
+                        echo $output;
+                        ?>
+                    </table>
+            
+						</center>
 						</center>
 		            </div>
     </div>
 </div>
-
  <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
- <script type="text/javascript">
- 	$(document).ready(function()
- 	{
- 		var html = '<tr>\
-						<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?"></td>\
-						<td class="short"><input maxlength="10" type="text" name="shortactual[]" class="form-control"></td>\
-									<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
-					</tr>'
-	    var max = 5;
-		var a = 1;
+<!--Script for adding multiple actual classes-->
 
-		$("#add_actual").click(function()
-		{
-			if(a <= max)
-			{
-				$("#table-field-actual").append(html);
-				a++;
-			}
-		});
-		$("#table-field-actual").on('click','#remove_actual',function()
-		{
-			$(this).closest('tr').remove();
-			a--;
-		});
- 	});
+ <script type="text/javascript">
+		 	$(document).ready(function()
+		 	{
+			 		var html = '<tr>\
+									<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?"></td>\
+									<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control"></td>\
+												<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
+								</tr>'
+				    var max = 5;
+					var a = 1;
+
+					$("#add_actual").click(function()
+					{
+						if(a <= max)
+						{
+							$("#table-field-actual").append(html);
+							a++;
+						}
+					});
+					$("#table-field-actual").on('click','#remove_actual',function()
+					{
+						$(this).closest('tr').remove();
+						a--;
+					});
+		 	});
  </script>
 
- <script type="text/javascript">
- 	$(document).ready(function()
- 	{
- 		var html1 = '<tr>\
-						<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
-						<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>\
-									<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
-					</tr>'
-	    var max1 = 5;
-		var b = 1;
 
-		$("#add_sim").click(function()
-		{
-			if(b <= max1)
-			{
-				$("#table-field-sim").append(html1);
-				b++;
-			}
-		});
-		$("#table-field-sim").on('click','#remove_sim',function()
-		{
-			$(this).closest('tr').remove();
-			b--;
-		});
- 	});
+<!--Script for adding multiple sim classes-->
+
+ <script type="text/javascript">
+	 	$(document).ready(function()
+	 	{
+		 		var html1 = '<tr>\
+								<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
+								<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>\
+											<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
+							</tr>'
+			    var max1 = 5;
+				var b = 1;
+
+				$("#add_sim").click(function()
+				{
+					if(b <= max1)
+					{
+						$("#table-field-sim").append(html1);
+						b++;
+					}
+				});
+				$("#table-field-sim").on('click','#remove_sim',function()
+				{
+					$(this).closest('tr').remove();
+					b--;
+				});
+	 	});
  </script>
 
- <script type="text/javascript">
- 	$(document).ready(function()
- 	{
- 		var html2 = '<tr>\
-						<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
-						<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>\
-									<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
-					</tr>'
-	    var max2 = 5;
-		var c = 1;
+<!--Script for adding multiple academic classes-->
 
-		$("#add_academic").click(function()
-		{
-			if(c <= max2)
-			{
-				$("#table-field-academic").append(html2);
-				c++;
-			}
-		});
-		$("#table-field-academic").on('click','#remove_academic',function()
-		{
-			$(this).closest('tr').remove();
-			c--;
-		});
- 	});
+ <script type="text/javascript">
+	 	$(document).ready(function()
+	 	{
+		 		var html2 = '<tr>\
+								<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
+								<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>\
+											<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
+							</tr>'
+			    var max2 = 5;
+				var c = 1;
+
+				$("#add_academic").click(function()
+				{
+					if(c <= max2)
+					{
+						$("#table-field-academic").append(html2);
+						c++;
+					}
+				});
+				$("#table-field-academic").on('click','#remove_academic',function()
+				{
+					$(this).closest('tr').remove();
+					c--;
+				});
+	 	});
  </script>
  
-  <script>
+<!--Script for search classes-->
+
+      <script>
           function myFunction() 
           {
             var input, filter, table, tr, td, i, txtValue;
@@ -396,5 +494,8 @@ if ($st->num_rows > 0)
           }
 
       </script>
+      <?php
+include_once 'footer.php';
+?>
 </body>
 </html>

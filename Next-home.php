@@ -1,38 +1,58 @@
+<!--Insert Phases-->
 <?php
-require "phasedb.php";
-
-$message = "";
-
-/** insert data to table **/
-if(isset($_POST['savepahse']))
+require "connect.php";
+$error = '';
+$output = '';
+if(isset($_POST["savephase"]))
 {
-	$phase = $_POST['name'];
-	foreach($phase as $phase)
-	{
-		$sql = "INSERT INTO phase (name) VALUES ('".$phase."')";
+    if(empty($_POST["phase"]))
+    {
+        $error = '<label class="text-danger">Phase is required</label>';
+    }
+    else
+        {
+            $phase = $_POST["phase"];
+            foreach ($phase as $key => $value) 
+            {
+                                        
+                $sql = "INSERT INTO phase (phase) VALUES ('".$value."')";
 
-		if ($conn->query($sql) === TRUE) 
-		{
-			$message = "<div class='successmessage'>Phases are saved successfully</div>"; 
-		} else {
-			$message = "<div class='errormessage'>Error: " .  $exec . "<br>" . $mysqli->error . "</div>";
-		}
-	}
-}
+                $statement = $connect->prepare($sql);
 
-/**
-* get students **/
-$sql = "SELECT id, name FROM phase";
-$st = $conn->query($sql);
-$phase = array();
-if ($st->num_rows > 0) 
-{
-	// output data of each row
-	while($row = $st->fetch_assoc()) 
-	{
-		$phase[] = $row;
-	}
-}
+                $statement->execute();
+
+        }
+            $error = '<label class="text-success">Data Inserted Successfully</label>';
+        }
+    }
+
+            $query = "SELECT * FROM phase ORDER BY id ASC";
+            $statement = $connect->prepare($query);
+            $statement->execute();
+
+            if($statement->rowCount() > 0)
+                {
+                    $result = $statement->fetchAll();
+                    foreach($result as $row)
+                    {
+                        $output .= '<tr>
+                        <td>'.$row["id"].'</td>
+                            <td><a href="phase-view.php?id='.$row["id"].'&phase='.$row["phase"].'">'.$row["phase"].'</a></td>
+                                <td><a href="phase-update.php?id='.$row["id"].'">Edit</a></td>
+                                <td><a href="phase-delete.php?id='.$row["id"].'">Delete</a></td>
+                            </td>
+                        </tr>';
+                    }
+                }
+                else
+                {
+                    $output .= '
+                        <tr>
+                            <td colspan="2">No Data Found</td>
+                        </tr>
+                    ';
+                }
+
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +71,7 @@ if ($st->num_rows > 0)
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <style type="text/css">
-	div
+	.container
 	{
 		margin: 5px;
 		padding: 5px;
@@ -92,8 +112,17 @@ if ($st->num_rows > 0)
 	{
 		font-size: 20px;
 	}
+
+  tr:hover 
+  {
+    background-color: #ddd;
+  }
 </style>
 <body>
+<?php
+	include 'header.php';
+	?>
+<!--Input Phases-->
 
 <div class="container">
 	<h1>Phases</h1>
@@ -101,57 +130,43 @@ if ($st->num_rows > 0)
 	<div class="row">
 		<div class="col">
 			<center>
+
 				<form class="insert-phases" id="integrity" method="post" action="">
-					<div class="input-field">
+					<div class="--input-field">
 						<table class="table table-bordered" id="table-field">
 							<tr>
-								<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="name[]" class="form-control" value="" required /> </td>
-								<td><a href="javascript:void(0);" class="add_button" title="Add field"><button class="btn btn-warning">Add</button></a></td>
+								<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>
+								<td><input type="button" name="add_phase" value="Add" id="add_phase" class="btn btn-warning"></td>
 							</tr>
 						</table>
 					</div>
 					<center>
-						<button class="btn btn-success" type="submit" name="savepahse">Submit</button>
+						<button class="btn btn-success" type="submit" name="savephase">Submit</button>
 					</center>
-					</form>	
+				</form>	
 			</center>
-		</div>
-	</div>
-	<div class="row">
-		<center>
-						<table class="table table-bordered src-table1">
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Phase Name</th>
-									<th colspan="2">Operations</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								if(count($phase) > 0)
-								{
-									$totalphase = count($phase);
-									$i = 1;
-									foreach($phase as $phase)
-									{
-										?>
-										<tr id="check_<?php echo $i;?>" data-total-record="<?php echo $totalphase;?>" data-tr-id_<?php echo $i;?>="<?php echo $phase['id'];?>" data-name-<?php echo $i;?>="<?php echo $phase['name'];?>">
-											<td><?php echo $phase['id'];?></td>
-											<td><a href="phase-view.php?id=<?php echo $phase['id'];?>"><?php echo $phase['name'];?></a></td>
-											<td><a href="phase-update.php?id=<?php echo $phase["id"]; ?>"><i style="color: green;" class="fas fa-pen"></i></a></td>
-											<td><a href="phase-delete.php?id=<?php echo $phase["id"]; ?>"><i style="color: red;" class="fas fa-trash"></i></td>
-										</tr>
-										<?php
-										$i++;
-									}
-								}
-								?>
-							</tbody>
-						</table>
-					</center>
 	</div>
 </div>
+
+<!--Phase Table-->
+
+		<div class="row">
+			<center>
+				<table class="table table-striped table-bordered">
+		            <tr>
+		                <th>Id</th>
+		                <th>Phase</th>
+		                <th colspan="2">Operations</th>
+		            </tr>
+		                <?php
+		                    echo $output;
+		                ?>                
+		        </table>
+		    </center>
+		</div>
+</div>
+
+<!--Next and Previous Button-->
 
 <div class="container">
 	<button  class="btn btn-primary" type="submit"><a href="Home.php">Previous</a></button>
@@ -162,33 +177,35 @@ if ($st->num_rows > 0)
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
- <script>
-jQuery(document).ready(function($)
-{
-    var maxField = 10; // limit
-    var addButton = $('.add_button');
-    var wrapper = $('.field_wrapper');
-    var fieldHTML = '<div><input class="form-control" type="text" name="name[]" value="" required /> <img src="remove-icon.png" style="width:6%;" class="remove_button" /></div>';
-    var x = 1;
-    
-	// add input row
-    $(addButton).click(function()
-	{
-        if(x < maxField)
-		{ 
-            x++;
-            $(wrapper).append(fieldHTML);
-        }
-    });
-    
-	// delete input row
-    $(wrapper).on('click', '.remove_button', function(e)
-	{
-        $(this).parent('div').remove();
-        x--;
-    });
-});
-</script>
+<!--Script for add multiple phases-->
 
+<script type="text/javascript">
+    $(document).ready(function()
+	    {
+	        var html = '<tr>\
+	                        <td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>\
+	                        <td><input type="button" name="remove_actual" value="Remove" id="remove_phase" class="btn btn-danger"></td>\
+	                    </tr>'
+	        var max = 5;
+	        var a = 1;
+
+	        $("#add_phase").click(function()
+	        {
+	            if(a <= max)
+	            {
+	                $("#table-field").append(html);
+	                a++;
+	            }
+	        });
+	        $("#table-field").on('click','#remove_phase',function()
+	        {
+	            $(this).closest('tr').remove();
+	            a--;
+	        });
+    });
+ </script>
+<?php
+include_once 'footer.php';
+?>
 </body>
 </html>

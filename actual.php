@@ -1,3 +1,8 @@
+
+<?php
+$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
+$output="";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,33 +51,66 @@
 		color: white;
 		text-decoration: none;
 	}
+	#cl_sy{
+        margin-right: 10px;
+    }
+    .center {
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73AD21;
+  padding: 10px;
+}
+#block
+{
+	border: 1px solid black;
+}
 </style>
 <body>
-
+<?php
+include_once 'header.php';
+?>
 <div class="container">
 	<h3>Actual Page</h3>
 	<div class="row">
+		<!-- <h1>Phase</h1> -->
 		<div class="col">
-			<?php
-          
-                        // session_start();
-                        $conn = mysqli_connect("localhost","root","","class");
-                        $select = mysqli_query($conn, "SELECT * FROM actual");
-                        if (mysqli_num_rows($select) > 0) { $i=1;
-                        while($row = mysqli_fetch_assoc($select)) { 
-                        ?>
-                        
-                        			<div class="btn-group" style="width:100%">
-									  <button style="width:30%"><?php echo $row['shortactual'];?></button>
-									</div>
-                        				
-                        		
-                        <?php 
-                        $i++; 
-                      } 
-                    }
-                        ?>
-		</div>
+			<table id="table" class="center" style="border: 1px solid black;">
+                    <?php
+                    $query = "SELECT * FROM phase ORDER BY id ASC";
+                    $statement = $connect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll();
+                            foreach($result as $row)
+                            {
+
+                    ?>     
+                            <div class="container"> 
+                                <tr>
+                               
+                                <?php
+                                $phase=$row['phase'];
+                                echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phase'].'</h4></div>';
+                                ?>
+                                </tr>
+                                <tr>
+                                <?php
+                                $query1 = "SELECT symbol FROM actual where phase='$phase'";
+                                $statement1 = $connect->prepare($query1);
+                                $statement1->execute();  
+                                $result1 = $statement1->fetchAll();
+                                    foreach($result1 as $row1){
+                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php">'.$row1['symbol'].'</a>';
+
+                                        
+                                    }
+                                ?>
+                    
+                                </tr><hr>
+                 
+                         </div>      
+<?php }?>
+                    </table>
+        </div>
 
 		<div class="col">
 			<div>
@@ -89,9 +127,26 @@
 	</div>
 </div>
 
+<!-- Next and Previous Button-->
+
  <div class="container-fluid">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
     </div>
+
+    <script>
+ $('#myTable').margetable({
+  type: 1,
+  colindex: [{
+    index: 1, 
+    dependent: [0]
+  }]
+});
+
+
+    </script>
+    <?php
+include_once 'footer.php';
+?>
 </body>
 </html>

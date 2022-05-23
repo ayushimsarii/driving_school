@@ -1,5 +1,13 @@
 <?php
-include_once 'filedb.php';
+$conn = new mysqli("localhost","root","","fileupload");
+
+// Check connection
+if ($conn->connect_errno) 
+{
+    echo "Failed to connect to MySQL: " . $conn->connect_error;
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,9 +57,6 @@ include_once 'filedb.php';
       <div class="modal-body">
 			        <center>
 					 <table class="table table-striped">
-						    <tr>
-						    <th colspan="4">your uploads...<label><a href="academic.php">upload new files...</a></label></th>
-						    </tr>
 						    <tr>
 						    <th>File Name</th>
 						    <th>File Type</th>

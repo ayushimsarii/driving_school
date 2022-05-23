@@ -4,7 +4,7 @@ $id=$_GET['id'];
 $output="";
 
 include_once 'connect.php';
-$query = "SELECT * FROM phase where id='$id'";
+$query = "SELECT * FROM actual where id='$id'";
             $statement = $connect->prepare($query);
             $statement->execute();
 
@@ -13,7 +13,8 @@ $query = "SELECT * FROM phase where id='$id'";
                     $result = $statement->fetchAll();
                     foreach($result as $row)
                     {
-                        $output .= $row['phase'];
+                        $output .= $row['actual'];
+                        // $output .= $row['symbol'];
                     }
                 }
                
@@ -52,35 +53,30 @@ $query = "SELECT * FROM phase where id='$id'";
   	font-weight: bold;
   }
 </style>
-<?php
-include_once 'header.php';
-?>
     <body>
     	
         <div class="container">   
         <!-- <h3> <a href="Next-home.php">Phase</a> </h3>  -->
         <center>
           <div class="row">                
-          	<form method="post" action="edit_phase.php">
+          	<form method="post" action="edit_class_actual.php">
                 	<center>
                         
                         	<center>
-                            <h5>Update Phase name:</h5>
+                            <h5>Update Actual Class name:</h5>
                             <input type="text" class="form-control" name="id" value="<?php echo $id?>">
-                            <input type="text" class="form-control" name="upt_name" value="<?php echo $output?>">
+                            <input type="text" class="form-control" name="actual_new" value="<?php echo $output?>">
+                            <!-- <input type="text" class="form-control" name="symbol_new" value="<?php echo $output?>"> -->
                           </center>
                         
                   </center>
                         <br />
                         <div align="center">
-                            <input type="submit" name="saveit" class="btn btn-primary" value="submit" />
+                            <input type="submit" name="saveactual" class="btn btn-primary" value="submit" />
                         </div>
                 </form>
           </div>
         </center>
         </div>
-        <?php
-include_once 'footer.php';
-?>
     </body>  
 </html>

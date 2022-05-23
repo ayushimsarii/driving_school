@@ -1,10 +1,8 @@
 <?php
-include_once 'phasedb.php';
+include_once 'connect.php';
 $sql = "DELETE FROM phase WHERE id='" . $_GET["id"] . "'";
-if (mysqli_query($conn, $sql)) {
-    echo "Record deleted successfully";
-} else {
-    echo "Error deleting record: " . mysqli_error($conn);
-}
-mysqli_close($conn);
+$statement = $connect->prepare($sql);
+
+            $statement->execute();
+            header('Location: Next-home.php?id='.$id);
 ?>

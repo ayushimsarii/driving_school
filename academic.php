@@ -1,3 +1,45 @@
+<!--fetching symbols from academic table-->
+<?php
+$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
+
+$error = '';
+$output = '';
+
+
+$query = "SELECT * FROM academic ORDER BY id ASC";
+            $statement = $connect->prepare($query);
+            $statement->execute();
+
+            if($statement->rowCount() > 0)
+                {
+                    $result = $statement->fetchAll();
+                    foreach($result as $row)
+                    {
+                        $output .= '<tr>
+                       
+                        <td>'.$row["id"].'</td>
+                        <td><button class="btn btn-primary">'.$row["symbol"].'</button></td>
+                        <form method="post" action="upload.php" enctype="multipart/form-data">
+                        <td class="file"><input type="file" name="file" />
+                        <input style="visibility:hidden;" type="text" id="id" name="id" value="'.$row["id"].'">
+                        <button class="disabled" class="btn btn-success" type="submit" name="upload">upload</button>
+                        </td>
+                         
+                        </form>
+                        <td></td>
+                        </tr>';
+                    }
+                }
+                else
+                {
+                    $output .= '
+                        <tr>
+                            <td colspan="2">No Data Found</td>
+                        </tr>
+                    ';
+                }
+
+                ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +85,7 @@
 	}
 	a
 	{
-		color: white;
+		color: black;
 		text-decoration: none;
 	}
 	form.example button {
@@ -107,99 +149,170 @@ nav
 }
 </style>
 <body>
+<?php
+include_once 'header.php';
+?>
+<!--upload files-->
+<div class="modal fade" id="fileupload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="fileupload.php" method="post" enctype="multipart/form-data">
+					<input type="file" name="file" />
+					<button class="btn btn-success" type="submit" name="upload">upload</button>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+	<!--modal for uploaded file-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+                    <center>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fileupload" onclick="hide()">
+                        ADD
+                      </button>
+                    </center>
+                  </div>
+			        <center>
+					 <table class="table table-striped">
+				
+						    <tr>
+						    	<th>Symbol</th>
+						    <th>File Name</th>
+						    <th>File Type</th>
+						    <th>File Size(KB)</th>
+						    <th>View</th>
+						    </tr>
+						    <?php
+$connect = new mysqli("localhost","root","","phase");
+
+// Check connection
+if ($connect->connect_errno) 
+{
+    echo "Failed to connect to MySQL: " . $connect->connect_error;
+    exit();
+}
+
+?>
+						    <?php
+						$result = mysqli_query($connect,"SELECT * FROM academic");
+						  ?>
+						  <?php
+						$i=0;
+						while($row = mysqli_fetch_array($result)) {
+						if($i%2==0)
+						$classname="evenRow";
+						else
+						$classname="oddRow";
+						?>
+						  
+						        <tr>
+						        	<td><?php echo $row["shortacademic"]; ?></td>
+						        <td><?php echo $row["file"]; ?></td>
+						        <td><?php echo $row["type"]; ?></td>
+						        <td><?php echo $row["size"]; ?></td>
+						        <td style="color:black;"><a href="upload/<?php echo $row['file'] ?>" target="_blank">view file</a></td>
+						        </tr>
+						       <?php
+						$i++;
+						}
+						?> 
+					</table>
+          
+			</center>
+      </div>
+    </div> 
+  </div>
+</div>
 	<div class="lockshow" id="overlay">
     <div class="container" id="opacity">
+      <nav class="navbar navbar-dark bg-dark">
+        <form class="form-inline">
+          <button class="btn btn-outline-success" type="button"><a href="Next-home.php">View Phase</a></button>
+          <button class="btn btn-outline-success" type="button"><a href="class_view.php">View Class</a></button>
+          <button style="background-color: green; margin: 5px;" class="btn btn-success" onclick="Unlock()" id="unlock">Unlock</button>
+        </form>
+      </nav>
       <center class="center">
         <!-- <h1 style="color: red;">The Sheet Has been Locked</h1> -->
         <i style="font-size: 50px; margin: 5px; padding: 5px;" class="fas fa-lock"></i><br>
-        <button style="background-color: green; margin: 5px;" class="btn btn-success" onclick="Unlock()" id="unlock">Unlock</button>
-        <button><a href="filefetch.php">Files</a></button>
+        <!-- <button style="background-color: green; margin: 5px;" class="btn btn-success" onclick="Unlock()" id="unlock">Unlock</button><br><hr>
+        <button class="btn btn-primary" type="submit"><a href="Next-home.php">View Phase</a></button>
+        <button class="btn btn-primary" type="submit"><a href="class_view.php">View Class</a></button>
+        <div class="container">
+	<center>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Self Study</button>
+		
+	</center>
+</div> -->
       </center>
     </div>
   </div>
 
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark" id="nav">
   <form class="form-inline">
     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-    <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
   </form>
   <!-- <a class=>Navbar</a> -->
-  <button style="margin-left: 1100px;" class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
+  <button class="btn btn-primary" type="submit"><a href="">Edit Phase</a></button>
+  <button class="btn btn-primary" type="submit"><a href="All class data.php">Edit Class</a></button>
+  <button class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
   <button style="margin-right: 10px;" class="btn btn-warning">unlock</button>
 </nav>
 
 <div class="container" id="lock1">
 	<h3>Academic Page</h3>
 	<div class="row">
-		
+		<center><button class="btn btn-info"><a href="academic-user.php">study</a></button></center>
 		<div class="col-8">
-			<form action="upload.php" method="post" enctype="multipart/form-data">
+			<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
 					<input type="file" name="file" />
 					<button class="btn btn-success" type="submit" name="upload">upload</button>
       </form>
 
-			<button class="btn btn-warning"><a href="filefetch.php">Uploaded File</a></button>
+			<button class="btn btn-warning"><a href="filemodalfetch.php">Uploaded File</a></button> -->
+                <?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo "<script>alert('$error');</script>";
+                }?>
 
-			<!-- <?php
-				        $conn = mysqli_connect("localhost","root","","class");
-
-                        $select = mysqli_query($conn, "SELECT * FROM academic");
-
-                        if (mysqli_num_rows($select) > 0) { $i=1;
-                        while($row = mysqli_fetch_assoc($select)) 
-                        { 
+                  <table id="datatable">
+                        <!-- <tr>
+                        <td>id</td>
+                            <td>class</td>
+                            <td id="name">file</td>
+                            <td>action</td>
+                        </tr> -->
+                      
+                        <?php
+                        echo $output;
                         ?>
-                        
-                        <table id="datatable">
-                        	<tbody id="ty">
-	                        	<tr>
-		                        	<td>
-								     	<?php echo $row['shortacademic'];?>
-								    </td>
-								</tr>
-							</tbody>
-						</table>
-                        				
-                        		
-                        <?php 
-                        $i++; 
-                      } 
-                    }
-			?> -->
-
-			<table id="datatable">
-								
-								<thead class="Success">
-					            <tr>
-									<!-- <th>id</th> -->
-									<!-- <th>Actual Name</th> -->
-									<!-- <th>Symbols</th> -->
-								</tr>
-					                    </thead>
-                                        <tbody id="ty">
-					                        <?php
-					                        // session_start();
-					                        $conn = mysqli_connect("localhost","root","","class");
-					                        $select = mysqli_query($conn, "SELECT * FROM academic");
-					                        if (mysqli_num_rows($select) > 0) { $i=1;
-					                        while($row = mysqli_fetch_assoc($select)) { 
-					                        ?>
-					                           <tr>
-					                               <!-- <td><?php echo $i;?></td> -->
-					                              <!-- <td><?php echo $row['academic'];?></td> -->
-					                              <td><button><?php echo $row['shortacademic'];?></button></td>
-																				<td><form action="upload.php" method="post" enctype="multipart/form-data">
-																					<input name="file" type="file" multiple="multiple" />
-                                        <input type="submit" name="submit" value="Upload" /></form></td>
-					                            </tr>
-					                        <?php 
-					                        $i++; 
-					                      } 
-					                    }
-					                        ?>
-					                    </tbody>
-							</table>
+                    </table>
+            
 		</div>
 
 		<div class="col-4" id="locked">
@@ -236,7 +349,7 @@ nav
             tr = table.getElementsByTagName("tr");
             for (i = 1; i < tr.length; i++) 
             {
-              td = tr[i].getElementsByTagName("td")[0];
+              td = tr[i].getElementsByTagName("td")[1];
               if (td) 
               {
                 txtValue = td.textContent || td.innerText;
@@ -253,21 +366,51 @@ nav
           }
 </script>
 
+<script>
+$(document).ready(function(){
+  $("#lock").click(function(){
+    $(".file").hide();
+    $("#name").hide();
+    $("#nav").hide();
+    $(".disabled").hide();
+  });
+
+  
+
+});
+   </script>
+   <script>
+$(document).ready(function(){
+  $("#unlock").click(function(){
+    $(".file").show();
+    $("#name").show();
+    $("#nav").show();
+    $(".disabled").show();
+  });
+
+  
+
+});
+   </script>
+
 <script type="text/javascript">
 	function lock()
 {
   document.getElementById('locked').style.pointerEvents = 'none';
   document.getElementById('lock2').style.pointerEvents = 'none';
   // document.getElementById('lock3').style.pointerEvents = 'none';
+  // // document.getElementById("ty").style.display = "none";
   document.getElementById("overlay").style.display = "block";
+  document.getElementById("file").style.display = "none";
 }
 
 function Unlock()
         { 
           
-          document.getElementById('lock1').style.pointerEvents = 'auto';
-  document.getElementById('lock1').style.pointerEvents = 'auto';
+          document.getElementById('locked').style.pointerEvents = 'auto';
   document.getElementById('lock2').style.pointerEvents = 'auto';
+  // document.getElementById('lock2').style.pointerEvents = 'auto';
+  // document.getElementById("ty").style.display = "block";
   document.getElementById("overlay").style.display = "none";
         }
 </script>
@@ -299,5 +442,15 @@ btn.onclick = function (e) {
 } 
 </script>
  -->
+ <script type="text/javascript">
+ 	function hide()
+ 	{
+ 		document.getElementById("exampleModal").style.display = "none";
+ 	}
+ </script>
+
+<?php
+include_once 'footer.php';
+?>
 </body>
 </html>

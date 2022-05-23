@@ -119,7 +119,9 @@ button
 }
 </style>
 <body>
-  
+ <?php
+include_once 'header.php';
+?> 
   <div class="lockshow" id="overlay">
     <div class="container" id="opacity">
       <center class="center">
@@ -177,7 +179,7 @@ button
        <div class="container" id="lock2">
         <div class="row">
           <center>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item">
               ADD
             </button>
           </center>
@@ -187,133 +189,99 @@ button
 
       <div class="container" id="lock3">
         <div class="row">
-          <div class="col">
-              <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
+          <div class="col-8">
+              <table id="myTable" class="table table-responsive" width="100%">
+                    <thead class="Success">
+                         <tr>
+                            <td><b>#</b></td>
+                            <td><b>Id</b></td>
+                            <td><b>Item</b></td>
+                            <!-- <td><b>SubItem</b></td> -->
+                            <td><b>Remove</b></td>
+                          
+                         </tr>
+                    </thead>
 
-              <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
-          </div>
-          <div class="col">
-            <?php
-include_once 'database.php';
-$result = mysqli_query($conn,"SELECT * FROM bank");
-?>
-            <?php
-if (mysqli_num_rows($result) > 0) {
-?>
-              <table id="myTable" border="0" cellspacing="2" cellpadding="2"> 
-      <tr> 
-          
-          <th> <font face="Arial"></font> ID </th>
-          <th> <font face="Arial"></font> Item </th>  
-          <th> <font face="Arial"></font> Radio </th> 
-          <th> <font face="Arial"></font> SubItem </th>
-          <th> <font face="Arial"></font> Remove </th>
-          <th colspan="2"> <font face="Arial"></font> Operation </th>
-          
-      </tr>
-      <?php
-      $i=0;
-      while($row = mysqli_fetch_array($result)) {
-      ?>
-    <tr>
-      
-      <td type="text" name="id"><?php echo $row["id"]; ?></td>
-      <td type="text" name="item"><?php echo $row["item"]; ?></td>
-      <td>
-        <form>
-                      <input type="radio" id="u1" name="radio" value="U">
-                      <label for="u1">U</label>
-                      <form action="" name="my-form">
-                      <input type="radio" id="f1" name="radio" value="F">
-                      <label for="f1">F</label>
-                      <input type="radio" id="g1" name="radio" value="G">
-                      <label for="g1">G</label>
-                      <input type="radio" id="v1" name="radio" value="V">
-                      <label for="v1">V</label>
-                      <input type="radio" id="e1" name="radio" value="E">
-                      <label for="e1">E</label>
-                      <input type="radio" id="n1" name="radio" value="N">
-                      <label for="n1">N</label>
-                    </form></td>
-      <td type="text" name="item"><?php echo $row["subitem"]; ?></td>
-      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
-      <td><a class="btn btn-primary" href="update.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-edit"></i></a></button></td>
-      <td><a class="btn btn-danger" href="delete.php?id=<?php echo $row["id"]; ?>"><i class="fas fa-trash"></i></a></td>
-      </tr>
-      <?php
-      $i++;
-      }
-      ?>
-</table>
- <?php
-}
-else
-{
-    echo "No result found";
-}
-?>
+                        <?php
+                        include 'database.php';
+                        $query11 = mysqli_query($conn,"SELECT * FROM itembank");
+                        if (mysqli_num_rows($query11) > 0) { $i=1;
+                        while($user = mysqli_fetch_assoc($query11)) { 
+                        ?>
+                           <tr>
+                              <td><input type="checkbox"  name="users" value="<?php echo $user['id'];?>"/><span></span></td>
+                              <td><?php echo $i;?></td>
+                              <td id="fetch"><?php echo $user['item'];?>
+                              </td>
+                              <!-- <td><?php echo $user['subitem'];?></td> -->
+
+                           <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
+                              <!-- <td><a class="btn btn-danger" href="delete.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-trash"></i></a></td> -->
+                              
+                            </tr>
+                        <?php 
+                        $i++; 
+                      } 
+                    }
+                        ?>
+
+                </table>
 <?php include 'radio.php' ?>
 <form action="radio.php" method="post" name="my-form">
 <input class="btn btn-warning" type="submit" name="radiobtn" value="Save">
 </form>
 <button class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
+          </div>
+          <div class="col-4">
+            <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
+
+              <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
+        
 <!-- <button class="btn btn-success">Unlock</button> -->
           </div>
         </div>
         
       </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Item Bank Table</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="container-fluid">
-    <button class="btn btn-info" onclick="add_more()"><i class="fas fa-plus"></i></button>
-  </div>
+<div class="modal fade" id="insert item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Item Bank</h5>
+                    <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <center>
+                        <?php include 'add.php' ?>
+                        <form action="add.php" method="post" id="gradesheet" name="div">
+                          <!--Item input box-->
+                            <!-- <label>Item</label><br> -->
+                            <input type="text" name="item" id="item1" value="" placeholder="Enter Item">
+                            <!-- <button class="btn btn-primary"><i class="fas fa-plus-circle"></i></button> --><br>
+                            <div class="modal-footer">
+                              <input type="submit" name="Insert" class="btn btn-primary" value="Insert" onclick="show()">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                            <!-- <input type="submit" name="Insert" class="btn btn-primary" value="Insert"> -->
+                        </form>
+                      </center>
+                  </div>
+                  
+                </div>
+            </div>
+        </div>
 
 
-
-
-      <div class="container" id="container">
-        <center>
-          <?php include 'add.php' ?>
-          <form action="add.php" method="post" id="gradesheet" name="div">
-            <!--Item input box-->
-              <!-- <label>Item</label><br> -->
-              <input type="text" name="item" id="item1" value="" placeholder="Enter Item"><br>
-              <ul>
-                <li>
-                  <input type="text" name="subitem" value="" placeholder="Enter SubItem">
-                </li>
-              </ul>
-              <input type="submit" name="Insert" class="btn btn-primary" value="Insert">
-          </form>
-          <button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
-            <button class="btn btn-secondary" onclick="remove()"><i class="fas fa-minus"></i></button><br>
-            <button class="btn btn-success" type="submit"><a href="gradesheet.php">Gradesheet</a></button><br>
-        </center>
-      </div>    
-          </div>
-             
-    
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input id="btnGet" type="submit" class="btn btn-primary" value="Select" name="Sub" onclick="GetSelected()">
-      </div> -->
-    </div>
-  </div>
-</div>
+   
 
 <!--Checkbox fetching and display on alert box-->
 
 <script src="sheet.js"></script>
-
+<?php
+include_once 'footer.php';
+?>
 </body>
 </html>

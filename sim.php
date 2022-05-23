@@ -1,3 +1,8 @@
+<?php
+$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
+
+$output = '';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,33 +51,54 @@
 		color: white;
 		text-decoration: none;
 	}
+	#cl_sy{
+        margin-right: 10px;
+    }
 </style>
 <body>
-
+<?php
+include_once 'header.php';
+?>
 <div class="container">
 	<h3>Simulation Page</h3>
 	<div class="row">
 		<div class="col">
-			<?php
-				        $conn = mysqli_connect("localhost","root","","class");
+			<table id="table" class="center">
+                    <?php
+                    $query = "SELECT * FROM phase ORDER BY id ASC";
+                    $statement = $connect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll();
+                            foreach($result as $row)
+                            {
 
-                        $select = mysqli_query($conn, "SELECT * FROM sim");
+                    ?>     
+                              
+                                <tr style="border:1px black dotted">
+                               
+                                <?php
+                                $phase=$row['phase'];
+                                echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phase'].'</h4></div>';
+                                ?>
+                                </tr>
+                                <tr style="border:1px black dotted">
+                                <?php
+                                $query1 = "SELECT shortsim FROM sim where phase='$phase'";
+                                $statement1 = $connect->prepare($query1);
+                                $statement1->execute();  
+                                $result1 = $statement1->fetchAll();
+                                    foreach($result1 as $row1){
+                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php">'.$row1['shortsim'].'</a>';
 
-                        if (mysqli_num_rows($select) > 0) { $i=1;
-                        while($row = mysqli_fetch_assoc($select)) 
-                        { 
-                        ?>
-                        
-                        <div class="btn-group" style="width:100%">
-									  <button style="width:30%"><?php echo $row['shortsim'];?></button>
-						</div>
-                        				
-                        		
-                        <?php 
-                        $i++; 
-                      } 
-                    }
-			?>
+                                        
+                                    }
+                                ?>
+                    
+                    </tr><hr>
+                 
+                               
+<?php }?>
+                    </table>
 		</div>
 
 		<div class="col">
@@ -94,5 +120,8 @@
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
     </div>
+    <?php
+    include_once 'footer.php';
+    ?>
 </body>
 </html>
