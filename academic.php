@@ -1,11 +1,7 @@
 <!--fetching symbols from academic table-->
 <?php
-$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
-
-$error = '';
-$output = '';
-
-
+include('connect.php');
+$output="";
 $query = "SELECT * FROM academic ORDER BY id ASC";
             $statement = $connect->prepare($query);
             $statement->execute();
@@ -18,15 +14,15 @@ $query = "SELECT * FROM academic ORDER BY id ASC";
                         $output .= '<tr>
                        
                         <td>'.$row["id"].'</td>
-                        <td><button class="btn btn-primary">'.$row["symbol"].'</button></td>
+                        <td><button class="btn btn-primary">'.$row["shortacademic"].'</button></td>
                         <form method="post" action="upload.php" enctype="multipart/form-data">
-                        <td class="file"><input type="file" name="file" />
+                        <td class="file"><input class="form-control" type="file" name="file" />
+                        <td><button class="btn btn-success" type="submit" name="upload">upload</button><td>
                         <input style="visibility:hidden;" type="text" id="id" name="id" value="'.$row["id"].'">
-                        <button class="disabled" class="btn btn-success" type="submit" name="upload">upload</button>
+                        
                         </td>
                          
                         </form>
-                        <td></td>
                         </tr>';
                     }
                 }
@@ -56,10 +52,11 @@ $query = "SELECT * FROM academic ORDER BY id ASC";
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <style type="text/css">
-	.container
+	#lock1
 	{
 		border: 1px solid black;
 		margin-top: 10px;
+    width: 60%;
 	}
 	button
 	{
@@ -81,11 +78,11 @@ $query = "SELECT * FROM academic ORDER BY id ASC";
 		margin: 5px;
 		padding: 5px;
 		width: 250px;
-		height: 150px;
+		height: 100px;
 	}
 	a
 	{
-		color: black;
+		color: white;
 		text-decoration: none;
 	}
 	form.example button {
@@ -147,10 +144,21 @@ nav
   z-index: 2;
   cursor: pointer;
 }
+#lock2
+{
+  width: 60%;
+}
+.file
+{
+  width: 50%;
+}
 </style>
 <body>
 <?php
 include_once 'header.php';
+?>
+<?php
+include_once 'sidenavbar.php';
 ?>
 <!--upload files-->
 <div class="modal fade" id="fileupload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,7 +204,7 @@ include_once 'header.php';
                     </center>
                   </div>
 			        <center>
-					 <table class="table table-striped">
+					 <table class="table table-striped" style="width:50%;">
 				
 						    <tr>
 						    	<th>Symbol</th>
@@ -276,8 +284,8 @@ if ($connect->connect_errno)
     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
   </form>
   <!-- <a class=>Navbar</a> -->
-  <button class="btn btn-primary" type="submit"><a href="">Edit Phase</a></button>
-  <button class="btn btn-primary" type="submit"><a href="All class data.php">Edit Class</a></button>
+  <button class="btn btn-primary" type="submit"><a style="color:white; text-decoration: none;" href="">Edit Phase</a></button>
+  <button class="btn btn-primary" type="submit"><a style="color:white; text-decoration: none;" href="All class data.php">Edit Class</a></button>
   <button class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
   <button style="margin-right: 10px;" class="btn btn-warning">unlock</button>
 </nav>
@@ -300,7 +308,7 @@ if ($connect->connect_errno)
                 echo "<script>alert('$error');</script>";
                 }?>
 
-                  <table id="datatable">
+                  <table id="datatable" style="width: 100%;">
                         <!-- <tr>
                         <td>id</td>
                             <td>class</td>
@@ -320,20 +328,20 @@ if ($connect->connect_errno)
 				<p></p>
 				<input type="date" name="date">
 			</div>
-			<div style="border: 1px solid black; width: 80%; text-align: center; margin: 5px;
-			padding: 5px;">
+			<div style="border: 1px solid black; width: 100%; text-align: center; margin: 5px;
+			padding: 5px; float:right:">
 				<textarea>Student Haves</textarea><br>
 				<textarea>Class # Select</textarea><br>
 				<textarea>Send A Message</textarea>
 			</div>
 		</div>
 	</div>
-</div>
+</div><br>
 
  <div class="container-fluid" id="lock2">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
-    </div>
+    </div><br>
 
 <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

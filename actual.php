@@ -1,6 +1,6 @@
 
 <?php
-$connect = new PDO("mysql:host=localhost;dbname=phase", "root", "");
+include('connect.php');
 $output="";
 ?>
 <!DOCTYPE html>
@@ -19,10 +19,11 @@ $output="";
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <style type="text/css">
-	.container
+	#actualcontainer
 	{
 		border: 1px solid black;
 		margin-top: 10px;
+		width: 60%;
 	}
 	button
 	{
@@ -44,7 +45,7 @@ $output="";
 		margin: 5px;
 		padding: 5px;
 		width: 250px;
-		height: 150px;
+		height: 100px;
 	}
 	a
 	{
@@ -64,14 +65,27 @@ $output="";
 {
 	border: 1px solid black;
 }
+#next-previous
+{
+	width: 70%;
+}
 </style>
 <body>
 <?php
 include_once 'header.php';
 ?>
-<div class="container">
+<?php
+include_once 'sidenavbar.php';
+?>
+<div class="container" id="actualcontainer">
 	<h3>Actual Page</h3>
 	<div class="row">
+		<?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo $error;
+                }?>
 		<!-- <h1>Phase</h1> -->
 		<div class="col">
 			<table id="table" class="center" style="border: 1px solid black;">
@@ -88,8 +102,8 @@ include_once 'header.php';
                                 <tr>
                                
                                 <?php
-                                $phase=$row['phase'];
-                                echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phase'].'</h4></div>';
+                                $phase=$row['phasename'];
+                                echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phasename'].'</h4></div>';
                                 ?>
                                 </tr>
                                 <tr>
@@ -113,26 +127,26 @@ include_once 'header.php';
         </div>
 
 		<div class="col">
-			<div>
+			<div style="margin-left: 80px;">
 				<p></p>
 				<input type="date" name="date">
 			</div>
-			<div style="border: 1px solid black; width: 50%; text-align: center; margin: 5px;
-			padding: 5px;">
+			<div style="border: 1px solid black; width: 80%; text-align: center; margin: 5px;
+			padding: 5px; float: right;">
 				<textarea>Student Haves</textarea><br>
 				<textarea>Class # Select</textarea><br>
 				<textarea>Send A Message</textarea>
 			</div>
 		</div>
 	</div>
-</div>
+</div><br>
 
 <!-- Next and Previous Button-->
 
- <div class="container-fluid">
+ <div class="container-fluid" id="next-previous">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
-		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
-    </div>
+		<button style="float: right;" class="btn btn-primary" type="submit"><a href="sim.php">Next</a></button>
+    </div><br><br>
 
     <script>
  $('#myTable').margetable({

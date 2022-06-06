@@ -3,11 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Task Log</title>
-	<meta charset="utf-8" />
-    <meta name="viewport" 
-          content="width=device-width, 
-                   initial-scale=1" />
+	<title>Main Dashboard</title>
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<!-- JavaScript Bundle with Popper -->
 	<script src="js/jquery.mim.js"></script>
@@ -20,13 +16,16 @@
 include_once 'header.php';
 ?>
 <?php
-	include_once 'sidenavbar.php';
-	?>
-<div class="container">
-	<h4>Task Log Page</h4>
+include_once 'sidenavbar.php';
+?>
+
+<div class="container-fluid">
+	<img style="height:500px; width: 1000px; margin-left: 500px; margin-top: 150px;" src="https://thumbs.dreamstime.com/z/vector-flat-design-statistics-column-graph-chart-infograph-67379925.jpg">
 </div>
-<?php 
-include_once 'studentinfo.php';
-	?>
+
+
+<?php
+include_once 'footer.php';
+?>
 </body>
 </html>

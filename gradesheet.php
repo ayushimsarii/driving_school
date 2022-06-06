@@ -145,20 +145,26 @@ include_once 'header.php';
       		<div class="col">
       			<table>
       				<tr>
-      					<td><label>UP</label><input type="text" name="up"></td>
-      					<td><label>Ride</label><input type="text" name="ride"></td>
+      					<td><label>UP</label><input class="form-control" type="text" name="up"></td>
+      					<td><label>Ride</label><input class="form-control" type="text" name="ride"></td>
       				</tr>
       				<tr>
-	      				<td><label>Status</label><input type="text" name="status"></td>
-	      				<td><label>Status</label><input type="text" name="status"></td>
+	      				<td><label>Status</label><input class="form-control" type="text" name="status"></td>
+	      				<td><label>Position</label><input class="form-control" type="text" name="pos"></td>
 	      			</tr>
 	      			<tr>
-	      				<td><label>Instructor</label><input type="text" name="ins"></td>
-	      				<td><label>Time</label><input type="time" name="time"></td>
+	      				<td><label>Instructor</label>
+                  <select class="form-control" class="login-input" type="text" name="role">
+                      <option value="student">Instructor-1</option>
+                      <option value="instructor">Instructor-2</option>
+                      <option value="admin">Instructor-3</option>
+                      <option value="phasemanager">Instructor-4</option>
+                    </select></td>
+	      				<td><label>Time</label><input class="form-control" type="time" name="time"></td>
 	      			</tr>
 	      			<tr>
-		      			<td><label>Vehicle Number</label><input type="Number" name="veh"></td>
-		      			<td><label>Position</label><input type="text" name="pos"></td>
+		      			<td><label>Vehicle Number</label><input class="form-control" type="Number" name="veh"></td>
+		      			<!-- <td><label>Position</label><input class="form-control" type="text" name="pos"></td> -->
 		      		</tr>
       		    </table>
       		</div>

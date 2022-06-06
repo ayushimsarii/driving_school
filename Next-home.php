@@ -1,45 +1,26 @@
 <!--Insert Phases-->
 <?php
+if(isset($_POST['ctp'])){
+$ctp=$_POST['ctp'];
+}
 require "connect.php";
 $error = '';
 $output = '';
-if(isset($_POST["savephase"]))
-{
-    if(empty($_POST["phase"]))
-    {
-        $error = '<label class="text-danger">Phase is required</label>';
-    }
-    else
-        {
-            $phase = $_POST["phase"];
-            foreach ($phase as $key => $value) 
-            {
-                                        
-                $sql = "INSERT INTO phase (phase) VALUES ('".$value."')";
-
-                $statement = $connect->prepare($sql);
-
-                $statement->execute();
-
-        }
-            $error = '<label class="text-success">Data Inserted Successfully</label>';
-        }
-    }
-
-            $query = "SELECT * FROM phase ORDER BY id ASC";
+			$query = "SELECT * FROM phase ORDER BY id ASC";
             $statement = $connect->prepare($query);
             $statement->execute();
 
             if($statement->rowCount() > 0)
                 {
                     $result = $statement->fetchAll();
+					$sn=1;
                     foreach($result as $row)
                     {
                         $output .= '<tr>
-                        <td>'.$row["id"].'</td>
-                            <td><a href="phase-view.php?id='.$row["id"].'&phase='.$row["phase"].'">'.$row["phase"].'</a></td>
+                        <td>'.$sn++.'</td>
+                            <td><a href="phase-view.php?id='.$row["id"].'&phase='.$row["phasename"].'">'.$row["phasename"].'</a></td>
                                 <td><a href="phase-update.php?id='.$row["id"].'">Edit</a></td>
-                                <td><a href="phase-delete.php?id='.$row["id"].'">Delete</a></td>
+                                <td><a href="phase-delete.php?id='.$row["id"].'" >Delete</a></td>
                             </td>
                         </tr>';
                     }
@@ -69,107 +50,81 @@ if(isset($_POST["savephase"]))
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-</head>
-<style type="text/css">
-	.container
-	{
-		margin: 5px;
-		padding: 5px;
-	}
-	.form-control
-	{
-		width: 50%;
-	}
-	a
-	{
-		/*color: white;*/
-		text-decoration: none;
-	}
-	button
-	{
-		margin: 5px;
-		padding: 5px;
-	}
-	h1
-	{
-		text-align: center;
-	}
-	input
-	{
-		margin: 5px;
-		padding: 5px;
-		text-align: center;
-	}
-	td,th
-	{
-		text-align: center;
-	}
-	.table
-	{
-		width: 50%;
-	}
-	i
-	{
-		font-size: 20px;
-	}
+	<link rel="stylesheet" type="text/css" href="style.css">
 
-  tr:hover 
-  {
-    background-color: #ddd;
-  }
-</style>
+</head>
 <body>
-<?php
-	include 'header.php';
-	?>
+		<?php
+		include 'header.php';
+		?>
+		<?php
+			if($role =='super admin'){
+			include_once 'sidenavbar.php';
+			}
+			?>
 <!--Input Phases-->
 
 <div class="container">
-	<h1>Phases</h1>
-	<hr>
-	<div class="row">
-		<div class="col">
-			<center>
 
-				<form class="insert-phases" id="integrity" method="post" action="">
-					<div class="--input-field">
-						<table class="table table-bordered" id="table-field">
-							<tr>
-								<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>
-								<td><input type="button" name="add_phase" value="Add" id="add_phase" class="btn btn-warning"></td>
-							</tr>
-						</table>
+				<center>
+				<?php
+			if(isset($_POST['ctp'])){?>
+				<h3>Selected CTP:<?php echo $ctp?></h3>
+		<?php }
+		else{?>
+			<h1>Phase</h1>	
+		<?php }?>	
+
+			<div class="row">
+				<?php 
+					if(isset($_REQUEST['error'])){
+							$error=$_REQUEST['error'];
+							echo $error;
+							}
+					?>
+					<div class="col">
+						<center>
+							<form class="insert-phases" id="integrity" method="post" action="insert_phase.php">
+								<div class="input-field">
+									<table class="table table-bordered" id="table-field">
+										<tr>
+											<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>
+											<td><input type="button" name="add_phase" value="Add" id="add_phase" class="btn btn-warning"></td>
+										</tr>
+									</table>
+								</div>
+								<center>
+									<button class="btn btn-success" type="submit" name="savephase">Submit</button>
+								</center>
+							</form>	
+						</center>
 					</div>
-					<center>
-						<button class="btn btn-success" type="submit" name="savephase">Submit</button>
-					</center>
-				</form>	
+				</center>
+				</div>
+
+			<!--Phase Table-->
+				<center>
+					<div class="row">
+						<center>
+							<table class="table table-striped table-bordered">
+								<tr>
+									<th>Id</th>
+									<th>Phase</th>
+									<th colspan="2">Operations</th>
+								</tr>
+									<?php
+										echo $output;
+									?>                
+							</table>
+						</center>
+					</div>
 			</center>
-	</div>
-</div>
-
-<!--Phase Table-->
-
-		<div class="row">
-			<center>
-				<table class="table table-striped table-bordered">
-		            <tr>
-		                <th>Id</th>
-		                <th>Phase</th>
-		                <th colspan="2">Operations</th>
-		            </tr>
-		                <?php
-		                    echo $output;
-		                ?>                
-		        </table>
-		    </center>
-		</div>
 </div>
 
 <!--Next and Previous Button-->
 
 <div class="container">
-	<button  class="btn btn-primary" type="submit"><a href="Home.php">Previous</a></button>
+	<button  class="btn btn-primary" type="submit"><a href="usersinfo.php">Previous</a></button>
 	<button style="float: right;" class="btn btn-primary" type="submit"><a href="phase-view.php">Next</a></button>
 </div>
 

@@ -1,0 +1,112 @@
+  /*Phase page*/
+
+  a
+	{
+		color: white;
+		text-decoration: none;
+	}
+	.container
+	{
+		margin: 5px;
+		padding: 5px;
+	}
+	span
+	{
+		color: blue;
+	}
+	/*form
+	{
+		width: 30%;
+	}*/
+	.row
+	{
+		/*border: 1px solid black;*/
+		/*border-radius: 50px;*/
+		width: 50%;
+	}
+	.short
+	{
+		width: 25%;
+	}
+	tr:nth-child(even)
+  {
+    background-color: #f2f2f2;
+  }
+  tr:hover 
+  {
+    background-color: #ddd;
+  }
+
+  /*Home Page*/
+
+  .container
+	{
+		margin: 5px;
+		padding: 5px;
+	}
+	button
+	{
+		margin: 5px;
+		padding: 5px;
+	}
+	/*.form-control
+	{
+		width: 50%;
+	}*/
+	label
+	{
+		margin: 5px;
+	}
+	/*.row
+	{
+		border: 1px solid black;
+		margin: auto;
+	}*/
+	a
+	{
+		color: white;
+		text-decoration: none;
+	}
+
+/*	Phase page*/
+
+	.form-control
+	{
+		width: 50%;
+	}
+	
+	h1
+	{
+		text-align: center;
+	}
+	input
+	{
+		margin: 5px;
+		padding: 5px;
+		text-align: center;
+	}
+	td,th
+	{
+		text-align: center;
+	}
+	.table
+	{
+		width: 50%;
+	}
+	i
+	{
+		font-size: 20px;
+	}
+
+  /*tr:hover 
+  {
+    background-color: #ddd;
+  }*/
+  .input-field
+  {
+  	width: 100%;
+  }
+  a
+  {
+  	color: white;
+  }

@@ -19,9 +19,14 @@
 <?php
 include_once 'header.php';
 ?>
-
+<?php
+	include_once 'sidenavbar.php';
+	?>
 <div class="container">
 	<h4>Class Report</h4>
 </div>
+<?php 
+include_once 'studentinfo.php';
+	?>
 </body>
 </html>

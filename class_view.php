@@ -42,6 +42,9 @@
     <?php
 include_once 'header.php';
 ?>
+<?php
+    include_once 'sidenavbar.php';
+    ?>
 <div class="container">
 
 	<div class="row">

@@ -1,9 +1,29 @@
 <?php
+include('connect.php');
+   $query1 = "SELECT * FROM lock_manage";
+   $statement1 = $connect->prepare($query1);
+   $statement1->execute();
+   foreach($statement1 as $row1){
+       if($row1 != ""){
+      $lock_page=$row1['lock_page'];
+           }
+      }
+  
 session_start();
-if(isset($_SESSION['username']))
+$username="";
+if(isset($_SESSION['nickname']))
 {
-     $username=$_SESSION['username'];
+     $username=$_SESSION['nickname'];
 }
+if(isset($_SESSION['permission']))
+{
+     $permission=$_SESSION['permission'];
+}
+if(isset($_SESSION['role']))
+{
+     $role=$_SESSION['role'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,47 +59,63 @@ if(isset($_SESSION['username']))
       <li class="nav-item active">
               <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="actual.php">Actual</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="sim.php">Sim</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="academic.php">Academic</a>
-            </li>
-            <li class="nav-item">
+            <?php if(!isset($_SESSION['permission']) || $permission['show_p'] == "1"){?>
+            <!-- <li class="nav-item">
               <a class="nav-link" href="Next-home.php">Phase</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="phase-view.php">Class</a>
+            <?php } ?> -->
+            <?php if(!isset($_SESSION['permission']) || $permission['show_c'] == "1"){?>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="phase-view.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Class
+              </a>
+       
+              <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                <a class="nav-link" href="actual.php">Actual</a>
+                <a class="nav-link" href="sim.php">Sim</a>
+                <a class="nav-link" href="academic.php">Academic</a>
+              </div>
             </li>
+            <?php } ?>
+         
+            <?php if(!isset($_SESSION['permission']) || $permission['Task'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="tasklog.php">Task</a>
             </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Student'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="stdactlog.php">Student</a>
             </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="emergency.php">Emergeny</a>
             </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Testing'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="testing.php">Testing</a>
             </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Qual'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="qual.php">Qual</a>
             </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="clearance.php">Clearance</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="classreport.php">Class report</a>
-            </li>
+            <?php } ?>
+           
+            <?php if(!isset($_SESSION['permission']) || $permission['Class'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="memo.php">Memo Record</a>
-            </li>
+               </li>
+               <?php } ?>
       </ul>
-     <h3 style="color:white"><span >
+      <h3><span style="color:white">
         Hello <?php echo $username;?>
         <a href="logout.php" class="btn btn-warning">logout</a>
       </span></h3>
