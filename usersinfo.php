@@ -123,6 +123,7 @@ $(document).ready(function(){
                                     <th>Vehicle Name</th>
                                     <th>Vehicle Type</th>
                                     <th>Vehicle Number</th>
+                                    <th>Vehicle Spot</th>
                                     <th>Action</th>
                                   
                                 </tr>
@@ -143,10 +144,12 @@ $(document).ready(function(){
                                             <td><?php echo $row['VehicleName'] ?></td>
                                             <td><?php echo $row['VehicleType'] ?></td>
                                             <td><?php echo $row['VehicleNumber'] ?></td>
+                                            <td><?php echo $row['VehicleSpot'] ?></td>
                                             <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('vec_name').value='<?php echo $row['VehicleName'] ?>';
                                                document.getElementById('vec_type').value='<?php echo $row['VehicleType'] ?>';
                                                document.getElementById('vec_nub').value='<?php echo $row['VehicleNumber'] ?>';
+                                               document.getElementById('vec_spt').value='<?php echo $row['VehicleSpot'] ?>';
                                             " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                             </a>
                                             <a href="vec_delete.php?id="<?php echo $id?>>Delete</a>
@@ -442,6 +445,11 @@ $(document).ready(function(){
                             <div class="form-outline">
                                 <label class="form-label" for="coursename">Vehicle Number</label>
                                 <input type="text" id="coursecode" name="VehicleNumber" class="form-control form-control-md" />
+                            </div>
+                            
+                            <div class="form-outline">
+                                <label class="form-label" for="coursename">Vehicle Spot</label>
+                                <input type="text" id="coursecode" name="VehicleSpot" class="form-control form-control-md" />
                             </div><br>
                                 <input class="btn btn-primary btn-md" type="submit" value="Submit" name="submitvehicle" />
                         </form>
