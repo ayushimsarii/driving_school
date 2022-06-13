@@ -1,3 +1,65 @@
+<?php
+include('connect.php');
+
+     $pm="";
+     $q2= "SELECT * FROM users where role='Phase Manager'";
+ $st2 = $connect->prepare($q2);
+ $st2->execute();
+
+ if($st2->rowCount() > 0)
+     {
+         $re2 = $st2->fetchAll();
+       foreach($re2 as $row2)
+         {
+          $pm.= '<option value="'.$row2['name'].'">'.$row2['name'].'</option>';
+         }
+     
+     }
+
+     $cm="";
+     $q3= "SELECT * FROM users where role='course manager'";
+      $st3 = $connect->prepare($q3);
+       $st3->execute();
+
+ if($st3->rowCount() > 0)
+     {
+         $re3 = $st3->fetchAll();
+       foreach($re3 as $row3)
+         {
+          $cm.= '<option value="'.$row3['name'].'">'.$row3['name'].'</option>';
+         }
+     
+     }
+     $std="";
+     $q4= "SELECT * FROM users where role='student'";
+      $st4 = $connect->prepare($q4);
+       $st4->execute();
+
+ if($st4->rowCount() > 0)
+     {
+         $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
+         {
+          $std.= '<option value="'.$row4['name'].'">'.$row4['name'].'</option>';
+         }
+     
+     }
+     $ctp="";
+     $q5= "SELECT * FROM ctppage";
+      $st5 = $connect->prepare($q5);
+       $st5->execute();
+
+ if($st5->rowCount() > 0)
+     {
+         $re5 = $st5->fetchAll();
+       foreach($re5 as $row5)
+         {
+          $ctp.= '<option value="'.$row5['course'].'">'.$row5['course'].'</option>';
+         }
+     
+     }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +99,7 @@
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">New Course Form</h3>
             <form action="newcoursedata.php" method="post">
 
-              <div class="row">
+              <div class="row m-5">
               <?php 
                 if(isset($_REQUEST['error']))
                 {
@@ -49,7 +111,10 @@
 
                   <div class="form-outline">
                     <label class="form-label" for="coursename">Course Name</label>
-                    <input type="text" id="coursename" name="coursename" class="form-control form-control-md" />
+                    <select type="text" id="student" class="form-control form-control-md" name="coursename" required>
+                        <option selected disabled value="">-select ctp-</option>
+                        <?php echo $ctp?>
+                    </select> 
                     
                   </div>
 
@@ -63,43 +128,33 @@
                   </div>
 
                 </div>
-              </div>
 
-              <div class="row">
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
                     <label class="form-label" for="role">Phase Manager</label>
-                    <input type="text" id="role" name="role" class="form-control form-control-md"/>
-                    <!-- <select type="text" id="student" class="form-control form-control-md" name="role" required>
-                        <option selected disabled value=""></option>
-                        <option value="course manager">Phase Manager</option>
-                        <option value="phase manager">Phase Manager</option>
-                        <option value="Instructor">Phase Manager</option>
-                        <option value="student">Phase Manager</option>
-                    </select> -->
+                  <select type="text" id="student" class="form-control form-control-md" name="Phase_manager" required>
+                        <option selected disabled value="">-Phase manager-</option>
+                        <?php echo $pm?>
+                    </select> 
                   </div>
 
                 </div>
+
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
                     <label class="form-label" for="coursemanager">Course Manager</label>
-                    <input type="tel" id="coursemanager" class="form-control form-control-md" />
-                    <!-- <select type="text" id="coursemanager" name="coursemanager" class="form-control form-control-md">
-                        <option selected disabled value=""></option>
-                        <option value="course manager">Course Manager</option>
-                        <option value="phase manager">Course Manager</option>
-                        <option value="Instructor">Course Manager</option>
-                        <option value="student">Course Manager</option>
-                    </select> -->
+                    
+                    <select type="text" id="coursemanager" name="coursemanager" class="form-control form-control-md">
+                        <option selected disabled value="">-course manager-</option>
+                        <?php echo $cm ?>
+                    </select>
                     <!-- <label class="form-label" for="coursemanager">Course Manager</label> -->
                   </div>
 
                 </div>
-              </div>
 
-               <div class="row">
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
@@ -111,32 +166,21 @@
 
                 <div class="col-md-6 mb-4">
                   <label class="form-label select-label">Choose Student</label>
-                  <input type="text" name="student" class="form-control form-control-md" id="student" />
-                  <!-- <select class="select form-control form-control-md" name="student">
-                    <option value="1" disabled>Choose option</option>
-                    <option value="2">Student 1</option>
-                    <option value="3">Student 2</option>
-                    <option value="4">Student 3</option>
-                  </select> -->
-                </div>
-              </div>
-
-              <!-- <div class="row">
-                <div class="col-12">
-
+                 
                   <select class="select form-control form-control-md" name="student">
-                    <option value="1" disabled>Choose option</option>
-                    <option value="2">Student 1</option>
-                    <option value="3">Student 2</option>
-                    <option value="4">Student 3</option>
-                  </select>
-                  <label class="form-label select-label">Choose Student</label>
-
+                    <option value="" disabled selected>-select student-</option>
+                  <?php echo  $std?>
+                  </select> 
                 </div>
-              </div> -->
 
-              <div class="mt-4 pt-2">
+                <div class="col-md-12 mb-4">
+                  <button class="btn btn-success" type="button" data-toggle="modal" data-target="#newuser"><i class="fas fa-user"></i>Add New User</button>
+                  </select> 
+                </div>
+
+                <div class="mt-4 pt-2">
                 <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+              </div>
               </div>
 
             </form>
@@ -146,6 +190,114 @@
     </div>
   </div>
 </section>
+<!--add new user-->
+<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register New User</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <center>
+ <form style="width: 80%; border: 2 px solid black;" class="form form-border" action="admin_register_user.php" novalidate>
+ <?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo $error;
+                }?>         
+                            <!-- <div class="col-md-12">
+                               <input class="form-control" class="login-input" type="file" name="image" placeholder="Upload Photo" required>
+                               <div class="valid-feedback">Name field is valid!</div>
+                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            </div> -->
+
+                            <div class="col-md-12">
+                               <input class="form-control" class="login-input" type="text" name="name" placeholder="Full Name" required>
+                               <div class="valid-feedback">Name field is valid!</div>
+                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            </div>
+
+                            <div class="col-md-12">
+                               <input class="form-control" class="login-input" type="text" name="studid" placeholder="Student Id" required>
+                               <div class="valid-feedback">Name field is valid!</div>
+                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            </div>
+
+                            <div class="col-md-12">
+                               <input class="form-control" class="login-input" type="text" name="nickname" placeholder="Nick Name" required>
+                               <div class="valid-feedback">Name field is valid!</div>
+                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" type="tel" class="login-input" name="phone" placeholder="Enter Your Phone Number" required>
+                                 <div class="valid-feedback">Email field is valid!</div>
+                                 <div class="invalid-feedback">Email field cannot be blank!</div>
+                            </div>
+
+                           <div class="col-md-12">
+                                <select class="form-select mt-3" name="role" required>
+                                      <option selected disabled value=""></option>
+                                      <option value="student">Student</option>
+                               </select>
+                                <div class="valid-feedback">You selected a position!</div>
+                                <div class="invalid-feedback">Please select a position!</div>
+                           </div>
+
+                           <div class="col-md-12">
+                               <input class="form-control" type="text" class="login-input" name="username" placeholder="Username" required />
+                               <div class="valid-feedback">username field is valid!</div>
+                               <div class="invalid-feedback">username field cannot be blank!</div>
+                            </div>
+
+                            <div class="col-md-12">
+                               <input class="form-control" type="text" class="login-input" name="email" placeholder="Email Adress">
+                               <div class="valid-feedback">email field is valid!</div>
+                               <div class="invalid-feedback">email field cannot be blank!</div>
+                            </div>
+
+                           <div class="col-md-12">
+                              <input class="form-control" type="password" name="password" placeholder="Password" required>
+                               <div class="valid-feedback">Password field is valid!</div>
+                               <div class="invalid-feedback">Password field cannot be blank!</div>
+                           </div>
+
+
+                           <div class="col-md-12 mt-2">
+                            <label class="mb-3 mr-1" for="gender">Gender: </label>
+
+                            <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" required>
+                            <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
+
+                            <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" required>
+                            <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
+
+                            <input type="radio" class="btn-check" name="gender" id="secret" autocomplete="off" required>
+                            <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label>
+                               <div class="valid-feedback mv-up">You selected a gender!</div>
+                                <div class="invalid-feedback mv-up">Please select a gender!</div>
+                            </div>
+
+                        <!-- <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                          <label class="form-check-label">I confirm that all data are correct</label>
+                         <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
+                        </div> -->
+                  
+
+                            <div class="form-button mt-2">
+                                <input class="btn btn-primary" type="submit" name="submit" value="Register" class="login-button">
+        <!-- <p class="link"><a href="login.php">Click to Login</a></p> -->
+                            </div>
+                        </form>
+              </div>
+            </div>
+          </div>
+        </div>
 <?php
 include_once 'footer.php';
 ?>

@@ -68,7 +68,7 @@ include_once 'header.php';
 include_once 'sidenavbar.php';
 ?>
 <div class="container" id="simcontainer">
-	<h3>Simulation Page</h3>
+	<h3>Simulation</h3>
 	<div class="row">
 		<div class="col">
 			<table id="table" class="center">
@@ -109,7 +109,7 @@ include_once 'sidenavbar.php';
                     </table>
 		</div>
 
-		<div class="col">
+		<!-- <div class="col">
 			<div style="margin-left:90px;">
 				<p></p>
 				<input type="date" name="date">
@@ -121,7 +121,7 @@ include_once 'sidenavbar.php';
 				<textarea>Send A Message</textarea>
 			</div>
 		</div>
-	</div>
+ -->	</div>
 </div><br>
 
  <div class="container-fluid" id="simbutton">

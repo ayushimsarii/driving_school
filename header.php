@@ -1,5 +1,7 @@
 <?php
 include('connect.php');
+
+
    $query1 = "SELECT * FROM lock_manage";
    $statement1 = $connect->prepare($query1);
    $statement1->execute();
@@ -23,7 +25,22 @@ if(isset($_SESSION['role']))
 {
      $role=$_SESSION['role'];
 }
-
+if(isset($_SESSION['id']))
+{
+     $user_id=$_SESSION['id'];
+}
+$q1 = "SELECT * FROM homepage where user_id=$user_id";
+            $st1 = $connect->prepare($q1);
+            $st1->execute();
+		
+			if($st1->rowCount() > 0){
+				$result = $st1->fetchAll();
+				foreach($result as $row)
+                    {
+                        $department=$row['department_name'];
+                        $institute=$row['school_name'];
+                    }
+                  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,20 +67,19 @@ if(isset($_SESSION['role']))
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-   
+    <?php if(isset($department)){?>
+  <a class="navbar-brand" href="#" style="color:yellow"><?php echo $institute.'/'.$department?></a>
+  <?php }?>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
       <li class="nav-item active">
               <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
             </li>
-            <?php if(!isset($_SESSION['permission']) || $permission['show_p'] == "1"){?>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="Next-home.php">Phase</a>
-            </li>
-            <?php } ?> -->
+            
             <?php if(!isset($_SESSION['permission']) || $permission['show_c'] == "1"){?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="phase-view.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -117,6 +133,7 @@ if(isset($_SESSION['role']))
       </ul>
       <h3><span style="color:white">
         Hello <?php echo $username;?>
+        <button class="btn btn-warning"><i class="fas fa-bell"></i></button>
         <a href="logout.php" class="btn btn-warning">logout</a>
       </span></h3>
     </div>

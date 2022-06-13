@@ -279,17 +279,17 @@ if ($connect->connect_errno)
     </div>
   </div>
 
-<nav class="navbar navbar-dark bg-dark" id="nav">
+<!-- <nav class="navbar navbar-dark bg-dark" id="nav">
   <form class="form-inline">
     <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
   </form>
   <!-- <a class=>Navbar</a> -->
-  <button class="btn btn-primary" type="submit"><a style="color:white; text-decoration: none;" href="">Edit Phase</a></button>
+  <!-- <button class="btn btn-primary" type="submit"><a style="color:white; text-decoration: none;" href="">Edit Phase</a></button>
   <button class="btn btn-primary" type="submit"><a style="color:white; text-decoration: none;" href="All class data.php">Edit Class</a></button>
   <button class="btn btn-danger" type="submit" onclick="lock()" id="lock">Lock</button>
-  <button style="margin-right: 10px;" class="btn btn-warning">unlock</button>
-</nav>
-
+  <button style="margin-right: 10px;" class="btn btn-warning">unlock</button> -->
+<!-- </nav> -->
+ -->
 <div class="container" id="lock1">
 	<h3>Academic Page</h3>
 	<div class="row">
@@ -323,7 +323,7 @@ if ($connect->connect_errno)
             
 		</div>
 
-		<div class="col-4" id="locked">
+		<!-- <div class="col-4" id="locked">
 			<div>
 				<p></p>
 				<input type="date" name="date">
@@ -334,7 +334,7 @@ if ($connect->connect_errno)
 				<textarea>Class # Select</textarea><br>
 				<textarea>Send A Message</textarea>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div><br>
 

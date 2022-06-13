@@ -6,8 +6,9 @@ if(isset($_POST['submitvehicle']))
      $VehicleName = $_POST['VehicleName'];
      $VehicleType = $_POST['VehicleType'];
      $VehicleNumber = $_POST['VehicleNumber'];
-     $sql = "INSERT INTO vehicle (VehicleName, VehicleType, VehicleNumber)
-      VALUES ('$VehicleName','$VehicleType','$VehicleNumber')";
+     $VehicleSpot = $_POST['VehicleSpot'];
+     $sql = "INSERT INTO vehicle (VehicleName, VehicleType, VehicleNumber, VehicleSpot)
+      VALUES ('$VehicleName','$VehicleType','$VehicleNumber', '$VehicleSpot')";
 
      $statement = $connect->prepare($sql);
 

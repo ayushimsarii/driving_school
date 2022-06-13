@@ -1,17 +1,17 @@
 <?php 
 include_once 'connect.php';
-$output1 ="";
-$output3="";
- $query = "SELECT * FROM users ORDER BY id ASC";
- $statement = $connect->prepare($query);
- $statement->execute();
+$output3 ="";
+$std="";
+     $q4= "SELECT * FROM users where role='student'";
+      $st4 = $connect->prepare($q4);
+       $st4->execute();
 
- if($statement->rowCount() > 0)
+ if($st4->rowCount() > 0)
      {
-         $result = $statement->fetchAll();
-       foreach($result as $row)
+         $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
          {
-             $output1 .= '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+          $std.= '<option value="'.$row4['name'].'">'.$row4['name'].'</option>';
          }
      
      }
@@ -91,7 +91,7 @@ $output3="";
                     <label class="form-label" for="student">Student Name</label>
                     <select type="text" id="student" class="form-control form-control-md" name="stdname" required>
                         <option selected disabled value="">-select name-</option>
-                        <?php echo $output1 ?>
+                        <?php echo $std ?>
                     </select>
                   </div>
                   <div class="list-group-item list-group-item-action py-1">

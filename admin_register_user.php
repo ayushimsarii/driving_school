@@ -10,12 +10,11 @@
         $email=$_REQUEST['email'];
         $password=$_REQUEST['password'];
         $gender=$_REQUEST['gender'];
-        $create_datetime = date("Y-m-d H:i:s");
-        $sql = "INSERT INTO `users` (name, phone,studid,nickname, username,role, password, email, gender, create_datetime) VALUES ('$name', '$phone','$studid','$nickname','$username','$role', '" . md5($password) . "', '$email', 'gender', '$create_datetime')";
+       
+        $sql = "INSERT INTO `users` (name,nike_name,studid,role, phone,gender, username, email,password) VALUES ('$name', '$nickname','$studid','$role','$phone','$gender','$username','$email','" . md5($password) . "')";
         $statement = $connect->prepare($sql);
         $statement->execute();
-        
-            $error="<div class='alert alert-success'>You are register successfully..</div>";
+              $error="<div class='alert alert-success'>You are register successfully..</div>";
             header('Location:usersinfo.php?error='.$error);
       
 ?>

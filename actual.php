@@ -78,7 +78,7 @@ include_once 'header.php';
 include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
-	<h3>Actual Page</h3>
+	<h3>Actual</h3>
 	<div class="row">
 		<?php 
                 if(isset($_REQUEST['error']))
@@ -126,7 +126,7 @@ include_once 'sidenavbar.php';
                     </table>
         </div>
 
-		<div class="col">
+		<!-- <div class="col">
 			<div style="margin-left: 80px;">
 				<p></p>
 				<input type="date" name="date">
@@ -137,7 +137,7 @@ include_once 'sidenavbar.php';
 				<textarea>Class # Select</textarea><br>
 				<textarea>Send A Message</textarea>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div><br>
 

@@ -1,3 +1,23 @@
+
+<?php 
+
+include_once 'connect.php';
+$roles ="";
+ $query = "SELECT * FROM roles ORDER BY id ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+
+ if($statement->rowCount() > 0)
+     {
+         $result = $statement->fetchAll();
+         $sn=1;
+         foreach($result as $row)
+         {
+           if($row['roles'])
+             $roles .= '<option value="'.$row['roles'].'">'.$row['roles'].'</option>';
+         }
+     
+     }?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +59,15 @@ include_once 'header.php';
                             </div>
 
                             <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="text" name="std_id" placeholder="Student Id" required>
+                               <input class="form-control" class="login-input" type="text" name="studid" placeholder="Student Id" required>
                                <div class="valid-feedback">Name field is valid!</div>
                                <div class="invalid-feedback">Name field cannot be blank!</div>
                             </div>
-
+                            <div class="col-md-12">
+                               <input class="form-control" class="login-input" type="text" name="nickname" placeholder="Nickname" required>
+                               <div class="valid-feedback">Name field is valid!</div>
+                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            </div>
                             <div class="col-md-12">
                                 <input class="form-control" type="tel" class="login-input" name="phone" placeholder="Enter Your Phone Number" required>
                                  <div class="valid-feedback">Email field is valid!</div>
@@ -52,11 +76,7 @@ include_once 'header.php';
 
                            <div class="col-md-12">
                                 <select class="form-select mt-3" name="role" required>
-                                      <option selected disabled value="">Super Admin</option>
-                                      <option value="course manager">Course Manager</option>
-                                      <option value="phase manager">Phase Manager</option>
-                                      <option value="Instructor">Instructor</option>
-                                      <option value="student">Student</option>
+                                <?php echo $roles ?>
                                </select>
                                 <div class="valid-feedback">You selected a position!</div>
                                 <div class="invalid-feedback">Please select a position!</div>
@@ -84,13 +104,13 @@ include_once 'header.php';
                            <div class="col-md-12 mt-2">
                             <label class="mb-3 mr-1" for="gender">Gender: </label>
 
-                            <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" id="male" value="male" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
 
-                            <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" id="female" value="female" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
 
-                            <input type="radio" class="btn-check" name="gender" id="secret" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" id="secret" value="secret" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label>
                                <div class="valid-feedback mv-up">You selected a gender!</div>
                                 <div class="invalid-feedback mv-up">Please select a gender!</div>
