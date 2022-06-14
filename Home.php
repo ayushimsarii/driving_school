@@ -57,6 +57,8 @@
 		
 						<label>Type : Driving, Parking</label>
 						<input type="text" name="type" readonly value="<?php echo $row['type']?>" class="form-control"><br>	
+						<a class="btn btn-success" href="ctp.php">Save/Next</a><br>
+				
 				<?php 	}
 			}else{
 			

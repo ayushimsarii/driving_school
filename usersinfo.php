@@ -58,12 +58,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body class="bodyuser">
-<?php 
-                if(isset($_REQUEST['error']))
-                {
-                $error=$_REQUEST['error'];
-                echo "<script>alert('$error');</script>";
-                }?>
+
     
 	<?php
 	include_once 'header.php';
@@ -79,6 +74,7 @@ $(document).ready(function(){
   <!-- Nav tabs -->
   <center>
   <?php 
+
                 if(isset($_REQUEST['error']))
                 {
                 $error=$_REQUEST['error'];

@@ -8,11 +8,12 @@ if(isset($_POST["savephase"]))
 			}
 				else
 					{
+						$ctp=$_POST['ctp'];
 						$phase = $_POST["phase"];
 						foreach ($phase as $key => $value) 
 						{
 							var_dump($value);						
-							$sql = "INSERT INTO phase (phasename) VALUES ('".$value."')";
+							$sql = "INSERT INTO phase (phasename,ctp) VALUES ('".$value."','$ctp')";
 
 							$statement = $connect->prepare($sql);
 
@@ -20,7 +21,7 @@ if(isset($_POST["savephase"]))
 
 					        }
 						$error ="<div class='alert alert-success'>Data inserted successfully..</div>";
-                        header("Location:Next-home.php?error=".$error);
+                        header("Location:Next-home.php?error=".$error."&ctp=".$ctp);
 					}
 			}
 ?>

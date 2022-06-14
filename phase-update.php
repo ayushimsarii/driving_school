@@ -18,6 +18,11 @@ $query = "SELECT * FROM phase where id='$id'";
                 }
                
 ?>
+<?php
+
+if(isset($_GET['ctp'])){
+$ctp=$_GET['ctp'];
+}?>
 <html>
     <head>
         <title>Phase editing</title>  
@@ -58,6 +63,7 @@ $query = "SELECT * FROM phase where id='$id'";
                         
                         	<center>
                             <h5>Update Phase name:</h5>
+                            <input type="hidden" class="form-control" name="ctp" value="<?php echo $ctp?>">
                             <input type="hidden" class="form-control" name="id" value="<?php echo $id?>">
                             <input type="text" class="form-control" name="upt_name" value="<?php echo $output?>">
                           </center>

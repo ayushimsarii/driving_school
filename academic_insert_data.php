@@ -2,7 +2,9 @@
 										include('connect.php');
 										$error = '';
 										$output = '';
-                                        $phase=$_POST['phase'];
+                                        $phase_id=$_POST['phase_id'];
+										$phase=$_POST['phase'];
+										$ctp=$_POST['ctp'];
 										//var_dump(isset($_POST["add1"]));
 										if (isset($_POST['submit_academic'])) 
 										{
@@ -10,7 +12,7 @@
 										    if($_POST["academic"]=="" || $_POST["shortacademic"]=="")
 										    {
                                                 $error = "<div class='alert alert-danger'>Academic class is require</div>";
-                                                header("Location:phase-view.php?phase=".$phase."&error=".$error);
+												header("Location:phase-view.php?phase_id=".$phase_id."&error=".$error."&ctp=".$ctp."&phase=".$phase);
 										    }
 										    else
 										        {
@@ -19,7 +21,7 @@
 		                                            $shortacademic = $_POST['shortacademic'];
 										            
 										            foreach ($academic as $key => $value) {
-										            $query ="INSERT into academic(academic, shortacademic, phase) values('".$value."', '".$shortacademic[$key]."','$phase')";
+										            $query ="INSERT into academic(academic, shortacademic, phase,ctp) values('".$value."', '".$shortacademic[$key]."','$phase_id','$ctp')";
 										           
 										            //var_dump($query);
 
@@ -28,7 +30,7 @@
 										            $statement->execute();
 
                                                     $error ="<div class='alert alert-primary'>Academic class inserted successfully..</div>";
-                                                    header("Location:phase-view.php?phase=".$phase."&error=".$error);
+													header("Location:phase-view.php?phase_id=".$phase_id."&error=".$error."&ctp=".$ctp."&phase=".$phase);
 										          }
 										        }
 										    }

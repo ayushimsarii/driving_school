@@ -13,6 +13,8 @@ if(isset($_POST['submitvehicle']))
      $statement = $connect->prepare($sql);
 
      $statement->execute();
-     header("Location:userinfo.php?error=You Added Vehicle Successfully");
+     $error="<div class='alert alert-success'>Vechile added successfully..</div>";
+ 
+     header("Location:usersinfo.php?error=".$error);
 }
 ?>

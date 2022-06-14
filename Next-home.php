@@ -1,12 +1,17 @@
 <!--Insert Phases-->
 <?php
+
+if(isset($_GET['ctp'])){
+$ctp=$_GET['ctp'];
+}
 if(isset($_POST['ctp'])){
 $ctp=$_POST['ctp'];
+
 }
 require "connect.php";
 $error = '';
 $output = '';
-			$query = "SELECT * FROM phase ORDER BY id ASC";
+			$query = "SELECT * FROM phase where ctp='$ctp'";
             $statement = $connect->prepare($query);
             $statement->execute();
 
@@ -18,9 +23,9 @@ $output = '';
                     {
                         $output .= '<tr>
                         <td>'.$sn++.'</td>
-                            <td><a href="phase-view.php?id='.$row["id"].'&phase='.$row["phasename"].'">'.$row["phasename"].'</a></td>
-                                <td><a href="phase-update.php?id='.$row["id"].'">Edit</a></td>
-                                <td><a href="phase-delete.php?id='.$row["id"].'" >Delete</a></td>
+                            <td><a href="phase-view.php?phase_id='.$row["id"].'&phase='.$row["phasename"].'&ctp='.$ctp.'">'.$row["phasename"].'</a></td>
+                                <td><a href="phase-update.php?id='.$row["id"].'&ctp='.$ctp.'">Edit</a></td>
+                                <td><a href="phase-delete.php?id='.$row["id"].'&ctp='.$ctp.'">Delete</a></td>
                             </td>
                         </tr>';
                     }
@@ -68,7 +73,7 @@ $output = '';
 
 				<center>
 				<?php
-			if(isset($_POST['ctp'])){?>
+			if(isset($_POST['ctp']) || isset($_GET['ctp'])){?>
 				<h3>Selected CTP:<?php echo $ctp?></h3>
 		<?php }
 		else{?>
@@ -88,6 +93,9 @@ $output = '';
 								<div class="input-field">
 									<table class="table table-bordered" id="table-field">
 										<tr>
+										<?php if(isset($_POST['ctp']) || isset($_GET['ctp'])){?>
+											<input type="hidden" name="ctp" value="<?php echo $ctp ?>">
+											<?php } ?>
 											<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>
 											<td><input type="button" name="add_phase" value="Add" id="add_phase" class="btn btn-warning"></td>
 										</tr>
