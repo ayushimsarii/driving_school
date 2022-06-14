@@ -158,7 +158,6 @@ $(document).ready(function(){
                          </center>
                           </div>
                       </div>
-          </div>
         </div>
           <div class="tab-pane fade" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addvehicle">Add Vehicle</button>
