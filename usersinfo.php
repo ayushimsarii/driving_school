@@ -94,6 +94,9 @@ $(document).ready(function(){
       <li class="nav-item">
         <a class="nav-link" id="ctp-tab" data-toggle="tab" href="#ctp" role="tab" aria-controls="ctp" aria-selected="false"><i class="fas fa-map-signs"></i>CTP Page</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" id="score-tab" data-toggle="tab" href="#score" role="tab" aria-controls="score" aria-selected="false"><i class="fas fa-cogs"></i>Scoring</a>
+      </li>
     <li class="nav-item">
         <a class="nav-link" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting" aria-selected="false"><i class="fas fa-cogs"></i> Settings</a>
       </li>
@@ -105,6 +108,11 @@ $(document).ready(function(){
             <button class="btn btn-success" id="btn-success"><a href="roles.php">Manage Roles</a></button>
             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#newuser">Register User</button>
             <button class="btn btn-warning" id="btn-warning" type="button" data-toggle="modal" data-target="#user_list">User List</button>
+        </div>
+        <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
+            <button class="btn btn-success" id="btn-success"><a href="">Percentage</a></button>
+            <!-- <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#newuser">Register User</button>
+            <button class="btn btn-warning" id="btn-warning" type="button" data-toggle="modal" data-target="#user_list">User List</button> -->
         </div>
           <div class="tab-pane fade" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addvehicle">Add Vehicle</button>
@@ -342,6 +350,7 @@ $(document).ready(function(){
                       </div>
           </div>
   </div>
+
 </center>
 </div>
 <!-- edit vehicle modal -->
