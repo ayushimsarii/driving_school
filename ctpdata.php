@@ -12,6 +12,7 @@ if(isset($_POST['submit']))
      $Location = $_POST['Location'];
      $CourseAim = $_POST['CourseAim'];
      $ClassSize = $_POST['ClassSize'];
+     
      $sql = "INSERT INTO ctppage (course,manual,CourseCode,Sponcors,Location,CourseAim,ClassSize)
       VALUES ('$course','$manual','$CourseCode','$Sponcors','$Location','$CourseAim','$ClassSize')";
 
@@ -19,7 +20,7 @@ if(isset($_POST['submit']))
 
      $statement->execute();
      $error ="<div class='alert alert-primary'>Successfully Added Course Training Plan</div>";
-          header("Location:ctp.php?error=".$error);
+          header("Location:Next-home.php?ctp=".$course);
     
 }
 ?>
