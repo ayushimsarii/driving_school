@@ -1,6 +1,6 @@
 <?php
 include('connect.php');
-
+echo $ctp=$_POST['ctp'];
 echo $id=$_POST['id'];
 $upt_name=$_POST['upt_name'];
 if(isset($_POST["saveit"])){
@@ -12,7 +12,7 @@ $statement = $connect->prepare($query);
 
             $statement->execute();
             $error="<div class='alert alert-success'>Data Updated successfully..</div>";
-            header('Location: phase-update.php?id='.$id."&error=".$error);
+            header('Location:next-home.php?id='.$id."&error=".$error."&ctp=".$ctp);
             
      
  }

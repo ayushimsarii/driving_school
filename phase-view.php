@@ -27,12 +27,22 @@
 				}
 				?>
 					<!--Fetching Phase Name-->
-					<?php if(isset($_GET['phase'])){
+					<?php 
+						if(isset($_GET['ctp'])){
+							$ctp=$_GET['ctp'];
+						}
+						if(isset($_GET['phase_id'])){
+							$phase="";
+							 $phase_id=$_GET['phase_id'];
+						}	
+					if(isset($_GET['phase'])){
 						$phase="";
-						$phase=$_GET['phase'];?>
+						$phase=$_GET['phase'];
+					?>
 						
 					<div class="container">
-           			<h1>Phase: <?php echo '<span style="color:red">'.$_GET['phase'].'</span>'?> </h1>
+					<center>
+           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['phase'].'/'.$ctp ?> </h3>	</center>
          	 </div>
 		<?php }  ?>
 
@@ -51,7 +61,9 @@
 									<div class="input-field">
 										<table class="table table-bordered" id="table-field-actual">
 													<tr>
-													<input type="hidden" name="phase" class="form-control" name="phase" value="<?php echo $phase ?>">
+													<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
+													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 														<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
 														<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control"></td>
 														<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
@@ -75,7 +87,9 @@
 							<div class="input-field">
 								<table class="table table-bordered" id="table-field-sim">
 									<tr>
-									<input type="hidden" name="phase" class="form-control" name="phase" value="<?php echo $phase ?>">
+									<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
+													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 										<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
 										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>
 										<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
@@ -99,7 +113,9 @@
 						<div class="input-field">
 							<table class="table table-bordered" id="table-field-academic">
 									<tr>
-										<input type="hidden" name="phase" class="form-control" name="phase" value="<?php echo $phase ?>">
+									<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
+													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 										<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
 										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>
 										<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
