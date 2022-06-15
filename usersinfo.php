@@ -205,7 +205,8 @@ $(document).ready(function(){
                                                document.getElementById('vec_spt').value='<?php echo $row['VehicleSpot'] ?>';
                                             " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                             </a>
-                                            <a href="vec_delete.php?id="<?php echo $id?>>Delete</a>
+                                            <a href="vec_delete.php?id=<?php echo $id ?>">Delete</a>
+                                           
                                           </td>
                                         </tr>
                                             <?php
