@@ -9,7 +9,7 @@
 										if (isset($_POST['submit_academic'])) 
 										{
 										    //var_dump(empty($_POST["name"] || empty($_POST["symbol"])));
-										    if($_POST["academic"]=="" || $_POST["shortacademic"]=="")
+										    if($_POST["academic"]=="" || $_POST["shortacademic"]=="" || $_POST["ptype"]=="" || $_POST["percentage"]=="")
 										    {
                                                 $error = "<div class='alert alert-danger'>Academic class is require</div>";
 												header("Location:phase-view.php?phase_id=".$phase_id."&error=".$error."&ctp=".$ctp."&phase=".$phase);
@@ -19,9 +19,11 @@
                                                     var_dump($_POST['phase']);
 										            $academic = $_POST['academic'];
 		                                            $shortacademic = $_POST['shortacademic'];
+													$ptype = $_POST['ptype'];
+													$percentage = $_POST['percentage'];
 										            
 										            foreach ($academic as $key => $value) {
-										            $query ="INSERT into academic(academic, shortacademic, phase,ctp) values('".$value."', '".$shortacademic[$key]."','$phase_id','$ctp')";
+										            $query ="INSERT into academic(academic, shortacademic, ptype, percentage, phase,ctp) values('".$value."', '".$shortacademic[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase','$ctp')";
 										           
 										            //var_dump($query);
 
