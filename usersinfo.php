@@ -267,7 +267,9 @@ $(document).ready(function(){
                             document.getElementById('StudentNames').value='<?php echo $row1['StudentNames'] ?>';
                             document.getElementById('CourseManager').value='<?php echo $row1['CourseManager'] ?>';
                             document.getElementById('DrivingPhaseManager').value='<?php echo $row1['Phase_manager'] ?>';
-                            " data-toggle="modal" data-target="#editcourse" class="btn btn-success"><i class="fas fa-edit"></i></a></td>
+                            " data-toggle="modal" data-target="#editcourse" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <a href="newcourse_delete.php?id=<?php echo $Courseid?>">Delete</a>
+                            </td>
              </tr>
               <?php
                                         }
@@ -331,7 +333,8 @@ $(document).ready(function(){
                             document.getElementById('Location').value='<?php echo $row2['Location'] ?>';
                             document.getElementById('CourseAim').value='<?php echo $row2['CourseAim'] ?>';
                             document.getElementById('ClassSize').value='<?php echo $row2['ClassSize'] ?>';
-                            " data-toggle="modal" data-target="#editctp" class="btn btn-success"><i class="fas fa-edit"></i></a></td>
+                            " data-toggle="modal" data-target="#editctp" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <a href="ctp_delete.php?id=<?php echo $CTPid?>">Delete</a></td>
              </tr>
               <?php
                                         }
