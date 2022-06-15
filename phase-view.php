@@ -64,8 +64,10 @@
 													<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
 													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
 													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
-														<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
-														<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control"></td>
+														<td class="short"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
+														<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>
+														<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
+														<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 														<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
 													</tr>
 										</table>
@@ -88,10 +90,12 @@
 								<table class="table table-bordered" id="table-field-sim">
 									<tr>
 									<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
-													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
-													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
-										<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
-										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>
+									<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+									<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
+										<td class="short"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
+										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>
+										<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
+										<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 										<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
 									</tr>
 								</table>
@@ -114,10 +118,12 @@
 							<table class="table table-bordered" id="table-field-academic">
 									<tr>
 									<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
-													<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
-													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
-										<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
-										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>
+									<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+									<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
+										<td class="short"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
+										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>
+										<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
+										<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 										<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
 									</tr>
 								</table>
@@ -148,8 +154,10 @@
 		 	{
 			 		var html = '<tr>\
 									<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?"></td>\
-									<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control"></td>\
-												<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
+									<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>\
+									<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+									<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+									<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
 								</tr>'
 				    var max = 5;
 					var a = 1;
@@ -178,8 +186,10 @@
 	 	{
 		 		var html1 = '<tr>\
 								<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
-								<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control"></td>\
-											<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
+								<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>\
+								<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+								<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+								<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
 							</tr>'
 			    var max1 = 5;
 				var b = 1;
@@ -207,8 +217,10 @@
 	 	{
 		 		var html2 = '<tr>\
 								<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many academic Classes you want?"></td>\
-								<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control"></td>\
-											<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
+								<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>\
+								<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+								<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+								<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
 							</tr>'
 			    var max2 = 5;
 				var c = 1;

@@ -50,6 +50,10 @@ $(document).ready(function(){
     $("#departmenttable").show();
     $("#departmentsearch").show();
   });
+  $("#scorebtn").click(function(){
+    $("#scoretable").show();
+    $("#scoresearch").show();
+  });
 });
 </script>
 </head>
@@ -90,6 +94,9 @@ $(document).ready(function(){
       <li class="nav-item">
         <a class="nav-link" id="ctp-tab" data-toggle="tab" href="#ctp" role="tab" aria-controls="ctp" aria-selected="false"><i class="fas fa-map-signs"></i>CTP Page</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" id="score-tab" data-toggle="tab" href="#score" role="tab" aria-controls="score" aria-selected="false"><i class="fas fa-badge-percent"></i>Scoring</a>
+      </li>
     <li class="nav-item">
         <a class="nav-link" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting" aria-selected="false"><i class="fas fa-cogs"></i> Settings</a>
       </li>
@@ -101,6 +108,56 @@ $(document).ready(function(){
             <button class="btn btn-success" id="btn-success"><a href="roles.php">Manage Roles</a></button>
             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#newuser">Register User</button>
             <button class="btn btn-warning" id="btn-warning" type="button" data-toggle="modal" data-target="#user_list">User List</button>
+        </div>
+        <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
+            <button class="btn btn-success" id="scorebtn" type="button">Percentage</button>
+            <div class="container">
+                        <br>
+                         <div class="row">
+                          <center>
+                          <table style="width:80%;display:none;" class="table table-striped table-bordered" id="scoretable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="scoresearch" onkeyup="score()" placeholder="Search for Vehicle name.." title="Type in a name">
+                            <tr>
+                              <th>Type</th>
+                              <th>Percentage</th>
+                              <th>Color</th>
+                            </tr>
+                            <tbody>
+                              <tr>
+                                <td>U-Unsastisfied</td>
+                                <td>Less Than 60%</td>
+                                <td style="color:red;">Red</td>
+                              </tr>
+                              <tr>
+                                <td>F-Fair</td>
+                                <td>Less Than 70%</td>
+                                <td style="color:yellow;">Yellow</td>
+                              </tr>
+                              <tr>
+                                <td>G-Good</td>
+                                <td>Less Than 80%</td>
+                                <td style="color:green;">Green</td>
+                              </tr>
+                              <tr>
+                                <td>V-Very Good</td>
+                                <td>Less Than 90%</td>
+                                <td style="color:#8ee08e;">Light Green</td>
+                              </tr>
+                              <tr>
+                                <td>E-Excellent</td>
+                                <td>Less Than 100%</td>
+                                <td style="color:blue;">Light Blue</td>
+                              </tr>
+                              <tr>
+                                <td>N-None</td>
+                                <td>None</td>
+                                <td style="color:orange;">Orange</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                         </center>
+                          </div>
+                      </div>
         </div>
           <div class="tab-pane fade" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addvehicle">Add Vehicle</button>
@@ -338,6 +395,7 @@ $(document).ready(function(){
                       </div>
           </div>
   </div>
+
 </center>
 </div>
 <!-- edit vehicle modal -->
@@ -758,6 +816,27 @@ function department() {
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+<script>
+function score() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("scoresearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("scoretable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
