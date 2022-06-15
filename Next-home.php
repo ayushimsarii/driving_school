@@ -132,7 +132,7 @@ $output = '';
 <!--Next and Previous Button-->
 
 <div class="container" style="width:70%;">
-	<button  class="btn btn-primary" type="submit"><a href="usersinfo.php">Previous</a></button>
+	<button  class="btn btn-primary" type="submit"><a href="firstctp.php">Previous</a></button>
 	<button style="float: right;" class="btn btn-primary" type="submit"><a href="phase-view.php">Next</a></button>
 </div>
 
