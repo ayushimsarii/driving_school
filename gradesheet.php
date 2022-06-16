@@ -245,6 +245,26 @@ include_once 'header.php'
               <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
 
               <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
+              <table>
+                <tr>
+                   <td>
+                      
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="U" <?php if($user['subgrade']=='U'){ ?> checked="" <?php } ?>/><span>&nbsp U  </span>
+                      
+                      
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="F" <?php if($user['subgrade']=='F'){ ?> checked="" <?php } ?>/><span> F </span>
+                    
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="G" <?php if($user['subgrade']=='G'){ ?> checked="" <?php } ?>/><span> G </span>
+                      
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="V" <?php if($user['subgrade']=='V'){ ?> checked="" <?php } ?>/><span> V </span>
+                     
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="E" <?php if($user['subgrade']=='E'){ ?> checked="" <?php } ?>/><span> E </span>
+                      
+                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="N" <?php if($user['subgrade']=='N'){ ?> checked="" <?php } ?>/><span> N </span>
+                     
+                   </td></tr>
+                   <tr><td>Percentage</td></tr>
+                </table>
           </div>
         </div>
       </div>
@@ -265,62 +285,51 @@ include_once 'header.php'
 <!--Add Item button-->
                   <div class="row">
                     <center>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" onclick="hide()">
-                        Add Item
-                      </button>
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#additem">Add Item</button>
                     </center>
                   </div>
+                  <table style="width:100%;" class="table table-striped table-bordered" id="itemtable">
+                            <input style="width:100%;" class="login-input" type="text" id="itemsearch" onkeyup="item()" placeholder="Search for Vehicle name.." title="Type in a name">
+                                <tr>
+                                    <th>Check</th>
+                                    <th>Sr No</th>
+                                    <th>Item</th>
+                                    <th>Action</th>
+                                  
+                                </tr>
+                                <?php 
+                                $output ="";
+                                $query = "SELECT * FROM itembank  ORDER BY id ASC";
+                                $statement = $connect->prepare($query);
+                                $statement->execute();
+                                if($statement->rowCount() > 0)
+                                    {
+                                        $result = $statement->fetchAll();
+                                        $sn=1;
+                                        foreach($result as $row)
+                                        { ?>
+                                           
+                                            <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
+                                            <td><?php echo $row['item'] ?></td>
+                                            <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('item').value='<?php echo $row['item'] ?>';
+                                            " data-toggle="modal" data-target="#itemModal"><i class="fas fa-edit"></i></a>
+                                            </a>
+                                            <a href="item_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
+                                           
+                                          </td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
               </div>   
 <!--Fetch item from the database and select from here to the gradesheet-->            
-                        <?php
-                        require "connect.php";
-                        $error = '';
-                        $output = '';
-                              $query = "SELECT * FROM itembank";
-                                    $statement = $connect->prepare($query);
-                                    $statement->execute();
-                        
-                                    if($statement->rowCount() > 0)
-                                        {
-                                            $result = $statement->fetchAll();
-                                  $sn=1;
-                                            foreach($result as $row)
-                                            {
-                                                $output .= '<tr>
-                                                <td>'.$sn++.'</td>
-                                                <td><a href="item-update.php?id='.$row["id"].'>Edit</a></td>
-                                                    <td><a href="gradesheet.php?id='.$row["id"].'&item='.$row["item"].'>'.$row["item"].'</a></td>
-                                                        
-                                                        <td><a href="item-delete.php?id='.$row["id"].'>Delete</a></td>
-                                                    </td>
-                                                </tr>';
-                                            }
-                                        }
-                                        else
-                                        {
-                                            $output .= '
-                                                <tr>
-                                                    <td colspan="2">No Data Found</td>
-                                                </tr>
-                                            ';
-                                        }
-                        
-                        ?>
-
-						<center>
-							<table class="table table-striped table-bordered">
-								<tr>
-									<th>Id</th>
-									<th>Phase</th>
-									<th colspan="2">Operations</th>
-								</tr>
-									<?php
-										echo $output;
-									?>                
-							</table>
-						</center>
-
-              </div>
+                       
     </div>
     <div class="modal-footer">
           <button id="btnitem" type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
@@ -328,110 +337,31 @@ include_once 'header.php'
   </div>
 </div>
 
-<!-- Modal for Add subItems and show and select the item-->
-<div class="modal fade" id="subitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">SubItem Bank Table</h5>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times"></i></span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="container" id="lock2">
-
-<!--Add subItem button-->
-                  <div class="row">
-                    <center>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert subitem" onclick="hide()">
-                        ADD
-                      </button>
-                    </center>
-                  </div>
-              </div>   
-<!--Fetch subitem from the database and select from here to the gradesheet-->            
-                <table class="table table-responsive" width="100%" id="table1">
-                    <thead class="Success">
-                         <tr>
-                            <td><b>#</b></td>
-                            <td><b>Id</b></td>
-                            <td><b>Item</b></td>
-                            <!-- <td><b>SubItem</b></td> -->
-                            <td colspan="2"><b>Operation</b></td>
-                          
-                         </tr>
-                    </thead>
-
-                        <?php
-
-                        $query11 = mysqli_query($conn,"SELECT * FROM subitem");
-                        if (mysqli_num_rows($query11) > 0) { $i=1;
-                        while($user = mysqli_fetch_assoc($query11)) { 
-                        ?>
-                           <tr>
-                              <td><input type="checkbox"  name="users" value="<?php echo $user['id'];?>"/><span></span></td>
-                              <td><?php echo $i;?></td>
-                              <td name="subitem1" id="subitem1"><?php echo $user['subitem'];?>
-                              </td>
-                              <!-- <td><?php echo $user['subitem'];?></td> -->
-
-                           <td><a class="btn btn-success" href="Subitemupdate.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-edit"></i></a></td>
-                              <td><a class="btn btn-danger" href="subitemdelete.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-trash"></i></a></td>
-                              
-                            </tr>
-                        <?php 
-                        $i++; 
-                      } 
-                    }
-                        ?>
-
-                </table>
-              </div>
-        <div class="modal-footer">
-          <button id="btnsub" type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
-        </div>
-    </div>
-  </div>
-</div>
-
-
 <!--Add Item modal to the database-->
-<div class="modal fade" id="insert item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Item Bank</h5>
-                    <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                      <center>
-                      <form class="insert-item" id="integrity" method="post" action="insert_item.php">
-                        <div class="input-field">
-                          <table class="table table-bordered" id="table-field">
-                            <tr>
-                              <td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="item[] " class="form-control" value="" required /> </td>
-                              <td><input type="button" name="add_item" value="Add" id="add_item" class="btn btn-warning"></td>
-                            </tr>
-                          </table>
-                        </div>
-                      <center>
-                        <button class="btn btn-success" type="submit" name="Insert_item">Submit</button>
-                      </center>
-                    </form>	
-                          
-                      </center>
-                  </div>
-                  <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div> -->
-                </div>
-            </div>
-        </div>
+<div class="modal fade" id="additem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Vehicles</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <center>
+                        <form action="insert_item.php" method="post">
 
+                            <div class="form-outline">
+                                <label class="form-label" for="coursename">Item</label>
+                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
+                            </div><br>
+                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
+                        </form>
+                </center>
+              </div>
+            </div>
+          </div>
+        </div>
 <!--Add Subitem modal to the database-->
 <div class="modal fade" id="insert subitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

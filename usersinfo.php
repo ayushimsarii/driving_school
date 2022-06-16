@@ -203,9 +203,9 @@ $(document).ready(function(){
                                                document.getElementById('vec_type').value='<?php echo $row['VehicleType'] ?>';
                                                document.getElementById('vec_nub').value='<?php echo $row['VehicleNumber'] ?>';
                                                document.getElementById('vec_spt').value='<?php echo $row['VehicleSpot'] ?>';
-                                            " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            " data-toggle="modal" data-target="#myModal"><i class="fas fa-edit"></i></a>
                                             </a>
-                                            <a href="vec_delete.php?id=<?php echo $id?>">Delete</a>
+                                            <a href="vec_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
                                            
                                           </td>
                                         </tr>
@@ -267,8 +267,8 @@ $(document).ready(function(){
                             document.getElementById('StudentNames').value='<?php echo $row1['StudentNames'] ?>';
                             document.getElementById('CourseManager').value='<?php echo $row1['CourseManager'] ?>';
                             document.getElementById('DrivingPhaseManager').value='<?php echo $row1['Phase_manager'] ?>';
-                            " data-toggle="modal" data-target="#editcourse" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            <a href="newcourse_delete.php?Courseid=<?php echo $Courseid?>">Delete</a>
+                            " data-toggle="modal" data-target="#editcourse"><i class="fas fa-edit"></i></a>
+                            <a href="newcourse_delete.php?Courseid=<?php echo $Courseid?>"><i class="fas fa-trash"></i></a>
                             </td>
              </tr>
               <?php
@@ -333,8 +333,8 @@ $(document).ready(function(){
                             document.getElementById('Location').value='<?php echo $row2['Location'] ?>';
                             document.getElementById('CourseAim').value='<?php echo $row2['CourseAim'] ?>';
                             document.getElementById('ClassSize').value='<?php echo $row2['ClassSize'] ?>';
-                            " data-toggle="modal" data-target="#editctp" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            <a href="ctp_delete.php?CTPid=<?php echo $CTPid?>">Delete</a></td>
+                            " data-toggle="modal" data-target="#editctp"><i class="fas fa-edit"></i></a>
+                            <a href="ctp_delete.php?CTPid=<?php echo $CTPid?>"><i class="fas fa-trash"></i></a>
              </tr>
               <?php
                                         }
@@ -387,7 +387,9 @@ $(document).ready(function(){
                             document.getElementById('school_name').value='<?php echo $row2['school_name'] ?>';
                             document.getElementById('department_name').value='<?php echo $row2['department_name'] ?>';
                             document.getElementById('type').value='<?php echo $row2['type'] ?>';
-                            " data-toggle="modal" data-target="#editdepartment" class="btn btn-success"><i class="fas fa-edit"></i></a></td>
+                            " data-toggle="modal" data-target="#editdepartment"><i class="fas fa-edit"></i></a>
+                            <a href="department_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i>
+                            </td>
              </tr>
               <?php
                                         }
@@ -450,6 +452,7 @@ $(document).ready(function(){
           </div>
         </div>
    </div>   
+   <!--Edit Ctp modal-->
    <div class="modal fade" id="editctp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -474,8 +477,29 @@ $(document).ready(function(){
             </div>
           </div>
         </div>
-               
-                                  </div>   
+</div>   
+<!--Edit Department modal-->
+<div class="modal fade" id="editdepartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Department</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="edit_department.php">
+              <input type="hidden" name="id" value="" id="id">
+              <input type="text" name="school_name" value="" id="school_name">
+              <input type="text" name="department_name" value="" id="department_name">
+              <input type="text" name="type" value="" id="type">
+              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 <!--Add Vehicle Modal-->
 <div class="modal fade" id="addvehicle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -632,13 +656,13 @@ $(document).ready(function(){
                            <div class="col-md-12 mt-2">
                             <label class="mb-3 mr-1" for="gender">Gender: </label>
 
-                            <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" value="Male" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="male">Male</label>
 
-                            <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" value="female" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="female">Female</label>
 
-                            <input type="radio" class="btn-check" name="gender" id="secret" autocomplete="off" required>
+                            <input type="radio" class="btn-check" name="gender" value="secret" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label>
                                <div class="valid-feedback mv-up">You selected a gender!</div>
                                 <div class="invalid-feedback mv-up">Please select a gender!</div>
