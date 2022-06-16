@@ -253,7 +253,7 @@ $(document).ready(function(){
                                         ?>
                                          <tr>
              <td><?php echo $sn1++;?></td>
-             <td><?php echo $row1['Courseid'];?></td>
+             <td><?php echo $Courseid=$row1['Courseid'];?></td>
              <td><?php echo $row1['CourseName'];?></td>
              <td><?php echo $row1['CourseNumber'];?></td>
              <td><?php echo $row1['Symbol'];?></td>
@@ -317,7 +317,7 @@ $(document).ready(function(){
                                         ?>
                                          <tr>
              <td><?php echo $sn1++;?></td>
-             <td><?php echo $row2['CTPid'];?></td>
+             <td><?php echo $CTPid=$row2['CTPid'];?></td>
              <td><?php echo $row2['course'];?></td>
              <td><?php echo $row2['manual'];?></td>
              <td><?php echo $row2['CourseCode'];?></td>
@@ -334,7 +334,7 @@ $(document).ready(function(){
                             document.getElementById('CourseAim').value='<?php echo $row2['CourseAim'] ?>';
                             document.getElementById('ClassSize').value='<?php echo $row2['ClassSize'] ?>';
                             " data-toggle="modal" data-target="#editctp" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            <a href="ctp_delete.php?id=<?php echo $CTPid?>">Delete</a></td>
+                            <a href="ctp_delete.php?CTPid=<?php echo $CTPid?>">Delete</a></td>
              </tr>
               <?php
                                         }
