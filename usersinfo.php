@@ -268,7 +268,7 @@ $(document).ready(function(){
                             document.getElementById('CourseManager').value='<?php echo $row1['CourseManager'] ?>';
                             document.getElementById('DrivingPhaseManager').value='<?php echo $row1['Phase_manager'] ?>';
                             " data-toggle="modal" data-target="#editcourse" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            <a href="newcourse_delete.php?id=<?php echo $Courseid?>">Delete</a>
+                            <a href="newcourse_delete.php?Courseid=<?php echo $Courseid?>">Delete</a>
                             </td>
              </tr>
               <?php

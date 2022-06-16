@@ -7,5 +7,5 @@ $statement = $connect->prepare($sql);
             $statement->execute();
       
          $error="<div class='alert alert-success'>Data Deleted successfully.</div>";
-         header('Location:usersinfo.php?error='.$error);
+        header('Location:usersinfo.php?error='.$error);
 ?>
