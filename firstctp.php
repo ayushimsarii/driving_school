@@ -17,11 +17,13 @@
         
 </head>
 <?php 
-                if(isset($_REQUEST['error']))
-                {
-                $error=$_REQUEST['error'];
-                echo "<script>alert('$error');</script>";
-                }?>
+    if(isset($_REQUEST['error']))
+      {
+        $error=$_REQUEST['error'];
+        echo "<script>alert('$error');</script>";
+      }
+?>
+
   
 	<?php
 	include_once 'header.php';

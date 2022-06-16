@@ -1,8 +1,23 @@
 <?php
 include('connect.php');
-$output="";
-?>
 
+     $in="";
+     $q2= "SELECT * FROM users where role='Instructor'";
+ $st2 = $connect->prepare($q2);
+ $st2->execute();
+
+ if($st2->rowCount() > 0)
+     {
+         $re2 = $st2->fetchAll();
+       foreach($re2 as $row2)
+         {
+          $in.= '<option value="'.$row2['name'].'">'.$row2['name'].'</option>';
+         }
+     
+     }
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +33,13 @@ $output="";
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
+<?php 
+    if(isset($_REQUEST['error']))
+      {
+        $error=$_REQUEST['error'];
+        echo "<script>alert('$error');</script>";
+      }
+?>
 <style type="text/css">
 	input
 	{
@@ -90,7 +112,16 @@ include_once 'header.php'
 ?>
 
   <!--Username dashboard info-->
-   
+  <div class="container">
+    <?php
+     if(isset($_GET['symbol'])){
+      $symbol="";
+      $symbol=$_GET['symbol'];
+    ?>
+					<center>
+           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['symbol'].'/'.$symbol ?> </h3>	</center>
+         	 </div>
+            <?php }  ?>
 	<!--User info fetched in the input box-->
       <div class="container">
       	<div class="row">
@@ -105,12 +136,10 @@ include_once 'header.php'
                                 <td><label>Phone</label><input type="text" name="status" placeholder=></td>
                               </tr>
                               <tr>
-                                <td><label for="Instructor">Instructor</label>
-                                    <select id="Instructor" name="Instructor">
-                                      <option value="volvo">Instructor-1</option>
-                                      <option value="saab">Instructor-2</option>
-                                      <option value="fiat">Instructor-3</option>
-                                      <option value="audi">Instructor-4</option>
+                                <td><label class="form-label" for="Instructor">Instructor</label>
+                                    <select type="text" id="student" class="form-control form-control-md" name="Instructor" required>
+                                        <option selected disabled value="">-select instructor-</option>
+                                        <?php echo $in?>
                                     </select></td>
                                 <td><label>Time</label><input type="time" name="time"></td>
                               </tr>

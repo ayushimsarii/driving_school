@@ -91,7 +91,7 @@
 	}
 	.table
 	{
-		width: 50%;
+		width: 80%;
 	}
 	i
 	{
@@ -109,4 +109,8 @@
   a
   {
   	color: white;
+  }
+  #actualrow
+  {
+	width: 80%;
   }
