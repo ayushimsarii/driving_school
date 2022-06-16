@@ -11,7 +11,7 @@ if(isset($_POST['save']))
 	 $statement = $connect->prepare($sql);
 	 $statement->execute();
 	 $error="<div class='alert alert-success'>Data inserted successfully</div>";
-	 header("Location:ctp.php?error=".$error);
+	 header("Location:firstctp.php?error=".$error);
 }
 
 ?>

@@ -2,6 +2,7 @@
 include('connect.php');
 $output="";
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,35 +95,14 @@ include_once 'header.php'
       <div class="container">
       	<div class="row">
       		<div class="col">
-      			<?php
-
-                $con = mysqli_connect("localhost","root","","test");
-                if (!$con) {
-                  die("Connection failed: " . mysqli_connect_error());
-                }
-
-                $sql = "SELECT id, name, role, phone, email FROM users WHERE username = '" . $_SESSION['username'] . "'";
-                $result = $con->query($sql);
-                if(!$sql){
-                  die(mysqli_error($con));
-                }
-
-                if ($result->num_rows > 0) {
-                 
-                    while ($row = $result->fetch_assoc()) {
-                        echo "Hello, " . $row['name'] . " (" . $row['email'] . ").";
-                         
-                        // $Subitem = $row["Subitem"];
-                        // $radiosub = $row["radiosub"]; 
-
-                        print '<table>
+      			<table>
                               <tr>
-                                <td><label>Id</label><input type="text" name="up" placeholder= '.$row['id'].' ></td>
-                                <td><label>Name</label><input type="text" name="ride" placeholder= '.$row['name'].'></td>
+                                <td><label>Id</label><input type="text" name="up" placeholder=></td>
+                                <td><label>Name</label><input type="text" name="ride" placeholder=></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input type="text" name="status" placeholder= '.$row['role'].'></td>
-                                <td><label>Phone</label><input type="text" name="status" placeholder= '.$row['phone'].'></td>
+                                <td><label>Role</label><input type="text" name="status" placeholder=></td>
+                                <td><label>Phone</label><input type="text" name="status" placeholder=></td>
                               </tr>
                               <tr>
                                 <td><label for="Instructor">Instructor</label>
@@ -134,23 +114,18 @@ include_once 'header.php'
                                     </select></td>
                                 <td><label>Time</label><input type="time" name="time"></td>
                               </tr>
-                              </table>';
-
-                    }
-
-                    $result->free();
-                } 
-                ?>
+                              </table>
       		</div>
 <!--Prereuisites container-->
       		<div class="col">
-      			<h4>Prereuisites</h4>
+      			<label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
+            <button class="btn btn-success"><i class="fas fa-plus"></i></button>
+      			<!-- <input type="" name="">
       			<input type="" name="">
       			<input type="" name="">
       			<input type="" name="">
       			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
+      			<input type="" name=""> -->
       		</div>
       	</div>
       </div>
@@ -291,53 +266,65 @@ include_once 'header.php'
                   <div class="row">
                     <center>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" onclick="hide()">
-                        Upload File
+                        Add Item
                       </button>
                     </center>
                   </div>
               </div>   
 <!--Fetch item from the database and select from here to the gradesheet-->            
-                <table class="table table-responsive" width="100%">
-                    <thead class="Success">
-                         <tr>
-                            <td><b>#</b></td>
-                            <td><b>Id</b></td>
-                            <td><b>Item</b></td>
-                            <!-- <td><b>SubItem</b></td> -->
-                            <td colspan="2"><b>Operation</b></td>
-                          
-                         </tr>
-                    </thead>
-
                         <?php
-
-                        $query11 = mysqli_query($conn,"SELECT * FROM itembank");
-                        if (mysqli_num_rows($query11) > 0) { $i=1;
-                        while($user = mysqli_fetch_assoc($query11)) { 
+                        require "connect.php";
+                        $error = '';
+                        $output = '';
+                              $query = "SELECT * FROM itembank";
+                                    $statement = $connect->prepare($query);
+                                    $statement->execute();
+                        
+                                    if($statement->rowCount() > 0)
+                                        {
+                                            $result = $statement->fetchAll();
+                                  $sn=1;
+                                            foreach($result as $row)
+                                            {
+                                                $output .= '<tr>
+                                                <td>'.$sn++.'</td>
+                                                <td><a href="item-update.php?id='.$row["id"].'>Edit</a></td>
+                                                    <td><a href="gradesheet.php?id='.$row["id"].'&item='.$row["item"].'>'.$row["item"].'</a></td>
+                                                        
+                                                        <td><a href="item-delete.php?id='.$row["id"].'>Delete</a></td>
+                                                    </td>
+                                                </tr>';
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $output .= '
+                                                <tr>
+                                                    <td colspan="2">No Data Found</td>
+                                                </tr>
+                                            ';
+                                        }
+                        
                         ?>
-                           <tr>
-                              <td><input type="checkbox"  name="users" value="<?php echo $user['id'];?>"/><span></span></td>
-                              <td><?php echo $i;?></td>
-                              <td id="fetch"><?php echo $user['item'];?>
-                              </td>
-                              <!-- <td><?php echo $user['subitem'];?></td> -->
 
-                           <td><a class="btn btn-success" href="update.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-edit"></i></a></td>
-                              <td><a class="btn btn-danger" href="delete.php?id=<?php echo $user["id"]; ?>"><i class="fas fa-trash"></i></a></td>
-                              
-                            </tr>
-                        <?php 
-                        $i++; 
-                      } 
-                    }
-                        ?>
+						<center>
+							<table class="table table-striped table-bordered">
+								<tr>
+									<th>Id</th>
+									<th>Phase</th>
+									<th colspan="2">Operations</th>
+								</tr>
+									<?php
+										echo $output;
+									?>                
+							</table>
+						</center>
 
-                </table>
               </div>
-        <div class="modal-footer">
+    </div>
+    <div class="modal-footer">
           <button id="btnitem" type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
         </div>
-    </div>
   </div>
 </div>
 
@@ -421,20 +408,19 @@ include_once 'header.php'
                   </div>
                   <div class="modal-body">
                       <center>
-                        <?php include 'add.php' ?>
-                        <form action="add.php" method="post" id="gradesheet" name="div">
-                          <!--Item input box-->
-                            <!-- <label>Item</label><br> -->
-                            <input type="text" name="item" id="item1" value="" placeholder="Enter Item"><br>
-                            <div class="modal-footer">
-                              <input type="submit" name="Insert" class="btn btn-primary" value="Insert" onclick="show()">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                            </div>
-                            <!-- <input type="submit" name="Insert" class="btn btn-primary" value="Insert"> -->
-                        </form>
-                        <button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
-                          <button class="btn btn-secondary" onclick="remove()"><i class="fas fa-minus"></i></button><br>
+                      <form class="insert-item" id="integrity" method="post" action="insert_item.php">
+                        <div class="input-field">
+                          <table class="table table-bordered" id="table-field">
+                            <tr>
+                              <td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="item[] " class="form-control" value="" required /> </td>
+                              <td><input type="button" name="add_item" value="Add" id="add_item" class="btn btn-warning"></td>
+                            </tr>
+                          </table>
+                        </div>
+                      <center>
+                        <button class="btn btn-success" type="submit" name="Insert_item">Submit</button>
+                      </center>
+                    </form>	
                           
                       </center>
                   </div>

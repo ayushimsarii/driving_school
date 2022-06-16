@@ -16,19 +16,8 @@ $std="";
      
      }
     
-     $query1 = "SELECT * FROM newcourse ORDER BY CourseName ASC";
-     $statement1 = $connect->prepare($query1);
-     $statement1->execute();
-    
-     if($statement1->rowCount() > 0)
-         {
-             $result1 = $statement1->fetchAll();
-           foreach($result1 as $row1)
-             {
-                 $output3 .= '<option value="'.$row1['CourseName'].'">'.$row1['CourseName'].'</option>';
-             }
+     
          
-         }
 
     
 ?>
@@ -43,9 +32,33 @@ $std="";
 	<!-- JavaScript Bundle with Popper -->
 	<script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> <script src="js/jquery_new.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" type="text/css" href="sidestyle.css">
+
+  <script>
+$(document).ready(function(){
+  $('#course').on('change', function(){
+  
+    var countryID = $(this).val();
+    
+    console.log(countryID);
+    if(countryID){
+    
+            $.ajax({
+                type:'POST',
+                url:'selec_std.php',
+                data:'course='+countryID,
+                success:function(html){
+               
+                  $('#state').html(html);
+                    
+                }
+            }); 
+        }
+  });
+});
+</script>
 </head>
 
 <body id="bodynav">
@@ -87,20 +100,33 @@ $std="";
                     <i type="button" data-toggle="modal" data-target="#message" class="fas fa-comment" style="margin-left: 90px;"></i>
                   </div>
                   <form class="form-control">
+                     <div class="list-group-item list-group-item-action py-1">
+                    <label class="form-label" for="student">Course Name</label>
+                    <select type="text" id="course" class="form-control form-control-md">
+                   <?php 
+                   $query1 = "SELECT * FROM ctppage ORDER BY CTPid ASC";
+                   $statement1 = $connect->prepare($query1);
+                   $statement1->execute();
+                  
+                   if($statement1->rowCount() > 0)
+                       {
+                           $result1 = $statement1->fetchAll();
+                      
+                            foreach($result1 as $row1)
+                        {?>
+                            <option value="<?php echo $row1['course'] ?>"><?php echo $row1['course']?></option>
+                        <?php }
+         
+                         } ?>
+                    </select>
+                  </div>
                   <div class="list-group-item list-group-item-action">
                     <label class="form-label" for="student">Student Name</label>
-                    <select type="text" id="student" class="form-control form-control-md" name="stdname" required>
-                        <option selected disabled value="">-select name-</option>
-                        <?php echo $std ?>
+                    <select id="state" class="form-control form-control-md">
+                    <option value="">Select course first</option>
                     </select>
                   </div>
-                  <div class="list-group-item list-group-item-action py-1">
-                    <label class="form-label" for="student">Course Name</label>
-                    <select type="text" id="course" class="form-control form-control-md" name="coursename" required>
-                        <option selected disabled value="">-select course-</option>
-                        <?php echo $output3 ?>
-                    </select>
-                  </div>
+                 
                 </form>
                   <a href="maindashboard.php" class="list-group-item list-group-item-action py-1 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>

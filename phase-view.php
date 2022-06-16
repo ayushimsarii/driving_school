@@ -16,6 +16,22 @@
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<script>
+$(document).ready(function(){
+  $("#actualbtn").click(function(){
+    $("#actualtable").show();
+    $("#actualsearch").show();
+  });
+  $("#simbtn").click(function(){
+    $("#simtable").show();
+    $("#simsearch").show();
+  });
+  $("#academicbtn").click(function(){
+    $("#academictable").show();
+    $("#academicsearch").show();
+  });
+});
+</script>
 		<body>
 			<?php
 			include_once 'header.php';
@@ -45,6 +61,191 @@
            			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['phase'].'/'.$ctp ?> </h3>	</center>
          	 </div>
 		<?php }  ?>
+		<center>
+<!--Button of classes-->
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="class" role="tabpanel" aria-labelledby="class-tab">
+				<button type="button" class="btn btn-warning" id="actualbtn">Actual</button>
+				<button class="btn btn-primary" type="button" id="simbtn">Simulation</button>
+				<button class="btn btn-warning" type="button" id="academicbtn">Academic</button>
+			</div>
+        </div>
+		</center>
+<!--Fetch actual table-->
+<center>
+<div class="container">
+                         <div class="row">
+                        <center>
+                            
+                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="actualtable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="actualsearch" onkeyup="actual()" placeholder="Search for Vehicle name.." title="Type in a name">
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Class Name</th>
+                                    <th>Symbol</th>
+                                    <th>% Type</th>
+                                    <th>Percentage</th>
+                                    <th>Action</th>
+                                  
+                                </tr>
+                                <?php 
+                                $output ="";
+                                $query = "SELECT * FROM actual  ORDER BY id DESC";
+                                $statement = $connect->prepare($query);
+                                $statement->execute();
+                                if($statement->rowCount() > 0)
+                                    {
+                                        $result = $statement->fetchAll();
+                                        $sn=1;
+                                        foreach($result as $row)
+                                        { ?>
+                                           
+                                            <tr>
+                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
+                                            <td><?php echo $row['actual'] ?></td>
+                                            <td><?php echo $row['symbol'] ?></td>
+                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $row['percentage'] ?></td>
+                                            <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('actual_name').value='<?php echo $row['actual'] ?>';
+                                               document.getElementById('actual_symbol').value='<?php echo $row['symbol'] ?>';
+                                               document.getElementById('p_type').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('actaul_per').value='<?php echo $row['percentage'] ?>';
+                                            " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            </a>
+                                            <a href="vec_delete.php?id=<?php echo $id?>">Delete</a>
+                                           
+                                          </td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
+								</center>
+                          </div>
+                      </div>
+          </div>
+	</center>
+
+<!--fetch  simulation table-->
+<center>
+<div class="container">
+                         <div class="row">
+                        <center>
+                            
+                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="simtable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="simsearch" onkeyup="sim()" placeholder="Search for Vehicle name.." title="Type in a name">
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Class Name</th>
+                                    <th>Symbol</th>
+                                    <th>% Type</th>
+                                    <th>Percentage</th>
+                                    <th>Action</th>
+                                  
+                                </tr>
+                                <?php 
+                                $output ="";
+                                $query = "SELECT * FROM sim  ORDER BY id DESC";
+                                $statement = $connect->prepare($query);
+                                $statement->execute();
+                                if($statement->rowCount() > 0)
+                                    {
+                                        $result = $statement->fetchAll();
+                                        $sn=1;
+                                        foreach($result as $row)
+                                        { ?>
+                                           
+                                            <tr>
+                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
+                                            <td><?php echo $row['sim'] ?></td>
+                                            <td><?php echo $row['shortsim'] ?></td>
+                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $row['percentage'] ?></td>
+                                            <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('actual_name').value='<?php echo $row['sim'] ?>';
+                                               document.getElementById('actual_symbol').value='<?php echo $row['shortsim'] ?>';
+                                               document.getElementById('p_type').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('actaul_per').value='<?php echo $row['percentage'] ?>';
+                                            " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            </a>
+                                            <a href="vec_delete.php?id=<?php echo $id?>">Delete</a>
+                                           
+                                          </td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
+								</center>
+                          </div>
+                      </div>
+          </div>
+</center>
+<!--fetch academic table-->
+<center>
+<div class="container">
+                         <div class="row">
+                        <center>
+                            
+                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="academictable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="academicsearch" onkeyup="academic()" placeholder="Search for Vehicle name.." title="Type in a name">
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Class Name</th>
+                                    <th>Symbol</th>
+                                    <th>% Type</th>
+                                    <th>Percentage</th>
+                                    <th>Action</th>
+                                  
+                                </tr>
+                                <?php 
+                                $output ="";
+                                $query = "SELECT * FROM academic  ORDER BY id DESC";
+                                $statement = $connect->prepare($query);
+                                $statement->execute();
+                                if($statement->rowCount() > 0)
+                                    {
+                                        $result = $statement->fetchAll();
+                                        $sn=1;
+                                        foreach($result as $row)
+                                        { ?>
+                                           
+                                            <tr>
+                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
+                                            <td><?php echo $row['academic'] ?></td>
+                                            <td><?php echo $row['shortacademic'] ?></td>
+                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $row['percentage'] ?></td>
+                                            <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('actual_name').value='<?php echo $row['academic'] ?>';
+                                               document.getElementById('actual_symbol').value='<?php echo $row['shortacademic'] ?>';
+                                               document.getElementById('p_type').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('actaul_per').value='<?php echo $row['percentage'] ?>';
+                                            " data-toggle="modal" data-target="#myModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            </a>
+                                            <a href="vec_delete.php?id=<?php echo $id?>">Delete</a>
+                                           
+                                          </td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
+								</center>
+                          </div>
+                      </div>
+          </div>
+</center>
+
+
+
 
 			<div class="container">
 			<center>
@@ -143,7 +344,7 @@
 			<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
     </div>
 
- <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
+	<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -270,6 +471,69 @@
           }
 
       </script>
+
+<script>
+function actual() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("actualsearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("actualtable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+<script>
+function sim() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("simsearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("simtable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+<script>
+function academic() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("academicsearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("academictable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
       <?php
 		include_once 'footer.php';
 		?>
