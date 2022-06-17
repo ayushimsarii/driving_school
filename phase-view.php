@@ -119,7 +119,7 @@ $(document).ready(function(){
                                                document.getElementById('percentage1').value='<?php echo $row['percentage'] ?>';
                                             " data-toggle="modal" data-target="#editactual"><i class="fas fa-edit"></i></a>
                                             </a>
-                                            <a href="actual_delete.php?id=<?php echo $id?>">Delete</a>
+                                            <a href="actual-delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
                                            
                                           </td>
                                         </tr>
@@ -138,7 +138,7 @@ $(document).ready(function(){
 <!--fetch  simulation table-->
 <center>
 <div class="container">
-                         <div class="row">
+                         <div class="row" id="simrow">
                         <center>
                             
                           <table style="width:100%;display:none;" class="table table-striped table-bordered" id="simtable">
@@ -147,6 +147,8 @@ $(document).ready(function(){
                                     <th>Sr No</th>
                                     <th>Class Name</th>
                                     <th>Symbol</th>
+                                    <th>Phase</th>
+                                    <th>CTp</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
                                     <th>Action</th>
@@ -168,16 +170,20 @@ $(document).ready(function(){
                                             <td><?php echo $sn++;$id=$row['id'] ?></td>
                                             <td><?php echo $row['sim'] ?></td>
                                             <td><?php echo $row['shortsim'] ?></td>
+                                            <td><?php echo $row['phase'] ?></td>
+                                            <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
-                                               document.getElementById('actual_name').value='<?php echo $row['sim'] ?>';
-                                               document.getElementById('actual_symbol').value='<?php echo $row['shortsim'] ?>';
-                                               document.getElementById('p_type').value='<?php echo $row['ptype'] ?>';
-                                               document.getElementById('actaul_per').value='<?php echo $row['percentage'] ?>';
-                                            " data-toggle="modal" data-target="#simModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <td><a onclick="document.getElementById('id1').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('sim1').value='<?php echo $row['sim'] ?>';
+                                               document.getElementById('shortsim1').value='<?php echo $row['shortsim'] ?>';
+                                               document.getElementById('simphase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('simctp').value='<?php echo $row['ctp'] ?>';
+                                               document.getElementById('ptype2').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('percentage2').value='<?php echo $row['percentage'] ?>';
+                                            " data-toggle="modal" data-target="#editsim"><i class="fas fa-edit"></i></a>
                                             </a>
-                                            <a href="sim_delete.php?id=<?php echo $id?>">Delete</a>
+                                            <a href="sim_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
                                            
                                           </td>
                                         </tr>
@@ -195,7 +201,7 @@ $(document).ready(function(){
 <!--fetch academic table-->
 <center>
 <div class="container">
-                         <div class="row">
+                         <div class="row" id="academicrow">
                         <center>
                             
                           <table style="width:100%;display:none;" class="table table-striped table-bordered" id="academictable">
@@ -204,6 +210,8 @@ $(document).ready(function(){
                                     <th>Sr No</th>
                                     <th>Class Name</th>
                                     <th>Symbol</th>
+                                    <th>Phase</th>
+                                    <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
                                     <th>Action</th>
@@ -225,16 +233,20 @@ $(document).ready(function(){
                                             <td><?php echo $sn++;$id=$row['id'] ?></td>
                                             <td><?php echo $row['academic'] ?></td>
                                             <td><?php echo $row['shortacademic'] ?></td>
+                                            <td><?php echo $row['phase'] ?></td>
+                                            <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a onclick="document.getElementById('payid').value='<?php echo $id=$row['id'] ?>';
-                                               document.getElementById('actual_name').value='<?php echo $row['academic'] ?>';
-                                               document.getElementById('actual_symbol').value='<?php echo $row['shortacademic'] ?>';
-                                               document.getElementById('p_type').value='<?php echo $row['ptype'] ?>';
-                                               document.getElementById('actaul_per').value='<?php echo $row['percentage'] ?>';
-                                            " data-toggle="modal" data-target="#academicModal" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <td><a onclick="document.getElementById('academic-id').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('academic-name').value='<?php echo $row['academic'] ?>';
+                                               document.getElementById('shortacademic-name').value='<?php echo $row['shortacademic'] ?>';
+                                               document.getElementById('academic-phase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('academic-ctp').value='<?php echo $row['sim'] ?>';
+                                               document.getElementById('ptype-3').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('percentage-3').value='<?php echo $row['percentage'] ?>';
+                                            " data-toggle="modal" data-target="#editacademic"><i class="fas fa-edit"></i></a>
                                             </a>
-                                            <a href="academic_delete.php?id=<?php echo $id?>">Delete</a>
+                                            <a href="academic-delet.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
                                            
                                           </td>
                                         </tr>
@@ -367,6 +379,56 @@ $(document).ready(function(){
           </div>
         </div>
 </div> 
+<!--Edit Sim class modal-->
+<div class="modal fade" id="editsim" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Actual Class</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="edit_sim_class.php">
+                <input type="text" name="id" value="" id="id1" readonly>
+              <input type="text" name="sim" value="" id="sim1">
+              <input type="text" name="shortsim" value="" id="shortsim1">
+              <input type="text" name="phase" value="" id="simphase">
+              <input type="text" name="ctp" value="" id="simctp">
+              <input type="text" name="ptype" value="" id="ptype2">
+              <input type="text" name="percentage" value="" id="percentage2">
+              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                                  </form>
+            </div>
+          </div>
+        </div>
+</div>
+<!--Edit Academic class modal-->
+<div class="modal fade" id="editacademic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Academic Class</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="edit_academic_class.php">
+                <input type="text" name="id" value="" id="academic-id" readonly>
+              <input type="text" name="academic" value="" id="academic-name">
+              <input type="text" name="shortacademic" value="" id="shortacademic-name">
+              <input type="text" name="phase" value="" id="academic-phase">
+              <input type="text" name="ctp" value="" id="academic-ctp">
+              <input type="text" name="ptype" value="" id="ptype-3">
+              <input type="text" name="percentage" value="" id="percentage-3">
+              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                                  </form>
+            </div>
+          </div>
+        </div>
+</div>
 <!--Previous and Next Button-->
 
     <div class="container">
@@ -408,8 +470,6 @@ $(document).ready(function(){
 					});
 		 	});
  </script>
-
-
 <!--Script for adding multiple sim classes-->
 
  <script type="text/javascript">
