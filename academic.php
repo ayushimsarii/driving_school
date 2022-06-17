@@ -18,10 +18,8 @@ $query = "SELECT * FROM academic ORDER BY id ASC";
                         <form method="post" action="upload.php" enctype="multipart/form-data">
                         <td class="file"><input class="form-control" type="file" name="file" />
                         <td><button class="btn btn-success" type="submit" name="upload">upload</button><td>
-                        <input style="visibility:hidden;" type="text" id="id" name="id" value="'.$row["id"].'">
-                        
-                        </td>
-                         
+                        <input style="visibility:hidden;" type="text" id="id" name="id" value="'.$row["id"].'"> 
+                        </td>  
                         </form>
                         </tr>';
                     }
@@ -35,7 +33,7 @@ $query = "SELECT * FROM academic ORDER BY id ASC";
                     ';
                 }
 
-                ?>
+?>
 <!DOCTYPE html>
 <html>
 <head>

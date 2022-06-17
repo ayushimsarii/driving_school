@@ -1,7 +1,7 @@
 <?php 
 echo $id=$_GET['id'];
 include_once 'connect.php';
-$sql = "DELETE FROM actual WHERE id='$id'";
+$sql = "DELETE FROM sim WHERE id='$id'";
 $statement = $connect->prepare($sql);
 
             $statement->execute();
