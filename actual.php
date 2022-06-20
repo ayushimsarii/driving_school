@@ -79,6 +79,12 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
+	<div>Student name : <?php
+	
+	echo $student?><br>
+	Course name : <?php echo $phpcourse?>
+</div>
+<br>
 	<div class="row">
 		<?php 
                 if(isset($_REQUEST['error']))
