@@ -32,6 +32,7 @@ include('connect.php');
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
 <?php 
     if(isset($_REQUEST['error']))
@@ -40,77 +41,14 @@ include('connect.php');
         echo "<script>alert('$error');</script>";
       }
 ?>
-<style type="text/css">
-	input
-	{
-		margin: 5px;
-		padding: 5px;
-		/*width: auto;*/
-	}
-	/*.row   
-	{
-		border: 1px solid black;
-		border-radius: 15px;
-	}*/
-	.container
-	{
-		margin-top: 10px;
-	}
-  td,
-  th
-  {
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin: 5px;
-    
-    text-align: center;
-  }
-  table
-  {
-    margin: auto;
-    margin-top: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  tr:nth-child(even)
-  {
-    background-color: #f2f2f2;
-  }
-  tr:hover 
-  {
-    background-color: #ddd;
-  }
-  th 
-  {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #04AA6D;
-    color: white;
-  }
-  a
-  {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-  }
-  select
-  {
-    width: 70%;
-    height: 40px;
-  }
-  i
-  {
-    margin: 2px;
-    padding: 2px;
-  }
-</style>
+
 <body>
 <?php
-include_once 'header.php'
+include_once 'header.php';
 ?>
-
+<?php
+include_once 'sidenavbar.php';
+?>
   <!--Username dashboard info-->
   <div class="container">
     <?php
@@ -123,17 +61,17 @@ include_once 'header.php'
          	 </div>
             <?php }  ?>
 	<!--User info fetched in the input box-->
-      <div class="container">
+      <div class="container" id="std-info">
       	<div class="row">
-      		<div class="col">
+      		<div class="col-8">
       			<table>
                               <tr>
-                                <td><label>Id</label><input type="text" name="up" placeholder=></td>
-                                <td><label>Name</label><input type="text" name="ride" placeholder=></td>
+                                <td><label>Id</label><input class="form-control" type="text" name="up" placeholder=></td>
+                                <td><label>Name</label><input class="form-control" type="text" name="ride" placeholder=></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input type="text" name="status" placeholder=></td>
-                                <td><label>Phone</label><input type="text" name="status" placeholder=></td>
+                                <td><label>Role</label><input class="form-control" type="text" name="status" placeholder=></td>
+                                <td><label>Phone</label><input class="form-control" type="text" name="status" placeholder=></td>
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
@@ -141,12 +79,15 @@ include_once 'header.php'
                                         <option selected disabled value="">-select instructor-</option>
                                         <?php echo $in?>
                                     </select></td>
-                                <td><label>Time</label><input type="time" name="time"></td>
+                                <td><label>Time</label><input class="form-control" type="time" name="time"></td>
                               </tr>
+                              <tr>
+                              <td><label>Vehicle Number</label><input class="form-control" type="text" name="veh-num"></td>
+                              </tr> 
                               </table>
       		</div>
 <!--Prereuisites container-->
-      		<div class="col">
+      		<div class="col-4">
       			<label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
             <button class="btn btn-success"><i class="fas fa-plus"></i></button>
       			<!-- <input type="" name="">
@@ -170,126 +111,33 @@ include_once 'header.php'
         </center>
          </div>
        </div>
-      <!-- Button trigger modal -->
-      <div class="container">
-        <div class="row">
-          <div class="col-8">
-            <table class="table table-responsive" width="100%" id="default">
-                <thead>
-              
-                   <tr>
-                      <td><b>#</b></td>
-                      <td><b>Item</b></td>
-                      <!-- <td><b>email</b></td> -->
-                      <td><b>Radio Grade</b></td>
-                      <!-- <td><b>SubItem</b></td>
-                      <td><b>Sub Radio</b></td> -->
-                      <td><b>Remove</b></td>
-                   </tr>
-                </thead>
-                <form class="login" method="post" action="grades.php" enctype="multipart/form-data">
-
-                  <?php
-                  include 'grades.php';
-                  if(!isset($_GET['id'])){
-                  $query11 = mysqli_query($conn,"SELECT * FROM itembank");
-                  }else{
-                  $id=$_GET['id'];
-                  $query11 = mysqli_query($conn,"SELECT * FROM itembank where id IN ($id)");
-                  }
-                  if (mysqli_num_rows($query11) > 0) { $i=1;
-                  while($user = mysqli_fetch_assoc($query11)) { 
-
-
-                  ?>
-                     <tr>
-                        <td><?php echo $i;?></td>
-                        <td><?php echo $user['item'];?><br>
-                          <button class="btn btn-info" type="button" data-toggle="modal" data-target="#subitem" id="subitem_bank1"><i class="fas fa-plus-circle"></i></button>
-                        </td>
-                        
-                        <!-- <td><?php echo $user['radio'];?></td> -->
-                        <input type="hidden" name="id" value="<?php echo $user['id'];?>">
-                <td>
-                  <table>
-                      <td>
-                        
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="U" <?php if($user['grade']=='U'){ ?> checked="" <?php } ?>/><span>&nbsp U  </span>
-                        
-                        
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="F" <?php if($user['grade']=='F'){ ?> checked="" <?php } ?>/><span> F </span>
-                      
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="G" <?php if($user['grade']=='G'){ ?> checked="" <?php } ?>/><span> G </span>
-                        
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="V" <?php if($user['grade']=='V'){ ?> checked="" <?php } ?>/><span> V </span>
-                       
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="E" <?php if($user['grade']=='E'){ ?> checked="" <?php } ?>/><span> E </span>
-                        
-                           <input type="radio" name="grade[<?php echo $user['id'];?>]"  value="N" <?php if($user['grade']=='N'){ ?> checked="" <?php } ?>/><span> N </span>  
-                     </td>
-                </table>
-              </td>
-              <!-- <td><?php echo $user['subitem'];?></td>
-              <td>
-                <table>
-                   <td>
-                      
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="U" <?php if($user['subgrade']=='U'){ ?> checked="" <?php } ?>/><span>&nbsp U  </span>
-                      
-                      
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="F" <?php if($user['subgrade']=='F'){ ?> checked="" <?php } ?>/><span> F </span>
-                    
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="G" <?php if($user['subgrade']=='G'){ ?> checked="" <?php } ?>/><span> G </span>
-                      
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="V" <?php if($user['subgrade']=='V'){ ?> checked="" <?php } ?>/><span> V </span>
-                     
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="E" <?php if($user['subgrade']=='E'){ ?> checked="" <?php } ?>/><span> E </span>
-                      
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="N" <?php if($user['subgrade']=='N'){ ?> checked="" <?php } ?>/><span> N </span>
-                     
-                   </td>
-                </table>
-              </td>
-      <!-- <td><input type="submit" name="gradesub" value="Save" class="btn btn-success"></td> -->
-      <td><button type="button" class="btn btn-danger" value="Delete" onclick="deleteRow(this)"><i class="fas fa-times"></i></button></td>
-   </tr>
-   
-
-<?php $i++; } } else { ?>
-
-   <tr>
-      <td>No record found</td> 
-   </tr>
-<?php } ?>
-
-<td>
-<input type="submit" class="btn btn-success" value="Save" name="gradesub">
-</td>
-</form>
-</table>
 
 <!--Comment box Container-->
-          </div>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+
+    </div>
            <div class="col-4">
               <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
 
               <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
               <table>
                 <tr>
-                   <td>
+                   <td style="display: flex;">
                       
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="U" <?php if($user['subgrade']=='U'){ ?> checked="" <?php } ?>/><span>&nbsp U  </span>
+                         <input type="radio"  value="U"/><span style="font-weight:bold;">U</span>
                       
                       
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="F" <?php if($user['subgrade']=='F'){ ?> checked="" <?php } ?>/><span> F </span>
+                         <input type="radio" value="F"/><span style="font-weight:bold;"> F </span>
                     
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="G" <?php if($user['subgrade']=='G'){ ?> checked="" <?php } ?>/><span> G </span>
+                         <input type="radio" value="G"/><span style="font-weight:bold;"> G </span>
                       
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="V" <?php if($user['subgrade']=='V'){ ?> checked="" <?php } ?>/><span> V </span>
+                         <input type="radio" value="V"/><span style="font-weight:bold;"> V </span>
                      
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="E" <?php if($user['subgrade']=='E'){ ?> checked="" <?php } ?>/><span> E </span>
+                         <input type="radio" value="E"/><span style="font-weight:bold;"> E </span>
                       
-                         <input type="radio" name="subgrade[<?php echo $user['id'];?>]"  value="N" <?php if($user['subgrade']=='N'){ ?> checked="" <?php } ?>/><span> N </span>
+                         <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
                      
                    </td></tr>
                    <tr><td>Percentage</td></tr>
