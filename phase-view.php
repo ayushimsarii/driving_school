@@ -14,7 +14,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
 <script>
 $(document).ready(function(){
@@ -428,14 +428,16 @@ $(document).ready(function(){
             </div>
           </div>
         </div>
-</div>
+</div><br><br>
 <!--Previous and Next Button-->
 
-    <div class="container">
+    <div class="container" style="width:60%;">
 			<button  class="btn btn-primary" type="submit"><a href="Next-home.php">Previous</a></button>
 			<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
-    </div>
-
+    </div><br><br><br><br><br><br>
+<?php
+include_once 'footer.php';
+?>
 	<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -624,8 +626,6 @@ function academic() {
   }
 }
 </script>
-      <?php
-		include_once 'footer.php';
-		?>
+     
 </body>
 </html>

@@ -24,8 +24,8 @@ $output = '';
                         $output .= '<tr>
                         <td>'.$sn++.'</td>
                             <td><a href="phase-view.php?phase_id='.$row["id"].'&phase='.$row["phasename"].'&ctp='.$ctp.'">'.$row["phasename"].'</a></td>
-                                <td><a href="phase-update.php?id='.$row["id"].'&ctp='.$ctp.'">Edit</a></td>
-                                <td><a href="phase-delete.php?id='.$row["id"].'&ctp='.$ctp.'">Delete</a></td>
+                                <td><a href="phase-update.php?id='.$row["id"].'&ctp='.$ctp.'"><i class="fas fa-edit"></i></a></td>
+                                <td><a href="phase-delete.php?id='.$row["id"].'&ctp='.$ctp.'"><i class="fas fa-trash"></i></a></td>
                             </td>
                         </tr>';
                     }
@@ -55,7 +55,7 @@ $output = '';
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="sidestyle.css">
 
 </head>
 <body>
@@ -112,7 +112,7 @@ $output = '';
 
 			<!--Phase Table-->
 				<center>
-					<div class="row">
+					<div class="row" style="width:60%;">
 						<center>
 							<table class="table table-striped table-bordered">
 								<tr>

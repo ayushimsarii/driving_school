@@ -39,7 +39,7 @@
         
         <div class="row">
             <center>
-        <form action="ctpdata.php" method="post" style="border:1px solid black; margin:35px; padding:35px; width:50%;">
+        <form action="ctpdata.php" method="post" style="border:1px solid black; margin:45px; padding:35px; width:100%;">
 
 <div class="row">
 <?php 

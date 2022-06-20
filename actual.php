@@ -17,59 +17,8 @@ $output="";
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="sidestyle.css">
 </head>
-<style type="text/css">
-	#actualcontainer
-	{
-		border: 1px solid black;
-		margin-top: 10px;
-		width: 60%;
-	}
-	button
-	{
-		margin: 5px;
-		padding: 5px;
-	}
-	h3
-	{
-		text-align: center;
-	}
-	p
-	{
-		width: 50px;
-		height: 50px;
-		border: 1px solid black;
-	}
-	textarea
-	{
-		margin: 5px;
-		padding: 5px;
-		width: 250px;
-		height: 100px;
-	}
-	a
-	{
-		color: white;
-		text-decoration: none;
-	}
-	#cl_sy{
-        margin-right: 10px;
-    }
-    .center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid #73AD21;
-  padding: 10px;
-}
-#block
-{
-	border: 1px solid black;
-}
-#next-previous
-{
-	width: 70%;
-}
-</style>
 <body>
 <?php
 include_once 'header.php';
@@ -79,13 +28,11 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
-	<div>Student name : <?php
-	
-	echo $student?><br>
+	<div>Student name : <?php echo $fetchname?><br>
 	Course name : <?php echo $phpcourse?>
 </div>
 <br>
-	<div class="row">
+	<div class="row" style="width:100%;">
 		<?php 
                 if(isset($_REQUEST['error']))
                 {
