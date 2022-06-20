@@ -25,7 +25,7 @@ $(document).ready(function(){
       var course = sessionStorage.getItem('id');
       $('#course').val(course);
       //set value of javascript to php variable
-      document.cookie = "phpgetcourse = " + course;
+      
         //on change of course dropdown send value to selec_std.php and fetch value
         $('#course').on('change', function(){
           
@@ -39,6 +39,7 @@ $(document).ready(function(){
                       data:'course='+countryID,
                       success:function(html){
                       sessionStorage.setItem('id',countryID);
+                      document.cookie = "phpgetcourse = " + countryID;
                       document.cookie = "allstudent = " + html;
                       $('#state').html(html);
                         }
@@ -135,9 +136,11 @@ $(document).ready(function(){
 
                   </div>
                       <?php
+                      $student="";
+                      $phpcourse="";
                          //set selected value from both dropdown in php 
                         if(isset($_COOKIE['phpgetcourse']) && isset($_COOKIE['student'])){
-                        $myPhpVar= $_COOKIE['phpgetcourse'];
+                        $phpcourse= $_COOKIE['phpgetcourse'];
                         $student= $_COOKIE['student'];
                             }
                       ?>
