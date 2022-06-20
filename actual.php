@@ -66,7 +66,8 @@ include_once 'sidenavbar.php';
                                 $statement1->execute();  
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
-                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php">'.$row1['symbol'].'</a>';
+                                        
+                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php?id='.$student.'">'.$row1['symbol'].'</a>';
 
                                         
                                     }
