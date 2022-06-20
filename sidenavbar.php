@@ -158,7 +158,7 @@ $(document).ready(function(){
                                         foreach($rename2 as $rowname2)
                                         {
                                         $fetchname =$rowname2['name'];
-                                        $fetchid=$rowname2['id'];                                 }
+                                        $fetchid=$rowname2['studid'];                                 }
                                         $fetchrole=$rowname2['role'];
                                         $fetchphone=$rowname2['phone'];
                                     }
