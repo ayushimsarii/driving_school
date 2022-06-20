@@ -57,12 +57,12 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
     <script src="js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
-<style type="text/css">
+<!-- <style type="text/css">
   .navbar-dark .navbar-nav .nav-link 
   {
     color: black;
 }
-</style>
+</style> -->
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

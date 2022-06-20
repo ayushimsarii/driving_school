@@ -38,6 +38,7 @@ $(document).ready(function(){
                       url:'selec_std.php',
                       data:'course='+countryID,
                       success:function(html){
+                        
                       sessionStorage.setItem('id',countryID);
                       document.cookie = "phpgetcourse = " + countryID;
                       document.cookie = "allstudent = " + html;
@@ -52,7 +53,7 @@ $(document).ready(function(){
             $('#state').on('change', function(){
           
               var studentname = $(this).val();
-              console.log(studentname);   
+            //  console.log(studentname);   
                 if(studentname){
                 
                   sessionStorage.setItem('student',studentname);
@@ -136,12 +137,26 @@ $(document).ready(function(){
 
                   </div>
                       <?php
-                      $student="";
+                      $fetchname="";
                       $phpcourse="";
                          //set selected value from both dropdown in php 
                         if(isset($_COOKIE['phpgetcourse']) && isset($_COOKIE['student'])){
                         $phpcourse= $_COOKIE['phpgetcourse'];
                         $student= $_COOKIE['student'];
+                        $fetchname="";
+                        $name= "SELECT * FROM users where id='$student'";
+                                $stname2 = $connect->prepare($name);
+                                $stname2->execute();
+                              
+                                if($stname2->rowCount() > 0)
+                                    {
+                                        $rename2 = $stname2->fetchAll();
+                                        foreach($rename2 as $rowname2)
+                                        {
+                                        $fetchname =$rowname2['name'];
+                                                                             }
+                                    
+                                    }
                             }
                       ?>
                

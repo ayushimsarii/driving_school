@@ -40,7 +40,7 @@ include('connect.php');
          $re4 = $st4->fetchAll();
        foreach($re4 as $row4)
          {
-          $std.= '<option value="'.$row4['name'].'">'.$row4['name'].'</option>';
+          $std.= '<option value="'.$row4['id'].'">'.$row4['name'].'</option>';
          }
      
      }
