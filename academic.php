@@ -290,7 +290,7 @@ if ($connect->connect_errno)
  -->
 <div class="container" id="lock1">
 	<h3>Academic Page</h3>
-	<div class="row">
+	<div class="row" style="width:100%;">
 		<center><button class="btn btn-info"><a href="academic-user.php">study</a></button></center>
 		<div class="col-8">
 			<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
