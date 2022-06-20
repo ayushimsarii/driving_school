@@ -108,9 +108,11 @@ include('connect.php');
 </style>
 <body>
 <?php
-include_once 'header.php'
+include_once 'header.php';
 ?>
-
+<?php
+include_once 'sidenavbar.php';
+?>
   <!--Username dashboard info-->
   <div class="container">
     <?php
