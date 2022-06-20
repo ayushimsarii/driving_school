@@ -95,8 +95,10 @@ include_once 'sidenavbar.php';
       <div class="container" id="std-info">
       <h3>Gradesheet</h3>
 	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $phpcourse;
-  
+	Course name : <?php echo $phpcourse.'<br>';
+  if(isset($_GET['class'])){
+  echo 'class : '.$class=$_GET['class'];
+  }
   ?>
 </div>
       	<div class="row" style="width:100%;">
