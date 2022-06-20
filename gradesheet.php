@@ -62,7 +62,7 @@ include_once 'sidenavbar.php';
             <?php }  ?>
 	<!--User info fetched in the input box-->
       <div class="container" id="std-info">
-      	<div class="row">
+      	<div class="row" style="width:100%;">
       		<div class="col-8">
       			<table>
                               <tr>
@@ -102,7 +102,7 @@ include_once 'sidenavbar.php';
 
       <!--Add Selected Item and fetch-->
        <div class="container">
-         <div class="row">
+         <div class="row" style="width:100%;">
           <center>
            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="student_details"><!-- <br>
          <br><span id="student_details"></span> -->
@@ -114,7 +114,7 @@ include_once 'sidenavbar.php';
 
 <!--Comment box Container-->
 <div class="container">
-  <div class="row">
+  <div class="row" style="width:100%;">
     <div class="col-8">
 
     </div>
