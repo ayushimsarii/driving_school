@@ -16,6 +16,8 @@ include('connect.php');
      
      }
 
+     
+
 
 ?>
 <!DOCTYPE html>
@@ -51,27 +53,25 @@ include_once 'sidenavbar.php';
 ?>
   <!--Username dashboard info-->
   <div class="container">
-    <?php
-     if(isset($_GET['symbol'])){
-      $symbol="";
-      $symbol=$_GET['symbol'];
-    ?>
-					<center>
-           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['symbol'].'/'.$symbol ?> </h3>	</center>
-         	 </div>
-            <?php }  ?>
+  
 	<!--User info fetched in the input box-->
       <div class="container" id="std-info">
+      <h3>Gradesheet</h3>
+	<div>Student name : <?php echo $fetchname?><br>
+	Course name : <?php echo $phpcourse;
+  
+  ?>
+</div>
       	<div class="row" style="width:100%;">
       		<div class="col-8">
       			<table>
                               <tr>
-                                <td><label>Id</label><input class="form-control" type="text" name="up" placeholder=></td>
-                                <td><label>Name</label><input class="form-control" type="text" name="ride" placeholder=></td>
+                                <td><label>Id</label><input class="form-control" type="text" name="up" readonly value="<?php echo $fetchid?>"></td>
+                                <td><label>Name</label><input class="form-control" type="text" name="ride" readonly value="<?php echo $fetchname?>"></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input class="form-control" type="text" name="status" placeholder=></td>
-                                <td><label>Phone</label><input class="form-control" type="text" name="status" placeholder=></td>
+                                <td><label>Role</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchrole?>"></td>
+                                <td><label>Phone</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchphone?>"></td>
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>

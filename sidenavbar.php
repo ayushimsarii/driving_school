@@ -139,6 +139,10 @@ $(document).ready(function(){
                       <?php
                       $fetchname="";
                       $phpcourse="";
+                      $student="";
+                      $fetchid="";
+                      $fetchphone="";
+                      $fetchrole="";
                          //set selected value from both dropdown in php 
                         if(isset($_COOKIE['phpgetcourse']) && isset($_COOKIE['student'])){
                         $phpcourse= $_COOKIE['phpgetcourse'];
@@ -154,8 +158,9 @@ $(document).ready(function(){
                                         foreach($rename2 as $rowname2)
                                         {
                                         $fetchname =$rowname2['name'];
-                                                                             }
-                                    
+                                        $fetchid=$rowname2['id'];                                 }
+                                        $fetchrole=$rowname2['role'];
+                                        $fetchphone=$rowname2['phone'];
                                     }
                             }
                       ?>
