@@ -1,23 +1,6 @@
 <?php 
 include_once 'connect.php';
-$output3 ="";
-$std="";
-     $q4= "SELECT * FROM users where role='student'";
-      $st4 = $connect->prepare($q4);
-       $st4->execute();
 
- if($st4->rowCount() > 0)
-     {
-         $re4 = $st4->fetchAll();
-       foreach($re4 as $row4)
-         {
-          $std.= '<option value="'.$row4['name'].'">'.$row4['name'].'</option>';
-         }
-     
-     }
-    
-     
-         
 
     
 ?>
@@ -38,25 +21,48 @@ $std="";
 
   <script>
 $(document).ready(function(){
-  $('#course').on('change', function(){
-  
-    var countryID = $(this).val();
-    
-    console.log(countryID);
-    if(countryID){
-    
+  //set value for first dropdown on page change
+      var course = sessionStorage.getItem('id');
+      $('#course').val(course);
+      //set value of javascript to php variable
+      document.cookie = "phpgetcourse = " + course;
+        //on change of course dropdown send value to selec_std.php and fetch value
+        $('#course').on('change', function(){
+          
+          var countryID = $(this).val();
+          
+          if(countryID){
+          
             $.ajax({
-                type:'POST',
-                url:'selec_std.php',
-                data:'course='+countryID,
-                success:function(html){
-               
-                  $('#state').html(html);
-                    
-                }
-            }); 
-        }
-  });
+                      type:'POST',
+                      url:'selec_std.php',
+                      data:'course='+countryID,
+                      success:function(html){
+                      sessionStorage.setItem('id',countryID);
+                      document.cookie = "allstudent = " + html;
+                      $('#state').html(html);
+                        }
+                  }); 
+              }
+            
+        });
+
+          //onchange of second dropdown select dynamic value from selec.php
+            $('#state').on('change', function(){
+          
+              var studentname = $(this).val();
+              console.log(studentname);   
+                if(studentname){
+                
+                  sessionStorage.setItem('student',studentname);
+                  document.cookie = "student = " + studentname;
+                  }
+            });
+            //set value of selected student in javascript session
+            var getstudent = sessionStorage.getItem('student');
+            $('#state').val(getstudent);
+
+
 });
 </script>
 </head>
@@ -92,6 +98,7 @@ $(document).ready(function(){
 <!--Main Navigation-->
           <header>
             <!-- Sidebar -->
+          
             <nav id="sidebarMenu" class="collapse d-sm-block sidebar collapse bg-white">
               <div class="position-sticky">
                 <div class="list-group list-group-flush mx-2 mt-2">
@@ -102,7 +109,7 @@ $(document).ready(function(){
                   <form class="form-control">
                      <div class="list-group-item list-group-item-action py-1">
                     <label class="form-label" for="student">Course Name</label>
-                    <select type="text" id="course" class="form-control form-control-md">
+                    <select type="text" id="course" class="form-control form-control-md" name="course">
                    <?php 
                    $query1 = "SELECT * FROM ctppage ORDER BY CTPid ASC";
                    $statement1 = $connect->prepare($query1);
@@ -122,11 +129,20 @@ $(document).ready(function(){
                   </div>
                   <div class="list-group-item list-group-item-action">
                     <label class="form-label" for="student">Student Name</label>
-                    <select id="state" class="form-control form-control-md">
-                    <option value="">Select course first</option>
+                    <select id="state" class="form-control form-control-md" name="student">
+                  <?php  echo $allstudent= $_COOKIE['allstudent']; ?>
                     </select>
+
                   </div>
-                 
+                      <?php
+                         //set selected value from both dropdown in php 
+                        if(isset($_COOKIE['phpgetcourse']) && isset($_COOKIE['student'])){
+                        $myPhpVar= $_COOKIE['phpgetcourse'];
+                        $student= $_COOKIE['student'];
+                            }
+                      ?>
+               
+                  <button class="btn btn-danger btn-sm" type="submit" name="submit_Phase"><i class="fas fa-search"></i></button>
                 </form>
                   <a href="maindashboard.php" class="list-group-item list-group-item-action py-1 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
