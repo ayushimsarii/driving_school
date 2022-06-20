@@ -69,7 +69,7 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="simcontainer">
 	<h3>Simulation</h3>
-	<div>Student name : <?php echo $student?><br>
+	<div>Student name : <?php echo $fetchname?><br>
 		Course name : <?php echo $phpcourse?>
 		</div>
 		<br>
