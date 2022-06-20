@@ -1,6 +1,8 @@
 <?php
 include('connect.php');
-
+$actclass="";
+$simclass="";
+$academicclass="";
      $in="";
      $q2= "SELECT * FROM users where role='Instructor'";
  $st2 = $connect->prepare($q2);
@@ -15,6 +17,43 @@ include('connect.php');
          }
      
      }
+
+     $q3="SELECT * FROM actual";
+     $st3 = $connect->prepare($q3);
+     $st3->execute();
+     if($st3->rowCount() > 0)
+     {
+       $re3 = $st3->fetchAll();
+       foreach($re3 as $row3)
+       {
+         $actclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row3['actual'].'">'.$row3['actual'].'</option></a>';
+       }
+     }
+     
+     $q4="SELECT * FROM sim";
+     $st4 = $connect->prepare($q4);
+     $st4->execute();
+     if($st4->rowCount() > 0)
+     {
+       $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
+       {
+         $simclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row4['sim'].'">'.$row4['sim'].'</option></a>';
+       }
+     }
+     
+     $q5="SELECT * FROM academic";
+     $st5 = $connect->prepare($q5);
+     $st5->execute();
+     if($st5->rowCount() > 0)
+     {
+       $re5 = $st5->fetchAll();
+       foreach($re5 as $row5)
+       {
+         $academicclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row5['academic'].'">'.$row5['academic'].'</option></a>';
+       }
+     }
+     
 
 
 ?>
@@ -51,27 +90,25 @@ include_once 'sidenavbar.php';
 ?>
   <!--Username dashboard info-->
   <div class="container">
-    <?php
-     if(isset($_GET['symbol'])){
-      $symbol="";
-      $symbol=$_GET['symbol'];
-    ?>
-					<center>
-           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['symbol'].'/'.$symbol ?> </h3>	</center>
-         	 </div>
-            <?php }  ?>
+  
 	<!--User info fetched in the input box-->
       <div class="container" id="std-info">
-      	<div class="row">
+      <h3>Gradesheet</h3>
+	<div>Student name : <?php echo $fetchname?><br>
+	Course name : <?php echo $phpcourse;
+  
+  ?>
+</div>
+      	<div class="row" style="width:100%;">
       		<div class="col-8">
       			<table>
                               <tr>
-                                <td><label>Id</label><input class="form-control" type="text" name="up" placeholder=></td>
-                                <td><label>Name</label><input class="form-control" type="text" name="ride" placeholder=></td>
+                                <td><label>Id</label><input class="form-control" type="text" name="up" readonly value="<?php echo $fetchid?>"></td>
+                                <td><label>Name</label><input class="form-control" type="text" name="ride" readonly value="<?php echo $fetchname?>"></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input class="form-control" type="text" name="status" placeholder=></td>
-                                <td><label>Phone</label><input class="form-control" type="text" name="status" placeholder=></td>
+                                <td><label>Role</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchrole?>"></td>
+                                <td><label>Phone</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchphone?>"></td>
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
@@ -89,20 +126,31 @@ include_once 'sidenavbar.php';
 <!--Prereuisites container-->
       		<div class="col-4">
       			<label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-            <button class="btn btn-success"><i class="fas fa-plus"></i></button>
-      			<!-- <input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name=""> -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Add
+                </button>
+                <div class="dropdown-menu">
+                  <option selected disabled value="">-select class-</option>
+                  <h6>Actual Class</h6>
+                  <?php echo $actclass?></a>
+                  <h6>Simulation Class</h6>
+                  <?php echo $simclass?>
+                  <h6>Academic Class</h6>
+                  <?php echo $academicclass?>
+                </div>
+              </div>
+              <input type="text" id="textFieldValueJS" class="form-control"
+                    placeholder="get value on option select">
+
+      		</div>
       		</div>
       	</div>
       </div>
 
       <!--Add Selected Item and fetch-->
        <div class="container">
-         <div class="row">
+         <div class="row" style="width:100%;">
           <center>
            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="student_details"><!-- <br>
          <br><span id="student_details"></span> -->
@@ -114,7 +162,7 @@ include_once 'sidenavbar.php';
 
 <!--Comment box Container-->
 <div class="container">
-  <div class="row">
+  <div class="row" style="width:100%;">
     <div class="col-8">
 
     </div>
