@@ -1,6 +1,9 @@
 
 <?php
 include('connect.php');
+
+
+
 $output="";
 ?>
 <!DOCTYPE html>
@@ -25,6 +28,17 @@ include_once 'header.php';
 ?>
 <?php
 include_once 'sidenavbar.php';
+$classcolor= "SELECT * FROM gradesheet where user_id='$student'";
+$classcolorst= $connect->prepare($classcolor);
+$classcolorst->execute();
+
+if($classcolorst->rowCount() > 0)
+    {
+        $class="btn btn-success";
+    }
+    else{
+        $class="btn btn-dark"; 
+    }
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
@@ -66,8 +80,8 @@ include_once 'sidenavbar.php';
                                 $statement1->execute();  
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
-                                        
-                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php?class='.$row1['symbol'].'">'.$row1['symbol'].'</a>';
+                                       
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'">'.$row1['symbol'].'</a>';
 
                                         
                                     }
