@@ -1,6 +1,8 @@
 <?php
 include('connect.php');
-
+$actclass="";
+$simclass="";
+$academicclass="";
      $in="";
      $q2= "SELECT * FROM users where role='Instructor'";
  $st2 = $connect->prepare($q2);
@@ -16,6 +18,41 @@ include('connect.php');
      
      }
 
+     $q3="SELECT * FROM actual";
+     $st3 = $connect->prepare($q3);
+     $st3->execute();
+     if($st3->rowCount() > 0)
+     {
+       $re3 = $st3->fetchAll();
+       foreach($re3 as $row3)
+       {
+         $actclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row3['actual'].'">'.$row3['actual'].'</option></a>';
+       }
+     }
+     
+     $q4="SELECT * FROM sim";
+     $st4 = $connect->prepare($q4);
+     $st4->execute();
+     if($st4->rowCount() > 0)
+     {
+       $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
+       {
+         $simclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row4['sim'].'">'.$row4['sim'].'</option></a>';
+       }
+     }
+     
+     $q5="SELECT * FROM academic";
+     $st5 = $connect->prepare($q5);
+     $st5->execute();
+     if($st5->rowCount() > 0)
+     {
+       $re5 = $st5->fetchAll();
+       foreach($re5 as $row5)
+       {
+         $academicclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row5['academic'].'">'.$row5['academic'].'</option></a>';
+       }
+     }
      
 
 
@@ -89,13 +126,24 @@ include_once 'sidenavbar.php';
 <!--Prereuisites container-->
       		<div class="col-4">
       			<label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-            <button class="btn btn-success"><i class="fas fa-plus"></i></button>
-      			<!-- <input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name="">
-      			<input type="" name=""> -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Add
+                </button>
+                <div class="dropdown-menu">
+                  <option selected disabled value="">-select class-</option>
+                  <h6>Actual Class</h6>
+                  <?php echo $actclass?></a>
+                  <h6>Simulation Class</h6>
+                  <?php echo $simclass?>
+                  <h6>Academic Class</h6>
+                  <?php echo $academicclass?>
+                </div>
+              </div>
+              <input type="text" id="textFieldValueJS" class="form-control"
+                    placeholder="get value on option select">
+
+      		</div>
       		</div>
       	</div>
       </div>
