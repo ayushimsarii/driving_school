@@ -97,8 +97,11 @@ include_once 'sidenavbar.php';
 	<div>Student name : <?php echo $fetchname?><br>
 	Course name : <?php echo $phpcourse.'<br>';
   if(isset($_GET['class'])){
-  echo 'class : '.$class=$_GET['class'];
+  echo 'class : '.$class=$_GET['class'].'<br>';
   }
+  if(isset($_GET['per'])){
+    echo 'percentage : '.$percentage=$_GET['per'];
+    }
   ?>
 </div>
       	<div class="row" style="width:100%;">

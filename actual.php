@@ -75,13 +75,13 @@ if($classcolorst->rowCount() > 0)
                                 </tr>
                                 <tr>
                                 <?php
-                                $query1 = "SELECT symbol FROM actual where phase='$phase'";
+                                $query1 = "SELECT * FROM actual where phase='$phase'";
                                 $statement1 = $connect->prepare($query1);
                                 $statement1->execute();  
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
                                        
-                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'">'.$row1['symbol'].'</a>';
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'">'.$row1['symbol'].'</a>';
 
                                }
                                 ?>
