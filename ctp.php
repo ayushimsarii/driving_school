@@ -29,9 +29,10 @@
 	}
 	?>
  
-<section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
-    <div class="row justify-content-center align-items-center h-100">
+<!-- <section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100"> -->
+  <center>
+    <div class="row justify-content-center align-items-center m-3" style="width:80%; height:60%;">
       <div class="col-12 col-lg-12 col-xl-9 h-100">
         <div class="card h-100" style="border-radius: 15px;">
           <div class="card-body">
@@ -124,9 +125,10 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </div><br><br><br><br>
+  </center>
+  <!-- </div>
+</section> -->
 <!--Add more manual modal-->
 <div class="modal fade" id="add_manual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document"> 

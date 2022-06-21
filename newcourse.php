@@ -90,14 +90,16 @@ include('connect.php');
 	include_once 'sidenavbar.php';
 	}
 	?>
-<section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
-    <div class="row justify-content-center align-items-center h-100">
+<center>
+<!-- <section class="vh-100 gradient-custom"> -->
+  <!-- <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100" style="width:80%;"> -->
       <div class="col-12 col-lg-12 col-xl-9">
-        <div class="card" style="border-radius: 15px;">
+        <div class="card m-3" style="border-radius: 15px; border: 1px solid black; width:80%;">
           <div class="card-body">
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">New Course Form</h3>
-            <form action="newcoursedata.php" method="post">
+            <center>
+            <form action="newcoursedata.php" method="post" style="width:100%;">
 
               <div class="row m-5">
               <?php 
@@ -184,12 +186,14 @@ include('connect.php');
               </div>
 
             </form>
+            </center>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    <!-- </div>
+  </div> -->
+<!-- </section> -->
+</center>
 <!--add new user-->
 <div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
