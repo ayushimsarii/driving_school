@@ -83,8 +83,7 @@ if($classcolorst->rowCount() > 0)
                                        
                                         echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'">'.$row1['symbol'].'</a>';
 
-                                        
-                                    }
+                               }
                                 ?>
                     
                                 </tr><hr>
