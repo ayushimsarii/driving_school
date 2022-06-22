@@ -26,7 +26,7 @@ $academicclass="";
        $re3 = $st3->fetchAll();
        foreach($re3 as $row3)
        {
-         $actclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row3['actual'].'">'.$row3['actual'].'</option></a>';
+         $actclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row3['symbol'].'">'.$row3['symbol'].'</option></a>';
        }
      }
      
@@ -38,7 +38,7 @@ $academicclass="";
        $re4 = $st4->fetchAll();
        foreach($re4 as $row4)
        {
-         $simclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row4['sim'].'">'.$row4['sim'].'</option></a>';
+         $simclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row4['shortsim'].'">'.$row4['shortsim'].'</option></a>';
        }
      }
      
@@ -50,7 +50,7 @@ $academicclass="";
        $re5 = $st5->fetchAll();
        foreach($re5 as $row5)
        {
-         $academicclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row5['academic'].'">'.$row5['academic'].'</option></a>';
+         $academicclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option></a>';
        }
      }
      
@@ -94,14 +94,14 @@ include_once 'sidenavbar.php';
 	<!--User info fetched in the input box-->
       <div class="container" id="std-info">
       <h3>Gradesheet</h3>
-	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $phpcourse.'<br>';
+	<div>Student name : 
+    <?php echo $fetchname?><br>
+	Course name : 
+  <?php echo $phpcourse.'<br>';
   if(isset($_GET['class'])){
   echo 'class : '.$class=$_GET['class'].'<br>';
   }
-  if(isset($_GET['per'])){
-    echo 'percentage : '.$percentage=$_GET['per'];
-    }
+
   ?>
 </div>
       	<div class="row" style="width:100%;">
@@ -130,25 +130,17 @@ include_once 'sidenavbar.php';
       		</div>
 <!--Prereuisites container-->
       		<div class="col-4">
-      			<label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-            <div class="btn-group">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Add
-                </button>
-                <div class="dropdown-menu">
-                  <option selected disabled value="">-select class-</option>
-                  <h6>Actual Class</h6>
-                  <?php echo $actclass?></a>
-                  <h6>Simulation Class</h6>
-                  <?php echo $simclass?>
-                  <h6>Academic Class</h6>
-                  <?php echo $academicclass?>
-                </div>
-              </div>
-              <input type="text" id="textFieldValueJS" class="form-control"
-                    placeholder="get value on option select">
-
-      		</div>
+            <div class="dropdown">
+            <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
+      		<select style="width:90px;" type="text" id="country" class="btn btn-danger">
+            <option selected disabled value="">Add</option>
+            <option value="<?php echo $actclass?>"></option>
+            <option value="<?php echo $simclass?>"></option>
+            <?php echo $academicclass?>
+          </select>
+          <div id="result"></div> 
+          <button type="button" onclick="GetSelectedText()">Get</button>
+          </div>
       		</div>
       	</div>
       </div>
@@ -193,7 +185,15 @@ include_once 'sidenavbar.php';
                          <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
                      
                    </td></tr>
-                   <tr><td>Percentage</td></tr>
+                   <tr><td><button class="btn btn-info"><i class="fas fa-info-circle"></i></button><input class="form-control" type="text"/>
+                    <?php
+                    if(isset($_GET['per'])){
+                    echo $percentage=$_GET['per'];
+                    }?></td>
+                    </tr>
+                    <tr>
+                      <td><form><input class="btn btn-success" type="button" value="Save" name="save"/></form></td>
+                    </tr>
                 </table>
           </div>
         </div>
@@ -366,37 +366,6 @@ include_once 'sidenavbar.php';
  });
 });    
 </script>
-<!--Script for fetching selected subitems-->
-<!-- <script>
-  $(document).ready(function(){
-
- $('#btnsub').click(function(){
-            var favorite = [];
-            $.each($("input[name='users']:checked"), function(){
-                favorite.push($(this).val());
-            });
-            var users=favorite.join(",");
-         window.location.href = "http://localhost/User%20dahsboard/gradesheet.php?id="+ users;
- // AJAX request
-   $.ajax({
-    url: 'ajax.php',
-    type: 'post',
-    data: {users: users},
-    success: function(response){ 
-      // Add response in Modal body
-      $('#subitem_details').html(response);
-        $("#default2").hide();
-
-
-      // Display Modal
-     // $('#empModal').modal('show'); 
-    }
-  });
- });
-});
-
-    
-</script> -->
 
 
 <script type="text/javascript">
@@ -415,37 +384,14 @@ include_once 'sidenavbar.php';
 </script>
 
 <script type="text/javascript">
-  $(function(){
-    $(document).on("click","#btnsub", function(){
-      var getselectedvalue = $("#table1 input[name='users']:checked").parents("td").siblings("#subitem1");
-      $(".fetch").append(getselectedvalue);
-    })
-  })
+ function GetSelectedText(){
+				var e = document.getElementById("country");
+				var result = e.options[e.selectedIndex].text;
+				
+				document.getElementById("result").innerHTML = result;
+			}
+			
 </script>
-
-<!-- <script type="text/javascript">
-    function GetSelected() {
-        //Reference the Table.
-        var grid = document.getElementById("Table1");
- 
-        //Reference the CheckBoxes in Table.
-        var checkBoxes = grid.getElementsByTagName("INPUT");
-        var message = "Id item \n";
- 
-        //Loop through the CheckBoxes.
-        for (var i = 0; i < checkBoxes.length; i++) {
-            if (checkBoxes[i].checked) {
-                var row = checkBoxes[i].parentNode.parentNode;
-                message += row.cells[1].innerHTML;
-                message += "   " + row.cells[2].innerHTML;
-                message += "\n";
-            }
-        }
- 
-        //Display selected Row data in Alert Box.
-          alert(message);
-    }
-</script> -->
 
 
 <!--REmove item fron gradesheet-->
@@ -463,24 +409,28 @@ function deleteRow1(r) {
 }
 </script>
 
+
+
 <!--Radio option storing-->
 
-<!-- <script type="text/javascript">
-  const myForm = document.forms['my-form']
-
-  myForm.radioChoice = {}
-
-  myForm.oninput = ({target}) =>
-    {
-    if( target.type === 'radio')
-      {
-      if (!myForm.radioChoice[target.name])
-        myForm.radioChoice[target.name] = target.value
-      else
-        myForm[target.name].value = myForm.radioChoice[target.name]
-      }
+ <script type="text/javascript">
+ function classes() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("classsearch");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("divclass");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
     }
-</script> -->
+  }
+}
+</script>
+</script>
 
 </body>
 </html>
