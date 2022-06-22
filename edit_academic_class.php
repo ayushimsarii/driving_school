@@ -1,8 +1,8 @@
 <?php
 include('connect.php');
 echo $id=$_POST['id'];
-$actual=$_POST['academic'];
-$symbol=$_POST['shortacademic'];
+$academic=$_POST['academic'];
+$shortacademic=$_POST['shortacademic'];
 $phase=$_POST['phase'];
 $ctp=$_POST['ctp'];
 $ptype=$_POST['ptype'];
