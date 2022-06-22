@@ -110,51 +110,52 @@ $(document).ready(function(){
             <button class="btn btn-warning" id="btn-warning" type="button" data-toggle="modal" data-target="#user_list">User List</button>
         </div>
         <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
+            <button class="btn btn-info" type="button" data-toggle="modal" data-target="#addpercentage">Insert Percentage</button>
             <button class="btn btn-success" id="scorebtn" type="button">Percentage</button>
             <div class="container">
                         <br>
                          <div class="row">
                           <center>
-                          <table style="width:80%;display:none;" class="table table-striped table-bordered" id="scoretable">
-                            <input style="width:50%; display: none;" class="form-control" type="text" id="scoresearch" onkeyup="score()" placeholder="Search for Vehicle name.." title="Type in a name">
-                            <tr>
-                              <th>Type</th>
-                              <th>Percentage</th>
-                              <th>Color</th>
-                            </tr>
-                            <tbody>
-                              <tr>
-                                <td>U-Unsastisfied</td>
-                                <td>Less Than 60%</td>
-                                <td style="color:red;">Red</td>
-                              </tr>
-                              <tr>
-                                <td>F-Fair</td>
-                                <td>Less Than 70%</td>
-                                <td style="color:yellow;">Yellow</td>
-                              </tr>
-                              <tr>
-                                <td>G-Good</td>
-                                <td>Less Than 80%</td>
-                                <td style="color:green;">Green</td>
-                              </tr>
-                              <tr>
-                                <td>V-Very Good</td>
-                                <td>Less Than 90%</td>
-                                <td style="color:#8ee08e;">Light Green</td>
-                              </tr>
-                              <tr>
-                                <td>E-Excellent</td>
-                                <td>Less Than 100%</td>
-                                <td style="color:blue;">Light Blue</td>
-                              </tr>
-                              <tr>
-                                <td>N-None</td>
-                                <td>None</td>
-                                <td style="color:orange;">Orange</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <table style="width:100%;display:none;" class="table table-striped" id="scoretable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="scoresearch" onkeyup="score()" placeholder="Search for name.." title="Type in a name">
+                          <tr>
+                        <th>Sr No</th>
+                        <th>Type</th>
+                        <th>Percentage</th>
+                        <th>Color</th>
+                        <th>Action</th>
+                      
+                    </tr>
+                                <?php 
+                               $output6 ="";
+                               $query6 = "SELECT * FROM percentage  ORDER BY id ASC";
+                               $statement6 = $connect->prepare($query6);
+                               $statement6->execute();
+                               if($statement1->rowCount() > 0)
+                               {
+                                   $result6 = $statement6->fetchAll();
+                                   $sn6=1;
+                                   foreach($result6 as $row6)
+                                   {
+                                        ?>
+                                         <tr>
+             <td><?php echo $id=$row6['id'];?></td>
+             <td><?php echo $row6['percentagetype'];?></td>
+             <td><?php echo $row6['percentage'];?></td>
+             <td><?php echo $row6['color'];?></td>
+             <td><a onclick="document.getElementById('perid').value='<?php echo $row6['id'] ?>';
+                            
+                            document.getElementById('percentage_name').value='<?php echo $row6['percentage'] ?>';
+                            
+                            " data-toggle="modal" data-target="#editpercentage"><i class="fas fa-edit"></i></a>
+                            </td>
+             </tr>
+              <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
                          </center>
                           </div>
                       </div>
@@ -223,9 +224,9 @@ $(document).ready(function(){
               <button class="btn btn-warning" type="button" id="newcoursebtn">New Course List</button>
               <div class="container">
                         <br>
-                         <div class="row">
+                         <div class="row" style="width:80%;">
                         <center>
-                          <table style="width:80%;display:none;" class="table table-striped" id="newcoursetable">
+                          <table style="width:100%;display:none;" class="table table-striped" id="newcoursetable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="newcoursesearch" onkeyup="newcourse()" placeholder="Search for Course name.." title="Type in a name">
                           <tr>
                         <th>Sr No</th>
@@ -286,9 +287,9 @@ $(document).ready(function(){
               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#ctp_list" id="ctpbtn">CTP List</button>
               <div class="container">
                         <br>
-                         <div class="row">
+                         <div class="row" style="width:90%;">
                         <center>
-                          <table style="width:80%;display:none;" class="table table-striped" id="ctptable">
+                          <table style="width:100%;display:none;" class="table table-striped" id="ctptable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="ctpsearch" onkeyup="ctp()" placeholder="Search for Course name.." title="Type in a name">
                           <tr>
                         <th>Sr No</th>
@@ -354,7 +355,7 @@ $(document).ready(function(){
                          <div class="row">
                         <center>
 
-                          <table style="width:80%;display:none;" class="table table-striped table-bordered" id="departmenttable">
+                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="departmenttable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="departmentsearch" onkeyup="department()" placeholder="Search for name.." title="Type in a name">
                           <tr>
                         <th>Sr No</th>
@@ -500,6 +501,30 @@ $(document).ready(function(){
           </div>
         </div>
       </div>
+
+<!--Edit Percentage Table-->
+<div class="modal fade" id="editpercentage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Percentage</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="edit_percentage.php">
+              <input type="hidden" name="id" value="" id="perid">
+              <!-- <input type="text" name="percentagetype" value="" id="percentage_type"> -->
+              <input type="text" name="percentage" value="" id="percentage_name">
+              <!-- <input type="text" name="color" value="" id="percentage_color"> -->
+              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
 <!--Add Vehicle Modal-->
 <div class="modal fade" id="addvehicle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -541,7 +566,41 @@ $(document).ready(function(){
           </div>
         </div>
 
+<!--Add Percentage modal-->
+<div class="modal fade" id="addpercentage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Percentage</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <center>
+                        <form action="insert_percentage_data.php" method="post">
 
+                            <div class="form-outline">
+                                <label class="form-label" for="percentagetype">Percentage Type</label>
+                                <input type="text" id="course" name="percentagetype" class="form-control form-control-md" />
+                            </div>
+
+                            <div class="form-outline">
+                                <label class="form-label" for="percentage">Percentage</label>
+                                <input type="text" id="addmanual" name="percentage" class="form-control form-control-md" />
+                            </div>
+
+                            <div class="form-outline">
+                                <label class="form-label" for="color">Color</label>
+                                <input type="text" id="coursecode" name="color" class="form-control form-control-md" />
+                            </div><br>
+                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="submitpercentage" />
+                        </form>
+                </center>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 
@@ -864,7 +923,7 @@ function score() {
   table = document.getElementById("scoretable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
+    td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {

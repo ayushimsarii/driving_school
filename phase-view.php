@@ -237,13 +237,13 @@ $(document).ready(function(){
                                             <td><?php echo $row['percentage'] ?></td>
                                             <td><?php echo $row['phase'] ?></td>
                                             <td><?php echo $row['ctp'] ?></td>
-                                            <td><a onclick="document.getElementById('aca-id').value='<?php echo $id=$row['id'] ?>';
-                                               document.getElementById('academic-name').value='<?php echo $row['academic'] ?>';
-                                               document.getElementById('shortacademic-name').value='<?php echo $row['shortacademic'] ?>';
-                                               document.getElementById('ptype-3').value='<?php echo $row['ptype'] ?>';
-                                               document.getElementById('percentage-3').value='<?php echo $row['percentage'] ?>';
-                                               document.getElementById('academic-phase').value='<?php echo $row['phase'] ?>';
-                                               document.getElementById('academic-ctp').value='<?php echo $row['sim'] ?>';
+                                            <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('academicname').value='<?php echo $row['academic'] ?>';
+                                               document.getElementById('shortacademicname').value='<?php echo $row['shortacademic'] ?>';
+                                               document.getElementById('ptype3').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('percentage3').value='<?php echo $row['percentage'] ?>';
+                                               document.getElementById('academicphase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('academicctp').value='<?php echo $row['ctp'] ?>';
                                             " data-toggle="modal" data-target="#editacademic"><i class="fas fa-edit"></i></a>
                                             </a>
                                             <a href="academic-delet.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
@@ -416,14 +416,14 @@ $(document).ready(function(){
               </div>
               <div class="modal-body">
                 <form method="post" action="edit_academic_class.php">
-                <input type="text" name="id" value="" id="aca-id" readonly>
-              <input type="text" name="academic" value="" id="academic-name">
-              <input type="text" name="shortacademic" value="" id="shortacademic-name">
-              <input type="text" name="ptype" value="" id="ptype-3">
-              <input type="text" name="percentage" value="" id="percentage-3">
-              <input type="text" name="phase" value="" id="academic-phase">
-              <input type="text" name="ctp" value="" id="academic-ctp">
-              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                <input type="text" name="id" value="" id="acaid" readonly>
+              <input type="text" name="academic" value="" id="academicname">
+              <input type="text" name="shortacademic" value="" id="shortacademicname">
+              <input type="text" name="ptype" value="" id="ptype3">
+              <input type="text" name="percentage" value="" id="percentage3">
+              <input type="text" name="phase" value="" id="academicphase">
+              <input type="text" name="ctp" value="" id="academicctp">
+              <input class="btn btn-primary" type="submit" name="submit1" value="Submit">
                                   </form>
             </div>
           </div>
