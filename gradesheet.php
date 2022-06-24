@@ -153,6 +153,8 @@ include_once 'sidenavbar.php';
          <br><span id="student_details"></span> -->
             <i class="fas fa-plus-hexagon"></i>ADD
           </button>
+
+          <button type="button" data-toggle="modal" data-target="#infopercentage">Info</button>
         </center>
          </div>
        </div>
@@ -171,7 +173,7 @@ include_once 'sidenavbar.php';
                 <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio"  value="U"/><span style="font-weight:bold;">U</span>
+                         <input type="radio"  value="U" name="U"/><span style="font-weight:bold;">U</span>
                       
                       
                          <input type="radio" value="F"/><span style="font-weight:bold;"> F </span>
@@ -185,14 +187,15 @@ include_once 'sidenavbar.php';
                          <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
                      
                    </td></tr>
-                   <tr><td><button class="btn btn-info"><i class="fas fa-info-circle"></i></button><input class="form-control" type="text"/>
+                   <tr><td><input class="form-control" id="gradesper"/></td></tr>
+                   <tr><td>
                     <?php
                     if(isset($_GET['per'])){
                     echo $percentage=$_GET['per'];
                     }?></td>
                     </tr>
                     <tr>
-                      <td><form><input class="btn btn-success" type="button" value="Save" name="save"/></form></td>
+                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" onclick="displayRadioValue()"/></form></td>
                     </tr>
                 </table>
           </div>
@@ -329,8 +332,31 @@ include_once 'sidenavbar.php';
             </div>
         </div>
 
+<!--modal for percentage info-->
+<div class="modal fade" id="infopercentage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Percentage</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <center>
+                        <form action="insert_item.php" method="post">
 
-
+                            <div class="form-outline">
+                                <label class="form-label" for="coursename">Item</label>
+                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
+                            </div><br>
+                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
+                        </form>
+                </center>
+              </div>
+            </div>
+          </div>
+        </div>
         
 
 <!--Checkbox fetching and display on alert box-->
@@ -430,7 +456,18 @@ function deleteRow1(r) {
   }
 }
 </script>
-</script>
+
+<script>
+        function displayRadioValue() 
+        {
+            var per = document.getElementById("gardesper").value;
+            if(per < 60)
+            {
+              alert("Can't Give less per");
+            }
+            
+        }
+    </script>
 
 </body>
 </html>
