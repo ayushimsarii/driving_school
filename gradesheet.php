@@ -26,7 +26,7 @@ $academicclass="";
        $re3 = $st3->fetchAll();
        foreach($re3 as $row3)
        {
-         $actclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row3['symbol'].'">'.$row3['symbol'].'</option></a>';
+         $actclass.='<option value="'.$row3['symbol'].'">'.$row3['symbol'].'</option>';
        }
      }
      
@@ -38,7 +38,7 @@ $academicclass="";
        $re4 = $st4->fetchAll();
        foreach($re4 as $row4)
        {
-         $simclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row4['shortsim'].'">'.$row4['shortsim'].'</option></a>';
+         $simclass.='<option value="'.$row4['shortsim'].'">'.$row4['shortsim'].'</option>';
        }
      }
      
@@ -50,7 +50,7 @@ $academicclass="";
        $re5 = $st5->fetchAll();
        foreach($re5 as $row5)
        {
-         $academicclass.='<a class="dropdown-item" href="" style="color:black;"><option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option></a>';
+         $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
      
@@ -72,6 +72,8 @@ $academicclass="";
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <link rel="stylesheet" type="text/css" href="sidestyle.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <?php 
     if(isset($_REQUEST['error']))
@@ -132,11 +134,10 @@ include_once 'sidenavbar.php';
       		<div class="col-4">
             <div class="dropdown">
             <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-      		<select style="width:90px;" type="text" id="country" class="btn btn-danger">
+      		<select style="width:90px;" type="text" id="country" class="form-control multiple-select" name="class[]" multiple>
             <option selected disabled value="">Add</option>
-            <option value="<?php echo $actclass?>"></option>
-            <option value="<?php echo $simclass?>"></option>
-            <?php echo $academicclass?>
+            <?php echo $actclass?>
+            <?php echo $academicclass?> <?php echo $simclass?>
           </select>
           <div id="result"></div> 
           <button type="button" onclick="GetSelectedText()">Get</button>
@@ -468,6 +469,11 @@ function deleteRow1(r) {
             
         }
     </script>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(".multiple-select").select2({
+ // maximumSelectionLength: 2
+});
+</script>
 </body>
 </html>
