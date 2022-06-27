@@ -161,6 +161,7 @@ $(document).ready(function(){
                                         $fetchid=$rowname2['studid'];                                 }
                                         $fetchrole=$rowname2['role'];
                                         $fetchphone=$rowname2['phone'];
+                                        $fetchuser_id=$rowname2['id'];
                                     }
                             }
                       ?>
