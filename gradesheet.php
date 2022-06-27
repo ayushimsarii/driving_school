@@ -155,7 +155,8 @@ include_once 'sidenavbar.php';
             <i class="fas fa-plus-hexagon"></i>ADD
           </button>
 
-          <button type="button" data-toggle="modal" data-target="#infopercentage">Info</button>
+         
+          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#detailsper">Info</button>
         </center>
          </div>
        </div>
@@ -203,138 +204,8 @@ include_once 'sidenavbar.php';
         </div>
       </div>
 
-<!-- Modal for Add Items and show and select the item-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Item Bank Table</h5>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times"></i></span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="container" id="lock2">
-
-<!--Add Item button-->
-                  <div class="row">
-                    <center>
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#additem">Add Item</button>
-                    </center>
-                  </div>
-                  <table style="width:100%;" class="table table-striped table-bordered" id="itemtable">
-                            <input style="width:100%;" class="login-input" type="text" id="itemsearch" onkeyup="item()" placeholder="Search for Vehicle name.." title="Type in a name">
-                                <tr>
-                                    <th>Check</th>
-                                    <th>Sr No</th>
-                                    <th>Item</th>
-                                    <th>Action</th>
-                                  
-                                </tr>
-                                <?php 
-                                $output ="";
-                                $query = "SELECT * FROM itembank  ORDER BY id ASC";
-                                $statement = $connect->prepare($query);
-                                $statement->execute();
-                                if($statement->rowCount() > 0)
-                                    {
-                                        $result = $statement->fetchAll();
-                                        $sn=1;
-                                        foreach($result as $row)
-                                        { ?>
-                                           
-                                            <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
-                                            <td><?php echo $row['item'] ?></td>
-                                            <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
-                                               document.getElementById('item').value='<?php echo $row['item'] ?>';
-                                            " data-toggle="modal" data-target="#itemModal"><i class="fas fa-edit"></i></a>
-                                            </a>
-                                            <a href="item_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
-                                           
-                                          </td>
-                                        </tr>
-                                            <?php
-                                        }
-                                    
-                                    }        
-       ?>      
-                            </table>
-              </div>   
-<!--Fetch item from the database and select from here to the gradesheet-->            
-                       
-    </div>
-    <div class="modal-footer">
-          <button id="btnitem" type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
-        </div>
-  </div>
-</div>
-
-<!--Add Item modal to the database-->
-<div class="modal fade" id="additem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Vehicles</h5>
-                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <center>
-                        <form action="insert_item.php" method="post">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="coursename">Item</label>
-                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
-                            </div><br>
-                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
-                        </form>
-                </center>
-              </div>
-            </div>
-          </div>
-        </div>
-<!--Add Subitem modal to the database-->
-<div class="modal fade" id="insert subitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">SubItem Bank</h5>
-                    <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                      <center>
-                        <?php include 'subitem.php' ?>
-                        <form action="subitem.php" method="post" id="gradesheet" name="div">
-                          <!--Item input box-->
-                            <!-- <label>Item</label><br> -->
-                            <input type="text" name="subitem" id="item2" value="" placeholder="Enter SubItem"><br>
-                            <div class="modal-footer">
-                              <input type="submit" name="InsertSub" class="btn btn-primary" value="Insert" onclick="show()">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                            </div>
-                            <!-- <input type="submit" name="Insert" class="btn btn-primary" value="Insert"> -->
-                        </form>
-                        <button class="btn btn-primary" onclick="add()"><i class="fas fa-plus"></i></button>
-                          <button class="btn btn-secondary" onclick="remove()"><i class="fas fa-minus"></i></button><br>
-                          
-                      </center>
-                  </div>
-                  <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div> -->
-                </div>
-            </div>
-        </div>
-
 <!--modal for percentage info-->
-<div class="modal fade" id="infopercentage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailsper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -360,115 +231,8 @@ include_once 'sidenavbar.php';
         </div>
         
 
-<!--Checkbox fetching and display on alert box-->
-<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<!--Script for fetching selected items-->
-<script>
-  $(document).ready(function(){
-
- $('#btnitem').click(function(){
-            var favorite = [];
-            $.each($("input[name='users']:checked"), function(){
-                favorite.push($(this).val());
-            });
-            var users=favorite.join(",");
-         window.location.href = "http://localhost/User%20dahsboard/gradesheet.php?id="+ users;
- // AJAX request
-   $.ajax({
-    url: 'ajax.php',
-    type: 'post',
-    data: {users: users},
-    success: function(response){ 
-      // Add response in Modal body
-      $('#student_details').html(response);
-        $("#default").hide();
 
 
-      // Display Modal
-     // $('#empModal').modal('show'); 
-    }
-  });
- });
-});    
-</script>
-
-
-<script type="text/javascript">
-  function hide()
-  {
-    document.getElementById('exampleModal').style.display = "none";
-  }
-</script>
-
-
-<script type="text/javascript">
-  function show()
-  {
-    document.getElementById('exampleModal').style.display = "block";
-  }
-</script>
-
-<script type="text/javascript">
- function GetSelectedText(){
-				var e = document.getElementById("country");
-				var result = e.options[e.selectedIndex].text;
-				
-				document.getElementById("result").innerHTML = result;
-			}
-			
-</script>
-
-
-<!--REmove item fron gradesheet-->
-<script>
-function deleteRow(r) {
-  var i = r.parentNode.parentNode.rowIndex;
-  document.getElementById("default").deleteRow(i);
-}
-</script>
-
-<script>
-function deleteRow1(r) {
-  var i = r.parentNode.parentNode.rowIndex;
-  document.getElementById("default2").deleteRow(i); 
-}
-</script>
-
-
-
-<!--Radio option storing-->
-
- <script type="text/javascript">
- function classes() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("classsearch");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("divclass");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
-}
-</script>
-
-<script>
-        function displayRadioValue() 
-        {
-            var per = document.getElementById("gardesper").value;
-            if(per < 60)
-            {
-              alert("Can't Give less per");
-            }
-            
-        }
-    </script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(".multiple-select").select2({
