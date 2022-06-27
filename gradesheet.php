@@ -53,6 +53,25 @@ $academicclass="";
          $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
+     $per_table_data="";
+     $per="SELECT * FROM percentage";
+     $per5 = $connect->prepare($per);
+     $per5->execute();
+     if($per5->rowCount() > 0)
+     {
+       $reper55 = $per5->fetchAll();
+       $sn=1;
+       foreach($reper55 as $rowper5)
+       {
+         $per_table_data.='<tr>
+         <td>'.$sn++.'</td>
+         <td>'.$rowper5['percentagetype'].'</td>
+             <td>'.$rowper5['percentage'].'</td>
+             <td>'.$rowper5['color'].'</td>
+                 
+         </tr>';
+       }
+     }
 
 ?>
 <?php
@@ -274,14 +293,15 @@ include_once 'sidenavbar.php';
               </div>
               <div class="modal-body">
                 <center>
-                        <form action="insert_item.php" method="post">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="coursename">Item</label>
-                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
-                            </div><br>
-                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
-                        </form>
+                <table class="table table-striped table-bordered">
+								<tr>
+									<th>Id</th>
+									<th>Type</th>
+									<th>Percentage</th>
+                  <th>Color</th>
+								</tr>
+								<?php echo $per_table_data?>
+							</table>
                 </center>
               </div>
             </div>
