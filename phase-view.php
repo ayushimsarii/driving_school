@@ -30,6 +30,13 @@ $(document).ready(function(){
     $("#academictable").show();
     $("#academicsearch").show();
   });
+  $('#mark_type').on('change', function(){
+          
+          var type = $(this).val();
+          console.log(type);
+          $(".type_value").val(type);
+          $(".type").val('percentage');
+        });
 });
 </script>
 		<body>
@@ -274,6 +281,11 @@ $(document).ready(function(){
                 $error=$_REQUEST['error'];
                 echo $error;
                 }?>
+                   <select class="form-select mt-3" name="role" required id="mark_type">
+                                      <option selected value="">-select type-</option>
+                                    <option value="100">percentage type</option>
+                               </select>
+                               <br>
 					<!--Adding actual Classes-->
 						<h3>Class : <span>Actual</span></h3>
 							<form class="insert-phases" id="actual" method="post" action="actual_insert_data.php">
@@ -285,8 +297,8 @@ $(document).ready(function(){
 													<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 														<td class="short"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?" required=""></td>
 														<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>
-														<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
-														<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
+                            <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
+														<td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 														<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
 													</tr>
 										</table>
@@ -313,8 +325,8 @@ $(document).ready(function(){
 									<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 										<td class="short"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
 										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>
-										<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
-										<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
+                    <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
+										<td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 										<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
 									</tr>
 								</table>
@@ -341,8 +353,8 @@ $(document).ready(function(){
 									<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
 										<td class="short"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>
 										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>
-										<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>
-										<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
+                    <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
+										<td class="short"><input maxlength="10" type="number" readonly class="type_value" name="percentage[]" class="form-control" placeholder="Percentage"></td>
 										<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
 									</tr>
 								</table>
@@ -450,8 +462,8 @@ include_once 'footer.php';
 			 		var html = '<tr>\
 									<td style="text-align: center;"><input type="text" name="actual[]" class="form-control" placeholder="Enter How many Actual Classes you want?"></td>\
 									<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>\
-									<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
-									<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+                  <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+                  <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
 									<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
 								</tr>'
 				    var max = 5;
@@ -480,8 +492,8 @@ include_once 'footer.php';
 		 		var html1 = '<tr>\
 								<td style="text-align: center;"><input type="text" name="sim[]" class="form-control" placeholder="Enter How many Sim Classes you want?"></td>\
 								<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>\
-								<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
-								<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+                <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+                <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
 								<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
 							</tr>'
 			    var max1 = 5;
@@ -511,8 +523,8 @@ include_once 'footer.php';
 		 		var html2 = '<tr>\
 								<td style="text-align: center;"><input type="text" name="academic[]" class="form-control" placeholder="Enter How many academic Classes you want?"></td>\
 								<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>\
-								<td class="short"><input maxlength="10" type="text" name="ptype[]" class="form-control" placeholder="% Type"></td>\
-								<td class="short"><input maxlength="10" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+                <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+                <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
 								<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
 							</tr>'
 			    var max2 = 5;
