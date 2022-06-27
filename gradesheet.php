@@ -586,7 +586,7 @@ include_once 'sidenavbar.php';
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="V"/> V \
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="E"/> E \
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="N"/> N \
-        </td><td><button class="btn btn-danger">Remove</button></td></tr>\
+        </td><td><button class="btn btn-danger" id="rembtn">Remove</button></td></tr>\
         <tr id="job_description_'+sid+'"></tr>';
 		}
 		
@@ -624,7 +624,7 @@ include_once 'sidenavbar.php';
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="E"/> E \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="N"/> N \
-      </td><td style="width:100px;"><button class="btn btn-danger">Remove</button></td></tr><br>';
+      </td><td style="width:100px;"><button class="btn btn-danger" id="rembtn2">Remove</button></td></tr><br>';
 					$("#job_description_"+stId).before(rows);
 		}
 		else{
@@ -642,7 +642,7 @@ include_once 'sidenavbar.php';
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
-				 </td><td><button class="btn btn-danger">Remove</button></td></tr>';
+				 </td><td><button class="btn btn-danger" id="rembtn1">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}
 		}
@@ -661,6 +661,25 @@ include_once 'sidenavbar.php';
 
 	});
 	
+
+</script>
+
+<script>
+$(document).ready(function(){
+
+ $("#radio").on('click','#rembtn',function(){
+       $(this).closest('tr').remove();
+     });
+
+	 $("#radio").on('click','#rembtn1',function(){
+       $(this).closest('tr').remove();
+     });
+
+	 $("#radio").on('click','#rembtn2',function(){
+       $(this).closest('tr').remove();
+     });
+
+});
 
 </script>
 </body>
