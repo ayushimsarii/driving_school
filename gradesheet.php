@@ -263,6 +263,8 @@ include_once 'sidenavbar.php';
 
             <div class="col-4">
             <table>
+				<center>
+				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper">Info</button></center>
                 <tr>
                    <td style="display: flex;">
                       
@@ -279,7 +281,8 @@ include_once 'sidenavbar.php';
                       
                          <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
                      
-                   </td></tr>
+                   </td>
+				</tr>
                    <tr><td><input class="form-control" id="gradesper"/></td></tr>
                    <tr><td>
                     <?php
@@ -615,7 +618,7 @@ include_once 'sidenavbar.php';
 			rows+= '<tr><td style="width:100px;" class="td">'+alphabet[0].toUpperCase()+'</td><td>'+arr[0]+'\
       <input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'"> \
       <input style="display:none;" type="text" name="std_sub[]" value="'+arr[0]+'"> </td> \
-      <td style="width:300px; display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
+      <td style="display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="F"/> F \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="G"/> G \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
@@ -630,7 +633,16 @@ include_once 'sidenavbar.php';
 				rows = "";
 				var job = $("#jobinfo_"+j).attr('data-name-'+j);
 				var jid = $("#jobinfo_"+j).attr('data-tr-id_'+j);
-				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td><td>'+arr[j]+'<input type="text" name="std_idies[]" value="'+stdbId+'"><input type="text" name="std_sub[]" value="'+arr[j]+'"> </td> <td><input type="radio" name="grade['+arr[j]+stdbId+']" value="A"/> A<input type="radio" name="grade['+arr[j]+stdbId+']" value="B"/> B<input type="radio" name="grade['+arr[j]+stdbId+']" value="C"/> C<input type="radio" name="grade['+arr[j]+stdbId+']" value="D"/> D<input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E</td><td><button class="btn btn-danger">Remove</button></td></tr>';
+				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td>\
+				<td>'+arr[j]+'<input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'">\
+				<input style="display:none;" type="text" name="std_sub[]" value="'+arr[j]+'"> </td>\
+				 <td style="display:flex;"><input type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="F"/> F\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="G"/> G\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
+				 </td><td><button class="btn btn-danger">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}
 		}
