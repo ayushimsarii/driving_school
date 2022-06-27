@@ -53,6 +53,25 @@ $academicclass="";
          $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
+     $per_table_data="";
+     $per="SELECT * FROM percentage";
+     $per5 = $connect->prepare($per);
+     $per5->execute();
+     if($per5->rowCount() > 0)
+     {
+       $reper55 = $per5->fetchAll();
+       $sn=1;
+       foreach($reper55 as $rowper5)
+       {
+         $per_table_data.='<tr>
+         <td>'.$sn++.'</td>
+         <td>'.$rowper5['percentagetype'].'</td>
+             <td>'.$rowper5['percentage'].'</td>
+             <td>'.$rowper5['color'].'</td>
+                 
+         </tr>';
+       }
+     }
 
 ?>
 <?php
@@ -229,7 +248,23 @@ include_once 'sidenavbar.php';
               <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
 
               <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
-              <table>
+          </div>
+        </div>
+
+        <div class="row" style="width:100%;">
+            <div class="col-8">
+              <center>
+                <form>
+                  <textarea style="width:90%;">Overall</textarea><br>
+                  <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
+                </form>
+              </center>
+            </div>
+
+            <div class="col-4">
+            <table>
+				<center>
+				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper">Info</button></center>
                 <tr>
                    <td style="display: flex;">
                       
@@ -246,7 +281,8 @@ include_once 'sidenavbar.php';
                       
                          <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
                      
-                   </td></tr>
+                   </td>
+				</tr>
                    <tr><td><input class="form-control" id="gradesper"/></td></tr>
                    <tr><td>
                     <?php
@@ -258,7 +294,7 @@ include_once 'sidenavbar.php';
                       <td><form><input class="btn btn-success" type="button" value="Save" name="save" onclick="displayRadioValue()"/></form></td>
                     </tr>
                 </table>
-          </div>
+            </div>
         </div>
       </div>
 
@@ -274,20 +310,20 @@ include_once 'sidenavbar.php';
               </div>
               <div class="modal-body">
                 <center>
-                        <form action="insert_item.php" method="post">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="coursename">Item</label>
-                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
-                            </div><br>
-                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
-                        </form>
+                <table class="table table-striped table-bordered">
+								<tr>
+									<th>Id</th>
+									<th>Type</th>
+									<th>Percentage</th>
+                  <th>Color</th>
+								</tr>
+								<?php echo $per_table_data?>
+							</table>
                 </center>
               </div>
             </div>
           </div>
         </div>
-<<<<<<< HEAD
     
 <!--Item Modal-->
 <div class="modal fade" id="insert item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -432,7 +468,7 @@ include_once 'sidenavbar.php';
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Item</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sub Item</h5>
                 <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true"><i class="fas fa-times"></i></span>
                 </button>
@@ -442,7 +478,7 @@ include_once 'sidenavbar.php';
                         <form action="insert_subitem.php" method="post">
 
                             <div class="form-outline">
-                                <label class="form-label" for="coursename">Item</label>
+                                <label class="form-label" for="coursename">Sub Item</label>
                                 <input type="text" id="course" name="subitem" class="form-control form-control-md" />
                             </div><br>
                                 <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
@@ -452,7 +488,61 @@ include_once 'sidenavbar.php';
             </div>
           </div>
         </div>
+<!--Additional Training modal-->
 
+<div class="modal fade" id="additional-training" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Additional Item</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+				
+						<table class="table table-bordered src-table1">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Id</th>
+									<th>Item</th>
+								
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$studentJobsArr = array();
+								if(count($students) > 0)
+								{
+									$studentJobsArr[] = 
+									$totalStudents = count($students);
+									$i = 0;
+									foreach($students as $student)
+									{
+										?>
+										<tr id="check_<?php echo $i;?>" data-total-record="<?php echo $totalStudents;?>" data-tr-id_<?php echo $i;?>="<?php echo $student['id'];?>" data-name-<?php echo $i;?>="<?php echo $student['item'];?>">
+											<td><input type="checkbox" name="itemcheck[]" id="<?php echo $student['id']; ?>" value="<?php echo $student['item'];?>" /></td>
+											<td><?php echo $student['id'];?></td>
+											<td><?php echo $student['item'];?></td>
+										
+										</tr>
+										<?php
+										$i++;
+									}
+								}
+								?>
+								      
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" id="submitstudent">Select</button>
+					</div>
+				</div>
+			</div>
+		</div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(".multiple-select").select2({
@@ -528,7 +618,7 @@ include_once 'sidenavbar.php';
 			rows+= '<tr><td style="width:100px;" class="td">'+alphabet[0].toUpperCase()+'</td><td>'+arr[0]+'\
       <input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'"> \
       <input style="display:none;" type="text" name="std_sub[]" value="'+arr[0]+'"> </td> \
-      <td style="width:300px; display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
+      <td style="display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="F"/> F \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="G"/> G \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
@@ -543,7 +633,16 @@ include_once 'sidenavbar.php';
 				rows = "";
 				var job = $("#jobinfo_"+j).attr('data-name-'+j);
 				var jid = $("#jobinfo_"+j).attr('data-tr-id_'+j);
-				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td><td>'+arr[j]+'<input type="text" name="std_idies[]" value="'+stdbId+'"><input type="text" name="std_sub[]" value="'+arr[j]+'"> </td> <td><input type="radio" name="grade['+arr[j]+stdbId+']" value="A"/> A<input type="radio" name="grade['+arr[j]+stdbId+']" value="B"/> B<input type="radio" name="grade['+arr[j]+stdbId+']" value="C"/> C<input type="radio" name="grade['+arr[j]+stdbId+']" value="D"/> D<input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E</td><td><button class="btn btn-danger">Remove</button></td></tr>';
+				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td>\
+				<td>'+arr[j]+'<input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'">\
+				<input style="display:none;" type="text" name="std_sub[]" value="'+arr[j]+'"> </td>\
+				 <td style="display:flex;"><input type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="F"/> F\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="G"/> G\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
+				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
+				 </td><td><button class="btn btn-danger">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}
 		}
