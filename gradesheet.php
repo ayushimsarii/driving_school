@@ -72,7 +72,17 @@ $academicclass="";
          </tr>';
        }
      }
-
+	 $q5="SELECT * FROM academic";
+     $st5 = $connect->prepare($q5);
+     $st5->execute();
+     if($st5->rowCount() > 0)
+     {
+       $re5 = $st5->fetchAll();
+       foreach($re5 as $row5)
+       {
+         $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
+       }
+     }
 ?>
 <?php
 /** database connection **/
@@ -100,7 +110,7 @@ if ($st->num_rows > 0)
 
 /**
 * get jobs **/
-$sql2 = "SELECT * FROM subitem";
+$sql2 = "SELECT * FROM sub_item";
 $jb = $mysqli->query($sql2);
 $jobs = array();
 if ($jb->num_rows > 0) 
@@ -133,13 +143,7 @@ $mysqli->close();
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
-<?php 
-    if(isset($_REQUEST['error']))
-      {
-        $error=$_REQUEST['error'];
-        echo "<script>alert('$error');</script>";
-      }
-?>
+
 
 <body>
 <?php
@@ -150,10 +154,15 @@ include_once 'sidenavbar.php';
 ?>
   <!--Username dashboard info-->
   <div class="container">
-  
+
 	<!--User info fetched in the input box-->
       <div class="container" id="std-info">
-      <h3>Gradesheet</h3>
+      <h3>Gradesheet</h3><?php 
+                if(isset($_REQUEST['error']))
+                {
+                $error=$_REQUEST['error'];
+                echo $error;
+                }?>
 	<div>Student name : 
     <?php echo $fetchname?><br>
 	Course name : 
@@ -163,7 +172,7 @@ include_once 'sidenavbar.php';
   }
 
   ?>
-</div>
+</div>  
       	<div class="row" style="width:100%;">
       		<div class="col-8">
       			<table>
@@ -225,6 +234,7 @@ include_once 'sidenavbar.php';
     <div class="col-8">
       <center>
        <form method="get" action="form_submit.php" style="width:95%;">
+
 					<table class="table table-bordered target-table" id="radio">
 							<thead class="thead-dark" style="background-color:black;">
 								<tr>
@@ -240,7 +250,9 @@ include_once 'sidenavbar.php';
 								
 							</tbody>
 						</table>
+						
 						<input type="submit" class="btn btn-primary" name="save">
+						<input type="hidden" name="users_id" value="<?php echo $fetchuser_id?>">
 				</form>
 </center>
     </div>
@@ -586,7 +598,7 @@ include_once 'sidenavbar.php';
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="V"/> V \
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="E"/> E \
        <input type="radio" name="grade[item'+arr[i]['ides']+']" value="N"/> N \
-        </td><td><button class="btn btn-danger">Remove</button></td></tr>\
+        </td><td><button class="btn btn-danger" id="rembtn">Remove</button></td></tr>\
         <tr id="job_description_'+sid+'"></tr>';
 		}
 		
@@ -624,7 +636,7 @@ include_once 'sidenavbar.php';
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="E"/> E \
       <input type="radio" name="grade['+arr[0]+stdbId+']" value="N"/> N \
-      </td><td style="width:100px;"><button class="btn btn-danger">Remove</button></td></tr><br>';
+      </td><td style="width:100px;"><button class="btn btn-danger" id="rembtn2">Remove</button></td></tr><br>';
 					$("#job_description_"+stId).before(rows);
 		}
 		else{
@@ -642,7 +654,7 @@ include_once 'sidenavbar.php';
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
 				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
-				 </td><td><button class="btn btn-danger">Remove</button></td></tr>';
+				 </td><td><button class="btn btn-danger" id="rembtn1">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}
 		}
@@ -661,6 +673,25 @@ include_once 'sidenavbar.php';
 
 	});
 	
+
+</script>
+
+<script>
+$(document).ready(function(){
+
+ $("#radio").on('click','#rembtn',function(){
+       $(this).closest('tr').remove();
+     });
+
+	 $("#radio").on('click','#rembtn1',function(){
+       $(this).closest('tr').remove();
+     });
+
+	 $("#radio").on('click','#rembtn2',function(){
+       $(this).closest('tr').remove();
+     });
+
+});
 
 </script>
 </body>
