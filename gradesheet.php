@@ -193,12 +193,13 @@ include_once 'sidenavbar.php';
 	<div>Student name : 
     <?php echo $fetchname?><br>
 	Course name : 
-  <?php echo $phpcourse.'<br>';
+  <?php echo $std_course.'<br>';
   if(isset($_GET['class'])){
-  echo 'class : '.$class=$_GET['class'].'<br>';
+  echo 'class : '.$class=$_GET['class'];
   }
 
   ?>
+  <br>
 </div>  
       	<div class="row" style="width:100%;">
       		<div class="col-8">
@@ -290,7 +291,8 @@ include_once 'sidenavbar.php';
 						</table>
 						
 						<input type="submit" class="btn btn-primary" name="save">
-						<input type="hidden" name="users_id" value="<?php echo $fetchuser_id?>">
+						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
+            <input type="text" name="class" value="<?php echo $class?>">
 				</form>
 </center>
     </div>
@@ -556,7 +558,7 @@ include_once 'sidenavbar.php';
 						</button>
 					</div>
 					<div class="modal-body">
-				
+          <form method="get" action="tasklog.php">
 						<table class="table table-bordered src-table1" id="itemtablesearch">
 						<input class="form-control" type="text" id="itemsearch" onkeyup="item()" placeholder="Search for Item.." title="Type in a name">
 							<thead>
@@ -578,11 +580,11 @@ include_once 'sidenavbar.php';
 									foreach($students as $student)
 									{
 										?>
-										<tr id="check_<?php echo $i;?>" data-total-record="<?php echo $totalStudents;?>" data-tr-id_<?php echo $i;?>="<?php echo $student['id'];?>" data-name-<?php echo $i;?>="<?php echo $student['item'];?>">
-											<td><input type="checkbox" name="itemcheck[]" id="<?php echo $student['id']; ?>" value="<?php echo $student['item'];?>" /></td>
-											<td><?php echo $student['id'];?></td>
+										<tr>
+											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
+                      <td><?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
-											<td></td>
+								
 										
 										</tr>
 										<?php
@@ -595,8 +597,9 @@ include_once 'sidenavbar.php';
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" id="submitstudent">Select</button>
+					
+						<button type="submit" class="btn btn-primary" id="submitstudent">Select</button>
+              </form>
 					</div>
 				</div>
 			</div>

@@ -17,6 +17,10 @@
 </head>
 <body>
 <?php
+ $item=$_REQUEST['itemchecklist'];
+foreach($item as $items){
+	echo $items;
+}
 include_once 'header.php';
 ?>
 <?php
@@ -26,7 +30,8 @@ include_once 'header.php';
 	<h4>Task Log Page</h4>
 </div>
 <?php 
-include_once 'studentinfo.php';
+
+
 	?>
 </body>
 </html>
