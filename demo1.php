@@ -1,7 +1,20 @@
 <?php
 /** database connection **/
-$mysqli = new mysqli("localhost","root","","task2");
-
+$mysqli = new mysqli("localhost","root","","driving_school");
+include('connect.php');
+$item="";
+$item_data="SELECT * FROM item where userid='18'";
+$stat = $connect->prepare($item_data);
+$stat->execute();
+if($stat->rowCount() > 0)
+{
+  $reper55 = $stat->fetchAll();
+  $sn=1;
+  foreach($reper55 as $rowstat5)
+  {
+	$item=$rowstat5['item'];
+  }
+}
 // Check connection
 if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: " . $mysqli->connect_error;
@@ -179,10 +192,30 @@ $(document).ready(function()
 								</tr>
 							</thead>
 							
-						
+							<?Php 
+							$item="";
+							$item_data="SELECT * FROM item where userid='18'";
+							$stat = $connect->prepare($item_data);
+							$stat->execute();
+							if($stat->rowCount() > 0)
+							{
+							  $reper55 = $stat->fetchAll();
+							  $sn=1;
+							  foreach($reper55 as $rowstat5)
+							  { ?>
+							 	<tr>
+								<th><?php echo $sn++;?></th>
+								<th><?php echo $rowstat5['item'];?></th>
+								<th><?php echo $rowstat5['grade'];?></th>
+								<th>#</th>
+								</tr>
+								<?php
+								}
+								}else{ 
+								?>
 							<tbody>
-								
 							</tbody>
+						<?php }?>
 						</table>
 						<input type="submit" class="btn btn-primary" name="save">
 						</form>

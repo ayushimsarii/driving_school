@@ -43,7 +43,7 @@ if($classcolorst->rowCount() > 0)
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
 	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $phpcourse?>
+	Course name : <?php echo $std_course?>
 </div>
 <br>
 	<div class="row" style="width:100%;">
