@@ -3,10 +3,12 @@ include('connect.php');
 $actclass="";
 $simclass="";
 $academicclass="";
-     $in="";
-     $q2= "SELECT * FROM users where role='Instructor'";
- $st2 = $connect->prepare($q2);
- $st2->execute();
+$vehnum="";
+$vehtype="";
+$in="";
+$q2= "SELECT * FROM users where role='Instructor'";
+$st2 = $connect->prepare($q2);
+$st2->execute();
 
  if($st2->rowCount() > 0)
      {
@@ -53,6 +55,31 @@ $academicclass="";
          $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
+
+	 $q6="SELECT * FROM vehicle";
+     $st6 = $connect->prepare($q6);
+     $st6->execute();
+     if($st6->rowCount() > 0)
+     {
+       $re6 = $st6->fetchAll();
+       foreach($re6 as $row7)
+       {
+         $vehnum.='<option value="'.$row7['VehicleNumber'].'">'.$row7['VehicleNumber'].'</option>';
+       }
+     }
+
+	 $q7="SELECT * FROM vehicle";
+     $st7 = $connect->prepare($q7);
+     $st7->execute();
+     if($st7->rowCount() > 0)
+     {
+       $re7 = $st7->fetchAll();
+       foreach($re7 as $row8)
+       {
+         $vehtype.='<option value="'.$row8['VehicleType'].'">'.$row8['VehicleType'].'</option>';
+       }
+     }
+
      $per_table_data="";
      $per="SELECT * FROM percentage";
      $per5 = $connect->prepare($per);
@@ -193,7 +220,18 @@ include_once 'sidenavbar.php';
                                 <td><label>Time</label><input class="form-control" type="time" name="time"></td>
                               </tr>
                               <tr>
-                              <td><label>Vehicle Number</label><input class="form-control" type="text" name="veh-num"></td>
+                              <td><label>Vehicle Number</label>
+							  <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
+                                        <option selected disabled value="">-select Number-</option>
+                                        <?php echo $vehnum?>
+                                    </select>
+							  </td>
+							  <td><label>Vehicle Type</label>
+							  <select type="text" class="form-control form-control-md" name="VehicleType" required>
+                                        <option selected disabled value="">-select Type-</option>
+                                        <?php echo $vehtype?>
+                                    </select>
+							  </td>
                               </tr> 
                               </table>
       		</div>
@@ -201,7 +239,7 @@ include_once 'sidenavbar.php';
       		<div class="col-4">
             <div class="dropdown">
             <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-      		<select style="width:90px;" type="text" id="country" class="form-control multiple-select" name="class[]" multiple>
+      		<select style="width:90px;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
             <option selected disabled value="">Add</option>
             <?php echo $actclass?>
             <?php echo $academicclass?> <?php echo $simclass?>
@@ -358,7 +396,7 @@ include_once 'sidenavbar.php';
 									<th>#</th>
 									<th>Id</th>
 									<th>Item</th>
-								
+								    <th>Operations</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -376,7 +414,10 @@ include_once 'sidenavbar.php';
 											<td><input type="checkbox" name="itemcheck[]" id="<?php echo $student['id']; ?>" value="<?php echo $student['item'];?>" /></td>
 											<td><?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
-										
+										    <td><a onclick="document.getElementById('item_id').value='<?php echo $student['id'] ?>';
+												  document.getElementById('item_name').value='<?php echo $student['item'] ?>';
+												" data-toggle="modal" data-target="#edititem"><i class="fas fa-edit"></i></a>
+												<a href="item_delete.php?id=<?php echo $student['id']?>"><i class="fas fa-trash"></a></i></td>
 										</tr>
 										<?php
 										$i++;
@@ -441,7 +482,7 @@ include_once 'sidenavbar.php';
 									<th>#</th>
 									<th>ID</th>
 									<th>Name</th>
-									
+									<th>Operations</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -457,7 +498,10 @@ include_once 'sidenavbar.php';
 											<td><input type="checkbox" name="subcheck[]"value="<?php echo $job['subitem'];?>" data-row-id="<?php echo $j;?>" /></td>
 											<td><?php echo $job['id'];?></td>
 											<td><?php echo $job['subitem'];?></td>
-											
+											<td><a onclick="document.getElementById('subitem_id').value='<?php echo $job['id'] ?>';
+												  document.getElementById('subitem_name').value='<?php echo $job['subitem'] ?>';
+												" data-toggle="modal" data-target="#editsubitem"><i class="fas fa-edit"></i></a>
+												<a href="subitem_delete.php?id=<?php echo $job['id']?>"><i class="fas fa-trash"></a></i></td>
 										</tr>
 										<?php
 										$j++;
@@ -513,7 +557,8 @@ include_once 'sidenavbar.php';
 					</div>
 					<div class="modal-body">
 				
-						<table class="table table-bordered src-table1">
+						<table class="table table-bordered src-table1" id="itemtablesearch">
+						<input class="form-control" type="text" id="itemsearch" onkeyup="item()" placeholder="Search for Item.." title="Type in a name">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -537,6 +582,7 @@ include_once 'sidenavbar.php';
 											<td><input type="checkbox" name="itemcheck[]" id="<?php echo $student['id']; ?>" value="<?php echo $student['item'];?>" /></td>
 											<td><?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
+											<td></td>
 										
 										</tr>
 										<?php
@@ -555,10 +601,53 @@ include_once 'sidenavbar.php';
 				</div>
 			</div>
 		</div>
+
+<!--edit item modal-->
+<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit item</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_item.php">
+					<input type="hidden" name="id" value="" id="item_id">
+					<input type="text" name="item" value="" id="item_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--edit subitem modal-->
+<div class="modal fade" id="editsubitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Subitem</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_subitem.php">
+					<input type="hidden" name="id" value="" id="subitem_id">
+					<input type="text" name="item" value="" id="subitem_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(".multiple-select").select2({
  // maximumSelectionLength: 2
+ 
 });
 </script>
 
@@ -693,6 +782,28 @@ $(document).ready(function(){
 
 });
 
+</script>
+
+<!--Search for additional training-->
+<script>
+function item() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("itemsearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("itemtablesearch");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 </script>
 </body>
 </html>

@@ -389,7 +389,7 @@ $(document).ready(function(){
                             document.getElementById('department_name').value='<?php echo $row2['department_name'] ?>';
                             document.getElementById('type').value='<?php echo $row2['type'] ?>';
                             " data-toggle="modal" data-target="#editdepartment"><i class="fas fa-edit"></i></a>
-                            <a href="department_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i>
+                            <a href="department_delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></a></i>
                             </td>
              </tr>
               <?php
