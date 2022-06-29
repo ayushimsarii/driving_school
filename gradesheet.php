@@ -289,18 +289,16 @@ $classid=$_GET['id'];
 						</table>
 						
 						<input type="submit" class="btn btn-primary" name="save">
-<<<<<<< HEAD
-						<input type="hidden" name="users_id" value="<?php echo $fetchuser_id?>">
-            <input type="hidden" name="class" value="<?php echo $class?>">
-=======
+
+						
+
 						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
             <input type="text" name="class_id" value="<?php echo $classid?>">
-<<<<<<< HEAD
+
             <input type="text" name="course_id" value="<?php echo $phpcourse?>">
             <input type="text" name="ins_id" value="" id="ins_id">
-=======
->>>>>>> dabe44cd2554bf768c7e9765676c5c4e4448fa35
->>>>>>> 3c81fcc7999369af7c6554b972e64c8ec6d4ca68
+
+
 				</form>
 </center>
     </div>
