@@ -123,7 +123,7 @@ $(document).ready(function(){
                       
                             foreach($result1 as $row1)
                         {?>
-                            <option value="<?php echo $row1['course'] ?>"><?php echo $row1['course']?></option>
+                            <option value="<?php echo $row1['CTPid'] ?>"><?php echo $row1['course']?></option>
                         <?php }
          
                          } ?>
@@ -161,8 +161,20 @@ $(document).ready(function(){
                                         $fetchid=$rowname2['studid'];                                 }
                                         $fetchrole=$rowname2['role'];
                                         $fetchphone=$rowname2['phone'];
-                                        $fetchuser_id=$rowname2['id'];
+                                        $fetchuser_id=$rowname2['id'];}
                                     }
+                                    $cr_name= "SELECT * FROM ctppage where CTPid='$phpcourse'";
+                                    $cr_st = $connect->prepare($cr_name);
+                                    $cr_st->execute();
+                        
+                                    if($cr_st->rowCount() > 0)
+                                        {
+                                            $cr_result = $cr_st->fetchAll();
+                                            foreach($cr_result as $row)
+                                            {
+                                           $std_course=$row['course'];
+                                            }
+                            
                             }
                       ?>
                
