@@ -64,7 +64,7 @@ $st2->execute();
        $re6 = $st6->fetchAll();
        foreach($re6 as $row7)
        {
-         $vehnum.='<option value="'.$row7['VehicleNumber'].'">'.$row7['VehicleNumber'].'</option>';
+         $vehnum.='<option value="'.$row7['id'].'">Number: '.$row7['VehicleNumber'].', Type: '.$row7['VehicleType'].'</option>';
        }
      }
 
@@ -194,10 +194,12 @@ include_once 'sidenavbar.php';
     <?php echo $fetchname?><br>
 	Course name : 
   <?php echo $std_course.'<br>';
-  if(isset($_GET['class'])){
-  echo 'class : '.$class=$_GET['class'];
+  if(isset($_GET['id'])){
+$classid=$_GET['id'];
   }
-
+  if(isset($_GET['class'])){
+    echo 'class : '.$class=$_GET['class'];
+    }
   ?>
   <br>
 </div>  
@@ -221,18 +223,13 @@ include_once 'sidenavbar.php';
                                 <td><label>Time</label><input class="form-control" type="time" name="time"></td>
                               </tr>
                               <tr>
-                              <td><label>Vehicle Number</label>
+                              <td><label>Vehicle</label>
 							  <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
                                         <option selected disabled value="">-select Number-</option>
                                         <?php echo $vehnum?>
                                     </select>
 							  </td>
-							  <td><label>Vehicle Type</label>
-							  <select type="text" class="form-control form-control-md" name="VehicleType" required>
-                                        <option selected disabled value="">-select Type-</option>
-                                        <?php echo $vehtype?>
-                                    </select>
-							  </td>
+							 
                               </tr> 
                               </table>
       		</div>
@@ -293,6 +290,7 @@ include_once 'sidenavbar.php';
 						<input type="submit" class="btn btn-primary" name="save">
 						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
             <input type="text" name="class" value="<?php echo $class?>">
+            <input type="text" name="class_id" value="<?php echo $classid?>">
 				</form>
 </center>
     </div>
