@@ -17,55 +17,25 @@ $output = '';
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
-<style type="text/css">
-	#simcontainer
-	{
-		border: 1px solid black;
-		margin-top: 10px;
-		width: 60%;
-	}
-	button
-	{
-		margin: 5px;
-		padding: 5px;
-	}
-	h3
-	{
-		text-align: center;
-	}
-	p
-	{
-		width: 50px;
-		height: 50px;
-		border: 1px solid black;
-	}
-	textarea
-	{
-		margin: 5px;
-		padding: 5px;
-		width: 250px;
-		height: 100px;
-	}
-	a
-	{
-		color: white;
-		text-decoration: none;
-	}
-	#cl_sy{
-        margin-right: 10px;
-    }
-    #simbutton
-    {
-    	width: 70%;
-    }
-</style>
 <body>
 <?php
 include_once 'header.php';
 ?>
 <?php
 include_once 'sidenavbar.php';
+$classcolor= "SELECT * FROM gradesheet where user_id='$student'";
+$classcolorst= $connect->prepare($classcolor);
+$classcolorst->execute();
+
+if($classcolorst->rowCount() > 0)
+    {
+        $class="btn btn-success";
+    }
+    else{
+        $class="btn btn-dark"; 
+    }
 ?>
 <div class="container" id="simcontainer">
 	<h3>Simulation</h3>
@@ -73,9 +43,9 @@ include_once 'sidenavbar.php';
 		Course name : <?php echo $std_course?>
 		</div>
 		<br>
-	<div class="row">
+	<div class="row" style="width:100%;">
 		<div class="col">
-			<table id="table" class="center">
+		<table id="table" class="center" style="border: 1px solid black;">
                     <?php
                     $query = "SELECT * FROM phase ORDER BY id ASC";
                     $statement = $connect->prepare($query);
@@ -85,30 +55,30 @@ include_once 'sidenavbar.php';
                             {
 
                     ?>     
-                              
-                                <tr style="border:1px black dotted">
+                            <div class="container"> 
+                                <tr>
                                
                                 <?php
                                 $phase=$row['phasename'];
                                 echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phasename'].'</h4></div>';
                                 ?>
                                 </tr>
-                                <tr style="border:1px black dotted">
+                                <tr>
                                 <?php
-                                $query1 = "SELECT shortsim FROM sim where phase='$phase'";
+                                $query1 = "SELECT * FROM sim where phase='$phase'";
                                 $statement1 = $connect->prepare($query1);
                                 $statement1->execute();  
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
-                                        echo '<a id="cl_sy" class="btn btn-success" href="gradesheet.php">'.$row1['shortsim'].'</a>';
+                                       
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['shortsim'].'&per='.$row1['percentage'].'">'.$row1['shortsim'].'</a>';
 
-                                        
-                                    }
+                               }
                                 ?>
                     
-                    </tr><hr>
+                                </tr><hr>
                  
-                               
+                         </div>      
 <?php }?>
                     </table>
 		</div>
