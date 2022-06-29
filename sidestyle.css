@@ -737,3 +737,58 @@ input
 {
 	width: 70%;
 }
+/* Simulation class */
+#simcontainer
+	{
+		border: 1px solid black;
+		margin-top: 10px;
+		width: 60%;
+	}
+	h3
+	{
+		text-align: center;
+	}
+	p
+	{
+		width: 50px;
+		height: 50px;
+		border: 1px solid black;
+	}
+	a
+	{
+		color: white;
+		text-decoration: none;
+	}
+	#cl_sy{
+        margin-right: 10px;
+    }
+    #simbutton
+    {
+    	width: 70%;
+    }
+
+    /* tasklog page */
+    #taskcontainer
+	{
+		border: 1px solid black;
+		margin-top: 10px;
+		width: 60%;
+	}
+  #acctask
+  {
+    color: red;
+  }
+  #addtask
+  {
+    color: #466ddf;
+    text-decoration: underline;
+  }
+  #adrow
+  {
+    border: 2px solid green;
+    margin: 5px;
+  }
+  thead
+  {
+    color: black;
+  }

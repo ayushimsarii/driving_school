@@ -236,15 +236,15 @@ $classid=$_GET['id'];
 <!--Prereuisites container-->
       		<div class="col-4">
             <div class="dropdown">
-            <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-      		<select style="width:90px;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
-            <option selected disabled value="">Add</option>
-            <?php echo $actclass?>
-            <?php echo $academicclass?> <?php echo $simclass?>
-          </select>
-          <div id="result"></div> 
-          <button type="button" onclick="GetSelectedText()">Get</button>
-          </div>
+                  <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
+                    <select style="width:100%;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
+                      <option style="font-size:larger;" selected disabled value="">Add</option>
+                      <?php echo $actclass?>
+                      <?php echo $academicclass?> 
+                      <?php echo $simclass?>
+                    </select>
+            </div>
+
       		</div>
       	</div>
       </div>
@@ -257,9 +257,6 @@ $classid=$_GET['id'];
          <br><span id="student_details"></span> -->
             <i class="fas fa-plus-hexagon"></i>ADD
           </button>
-
-         
-          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#detailsper">Info</button>
         </center>
          </div>
        </div>
@@ -288,9 +285,14 @@ $classid=$_GET['id'];
 						</table>
 						
 						<input type="submit" class="btn btn-primary" name="save">
+<<<<<<< HEAD
+						<input type="hidden" name="users_id" value="<?php echo $fetchuser_id?>">
+            <input type="hidden" name="class" value="<?php echo $class?>">
+=======
 						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
             <input type="text" name="class" value="<?php echo $class?>">
             <input type="text" name="class_id" value="<?php echo $classid?>">
+>>>>>>> dabe44cd2554bf768c7e9765676c5c4e4448fa35
 				</form>
 </center>
     </div>
@@ -314,22 +316,22 @@ $classid=$_GET['id'];
             <div class="col-4">
             <table>
 				<center>
-				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper">Info</button></center>
+				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
                 <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio"  value="U" name="U"/><span style="font-weight:bold;">U</span>
+                         <input type="radio" value="U" id="U"/><span style="font-weight:bold;">U</span>
                       
                       
-                         <input type="radio" value="F"/><span style="font-weight:bold;"> F </span>
+                         <input type="radio" value="F" id="F"/><span style="font-weight:bold;"> F </span>
                     
-                         <input type="radio" value="G"/><span style="font-weight:bold;"> G </span>
+                         <input type="radio" value="G" id="G"/><span style="font-weight:bold;"> G </span>
                       
-                         <input type="radio" value="V"/><span style="font-weight:bold;"> V </span>
+                         <input type="radio" value="V" id="V"/><span style="font-weight:bold;"> V </span>
                      
-                         <input type="radio" value="E"/><span style="font-weight:bold;"> E </span>
+                         <input type="radio" value="E" id="E"/><span style="font-weight:bold;"> E </span>
                       
-                         <input type="radio" value="N"/><span style="font-weight:bold;"> N </span>
+                         <input type="radio" value="N" id="N"/><span style="font-weight:bold;"> N </span>
                      
                    </td>
 				</tr>
@@ -393,7 +395,7 @@ $classid=$_GET['id'];
 						<table class="table table-bordered src-table1">
 							<thead>
 								<tr>
-									<th>#</th>
+									<th><input type="checkbox" id="select-all-item"></th>
 									<th>Id</th>
 									<th>Item</th>
 								    <th>Operations</th>
@@ -479,7 +481,7 @@ $classid=$_GET['id'];
 						<table class="table table-bordered src-table2">
 							<thead>
 								<tr>
-									<th>#</th>
+									<th><input type="checkbox" id="select-all-subitem"></th>
 									<th>ID</th>
 									<th>Name</th>
 									<th>Operations</th>
@@ -551,8 +553,8 @@ $classid=$_GET['id'];
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Additional Item</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
+						<button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true"><i class="fas fa-times"></i></span>
 						</button>
 					</div>
 					<div class="modal-body">
@@ -561,7 +563,7 @@ $classid=$_GET['id'];
 						<input class="form-control" type="text" id="itemsearch" onkeyup="item()" placeholder="Search for Item.." title="Type in a name">
 							<thead>
 								<tr>
-									<th>#</th>
+									<th><input type="checkbox" id="select-all"></th>
 									<th>Id</th>
 									<th>Item</th>
 								
@@ -582,8 +584,6 @@ $classid=$_GET['id'];
 											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
                       <td><?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
-								
-										
 										</tr>
 										<?php
 										$i++;
@@ -651,6 +651,7 @@ $classid=$_GET['id'];
  
 });
 </script>
+
 
 <script>
 	function genCharArray(charA, charZ) {
@@ -805,6 +806,87 @@ function item() {
     }       
   }
 }
+</script>
+
+<script>
+  document.getElementById('select-all').onclick = function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+}
+</script>
+
+<script>
+  document.getElementById('select-all-item').onclick = function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+}
+</script>
+
+<script>
+  document.getElementById('select-all-subitem').onclick = function() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var checkbox of checkboxes) {
+        checkbox.checked = this.checked;
+    }
+}
+</script>
+
+<script>
+  const displayRadioValue = () => {
+  
+  let grades = "";
+
+  let avg = document.querySelector("#gradesper").value;
+  {
+    if (avg < 50)
+    {
+        // document.getElementById("U");
+        window.alert("Grade : U-Unsatisfied");
+        document.querySelector("#gradesper").style.backgroundColor = 'red';
+    } 
+    else if (avg < 70) 
+    {
+        window.alert("Grade : F"); 
+        document.querySelector("#gradesper").style.backgroundColor = 'yellow';
+    } 
+    else if (avg < 80) 
+    {
+        window.alert("Grade : G"); 
+        document.querySelector("#gradesper").style.backgroundColor = 'green';
+    } 
+    else if (avg < 90) 
+    {
+        window.alert("Grade : V"); 
+        document.querySelector("#gradesper").style.backgroundColor = '#6fea7c';
+    } 
+    else if (avg < 100) 
+    {
+        window.alert("Grade : E"); 
+        document.querySelector("#gradesper").style.backgroundColor = 'blue';
+    }
+    else if (avg < 0) 
+    {
+        window.alert("Grade : N"); 
+        document.querySelector("#gradesper").style.backgroundColor = 'black';
+    }
+  }
+   
+  // if (percentage.value <= 100 && percentage.value >= 80) {
+  //   alert("Excellent");
+  //   grades = "A";
+  // } else if (percentage.value <= 79 && percentage.value >= 60) {
+  //   grades = "B";
+  // } else if (percentage.value <= 59 && percentage.value >= 40) {
+  //   grades = "C";
+  // } else {
+  //   grades = "F";
+  // }
+  
+};
 </script>
 </body>
 </html>
