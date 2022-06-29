@@ -43,7 +43,7 @@ if($classcolorst->rowCount() > 0)
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
 	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $phpcourse?>
+	Course name : <?php echo $std_course?>
 </div>
 <br>
 	<div class="row" style="width:100%;">
@@ -81,7 +81,7 @@ if($classcolorst->rowCount() > 0)
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
                                        
-                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'">'.$row1['symbol'].'</a>';
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'&id='.$row1['id'].'">'.$row1['symbol'].'</a>';
 
                                }
                                 ?>

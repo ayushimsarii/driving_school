@@ -54,7 +54,7 @@ include('connect.php');
          $re5 = $st5->fetchAll();
        foreach($re5 as $row5)
          {
-          $ctp.= '<option value="'.$row5['course'].'">'.$row5['course'].'</option>';
+          $ctp.= '<option value="'.$row5['CTPid'].'">'.$row5['course'].'</option>';
          }
      
      }
