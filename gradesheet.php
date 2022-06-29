@@ -6,6 +6,8 @@ $academicclass="";
 $vehnum="";
 $vehtype="";
 $in="";
+$class="";
+$classid="";
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -15,7 +17,7 @@ $st2->execute();
          $re2 = $st2->fetchAll();
        foreach($re2 as $row2)
          {
-          $in.= '<option value="'.$row2['name'].'">'.$row2['name'].'</option>';
+          $in.= '<option value="'.$row2['id'].'">'.$row2['name'].'</option>';
          }
      
      }
@@ -199,6 +201,8 @@ $classid=$_GET['id'];
   }
   if(isset($_GET['class'])){
     echo 'class : '.$class=$_GET['class'];
+    }else{
+      echo 'class :<span style="color:red">select class</span>';  
     }
   ?>
   <br>
@@ -216,7 +220,7 @@ $classid=$_GET['id'];
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
-                                    <select type="text" id="student" class="form-control form-control-md" name="Instructor" required>
+                                    <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
                                         <option selected disabled value="">-select instructor-</option>
                                         <?php echo $in?>
                                     </select></td>
@@ -289,8 +293,9 @@ $classid=$_GET['id'];
 						
 						<input type="submit" class="btn btn-primary" name="save">
 						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
-            <input type="text" name="class" value="<?php echo $class?>">
             <input type="text" name="class_id" value="<?php echo $classid?>">
+            <input type="text" name="course_id" value="<?php echo $phpcourse?>">
+            <input type="text" name="ins_id" value="" id="ins_id">
 				</form>
 </center>
     </div>
@@ -768,7 +773,10 @@ $classid=$_GET['id'];
 
 <script>
 $(document).ready(function(){
-
+  $('#instructor').on('change', function(){
+    var inst_id = $(this).val();
+    $('#ins_id').val(inst_id);
+   });
  $("#radio").on('click','#rembtn',function(){
        $(this).closest('tr').remove();
      });
