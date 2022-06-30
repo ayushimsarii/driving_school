@@ -263,9 +263,9 @@ $(document).ready(function(){
                                             <td><?php echo $row['academic'] ?></td>
                                             <td><?php echo $row['shortacademic'] ?></td>
                                             <td><?php echo $phase ?></td>
-                                            <td><?php echo $row['percentage'] ?></td>
-                                            <td><?php echo $row['phase'] ?></td>
                                             <td><?php echo $row['ctp'] ?></td>
+                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $row['percentage'] ?></td>
                                             <td><a href="add_item_subitem.php">Add</a></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';

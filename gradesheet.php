@@ -224,16 +224,16 @@ $classid=$_GET['id'];
                                         <option selected disabled value="">-select instructor-</option>
                                         <?php echo $in?>
                                     </select></td>
-                                <td><label>Time</label><input class="form-control" type="time" name="time"></td>
-                              </tr>
-                              <tr>
-                              <td><label>Vehicle</label>
-							  <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
+                                    <td><label>Vehicle</label>
+							                     <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
                                         <option selected disabled value="">-select Number-</option>
                                         <?php echo $vehnum?>
                                     </select>
-							  </td>
-							 
+							                 </td>
+                              </tr>
+                              <tr>
+                              <td><label>Time</label><input class="form-control" type="time" name="time"></td>
+                              <td><label>Date</label><input class="form-control" type="date" name="date"></td>
                               </tr> 
                               </table>
       		</div>
