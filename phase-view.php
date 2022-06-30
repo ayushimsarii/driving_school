@@ -72,7 +72,7 @@ $(document).ready(function(){
                 }
 						}
 						if(isset($_GET['phase_id'])){
-							$phase="";
+							$phase_id="";
 							 $phase_id=$_GET['phase_id'];
 						}	
 					if(isset($_GET['phase'])){
@@ -111,12 +111,13 @@ $(document).ready(function(){
                                     <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
+                                    <th>item and subitem</th>
                                     <th>Action</th>
                                   
                                 </tr>
                                 <?php 
                                 $output ="";
-                                $query = "SELECT * FROM actual where ctp='$ctp'";
+                                $query = "SELECT * FROM actual where ctp='$ctp' and phase='$phase_id'";
                                 $statement = $connect->prepare($query);
                                 $statement->execute();
                                 if($statement->rowCount() > 0)
@@ -130,14 +131,15 @@ $(document).ready(function(){
                                             <td><?php echo $sn++;$id=$row['id'] ?></td>
                                             <td><?php echo $row['actual'] ?></td>
                                             <td><?php echo $row['symbol'] ?></td>
-                                            <td><?php echo $row['phase'] ?></td>
+                                            <td><?php echo $phase ?></td>
                                             <td><?php echo $course ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
+                                            <td><a href="add_item_subitem.php?id=<?php echo $id?>">Add</a></td>
                                             <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('actual1').value='<?php echo $row['actual'] ?>';
                                                document.getElementById('symbol').value='<?php echo $row['symbol'] ?>';
-                                               document.getElementById('phase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('phase').value='<?php echo $phase ?>';
                                                document.getElementById('ctp').value='<?php echo $course ?>';
                                                document.getElementById('ptype1').value='<?php echo $row['ptype'] ?>';
                                                document.getElementById('percentage1').value='<?php echo $row['percentage'] ?>';
@@ -175,12 +177,13 @@ $(document).ready(function(){
                                     <th>CTp</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
+                                    <th>item and subitem</th>
                                     <th>Action</th>
                                   
                                 </tr>
                                 <?php 
                                 $output ="";
-                                $query = "SELECT * FROM sim  ORDER BY id DESC";
+                                $query = "SELECT * FROM sim where ctp='$ctp' and phase='$phase_id'";
                                 $statement = $connect->prepare($query);
                                 $statement->execute();
                                 if($statement->rowCount() > 0)
@@ -194,14 +197,15 @@ $(document).ready(function(){
                                             <td><?php echo $sn++;$id=$row['id'] ?></td>
                                             <td><?php echo $row['sim'] ?></td>
                                             <td><?php echo $row['shortsim'] ?></td>
-                                            <td><?php echo $row['phase'] ?></td>
+                                            <td><?php echo $phase ?></td>
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
+                                            <td><a href="add_item_subitem.php">Add</a></td>
                                             <td><a onclick="document.getElementById('id1').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('sim1').value='<?php echo $row['sim'] ?>';
                                                document.getElementById('shortsim1').value='<?php echo $row['shortsim'] ?>';
-                                               document.getElementById('simphase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('simphase').value='<?php echo $phase ?>';
                                                document.getElementById('simctp').value='<?php echo $row['ctp'] ?>';
                                                document.getElementById('ptype2').value='<?php echo $row['ptype'] ?>';
                                                document.getElementById('percentage2').value='<?php echo $row['percentage'] ?>';
@@ -238,12 +242,13 @@ $(document).ready(function(){
                                     <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
+                                    <th>item and subitem</th>
                                     <th>Action</th>
                                   
                                 </tr>
                                 <?php 
                                 $output ="";
-                                $query = "SELECT * FROM academic  ORDER BY id DESC";
+                                $query = "SELECT * FROM academic where ctp='$ctp' and phase='$phase_id'";
                                 $statement = $connect->prepare($query);
                                 $statement->execute();
                                 if($statement->rowCount() > 0)
@@ -257,16 +262,17 @@ $(document).ready(function(){
                                             <td><?php echo $sn++;$id=$row['id'] ?></td>
                                             <td><?php echo $row['academic'] ?></td>
                                             <td><?php echo $row['shortacademic'] ?></td>
-                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $phase ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
                                             <td><?php echo $row['phase'] ?></td>
                                             <td><?php echo $row['ctp'] ?></td>
+                                            <td><a href="add_item_subitem.php">Add</a></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';
                                                document.getElementById('shortacademicname').value='<?php echo $row['shortacademic'] ?>';
                                                document.getElementById('ptype3').value='<?php echo $row['ptype'] ?>';
                                                document.getElementById('percentage3').value='<?php echo $row['percentage'] ?>';
-                                               document.getElementById('academicphase').value='<?php echo $row['phase'] ?>';
+                                               document.getElementById('academicphase').value='<?php echo $phase ?>';
                                                document.getElementById('academicctp').value='<?php echo $row['ctp'] ?>';
                                             " data-toggle="modal" data-target="#editacademic"><i class="fas fa-edit"></i></a>
                                             </a>

@@ -1,8 +1,14 @@
 <!--Insert Phases-->
 <?php
+$course="";
 require "connect.php";
+//var_dump(isset($_GET['ctp']));
 if(isset($_GET['ctp'])){
 $ctp=$_GET['ctp'];
+
+}
+if(isset($_POST['ctp'])){
+$ctp=$_POST['ctp'];
 $ctp_id = "SELECT * FROM ctppage where CTPid='$ctp'";
 $statement = $connect->prepare($ctp_id);
 $statement->execute();
@@ -16,10 +22,6 @@ if($statement->rowCount() > 0)
 			$course=$row['course'];
 		}
 	}
-}
-if(isset($_POST['ctp'])){
-$ctp=$_POST['ctp'];
-
 }
 
 $error = '';
