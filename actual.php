@@ -66,7 +66,7 @@ if($classcolorst->rowCount() > 0)
                                 <tr>
                                
                                 <?php
-                                $phase=$row['phasename'];
+                                $phase=$row['id'];
                                 echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phasename'].'</h4></div>';
                                 ?>
                                 </tr>
