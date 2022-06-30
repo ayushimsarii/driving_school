@@ -772,11 +772,13 @@ input
 	{
 		border: 1px solid black;
 		margin-top: 10px;
-		width: 60%;
+		width: 90%;
+    margin-right: 20px;
 	}
   #acctask
   {
     color: red;
+    text-decoration: underline;
   }
   #addtask
   {
@@ -785,7 +787,14 @@ input
   }
   #adrow
   {
-    border: 2px solid green;
+    width: 100%;
+    /* border: 2px solid green; */
+    margin: 5px;
+  }
+  #accrow
+  {
+    width: 100%;
+    text-align: center;
     margin: 5px;
   }
   thead

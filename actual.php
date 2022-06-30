@@ -1,9 +1,6 @@
 
 <?php
 include('connect.php');
-
-
-
 $output="";
 ?>
 <!DOCTYPE html>
@@ -69,7 +66,7 @@ if($classcolorst->rowCount() > 0)
                                 <tr>
                                
                                 <?php
-                                $phase=$row['phasename'];
+                                $phase=$row['id'];
                                 echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phasename'].'</h4></div>';
                                 ?>
                                 </tr>
@@ -93,18 +90,6 @@ if($classcolorst->rowCount() > 0)
                     </table>
         </div>
 
-		<!-- <div class="col">
-			<div style="margin-left: 80px;">
-				<p></p>
-				<input type="date" name="date">
-			</div>
-			<div style="border: 1px solid black; width: 80%; text-align: center; margin: 5px;
-			padding: 5px; float: right;">
-				<textarea>Student Haves</textarea><br>
-				<textarea>Class # Select</textarea><br>
-				<textarea>Send A Message</textarea>
-			</div>
-		</div> -->
 	</div>
 </div><br>
 

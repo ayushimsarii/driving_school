@@ -1,14 +1,29 @@
 <!--Insert Phases-->
 <?php
-
+$course="";
+require "connect.php";
+//var_dump(isset($_GET['ctp']));
 if(isset($_GET['ctp'])){
 $ctp=$_GET['ctp'];
+
 }
 if(isset($_POST['ctp'])){
 $ctp=$_POST['ctp'];
+$ctp_id = "SELECT * FROM ctppage where CTPid='$ctp'";
+$statement = $connect->prepare($ctp_id);
+$statement->execute();
 
+if($statement->rowCount() > 0)
+	{
+		$result = $statement->fetchAll();
+		$sn=1;
+		foreach($result as $row)
+		{
+			$course=$row['course'];
+		}
+	}
 }
-require "connect.php";
+
 $error = '';
 $output = '';
 			$query = "SELECT * FROM phase where ctp='$ctp'";
@@ -74,7 +89,7 @@ $output = '';
 				<center>
 				<?php
 			if(isset($_POST['ctp']) || isset($_GET['ctp'])){?>
-				<h3>Selected CTP:<?php echo $ctp?></h3>
+				<h3>Selected CTP:<?php echo $course?></h3>
 		<?php }
 		else{?>
 			<h1>Phase</h1>	

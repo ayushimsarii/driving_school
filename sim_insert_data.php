@@ -20,7 +20,7 @@ $ptype = $_POST['ptype'];
 $percentage = $_POST['percentage'];
 
 foreach ($sim as $key => $value) {
-$query ="INSERT into sim(sim, shortsim, ptype, percentage, phase,ctp) values('".$value."', '".$shortsim[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase','$ctp')";
+$query ="INSERT into sim(sim, shortsim, ptype, percentage, phase,ctp) values('".$value."', '".$shortsim[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase_id','$ctp')";
 $statement = $connect->prepare($query);
 $statement->execute();
 $error ="<div class='alert alert-primary'>Simulation class inserted successfully..</div>";
