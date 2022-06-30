@@ -12,7 +12,7 @@ include('connect.php');
              
              foreach($result2 as $row2)
              {
-              $output2 .= '<option value="'.$row2['course'].'">'.$row2['course'].'</option>';
+              $output2 .= '<option value="'.$row2['CTPid'].'">'.$row2['course'].'</option>';
              }
          
          }

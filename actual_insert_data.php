@@ -21,7 +21,7 @@ $ptype = $_POST['ptype'];
 $percentage = $_POST['percentage'];
 
 foreach ($actual as $key => $value) {
-$query ="INSERT into actual(actual, symbol, ptype, percentage, phase,ctp) values('".$value."', '".$symbol[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase','$ctp')";
+$query ="INSERT into actual(actual, symbol, ptype, percentage, phase,ctp) values('".$value."', '".$symbol[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase_id','$ctp')";
 $statement = $connect->prepare($query);
  $statement->execute();
 $error ="<div class='alert alert-primary'>Actual class inserted successfully..</div>";

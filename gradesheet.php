@@ -6,6 +6,8 @@ $academicclass="";
 $vehnum="";
 $vehtype="";
 $in="";
+$class="";
+$classid="";
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -15,7 +17,7 @@ $st2->execute();
          $re2 = $st2->fetchAll();
        foreach($re2 as $row2)
          {
-          $in.= '<option value="'.$row2['name'].'">'.$row2['name'].'</option>';
+          $in.= '<option value="'.$row2['id'].'">'.$row2['name'].'</option>';
          }
      
      }
@@ -199,6 +201,8 @@ $classid=$_GET['id'];
   }
   if(isset($_GET['class'])){
     echo 'class : '.$class=$_GET['class'];
+    }else{
+      echo 'class :<span style="color:red">select class</span>';  
     }
   ?>
   <br>
@@ -216,20 +220,20 @@ $classid=$_GET['id'];
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
-                                    <select type="text" id="student" class="form-control form-control-md" name="Instructor" required>
+                                    <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
                                         <option selected disabled value="">-select instructor-</option>
                                         <?php echo $in?>
                                     </select></td>
-                                <td><label>Time</label><input class="form-control" type="time" name="time"></td>
-                              </tr>
-                              <tr>
-                              <td><label>Vehicle</label>
-							  <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
+                                    <td><label>Vehicle</label>
+							                     <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
                                         <option selected disabled value="">-select Number-</option>
                                         <?php echo $vehnum?>
                                     </select>
-							  </td>
-							 
+							                 </td>
+                              </tr>
+                              <tr>
+                              <td><label>Time</label><input class="form-control" type="time" name="time"></td>
+                              <td><label>Date</label><input class="form-control" type="date" name="date"></td>
                               </tr> 
                               </table>
       		</div>
@@ -285,14 +289,16 @@ $classid=$_GET['id'];
 						</table>
 						
 						<input type="submit" class="btn btn-primary" name="save">
-<<<<<<< HEAD
-						<input type="hidden" name="users_id" value="<?php echo $fetchuser_id?>">
-            <input type="hidden" name="class" value="<?php echo $class?>">
-=======
+
+						
+
 						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
-            <input type="text" name="class" value="<?php echo $class?>">
             <input type="text" name="class_id" value="<?php echo $classid?>">
->>>>>>> dabe44cd2554bf768c7e9765676c5c4e4448fa35
+
+            <input type="text" name="course_id" value="<?php echo $phpcourse?>">
+            <input type="text" name="ins_id" value="" id="ins_id">
+
+
 				</form>
 </center>
     </div>
@@ -769,7 +775,12 @@ $classid=$_GET['id'];
 
 <script>
 $(document).ready(function(){
-
+  $('#instructor').on('change', function(){
+    var inst_id = $(this).val();
+    if(inst_id){
+    $('#ins_id').val(inst_id);
+    }
+   });
  $("#radio").on('click','#rembtn',function(){
        $(this).closest('tr').remove();
      });
@@ -845,33 +856,81 @@ function item() {
     if (avg < 50)
     {
         // document.getElementById("U");
-        window.alert("Grade : U-Unsatisfied");
+        window.alert("You Get Less Than 50 Marks.\nGrade : U-Unsatisfied");
+        document.querySelector('#U').checked = true;
+        document.querySelector('#F').disabled = true;
+        document.querySelector('#G').disabled = true;
+        document.querySelector('#V').disabled = true;
+        document.querySelector('#E').disabled = true;
+        document.querySelector('#N').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = 'red';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 70) 
     {
-        window.alert("Grade : F"); 
+        window.alert("Grade : F-Fair"); 
+        document.querySelector('#F').checked = true;
+        document.querySelector('#U').disabled = true;
+        document.querySelector('#G').disabled = true;
+        document.querySelector('#V').disabled = true;
+        document.querySelector('#E').disabled = true;
+        document.querySelector('#N').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = 'yellow';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 80) 
     {
-        window.alert("Grade : G"); 
+        window.alert("Grade : G-Good"); 
+        document.querySelector('#G').checked = true;
+        document.querySelector('#U').disabled = true;
+        document.querySelector('#f').disabled = true;
+        document.querySelector('#V').disabled = true;
+        document.querySelector('#E').disabled = true;
+        document.querySelector('#N').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = 'green';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 90) 
     {
-        window.alert("Grade : V"); 
+        window.alert("Grade : V-Very Good"); 
+        document.querySelector('#V').checked = true;
+        document.querySelector('#U').disabled = true;
+        document.querySelector('#G').disabled = true;
+        document.querySelector('#F').disabled = true;
+        document.querySelector('#E').disabled = true;
+        document.querySelector('#N').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = '#6fea7c';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 100) 
     {
-        window.alert("Grade : E"); 
+        window.alert("Grade : E-Excellent"); 
+        document.querySelector('#E').checked = true;
+        document.querySelector('#U').disabled = true;
+        document.querySelector('#G').disabled = true;
+        document.querySelector('#V').disabled = true;
+        document.querySelector('#F').disabled = true;
+        document.querySelector('#N').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = 'blue';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     }
     else if (avg < 0) 
     {
-        window.alert("Grade : N"); 
+        window.alert("Grade : N-None");
+        document.querySelector('#N').checked = true; 
+        document.querySelector('#U').disabled = true;
+        document.querySelector('#G').disabled = true;
+        document.querySelector('#V').disabled = true;
+        document.querySelector('#E').disabled = true;
+        document.querySelector('#F').disabled = true;
         document.querySelector("#gradesper").style.backgroundColor = 'black';
+        document.querySelector("#gradesper").style.fontSize = 'larger';
+        document.querySelector("#gradesper").style.fontWeight = 'bolder';
     }
   }
    
