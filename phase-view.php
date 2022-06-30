@@ -1,4 +1,8 @@
+<?php 
 
+$course="select course";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +57,19 @@ $(document).ready(function(){
 					<?php 
 						if(isset($_GET['ctp'])){
 							$ctp=$_GET['ctp'];
+              $ctp_id = "SELECT * FROM ctppage where CTPid='$ctp'";
+              $statement = $connect->prepare($ctp_id);
+              $statement->execute();
+
+              if($statement->rowCount() > 0)
+                {
+                  $result = $statement->fetchAll();
+                  $sn=1;
+                  foreach($result as $row)
+                  {
+                    $course=$row['course'];
+                  }
+                }
 						}
 						if(isset($_GET['phase_id'])){
 							$phase="";
@@ -65,7 +82,7 @@ $(document).ready(function(){
 						
 					<div class="container">
 					<center>
-           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['phase'].'/'.$ctp ?> </h3>	</center>
+           			<h3 style="color:red"><?php echo 'phase name/ctp name<br>'.$_GET['phase'].'/'.$course ?> </h3>	</center>
          	 </div>
 		<?php }  ?>
 		<center>
@@ -99,7 +116,7 @@ $(document).ready(function(){
                                 </tr>
                                 <?php 
                                 $output ="";
-                                $query = "SELECT * FROM actual  ORDER BY id ASC";
+                                $query = "SELECT * FROM actual where ctp='$ctp'";
                                 $statement = $connect->prepare($query);
                                 $statement->execute();
                                 if($statement->rowCount() > 0)
@@ -114,14 +131,14 @@ $(document).ready(function(){
                                             <td><?php echo $row['actual'] ?></td>
                                             <td><?php echo $row['symbol'] ?></td>
                                             <td><?php echo $row['phase'] ?></td>
-                                            <td><?php echo $row['ctp'] ?></td>
+                                            <td><?php echo $course ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
                                             <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('actual1').value='<?php echo $row['actual'] ?>';
                                                document.getElementById('symbol').value='<?php echo $row['symbol'] ?>';
                                                document.getElementById('phase').value='<?php echo $row['phase'] ?>';
-                                               document.getElementById('ctp').value='<?php echo $row['ctp'] ?>';
+                                               document.getElementById('ctp').value='<?php echo $course ?>';
                                                document.getElementById('ptype1').value='<?php echo $row['ptype'] ?>';
                                                document.getElementById('percentage1').value='<?php echo $row['percentage'] ?>';
                                             " data-toggle="modal" data-target="#editactual"><i class="fas fa-edit"></i></a>

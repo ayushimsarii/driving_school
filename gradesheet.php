@@ -777,7 +777,9 @@ $classid=$_GET['id'];
 $(document).ready(function(){
   $('#instructor').on('change', function(){
     var inst_id = $(this).val();
+    if(inst_id){
     $('#ins_id').val(inst_id);
+    }
    });
  $("#radio").on('click','#rembtn',function(){
        $(this).closest('tr').remove();

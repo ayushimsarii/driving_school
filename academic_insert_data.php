@@ -23,7 +23,7 @@
 													$percentage = $_POST['percentage'];
 										            
 										            foreach ($academic as $key => $value) {
-										            $query ="INSERT into academic(academic, shortacademic, ptype, percentage, phase,ctp) values('".$value."', '".$shortacademic[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase','$ctp')";
+										            $query ="INSERT into academic(academic, shortacademic, ptype, percentage, phase,ctp) values('".$value."', '".$shortacademic[$key]."','".$ptype[$key]."','".$percentage[$key]."','$phase_id','$ctp')";
 										           
 										            //var_dump($query);
 
