@@ -82,6 +82,14 @@ include_once 'header.php';
 	include_once 'sidenavbar.php';
 ?>
 <div class="container" id="taskcontainer">
+	<?php echo $std_class.'<br>';
+    if(isset($_GET['id'])){
+   $classid=$_GET['id'];
+  }
+  if(isset($_GET['class'])){
+    echo 'class : '.$class=$_GET['class'];
+    }
+  ?>
 	<center>
 	<div class="row" id="accrow">
         <h4 id="acctask">Unaccomplish Task</h4>
@@ -110,7 +118,8 @@ include_once 'header.php';
                                 <?php echo $in?>
                         </select>
 				</td>
-				<td><label class="form-label" for="Instructor">Class</label>
+				<td>
+					<label class="form-label" for="Instructor">Class</label>
                         <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
                             <option selected disabled value="">-select class-</option>
                                 <?php echo $actclass?>
