@@ -138,9 +138,9 @@ $q6="SELECT * FROM vehicle";
                   <div class="form-outline">
                     <label style="text-align:left;" class="form-label" for="coursenumber">Vehicle Type</label>
                     <select type="text" class="form-control form-control-md" name="vehtype" required>
-                                        <option selected disabled value="">-select Number-</option>
-                                        <?php echo $vehnum?>
-                                    </select>
+                        <option selected disabled value="">-select Number-</option>
+                        <?php echo $vehnum?>
+                    </select>
                   </div>
                 </div>
 

@@ -801,3 +801,60 @@ input
   {
     color: black;
   }
+
+  /* UserinfoPage */
+  #newcoursetable
+  {
+    width:max-content;
+  }
+  #newcoursetable tr:nth-child(even)
+  {
+    background-color: white;
+  }
+
+#newcoursetable tr:hover
+ {
+  background-color: rgb(218, 214, 214);
+}
+  #vehicletable
+  {
+    width: max-content;
+  }
+  #vehicletable tr:nth-child(even)
+  {
+    background-color: white;
+  }
+
+#vehicletable tr:hover
+ {
+  background-color: rgb(218, 214, 214);
+}
+  #ctptable
+  {
+    width: 100%;
+  }
+  #ctptable tr:nth-child(even)
+  {
+    background-color: white;
+  }
+
+#ctptable tr:hover
+ {
+  background-color: rgb(218, 214, 214);
+}
+thead
+{
+  background-color: #95A5A6;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+#usertable tr:nth-child(even)
+{
+  background-color: white;
+}
+
+#usertable tr:hover
+{
+background-color: rgb(218, 214, 214);
+}

@@ -4,14 +4,15 @@ include_once 'connect.php';
    
 
      $coursename = $_POST['coursename'];
+     $coursedate = $_POST['coursedate'];
      $coursenumber = $_POST['coursenumber'];
      $Phase_manager = $_POST['Phase_manager'];
      $coursemanager = $_POST['coursemanager'];
      $Symbol = $_POST['Symbol'];
      $student = $_POST['student'];
      
-     $sql = "INSERT INTO newcourse (CourseName,CourseNumber,Symbol,StudentNames,CourseManager,Phase_manager)
-      VALUES ('$coursename','$coursenumber','$Symbol','$student','$coursemanager','$Phase_manager')";
+     $sql = "INSERT INTO newcourse (CourseName,CourseDate,CourseNumber,Symbol,StudentNames,CourseManager,Phase_manager)
+      VALUES ('$coursename','$coursedate','$coursenumber','$Symbol','$student','$coursemanager','$Phase_manager')";
 
      $statement = $connect->prepare($sql);
 
