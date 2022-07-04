@@ -138,13 +138,14 @@ include_once 'header.php';
 	<hr>
 	<div class="row" id="adrow">
 		<h4 id="addtask">Additional Task</h4>
-	
+	    <center>
 		<?php
 		$item=$_REQUEST['itemchecklist'];
 		foreach($item as $items)
 		{
-			echo "<button class='btn btn-success' style='background-color:'>$items</button>";
+			echo "<button class='btn btn-success' style='width:10%;'>$items</button>";
 		?>
+		</center>
 		<table>
 			<tr>
 				<td>
@@ -159,7 +160,7 @@ include_once 'header.php';
 				    <label class="form-label" for="Date">Date</label>
 					<input class="form-control"/>
 				</td>
-				<td>
+				<!-- <td>
 				    <label class="form-label" for="Task">Task</label>
 					<select type="text" id="instructor" class="form-control" name="Instructor" required>
                      
@@ -172,7 +173,7 @@ include_once 'header.php';
 				<?php	}
 			?>
                     </select>
-				</td>
+				</td> -->
 				<td>
 					<label class="form-label" for="Instructor">Instructor</label>
                         <select type="text" id="instructor" class="form-control" name="Instructor" required>

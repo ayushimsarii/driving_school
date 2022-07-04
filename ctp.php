@@ -1,3 +1,19 @@
+<?php
+include('connect.php');
+$vehnum="";
+// $class=$_REQUEST['class'];
+$q6="SELECT * FROM vehicle";
+     $st6 = $connect->prepare($q6);
+     $st6->execute();
+     if($st6->rowCount() > 0)
+     {
+       $re6 = $st6->fetchAll();
+       foreach($re6 as $row7)
+       {
+         $vehnum.='<option value="'.$row7['id'].'">Number: '.$row7['VehicleNumber'].', Type: '.$row7['VehicleType'].'</option>';
+       }
+     }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,16 +121,42 @@
               </div>
               
               <div class="row">
-                <div class="col-md-12">
+              <div class="col-md-6 mb-4">
+
+                <div class="form-outline">
+                  <label style="text-align:left;" class="form-label" for="coursenumber">Type</label>
+                  <input type="text" id="type" name="type" class="form-control form-control-md" />
+                  <!-- <select type="text" id="type" class="form-control form-control-md" name="type" required>
+                            <option selected disabled value="">-select type-</option>
+                                <?php echo $pha?>
+                        </select> -->
+                </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
-                    <label style="text-align:left;" class="form-label" for="coursenumber">Add Manual</label>
-                    <input type="text" id="addmanual" name="manual" class="form-control form-control-md" />
-                    <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#add_manual"><i class="fas fa-plus-square"></i></button>
+                    <label style="text-align:left;" class="form-label" for="coursenumber">Vehicle Type</label>
+                    <select type="text" class="form-control form-control-md" name="vehtype" required>
+                                        <option selected disabled value="">-select Number-</option>
+                                        <?php echo $vehnum?>
+                                    </select>
                   </div>
                 </div>
 
               </div>
+
+              <div class="row">
+                <div class="col-md-12 mb-4">
+
+                <div class="form-outline">
+                  <label style="text-align:left;" class="form-label" for="coursenumber">Add Manual</label>
+                  <input type="text" id="addmanual" name="manual" class="form-control form-control-md" />
+                  <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#add_manual"><i class="fas fa-plus-square"></i></button>
+                </div>
+                </div>
+
+               </div>
 
 
               <div class="mt-4 pt-2">
