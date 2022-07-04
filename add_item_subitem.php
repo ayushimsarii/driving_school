@@ -1,6 +1,60 @@
 
 <?php
 include('connect.php');
+$class_id="";
+$phase_id="";
+$ctp="";
+$class="";
+if(isset($_GET['class_id']) && isset($_GET['class'])){$class_id=$_GET['class_id'];
+	$class=$_GET['class'];
+	$class = "SELECT * FROM $class where id='$class_id'";
+	$statement = $connect->prepare($class);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+				$symbol=$row['symbol'];
+			}
+		}
+
+}else{$class_id="class not selected";}
+if(isset($_GET['phase_id'])){$phase_id=$_GET['phase_id'];
+
+	$phase= "SELECT * FROM phase where id='$phase_id'";
+	$statement = $connect->prepare($phase);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+			$phase_name=$row['phasename'];
+			}
+		}
+}else{$phase_id="phase not selected";}
+if(isset($_GET['ctp'])){$ctp=$_GET['ctp'];
+	$ctp= "SELECT * FROM ctppage where CTPid='$ctp'";
+	$statement = $connect->prepare($ctp);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+			$ctp_name=$row['course'];
+			}
+		}
+}else{$ctp="ctp not selected";}
+
+
 ?>
 <?php
 /** database connection **/
@@ -69,10 +123,12 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Item And Subitem</h3>
-	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $std_course?>
+	<div>
+        Class : <?php echo $symbol?><br>
+        Phase : <?php echo $phase_name?><br>
+        Course : <?php echo $ctp_name?><br>
 </div>
-<br><br>
+<br>
 	<div class="row" style="width:100%;">
 		
 		<!-- <h1>Phase</h1> -->
@@ -95,6 +151,9 @@ include_once 'sidenavbar.php';
                 </tbody>
             </table>
             <input type="submit" class="btn btn-primary" name="save">
+			<input type="hidden" value="<?php echo $class_id?>" name="class_id">
+			<input type="hidden" value="<?php echo $phase_id?>" name="phase_id">
+			<input type="hidden" value="<?php echo $ctp?>" name="ctp_id">
         </form>
     </div>
     <!-- fetch item -->
@@ -302,12 +361,12 @@ include_once 'footer.php';
       <button type="button" class="btn btn-primary mybutton" data-toggle="modal" data-target="#insert subitem" data-db-id="'+arr[i]['ides']+'" data-student="'+sid+'"><i class="fas fa-plus"></i>Subitem</button>\
       <input style="display:none;" type="text" id="std_db_id" value="'+arr[i]['ides']+'" name="std_idies[]">\
       <input style="display:none;"  type="text" name="std_sub[]" value="item"></td>\
-      <td style="display:flex;"><input type="radio" name="grade[item'+arr[i]['ides']+']"  value="U"/> U\
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="F"/> F \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="G"/> G \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="V"/> V \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="E"/> E \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="N"/> N \
+      <td style="display:flex;" ><input type="radio" disabled name="grade[item'+arr[i]['ides']+']"  value="U"/> U\
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="F"/> F \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="G"/> G \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="V"/> V \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="E"/> E \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="N"/> N \
         </td><td><button class="btn btn-danger" id="rembtn">Remove</button></td></tr>\
         <tr id="job_description_'+sid+'"></tr>';
 		}
@@ -340,12 +399,12 @@ include_once 'footer.php';
 			rows+= '<tr><td style="width:100px;" class="td">'+alphabet[0].toUpperCase()+'</td><td>'+arr[0]+'\
       <input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'"> \
       <input style="display:none;" type="text" name="std_sub[]" value="'+arr[0]+'"> </td> \
-      <td style="display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="F"/> F \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="G"/> G \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="E"/> E \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="N"/> N \
+      <td style="display:flex;" disabled><input disabled type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="F"/> F \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="G"/> G \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="V"/> V \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="E"/> E \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="N"/> N \
       </td><td style="width:100px;"><button class="btn btn-danger" id="rembtn2">Remove</button></td></tr><br>';
 					$("#job_description_"+stId).before(rows);
 		}
@@ -358,12 +417,12 @@ include_once 'footer.php';
 				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td>\
 				<td>'+arr[j]+'<input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'">\
 				<input style="display:none;" type="text" name="std_sub[]" value="'+arr[j]+'"> </td>\
-				 <td style="display:flex;"><input type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="F"/> F\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="G"/> G\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
+				 <td style="display:flex;"><input disabled type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="F"/> F\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="G"/> G\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="V"/> V\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="E"/> E\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="N"/> N\
 				 </td><td><button class="btn btn-danger" id="rembtn1">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}
