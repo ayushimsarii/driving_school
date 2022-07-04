@@ -118,14 +118,14 @@ $(document).ready(function(){
                           <center>
                           <table style="width:100%;display:none;" class="table table-striped" id="scoretable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="scoresearch" onkeyup="score()" placeholder="Search for name.." title="Type in a name">
-                          <tr>
+                          <thead>
                         <th>Sr No</th>
                         <th>Type</th>
                         <th>Percentage</th>
                         <th>Color</th>
                         <th>Action</th>
                       
-                    </tr>
+                    </thead>
                                 <?php 
                                $output6 ="";
                                $query6 = "SELECT * FROM percentage  ORDER BY id ASC";
@@ -170,9 +170,9 @@ $(document).ready(function(){
                          <div class="row">
                         <center>
                             
-                          <table style="width:80%;display:none;" class="table table-striped table-bordered" id="vehicletable">
+                          <table style="display:none;" class="table table-striped table-bordered" id="vehicletable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="vehiclesearch" onkeyup="vehicle()" placeholder="Search for Vehicle name.." title="Type in a name">
-                                <tr>
+                                <thead>
                                     <th>Sr No</th>
                                     <th>Vehicle Name</th>
                                     <th>Vehicle Type</th>
@@ -180,7 +180,7 @@ $(document).ready(function(){
                                     <th>Vehicle Spot</th>
                                     <th>Action</th>
                                   
-                                </tr>
+                                </thead>
                                 <?php 
                                 $output ="";
                                 $query = "SELECT * FROM vehicle  ORDER BY id DESC";
@@ -226,12 +226,13 @@ $(document).ready(function(){
                         <br>
                          <div class="row" style="width:80%;">
                         <center>
-                          <table style="width:100%;display:none;" class="table table-striped" id="newcoursetable">
+                          <table style="display:none;" class="table table-striped" id="newcoursetable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="newcoursesearch" onkeyup="newcourse()" placeholder="Search for Course name.." title="Type in a name">
-                          <tr>
+                          <thead>
                         <th>Sr No</th>
                         <th>Course Id</th>
                         <th>Course Name</th>
+                        <th>Course Date</th>
                         <th>Course Number</th>
                         <th>Symbol</th>
                         <th>Student Names</th>
@@ -239,7 +240,7 @@ $(document).ready(function(){
                         <th>Phase Manager</th>
                         <th>Action</th>
                       
-                    </tr>
+                    </thead>
                                 <?php 
                                $output1 ="";
                                $query1 = "SELECT * FROM newcourse  ORDER BY Courseid DESC";
@@ -256,6 +257,7 @@ $(document).ready(function(){
              <td><?php echo $sn1++;?></td>
              <td><?php echo $Courseid=$row1['Courseid'];?></td>
              <td><?php echo $row1['CourseName'];?></td>
+             <td><?php echo $row1['CourseDate'];?></td>
              <td><?php echo $row1['CourseNumber'];?></td>
              <td><?php echo $row1['Symbol'];?></td>
              <td><?php echo $row1['StudentNames'];?></td>
@@ -289,9 +291,9 @@ $(document).ready(function(){
                         <br>
                          <div class="row" style="width:90%;">
                         <center>
-                          <table style="width:100%;display:none;" class="table table-striped" id="ctptable">
+                          <table style="display:none;" class="table table-striped" id="ctptable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="ctpsearch" onkeyup="ctp()" placeholder="Search for Course name.." title="Type in a name">
-                          <tr>
+                          <thead class="thead-dark">
                         <th>Sr No</th>
                         <th>CTP Id</th>
                         <th>Course Name</th>
@@ -305,7 +307,7 @@ $(document).ready(function(){
                         <th>ClassSize</th>
                         <th>Action</th>
                       
-                    </tr>
+                    </thead>
                                 <?php 
                              
                                $query2 = "SELECT * FROM ctppage ORDER BY CTPid DESC";
@@ -363,7 +365,7 @@ $(document).ready(function(){
 
                           <table style="width:100%;display:none;" class="table table-striped table-bordered" id="departmenttable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="departmentsearch" onkeyup="department()" placeholder="Search for name.." title="Type in a name">
-                          <tr>
+                          <thead>
                         <th>Sr No</th>
                         <th>Id</th>
                         <th>School Name</th>
@@ -371,7 +373,7 @@ $(document).ready(function(){
                         <th>Type</th>
                         <th>Action</th>
                       
-                    </tr>
+                    </thead>
                                 <?php 
                              
                                $query2 = "SELECT * FROM homepage ORDER BY id ASC";
@@ -783,8 +785,8 @@ $output ="";
              <td>'.$row['role'].'</td>
              <td>'.$row['phone'].'</td>
              <td>'.$row['email'].'</td>
-             <td><button class="btn btn-success"><a href="edituser-update.php?id='.$row["id"].'"><i class="fas fa-edit"></i></a></button>
-            <button class="btn btn-danger"><a href="user-delete.php?id='.$row["id"].'"><i class="fas fa-trash"></i></a></button></td>
+             <td><a href="edituser-update.php?id='.$row["id"].'"><i class="fas fa-edit"></i></a>
+            <a href="user-delete.php?id='.$row["id"].'"><i class="fas fa-trash"></i></a></td>
              </tr>
              ';
          }
@@ -794,7 +796,7 @@ $output ="";
                 <center>
                 <input class="form-control" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
                 <table class="table table-striped table-bordered" id="usertable">
-                    <tr>
+                    <thead>
                         <th>Sr No</th>
                         <th>Name</th>
                         <th>Id</th>
@@ -803,7 +805,7 @@ $output ="";
                         <th>email</th>
                         <th>Action</th>
                       
-                    </tr>
+                    </thead>
                         <?php
                             echo $output;
                         ?>                
