@@ -26,7 +26,7 @@ foreach($value as $index => $values) {
   var_dump($final_grade);
   var_dump($subject == "item");
   if($subject == "item"){
-    $sql = "INSERT INTO item (item,grade,userid) VALUES ('$values','$final_grade','$users_id')";
+    $sql = "INSERT INTO item (item,grade) VALUES ('$values','$final_grade')";
 
     $statement = $connect->prepare($sql);
 
@@ -34,7 +34,7 @@ foreach($value as $index => $values) {
    
  
   }else{
-    $sql = "INSERT INTO subitem (item,subitem,grade,userid) VALUES ('$values','$subject','$final_grade','$users_id')";
+    $sql = "INSERT INTO subitem (item,subitem,grade) VALUES ('$values','$subject','$final_grade')";
 
     $statement = $connect->prepare($sql);
 

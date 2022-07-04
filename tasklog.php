@@ -4,7 +4,7 @@ $actclass="";
 $simclass="";
 $academicclass="";
 $in="";
-
+$class=$_REQUEST['class'];
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -82,6 +82,14 @@ include_once 'header.php';
 	include_once 'sidenavbar.php';
 ?>
 <div class="container" id="taskcontainer">
+	<?php
+    if(isset($_GET['id'])){
+   $classid=$_GET['id'];
+  }
+  if(isset($_GET['class'])){
+    echo 'class : '.$class=$_GET['class'];
+    }
+  ?>
 	<center>
 	<div class="row" id="accrow">
         <h4 id="acctask">Unaccomplish Task</h4>
@@ -89,7 +97,7 @@ include_once 'header.php';
 			<tr>
 			    <td>
 				    <label class="form-label" for="Class">Class</label>
-					<input class="form-control"/>
+					<input class="form-control" value="<?php echo $class?>"/>
 				</td>
 				<td>
 				    <label class="form-label" for="Instructor">Instructor</label>
@@ -110,7 +118,8 @@ include_once 'header.php';
                                 <?php echo $in?>
                         </select>
 				</td>
-				<td><label class="form-label" for="Instructor">Class</label>
+				<td>
+					<label class="form-label" for="Instructor">Class</label>
                         <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
                             <option selected disabled value="">-select class-</option>
                                 <?php echo $actclass?>
@@ -129,11 +138,19 @@ include_once 'header.php';
 	<hr>
 	<div class="row" id="adrow">
 		<h4 id="addtask">Additional Task</h4>
+	    <center>
+		<?php
+		$item=$_REQUEST['itemchecklist'];
+		foreach($item as $items)
+		{
+			echo "<button class='btn btn-success' style='width:10%;'>$items</button>";
+		?>
+		</center>
 		<table>
 			<tr>
 				<td>
 				    <label class="form-label" for="Class">Class</label>
-					<input class="form-control"/>
+					<input class="form-control" value="<?php echo $class?>"/>
 				</td>
 				<td>
 				    <label class="form-label" for="Instructor">Instructor</label>
@@ -143,20 +160,20 @@ include_once 'header.php';
 				    <label class="form-label" for="Date">Date</label>
 					<input class="form-control"/>
 				</td>
-				<td>
+				<!-- <td>
 				    <label class="form-label" for="Task">Task</label>
 					<select type="text" id="instructor" class="form-control" name="Instructor" required>
-                            <option selected disabled value="">-select instructor-</option>
+                     
 							<?php
-				$item=$_REQUEST['itemchecklist'];
+				
 				foreach($item as $items)
-				{
-					// echo $items, "<br>";
-					echo "<button class='btn btn-success' style='background-color:'>$items</button>";
-				}
+				{?>
+				
+				<option value="<?php echo $items?>"><?php echo $items?></option>'';
+				<?php	}
 			?>
                     </select>
-				</td>
+				</td> -->
 				<td>
 					<label class="form-label" for="Instructor">Instructor</label>
                         <select type="text" id="instructor" class="form-control" name="Instructor" required>
@@ -179,12 +196,9 @@ include_once 'header.php';
 			</tr>
 		</table>
 		<span>
-			<?php
-				$item=$_REQUEST['itemchecklist'];
-				foreach($item as $items)
-				{
-					// echo $items, "<br>";
-					echo "<button class='btn btn-success' style='background-color:'>$items</button>";
+			
+				<?php 
+					
 				}
 			?>
         </span>

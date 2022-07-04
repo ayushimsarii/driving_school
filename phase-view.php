@@ -135,7 +135,7 @@ $(document).ready(function(){
                                             <td><?php echo $course ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php?id=<?php echo $id?>">Add</a></td>
+                                            <td><a href="add_item_subitem.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>">Add</a></td>
                                             <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('actual1').value='<?php echo $row['actual'] ?>';
                                                document.getElementById('symbol').value='<?php echo $row['symbol'] ?>';
