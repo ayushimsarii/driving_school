@@ -257,8 +257,7 @@ $classid=$_GET['id'];
        <div class="container">
          <div class="row" style="width:100%;">
           <center>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details"><!-- <br>
-         <br><span id="student_details"></span> -->
+           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details">
             <i class="fas fa-plus-hexagon"></i>ADD
           </button>
         </center>
@@ -326,18 +325,18 @@ $classid=$_GET['id'];
                 <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio" value="U" id="U"/><span style="font-weight:bold;">U</span>
+                         <input type="radio" value="U" id="U"/><span style="font-weight:bold;" id="u1">U</span>
                       
                       
-                         <input type="radio" value="F" id="F"/><span style="font-weight:bold;"> F </span>
+                         <input type="radio" value="F" id="F"/><span style="font-weight:bold;" id="f1">F</span>
                     
-                         <input type="radio" value="G" id="G"/><span style="font-weight:bold;"> G </span>
+                         <input type="radio" value="G" id="G"/><span style="font-weight:bold;" id="g1">G</span>
                       
-                         <input type="radio" value="V" id="V"/><span style="font-weight:bold;"> V </span>
+                         <input type="radio" value="V" id="V"/><span style="font-weight:bold;" id="v1">V</span>
                      
-                         <input type="radio" value="E" id="E"/><span style="font-weight:bold;"> E </span>
+                         <input type="radio" value="E" id="E"/><span style="font-weight:bold;" id="e1">E</span>
                       
-                         <input type="radio" value="N" id="N"/><span style="font-weight:bold;"> N </span>
+                         <input type="radio" value="N" id="N"/><span style="font-weight:bold;" id="n1">N</span>
                      
                    </td>
 				</tr>
@@ -588,7 +587,9 @@ $classid=$_GET['id'];
 										?>
 										<tr>
 											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
-                      <td><?php echo $student['id'];?></td>
+                      <td>
+                        <input type="text" name="class" value="<?php echo $class ?>">
+                      <?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
 										</tr>
 										<?php
@@ -856,78 +857,90 @@ function item() {
     if (avg < 50)
     {
         // document.getElementById("U");
-        window.alert("You Get Less Than 50 Marks.\nGrade : U-Unsatisfied");
+        // window.alert("You Get Less Than 50 Marks.\nGrade : U-Unsatisfied");
         document.querySelector('#U').checked = true;
         document.querySelector('#F').disabled = true;
         document.querySelector('#G').disabled = true;
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
+        document.querySelector('#u1').style.color = 'red';
+        document.querySelector('#u1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'red';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 70) 
     {
-        window.alert("Grade : F-Fair"); 
+        // window.alert("Grade : F-Fair"); 
         document.querySelector('#F').checked = true;
         document.querySelector('#U').disabled = true;
         document.querySelector('#G').disabled = true;
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
+        document.querySelector('#f1').style.color = 'yellow';
+        document.querySelector('#f1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'yellow';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 80) 
     {
-        window.alert("Grade : G-Good"); 
+        // window.alert("Grade : G-Good"); 
         document.querySelector('#G').checked = true;
         document.querySelector('#U').disabled = true;
         document.querySelector('#f').disabled = true;
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
+        document.querySelector('#g1').style.color = 'green';
+        document.querySelector('#g1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'green';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 90) 
     {
-        window.alert("Grade : V-Very Good"); 
+        // window.alert("Grade : V-Very Good"); 
         document.querySelector('#V').checked = true;
         document.querySelector('#U').disabled = true;
         document.querySelector('#G').disabled = true;
         document.querySelector('#F').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
+        document.querySelector('#v1').style.color = '#6fea7c';
+        document.querySelector('#v1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = '#6fea7c';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     } 
     else if (avg < 100) 
     {
-        window.alert("Grade : E-Excellent"); 
+        // window.alert("Grade : E-Excellent"); 
         document.querySelector('#E').checked = true;
         document.querySelector('#U').disabled = true;
         document.querySelector('#G').disabled = true;
         document.querySelector('#V').disabled = true;
         document.querySelector('#F').disabled = true;
         document.querySelector('#N').disabled = true;
+        document.querySelector('#e1').style.color = 'blue';
+        document.querySelector('#e1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'blue';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     }
     else if (avg < 0) 
     {
-        window.alert("Grade : N-None");
+        // window.alert("Grade : N-None");
         document.querySelector('#N').checked = true; 
         document.querySelector('#U').disabled = true;
         document.querySelector('#G').disabled = true;
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#F').disabled = true;
+        document.querySelector('#n1').style.color = 'black';
+        document.querySelector('#n1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'black';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';

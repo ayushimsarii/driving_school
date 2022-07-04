@@ -2,6 +2,9 @@
 <?php
 include('connect.php');
 $output="";
+
+$course="select course";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,6 +39,7 @@ if($classcolorst->rowCount() > 0)
     else{
         $class="btn btn-dark"; 
     }
+    
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>

@@ -296,6 +296,8 @@ $(document).ready(function(){
                         <th>CTP Id</th>
                         <th>Course Name</th>
                         <th>Manual</th>
+                        <th>Type</th>
+                        <th>Vehicle Type</th>
                         <th>CourseCode</th>
                         <th>Sponcors</th>
                         <th>Location</th>
@@ -321,6 +323,8 @@ $(document).ready(function(){
              <td><?php echo $CTPid=$row2['CTPid'];?></td>
              <td><?php echo $row2['course'];?></td>
              <td><?php echo $row2['manual'];?></td>
+             <td><?php echo $row2['type'];?></td>
+             <td><?php echo $row2['vehtype'];?></td>
              <td><?php echo $row2['CourseCode'];?></td>
              <td><?php echo $row2['Sponcors'];?></td>
              <td><?php echo $row2['Location'];?></td>
@@ -329,6 +333,8 @@ $(document).ready(function(){
              <td><a onclick="document.getElementById('CTPid').value='<?php echo $row2['CTPid'] ?>';
                             document.getElementById('course1').value='<?php echo $row2['course'] ?>';
                             document.getElementById('manual').value='<?php echo $row2['manual'] ?>';
+                            document.getElementById('type').value='<?php echo $row2['type'] ?>';
+                            document.getElementById('vehtype').value='<?php echo $row2['vehtype'] ?>';
                             document.getElementById('CourseCode').value='<?php echo $row2['CourseCode'] ?>';
                             document.getElementById('Sponcors').value='<?php echo $row2['Sponcors'] ?>';
                             document.getElementById('Location').value='<?php echo $row2['Location'] ?>';
@@ -468,6 +474,8 @@ $(document).ready(function(){
                 <input type="text" name="CTPid" value="" id="CTPid" readonly>
               <input type="text" name="course" value="" id="course1">
               <input type="text" name="manual" value="" id="manual">
+              <input type="text" name="type" value="" id="type">
+              <input type="text" name="vehtype" value="" id="vehtype">
               <input type="text" name="CourseCode" value="" id="CourseCode">
               <input type="text" name="Sponcors" value="" id="Sponcors">
               <input type="text" name="Location" value="" id="Location">
