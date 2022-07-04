@@ -324,6 +324,47 @@ include_once 'sidenavbar.php';
             </div>
           </div>
         </div>
+		<!--edit item modal-->
+<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit item</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_item.php">
+					<input type="hidden" name="id" value="" id="item_id">
+					<input type="text" name="item" value="" id="item_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--edit subitem modal-->
+<div class="modal fade" id="editsubitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Subitem</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_subitem.php">
+					<input type="hidden" name="id" value="" id="subitem_id">
+					<input type="text" name="item" value="" id="subitem_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 	</div>
 </div><br>
 

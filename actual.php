@@ -58,7 +58,7 @@ if($classcolorst->rowCount() > 0)
 		<div class="col">
 			<table id="table" class="center" style="border: 1px solid black;">
                     <?php
-                    $query = "SELECT * FROM phase ORDER BY id ASC";
+                    $query = "SELECT * FROM phase where ctp='$phpcourse'";
                     $statement = $connect->prepare($query);
                     $statement->execute();
                     $result = $statement->fetchAll();
@@ -82,7 +82,7 @@ if($classcolorst->rowCount() > 0)
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
                                        
-                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'&id='.$row1['id'].'">'.$row1['symbol'].'</a>';
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'&id='.$row1['id'].'&Phase_id='.$phase.'">'.$row1['symbol'].'</a>';
 
                                }
                                 ?>
