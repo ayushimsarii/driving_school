@@ -588,8 +588,10 @@ $classid=$_GET['id'];
 										?>
 										<tr>
 											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
-                      <td><?php echo $student['id'];?></td>
-											<td><a class="'.$class.'"><?php echo $student['item'];?></a></td>
+                      <td>
+                        <input type="text" name="class" value="<?php echo $class ?>">
+                      <?php echo $student['id'];?></td>
+											<td><?php echo $student['item'];?></td>
 										</tr>
 										<?php
 										$i++;

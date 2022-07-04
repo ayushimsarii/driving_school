@@ -4,7 +4,7 @@ $actclass="";
 $simclass="";
 $academicclass="";
 $in="";
-
+$class=$_REQUEST['class'];
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -82,7 +82,7 @@ include_once 'header.php';
 	include_once 'sidenavbar.php';
 ?>
 <div class="container" id="taskcontainer">
-	<?php echo $std_class.'<br>';
+	<?php
     if(isset($_GET['id'])){
    $classid=$_GET['id'];
   }
@@ -97,7 +97,7 @@ include_once 'header.php';
 			<tr>
 			    <td>
 				    <label class="form-label" for="Class">Class</label>
-					<input class="form-control"/>
+					<input class="form-control" value="<?php echo $class?>"/>
 				</td>
 				<td>
 				    <label class="form-label" for="Instructor">Instructor</label>
@@ -138,11 +138,18 @@ include_once 'header.php';
 	<hr>
 	<div class="row" id="adrow">
 		<h4 id="addtask">Additional Task</h4>
+	
+		<?php
+		$item=$_REQUEST['itemchecklist'];
+		foreach($item as $items)
+		{
+			echo "<button class='btn btn-success' style='background-color:'>$items</button>";
+		?>
 		<table>
 			<tr>
 				<td>
 				    <label class="form-label" for="Class">Class</label>
-					<input class="form-control"/>
+					<input class="form-control" value="<?php echo $class?>"/>
 				</td>
 				<td>
 				    <label class="form-label" for="Instructor">Instructor</label>
@@ -188,12 +195,9 @@ include_once 'header.php';
 			</tr>
 		</table>
 		<span>
-			<?php
-				$item=$_REQUEST['itemchecklist'];
-				foreach($item as $items)
-				{
-					// echo $items, "<br>";
-					echo "<button class='btn btn-success' style='background-color:'>$items</button>";
+			
+				<?php 
+					
 				}
 			?>
         </span>
