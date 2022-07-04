@@ -162,14 +162,14 @@ include_once 'header.php';
 				<td>
 				    <label class="form-label" for="Task">Task</label>
 					<select type="text" id="instructor" class="form-control" name="Instructor" required>
-                            <option selected disabled value="">-select instructor-</option>
+                     
 							<?php
-				$item=$_REQUEST['itemchecklist'];
+				
 				foreach($item as $items)
-				{
-					// echo $items, "<br>";
-					echo "<button class='btn btn-success' style='background-color:'>$items</button>";
-				}
+				{?>
+				
+				<option value="<?php echo $items?>"><?php echo $items?></option>'';
+				<?php	}
 			?>
                     </select>
 				</td>
