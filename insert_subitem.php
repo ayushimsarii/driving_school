@@ -1,7 +1,7 @@
 <?php 
 include('connect.php');
 echo $item=$_REQUEST['subitem'];
-$sql = "INSERT INTO subitem (subitem) VALUES ('".$item."')";
+$sql = "INSERT INTO sub_item (subitem) VALUES ('".$item."')";
 
 							$statement = $connect->prepare($sql);
 

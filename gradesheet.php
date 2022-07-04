@@ -257,8 +257,7 @@ $classid=$_GET['id'];
        <div class="container">
          <div class="row" style="width:100%;">
           <center>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details"><!-- <br>
-         <br><span id="student_details"></span> -->
+           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details">
             <i class="fas fa-plus-hexagon"></i>ADD
           </button>
         </center>
