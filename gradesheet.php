@@ -328,6 +328,10 @@ $classid=$_GET['id'];
                               $name = $q->fetchColumn();
                               echo $name?>
                         </td>
+                        <?php 
+                    $q1= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                       ?>
+                        
                         <td style="display: flex;">
                       
                       <input type="radio" value="U"/>U

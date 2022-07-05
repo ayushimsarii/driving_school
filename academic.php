@@ -4,25 +4,7 @@ include('connect.php');
 $output="";
 
 $course="select course";
-$ac="";
 
-$q4="SELECT * FROM academic";
-     $st4 = $connect->prepare($q4);
-     $st4->execute();
-     if($st4->rowCount() > 0)
-     {
-       $re4 = $st4->fetchAll();
-       foreach($re4 as $row4)
-       {
-         $ac.='<table>
-                 <tr>
-                    <td>
-                        <option value="'.$row4['id'].' '.$row4['shortacademic'].'">'.$row4['file'].'</option>
-                    </td>
-                 </tr>
-               </table>';
-       }
-     }
 
 
 ?>
@@ -101,9 +83,12 @@ if($classcolorst->rowCount() > 0)
                                 $statement1->execute();  
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
-                                       
-                                        echo '<button type="button" data-toggle="modal" data-target="#open-files" id="cl_sy" class="'.$class.'" class='.$row1['shortacademic'].'&per='.$row1['percentage'].'&id='.$row1['id'].'&Phase_id='.$phase.'">'.$row1['shortacademic'].'</button>';
+                                       ?>
+                                  <!-- <a onclick="document.getElementById('value').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" id="cl_sy" class="btn btn-primary" ><?php echo $row1['shortacademic']?></a> -->
 
+
+                                  <a onclick="document.getElementById('file_name').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" class="btn btn-primary"><?php echo $row1['shortacademic']?></a>
+<?php
                                }
                                 ?>
                     
@@ -128,7 +113,7 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-          <?php echo $ac ?>
+          <input type="text" readonly id="file_name" value="">
         </center>
       </div>
       <div class="modal-footer">
