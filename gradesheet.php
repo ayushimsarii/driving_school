@@ -328,10 +328,22 @@ $classid=$_GET['id'];
                               $name = $q->fetchColumn();
                               echo $name?>
                         </td>
-                        <td>
+                        <td style="display: flex;">
                       
-                       
-                        </td>
+                      <input type="radio" value="U"/>U
+                   
+                   
+                      <input type="radio" value="F"/>F
+                 
+                      <input type="radio" value="G"/>G
+                   
+                      <input type="radio" value="V"/>V
+                  
+                      <input type="radio" value="E"/>E
+                   
+                      <input type="radio" value="N"/>N
+                  
+                </td>
                       </tr>
 
                    <?php  }
