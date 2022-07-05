@@ -243,7 +243,7 @@ $(document).ready(function(){
                                     <th>% Type</th>
                                     <th>Percentage</th>
                                     <th>Choose Files</th>
-                                    <th>Upload</th>
+                                    
                                     <th>Action</th>
                                   
                                 </tr>
@@ -267,10 +267,11 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td style="width:20%;"><form method="post" action="upload.php">
+                                            <td><form method="post" action="upload.php" enctype="multipart/form-data">
                                                 <input class="form-control" type="file" name="file" />
-                                                <td style="width:10%;"><button class="btn btn-success" type="submit" name="upload"><i class="fas fa-link"></i></button>
-                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'></td>
+                                                <button class="btn btn-success" type="submit" name="upload">upload</button>
+                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'> 
+                                                 
                                                 </form></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';

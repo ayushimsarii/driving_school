@@ -6,23 +6,15 @@ $output="";
 $course="select course";
 $ac="";
 
-$file_table_data="";
-     $file="SELECT * FROM academic";
-     $file5 = $connect->prepare($file);
-     $file5->execute();
-     if($file5->rowCount() > 0)
+$q4="SELECT * FROM academic";
+     $st4 = $connect->prepare($q4);
+     $st4->execute();
+     if($st4->rowCount() > 0)
      {
-       $refile55 = $file5->fetchAll();
-       $sn=1;
-       foreach($refile55 as $rowfile5)
+       $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
        {
-         $file_table_data.='<tr>
-         <td>'.$sn++.'</td>
-         <td>'.$rowfile5['file'].'</td>
-             <td>'.$rowfile5['type'].'</td>
-             <td>'.$rowfile5['size'].'</td>
-                 
-         </tr>';
+         $ac.='<a value="'.$row4['id'].' '.$row4['shortacademic'].'">'.$row4['file'].'</a>';
        }
      }
 
@@ -130,46 +122,8 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-        <?php
-                    $query = "SELECT * FROM phase where ctp='$phpcourse'";
-                    $statement = $connect->prepare($query);
-                    $statement->execute();
-                    $result = $statement->fetchAll();
-                            foreach($result as $row)
-                            {
-
-                    ?>     
-                            <div class="container"> 
-                                <tr>
-                               
-                                <?php
-                                $phase=$row['id'];
-                                echo $phase_name='<div><h4 style="color:blue" id="phase">'.$row['phasename'].'</h4></div>';
-                                ?>
-                                </tr>
-                                <tr>
-                                <?php
-                                $query1 = "SELECT * FROM academic where phase='$phase'";
-                                $statement1 = $connect->prepare($query1);
-                                $statement1->execute();  
-                                $result1 = $statement1->fetchAll();
-                                    foreach($result1 as $row1){
-                                       
-                                        echo '<a id="cl_sy" class="'.$class.'" href="academic.php?class='.$row1['shortacademic'].'&file='.$row1['file'].'&id='.$row1['id'].'&Phase_id='.$phase.'">'.$row1['shortacademic'].'</a>';
-
-                               }
-                                ?>
-                    
-                                </tr><hr>
-
-                 
-                         </div>      
-<?php }?>
+          <a><?php echo $ac ?></a>
         </center>
-        <?php
-                    if(isset($_GET['file'])){
-                    echo $file=$_GET['file'];
-                    }?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
