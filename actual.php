@@ -82,7 +82,7 @@ if($classcolorst->rowCount() > 0)
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
                                        
-                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'&id='.$row1['id'].'&Phase_id='.$phase.'">'.$row1['symbol'].'</a>';
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['symbol'].'&per='.$row1['percentage'].'&id='.$row1['id'].'&Phase_id='.$phase.'&class_name=actual">'.$row1['symbol'].'</a>';
 
                                }
                                 ?>

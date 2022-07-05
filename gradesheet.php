@@ -1,5 +1,8 @@
 <?php
 include('connect.php');
+if(isset($_GET['class_name'])){
+$class_name=$_GET['class_name'];
+}
 $phase_id="";
 $phase_id=$_GET['Phase_id'];
 $actclass="";
@@ -308,7 +311,7 @@ $classid=$_GET['id'];
 							<tbody>
                 <?php 
                 
-                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id'";
+                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
                 $statement = $connect->prepare($allitem);
                 $statement->execute();
                  
@@ -320,13 +323,14 @@ $classid=$_GET['id'];
                     {?>
                       <tr>
                         <td><?php echo $sn++?></td>
-                        <td><?php $phase_db_id=$row['phase_id'];$q= $connect->prepare("SELECT phasename FROM `phase` WHERE id=?");
-                              $q->execute([$phase_db_id]);
+                        <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                              $q->execute([$item_id]);
                               $name = $q->fetchColumn();
                               echo $name?>
                         </td>
                         <td>
-                          
+                      
+                       
                         </td>
                       </tr>
 

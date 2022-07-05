@@ -201,7 +201,7 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php">Add</a></td>
+                                            <td><a href="add_item_subitem.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>&class=sim">Add</a></td>
                                             <td><a onclick="document.getElementById('id1').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('sim1').value='<?php echo $row['sim'] ?>';
                                                document.getElementById('shortsim1').value='<?php echo $row['shortsim'] ?>';
