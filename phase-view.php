@@ -266,7 +266,11 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload-files"><i class="fas fa-link"></i></button></td>
+                                            <td><form method="post" action="upload.php" enctype="multipart/form-data">
+                                                <input class="form-control" type="file" name="file" />
+                                                <button class="btn btn-success" type="submit" name="upload">upload</button>
+                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'>  
+                                                </form></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';
                                                document.getElementById('shortacademicname').value='<?php echo $row['shortacademic'] ?>';
