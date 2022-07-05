@@ -47,7 +47,7 @@ if($classcolorst->rowCount() > 0)
 		<div class="col">
 		<table id="table" class="center" style="border: 1px solid black;">
                     <?php
-                    $query = "SELECT * FROM phase ORDER BY id ASC";
+                    $query = "SELECT * FROM phase where ctp='$phpcourse'";
                     $statement = $connect->prepare($query);
                     $statement->execute();
                     $result = $statement->fetchAll();

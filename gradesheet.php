@@ -1,5 +1,7 @@
 <?php
 include('connect.php');
+$phase_id="";
+$phase_id=$_GET['Phase_id'];
 $actclass="";
 $simclass="";
 $academicclass="";
@@ -113,6 +115,47 @@ $st2->execute();
        }
      }
 ?>
+<?php
+/** database connection **/
+$mysqli = new mysqli("localhost","root","","driving_school");
+
+// Check connection
+if ($mysqli->connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+  exit();
+}
+
+/**
+* get students **/
+$sql = "SELECT * FROM  itembank";
+$st = $mysqli->query($sql);
+$students = array();
+if ($st->num_rows > 0) 
+{
+	// output data of each row
+	while($row = $st->fetch_assoc()) 
+	{
+		$students[] = $row;
+	}
+}
+
+/**
+* get jobs **/
+$sql2 = "SELECT * FROM sub_item";
+$jb = $mysqli->query($sql2);
+$jobs = array();
+if ($jb->num_rows > 0) 
+{
+	// output data of each row
+	while($row = $jb->fetch_assoc()) 
+	{
+		$jobs[] = $row;
+	}
+}
+
+$mysqli->close();
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -153,7 +196,7 @@ include_once 'sidenavbar.php';
                 echo $error;
                 }?>
 	<div>Student name : 
-    <?php echo $fetchname?><br>
+    <?php echo $phpcourse; echo $fetchname?><br>
 	Course name : 
   <?php echo $std_course.'<br>';
   if(isset($_GET['id'])){
@@ -164,7 +207,9 @@ $classid=$_GET['id'];
     }else{
       echo 'class :<span style="color:red">select class</span>';  
     }
+   
   ?>
+
   <br>
 </div>  
       	<div class="row" style="width:100%;">
@@ -237,12 +282,37 @@ $classid=$_GET['id'];
 									<th>Id</th>
 									<th>Name</th>
 									<th>Grade</th>
-									<th>Actions</th>
+						
 								</tr>
 							</thead>
-							
-						
 							<tbody>
+                <?php 
+                
+                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id'";
+                $statement = $connect->prepare($allitem);
+                $statement->execute();
+                 
+                if($statement->rowCount() > 0)
+                  {
+                    $result = $statement->fetchAll();
+                    $sn=1;
+                    foreach($result as $row)
+                    {?>
+                      <tr>
+                        <td><?php echo $sn++?></td>
+                        <td><?php $phase_db_id=$row['phase_id'];$q= $connect->prepare("SELECT phasename FROM `phase` WHERE id=?");
+                              $q->execute([$phase_db_id]);
+                              $name = $q->fetchColumn();
+                              echo $name?>
+                        </td>
+                        <td>
+                          
+                        </td>
+                      </tr>
+
+                   <?php  }
+                  }
+                ?>
 								
 							</tbody>
 						</table>
@@ -373,7 +443,7 @@ $classid=$_GET['id'];
 										<tr>
 											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
                       <td>
-                        <input type="text" name="class" value="<?php echo $class ?>">
+                        <input type="hidden" name="class" value="<?php echo $class ?>">
                       <?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
 										</tr>
