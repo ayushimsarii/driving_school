@@ -4,6 +4,20 @@ include('connect.php');
 $output="";
 
 $course="select course";
+$ac="";
+
+$q4="SELECT * FROM academic";
+     $st4 = $connect->prepare($q4);
+     $st4->execute();
+     if($st4->rowCount() > 0)
+     {
+       $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
+       {
+         $ac.='<a value="'.$row4['id'].' '.$row4['shortacademic'].'">'.$row4['file'].'</a>';
+       }
+     }
+
 
 ?>
 <!DOCTYPE html>
@@ -108,8 +122,7 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-          <button class="btn btn-primary">Self Study</button>
-          <button class="btn btn-success">Instructor</button>
+          <a><?php echo $ac ?></a>
         </center>
       </div>
       <div class="modal-footer">
