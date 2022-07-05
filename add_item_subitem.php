@@ -39,8 +39,8 @@ if(isset($_GET['phase_id'])){$phase_id=$_GET['phase_id'];
 		}
 }else{$phase_id="phase not selected";}
 if(isset($_GET['ctp'])){$ctp=$_GET['ctp'];
-	$ctp= "SELECT * FROM ctppage where CTPid='$ctp'";
-	$statement = $connect->prepare($ctp);
+	$ctp_value= "SELECT * FROM ctppage where CTPid='$ctp'";
+	$statement = $connect->prepare($ctp_value);
 	$statement->execute();
    
 	if($statement->rowCount() > 0)
@@ -153,7 +153,7 @@ include_once 'sidenavbar.php';
             <input type="submit" class="btn btn-primary" name="save">
 			<input type="hidden" value="<?php echo $class_id?>" name="class_id">
 			<input type="hidden" value="<?php echo $phase_id?>" name="phase_id">
-			<input type="hidden" value="<?php echo $ctp?>" name="ctp_id">
+			<input type="hidden" value="<?php echo $ctp?>" name="ctp_id1">
         </form>
     </div>
     <!-- fetch item -->
