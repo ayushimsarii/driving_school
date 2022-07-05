@@ -232,7 +232,7 @@ $(document).ready(function(){
                          <div class="row" id="academicrow">
                         <center>
                             
-                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="academictable">
+                          <table style="display:none;" class="table table-striped table-bordered" id="academictable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="academicsearch" onkeyup="academic()" placeholder="Search for Vehicle name.." title="Type in a name">
                                 <tr>
                                     <th>Sr No</th>
@@ -242,7 +242,8 @@ $(document).ready(function(){
                                     <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
-                                    <th>Upload Files</th>
+                                    <th>Choose Files</th>
+                                    <th>Upload</th>
                                     <th>Action</th>
                                   
                                 </tr>
@@ -266,10 +267,10 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><form method="post" action="upload.php" enctype="multipart/form-data">
+                                            <td style="width:20%;"><form method="post" action="upload.php">
                                                 <input class="form-control" type="file" name="file" />
-                                                <button class="btn btn-success" type="submit" name="upload">upload</button>
-                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'>  
+                                                <td style="width:10%;"><button class="btn btn-success" type="submit" name="upload"><i class="fas fa-link"></i></button>
+                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'></td>
                                                 </form></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';

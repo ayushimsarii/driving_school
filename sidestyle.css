@@ -391,7 +391,7 @@ button.ghost {
 form 
 {
   background-color: #FFFFFF;
-  display: flex;
+  display: contents;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -857,4 +857,9 @@ thead
 #usertable tr:hover
 {
 background-color: rgb(218, 214, 214);
+}
+#academictable
+{
+  width: 130%;
+  margin-right: 80px;
 }
