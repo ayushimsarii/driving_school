@@ -242,7 +242,7 @@ $(document).ready(function(){
                                     <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
-                                    <th>item and subitem</th>
+                                    <th>Upload Files</th>
                                     <th>Action</th>
                                   
                                 </tr>
@@ -266,7 +266,7 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php">Add</a></td>
+                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload-files"><i class="fas fa-link"></i></button></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';
                                                document.getElementById('shortacademicname').value='<?php echo $row['shortacademic'] ?>';
@@ -464,6 +464,28 @@ $(document).ready(function(){
           </div>
         </div>
 </div><br><br>
+
+<!--Upload files for academic pop up box-->
+<div class="modal fade" id="upload-files" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     
+                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--Previous and Next Button-->
 
     <div class="container" style="width:60%;">
