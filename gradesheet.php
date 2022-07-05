@@ -326,7 +326,7 @@ $classid=$_GET['id'];
                               echo $name?>
                         </td>
                         <td>
-                          
+                        <input type="radio" value="U <?php iss?>"/> U
                         </td>
                       </tr>
 
