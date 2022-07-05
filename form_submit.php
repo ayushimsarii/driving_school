@@ -6,6 +6,7 @@ $std_idie=$_REQUEST['std_idies'];
 $class_id=$_REQUEST['class_id'];
 $phase_id=$_REQUEST['phase_id'];
 $ctp_id1=$_REQUEST['ctp_id1'];
+$class=$_REQUEST['class'];
 var_dump($ctp_id1);
 foreach($std_idie as $std_idies=>$key){
   $value[]=$std_idie[$std_idies];
@@ -25,7 +26,7 @@ foreach($value as $index => $values) {
 
 var_dump($subject == "item");
   if($subject == "item"){
-    $sql = "INSERT INTO item (item,course_id,class_id,phase_id) VALUES ('$values','$ctp_id1','$class_id','$phase_id')";
+    $sql = "INSERT INTO item (item,course_id,class_id,phase_id,class) VALUES ('$values','$ctp_id1','$class_id','$phase_id','$class')";
 echo $sql;
     $statement = $connect->prepare($sql);
 
@@ -34,7 +35,7 @@ echo $sql;
  
   }
   else{
-    $sql = "INSERT INTO subitem (item,subitem,course_id,class_id,phase_id) VALUES ('$values','$subject','$ctp_id1','$class_id','$phase_id')";
+    $sql = "INSERT INTO subitem (item,subitem,course_id,class_id,phase_id,class) VALUES ('$values','$subject','$ctp_id1','$class_id','$phase_id','$class')";
 
     $statement = $connect->prepare($sql);
 

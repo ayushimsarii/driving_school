@@ -71,7 +71,7 @@ if($classcolorst->rowCount() > 0)
                                 $result1 = $statement1->fetchAll();
                                     foreach($result1 as $row1){
                                        
-                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['shortsim'].'&per='.$row1['percentage'].'">'.$row1['shortsim'].'</a>';
+                                        echo '<a id="cl_sy" class="'.$class.'" href="gradesheet.php?class='.$row1['shortsim'].'&per='.$row1['percentage'].'&id='.$row1['id'].'&Phase_id='.$phase.'&class_name=sim">'.$row1['shortsim'].'</a>';
 
                                }
                                 ?>
@@ -98,7 +98,7 @@ if($classcolorst->rowCount() > 0)
  -->	</div>
 </div><br>
 
- <div class="container-fluid" id="simbutton">
+ <div class="container-fluid" id="simbutton"
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
     </div><br>

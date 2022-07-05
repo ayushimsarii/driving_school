@@ -7,8 +7,8 @@ $ctp="";
 $class="";
 if(isset($_GET['class_id']) && isset($_GET['class'])){$class_id=$_GET['class_id'];
 	$class=$_GET['class'];
-	$class = "SELECT * FROM $class where id='$class_id'";
-	$statement = $connect->prepare($class);
+	$class_data = "SELECT * FROM $class where id='$class_id'";
+	$statement = $connect->prepare($class_data);
 	$statement->execute();
    
 	if($statement->rowCount() > 0)
@@ -17,7 +17,11 @@ if(isset($_GET['class_id']) && isset($_GET['class'])){$class_id=$_GET['class_id'
 			$sn=1;
 			foreach($result as $row)
 			{
+				if($class=='actual'){
 				$symbol=$row['symbol'];
+			}else{
+				$symbol=$row['shortsim'];	
+			}
 			}
 		}
 
@@ -154,6 +158,7 @@ include_once 'sidenavbar.php';
 			<input type="hidden" value="<?php echo $class_id?>" name="class_id">
 			<input type="hidden" value="<?php echo $phase_id?>" name="phase_id">
 			<input type="hidden" value="<?php echo $ctp?>" name="ctp_id1">
+			<input type="hidden" value="<?php echo $class?>" name="class">
         </form>
     </div>
     <!-- fetch item -->
