@@ -22,14 +22,14 @@ $statement = $connect->prepare($query);
 
             $statement->execute();
             $error="added";
-            header('Location: academic.php?error=file uploaded successfully.');
+            header('Location: phase-view.php?error=file uploaded successfully.');
             
           
 }
 else
 {
 
-    header('Location: academic.php?error=file uploaded unsuccessfully.');
+    header('Location: phase-view.php?error=file uploaded unsuccessfully.');
      
      }
  }
