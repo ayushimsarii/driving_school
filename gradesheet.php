@@ -112,6 +112,26 @@ $st2->execute();
          $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
+
+     $mysqli = new mysqli("localhost","root","","driving_school");
+
+     // Check connection
+     if ($mysqli->connect_errno) {
+       echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+       exit();
+     }
+
+     $sql = "SELECT * FROM  itembank";
+$st = $mysqli->query($sql);
+$students = array();
+if ($st->num_rows > 0) 
+{
+	// output data of each row
+	while($row = $st->fetch_assoc()) 
+	{
+		$students[] = $row;
+	}
+}
 ?>
 
 <!DOCTYPE html>
