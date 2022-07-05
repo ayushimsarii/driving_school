@@ -14,7 +14,13 @@ $q4="SELECT * FROM academic";
        $re4 = $st4->fetchAll();
        foreach($re4 as $row4)
        {
-         $ac.='<a value="'.$row4['id'].' '.$row4['shortacademic'].'">'.$row4['file'].'</a>';
+         $ac.='<table>
+                 <tr>
+                    <td>
+                        <option value="'.$row4['id'].' '.$row4['shortacademic'].'">'.$row4['file'].'</option>
+                    </td>
+                 </tr>
+               </table>';
        }
      }
 
@@ -122,7 +128,7 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-          <a><?php echo $ac ?></a>
+          <?php echo $ac ?>
         </center>
       </div>
       <div class="modal-footer">
