@@ -768,13 +768,23 @@ input
     }
 
     /* tasklog page */
-    #taskcontainer
+    #unaccomplishcontainer
+
 	{
 		border: 1px solid black;
 		margin-top: 10px;
 		width: 90%;
     margin-right: 20px;
+    background-color: #c5121229;
 	}
+  #additioncontainer
+  {
+    border: 1px solid black;
+		margin-top: 10px;
+		width: 90%;
+    margin-right: 20px;
+    background-color: #1987542b;
+  }
   #acctask
   {
     color: red;
