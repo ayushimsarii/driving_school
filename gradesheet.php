@@ -401,22 +401,22 @@ $classid=$_GET['id'];
                 <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio" value="U" id="U"/><span style="font-weight:bold;" id="u1">U</span>
+                         <input type="radio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
                       
                       
-                         <input type="radio" value="F" id="F"/><span style="font-weight:bold;" id="f1">F</span>
+                         <input type="radio" value="F" id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
                     
-                         <input type="radio" value="G" id="G"/><span style="font-weight:bold;" id="g1">G</span>
+                         <input type="radio" value="G" id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
                       
-                         <input type="radio" value="V" id="V"/><span style="font-weight:bold;" id="v1">V</span>
+                         <input type="radio" value="V" id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
                      
-                         <input type="radio" value="E" id="E"/><span style="font-weight:bold;" id="e1">E</span>
+                         <input type="radio" value="E" id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
                       
-                         <input type="radio" value="N" id="N"/><span style="font-weight:bold;" id="n1">N</span>
+                         <input type="radio" value="N" id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
                      
                    </td>
 				</tr>
-                   <tr><td><input class="form-control" id="gradesper" onkeyup="displayRadioValue()"/></td></tr>
+                   <tr><td><input class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
                    <tr><td>
                     <?php
                     if(isset($_GET['per'])){
