@@ -58,6 +58,7 @@ if($classcolorst->rowCount() > 0)
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Academic</h3>
+  <button><a href="academic-user.php">Study</a></button>
 	<div>Student name : <?php echo $fetchname?><br>
 	Course name : <?php echo $std_course?>
 </div>
@@ -100,7 +101,7 @@ if($classcolorst->rowCount() > 0)
                                   <!-- <a onclick="document.getElementById('value').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" id="cl_sy" class="btn btn-primary" ><?php echo $row1['shortacademic']?></a> -->
 
 
-                                  <a onclick="document.getElementById('file_name').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" class="btn btn-primary"><?php echo $row1['shortacademic']?></a>
+                                  <a href="upload/<?php echo $row1['file'] ?>" target="_blank" onclick="document.getElementById('file_name').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" class="btn btn-primary"><?php echo $row1['shortacademic']?></a>
 <?php
                                }
                                 ?>
@@ -126,7 +127,13 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-          <button type="submit" class="btn btn-success" readonly id="file_name" value="<?php echo $row1['file'] ?>">Self Study</button>
+          <table>
+            <tr>
+              <td><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></td>
+              <td><button class="btn btn-success"><a style="color:black;" href="upload/<?php echo $row1["file"]; ?>" target="_blank">view file</a></button></td>
+            </tr>
+          </table>
+          <!-- <button type="submit" class="btn btn-success" readonly id="file_name" value="<?php echo $row1['file'] ?>">Self Study</button> -->
           <button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">Instructor</button>
         </center>
       </div>
