@@ -412,7 +412,7 @@ include_once 'footer.php';
        <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="G"/> G \
        <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="V"/> V \
        <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="E"/> E \
-       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="N"/> N \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="N"/> \
         </td><td><button class="btn btn-danger" id="rembtn">Remove</button></td></tr>\
         <tr id="job_description_'+sid+'"></tr>';
 		}

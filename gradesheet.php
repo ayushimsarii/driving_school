@@ -281,23 +281,13 @@ $classid=$_GET['id'];
       	</div>
       </div>
 
-      <!--Add Selected Item and fetch-->
-       <div class="container">
-         <div class="row" style="width:100%;">
-          <center>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details">
-            <i class="fas fa-plus-hexagon"></i>ADD
-          </button>
-        </center>
-         </div>
-       </div>
-
+      
 <!--Comment box Container-->
 <div class="container">
   <div class="row" style="width:100%;">
     <div class="col-8">
       <center>
-       <form method="get" action="form_submit.php" style="width:95%;">
+       <form method="get" action="submit_gradesheet.php" style="width:95%;">
 
 					<table class="table table-bordered target-table" id="radio">
 							<thead class="thead-dark" style="background-color:black;">
@@ -310,7 +300,7 @@ $classid=$_GET['id'];
 							</thead>
 							<tbody>
                 <?php 
-                
+                //fetch item
                 $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
                 $statement = $connect->prepare($allitem);
                 $statement->execute();
@@ -326,34 +316,57 @@ $classid=$_GET['id'];
                         <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
                               $q->execute([$item_id]);
                               $name = $q->fetchColumn();
-                              echo $name?>
+                              echo $name
+                           
+                              ?>
+                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="item">
                         </td>
-                        <?php 
-                    $q1= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
-                       ?>
-                        
                         <td style="display: flex;">
                       
-                      <input type="radio" value="U"/>U
-                   
-                   
-                      <input type="radio" value="F"/>F
-                 
-                      <input type="radio" value="G"/>G
-                   
-                      <input type="radio" value="V"/>V
-                  
-                      <input type="radio" value="E"/>E
-                   
-                      <input type="radio" value="N"/>N
-                  
-                </td>
-                      </tr>
-
-                   <?php  }
-                  }
-                ?>
-								
+                      <input type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>U
+                      <input type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>F
+                      <input type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>G
+                      <input type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>V
+                      <input type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>E
+                      <input type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>N
+                      </td>
+                       </tr>
+                       <!-- fetch subitem -->
+                       <?php
+                        $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name' AND item='$item_id'";
+                        $statement = $connect->prepare($allsubitem);
+                        $statement->execute();
+                         
+                        if($statement->rowCount() > 0)
+                          {
+                            $result1 = $statement->fetchAll();
+                            $sn1='A';
+                            foreach($result1 as $row1)
+                            {
+                        ?>
+                        <tr>
+                          <td><?php echo $sn1++ ;?></td>
+                          <td><?php echo $sub_value=$row1['subitem'];?>
+                        
+                                <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
+                      <td style="display: flex;">
+                      <input type="radio" value="U" name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      </td>
+                            </tr>
+                        <?php  
+                        }
+                        }
+                      }
+                    }
+                      ?>
+                      
 							</tbody>
 						</table>
 						
@@ -403,7 +416,7 @@ $classid=$_GET['id'];
                      
                    </td>
 				</tr>
-                   <tr><td><input class="form-control" id="gradesper"/></td></tr>
+                   <tr><td><input class="form-control" id="gradesper" onkeyup="displayRadioValue()"/></td></tr>
                    <tr><td>
                     <?php
                     if(isset($_GET['per'])){
@@ -411,7 +424,7 @@ $classid=$_GET['id'];
                     }?></td>
                     </tr>
                     <tr>
-                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" onclick="displayRadioValue()"/></form></td>
+                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" /></form></td>
                     </tr>
                 </table>
             </div>
