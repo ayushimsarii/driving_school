@@ -370,8 +370,13 @@ include_once 'sidenavbar.php';
         </div>
     </div>
 </div>
-	</div>
+</div>
 </div><br>
+
+<div class="container-fluid" id="next-previous">
+		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
+		<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
+</div>
 
 
     <?php
