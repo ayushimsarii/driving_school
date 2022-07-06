@@ -4,7 +4,20 @@ include('connect.php');
 $output="";
 
 $course="select course";
+$in="";
+$q2= "SELECT * FROM users where role='Instructor'";
+$st2 = $connect->prepare($q2);
+$st2->execute();
 
+ if($st2->rowCount() > 0)
+     {
+         $re2 = $st2->fetchAll();
+       foreach($re2 as $row2)
+         {
+          $in.= '<option value="'.$row2['id'].'">'.$row2['name'].'</option>';
+         }
+     
+     }
 
 
 ?>
@@ -114,7 +127,7 @@ if($classcolorst->rowCount() > 0)
       <div class="modal-body">
         <center>
           <button type="submit" class="btn btn-success" readonly id="file_name" value="<?php echo $row1['file'] ?>">Self Study</button>
-          <button class="btn btn-primary">Instructor</button>
+          <button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">Instructor</button>
         </center>
       </div>
       <div class="modal-footer">
@@ -125,6 +138,34 @@ if($classcolorst->rowCount() > 0)
   </div>
 </div>
 
+
+<!--Modal For Instructor-->
+<div class="modal fade" id="send-instructor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Contact Instructor</h5>
+        <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>
+          <label class="form-label" for="Instructor" name="choose instructor">Select Instructor</label>
+              <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
+                <option selected disabled value="">-select instructor-</option>
+                  <?php echo $in?>
+              </select><hr>
+          <button type="button" class="btn btn-success" style="width:20%;"><i class="fas fa-paper-plane"></i></button>
+        </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Next and Previous Button-->
 
  <div class="container-fluid" id="next-previous">
