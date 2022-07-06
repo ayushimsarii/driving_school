@@ -113,7 +113,8 @@ if($classcolorst->rowCount() > 0)
       </div>
       <div class="modal-body">
         <center>
-          <input type="text" readonly id="file_name" value="">
+          <button type="submit" class="btn btn-success" readonly id="file_name" value="<?php echo $row1['file'] ?>">Self Study</button>
+          <button class="btn btn-primary">Instructor</button>
         </center>
       </div>
       <div class="modal-footer">
