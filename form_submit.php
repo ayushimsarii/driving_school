@@ -43,7 +43,7 @@ echo $sql;
 
   }
   $error ="<div class='alert alert-success'>item and subitem added inserted successfully..</div>";
-  header("Location:add_item_subitem.php?error=".$error."");
+  header("Location:actual.php?error=".$error."");
 }
 
 

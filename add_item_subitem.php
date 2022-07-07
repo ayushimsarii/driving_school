@@ -152,6 +152,87 @@ include_once 'sidenavbar.php';
                     </tr>
                 </thead>
                 <tbody>
+				<?php 
+                //fetch item
+                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$class_id' AND phase_id='$phase_id' AND class='$class'";
+                $statement = $connect->prepare($allitem);
+                $statement->execute();
+                 
+                if($statement->rowCount() > 0)
+                  {
+                    $result = $statement->fetchAll();
+                    $sn=1;
+                    foreach($result as $row)
+                    {?>
+                      <tr id="item">
+                        <td><?php echo $sn++?></td>
+                        <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                              $q->execute([$item_id]);
+                              $name = $q->fetchColumn();
+                              echo $name;
+                           $item_db_id=$row['id'];
+                              ?>
+                                 <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
+                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="item">
+                        </td>
+                        <td style="display: flex;">
+                      
+                      <input id="item-U" type="radio" disabled value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-U">U</label>
+                      <input id="item-F" type="radio" disabled value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-F">F</label>
+                      <input id="item-G" type="radio" disabled value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-G">G</label>
+                      <input id="item-V" type="radio" disabled value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-V">V</label>
+                      <input id="item-E" type="radio" disabled value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-E">E</label>
+                      <input id="item-N" type="radio" disabled value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-N">N</label>
+                      </td>
+					  <td>
+					  <button class="btn btn-danger" id="rembtn">Delete</button>
+					  </td>
+                       </tr>
+                       <!-- fetch subitem -->
+                       <?php
+                        $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$class_id' AND phase_id='$phase_id' AND class='$class' AND item='$item_id'";
+                        $statement = $connect->prepare($allsubitem);
+                        $statement->execute();
+                         
+                        if($statement->rowCount() > 0)
+                          {
+                            $result1 = $statement->fetchAll();
+                            $sn1='A';
+                            foreach($result1 as $row1)
+                            {
+                        ?>
+                        <tr>
+                          <td><?php echo $sn1++ ;?></td>
+                          <td><?php echo $sub_value=$row1['subitem'];
+                          $subitem_db_id=$row1['id'];?>
+                          <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
+                                <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
+                      <td style="display: flex;">
+                      <input type="radio" value="U" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      </td>
+					  <td>
+					  <button class="btn btn-danger" id="rembtn">Delete</button>
+					  </td>
+                            </tr>
+                        <?php  
+                        }
+                        }
+                      }
+                    }
+                      ?>
                 </tbody>
             </table>
             <input type="submit" class="btn btn-primary" name="save">
