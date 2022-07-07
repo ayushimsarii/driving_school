@@ -445,12 +445,6 @@ $classid=$_GET['id'];
                       <td><input class="btn btn-success" type="submit" value="Save" name="save" /></td>
                     </tr>
 
-
-
-                    <tr>
-                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" hidden /></form></td>
-                    </tr>
-
    
                 </table>
                 </form>
