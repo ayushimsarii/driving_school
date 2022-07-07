@@ -13,14 +13,17 @@ padding-left: 240px;
 .sidebar {
 position: fixed;
 top: 95px;
-bottom: 195px;
+bottom: 150px;
 left: 0;
-padding: 10px 0 0; /* Height of navbar */
+padding: 5px 0 0; /* Height of navbar */
 box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
 width: 190px;
 z-index: 400;
 }
-
+.list-group-item
+{
+  margin: 7px;
+}
 @media (max-width: 100px) {
 .sidebar {
 width: 100%;
@@ -872,4 +875,35 @@ background-color: rgb(218, 214, 214);
 {
   width: 130%;
   margin-right: 80px;
+}
+/* grade sheet radio of percentage */
+#u1
+{
+  color: red;
+  font-size: 20px;
+}
+#f1
+{
+  color: darkgoldenrod;
+  font-size: 20px;
+}
+#v1
+{
+  color: green;
+  font-size: 20px;
+}
+#g1
+{
+  color: greenyellow;
+  font-size: 20px;
+}
+#e1
+{
+  color: blue;
+  font-size: 20px;
+}
+#n1
+{
+  color: black;
+  font-size: 20px;
 }
