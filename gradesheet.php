@@ -436,6 +436,7 @@ $classid=$_GET['id'];
                   <tr>
                     <td>
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
+                      <input type="hidden" required name="overall_grade_per" id="silder_get_value">
                       <input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
                     </td>
                   </tr>
@@ -710,10 +711,11 @@ $classid=$_GET['id'];
 
 <script>
 $(document).ready(function(){
-  $('#instructor').on('change', function(){
+  $('#gradesper').on('change', function(){
     var inst_id = $(this).val();
+    console.log(inst_id);
     if(inst_id){
-    $('#ins_id').val(inst_id);
+    $('#silder_get_value').val(inst_id);
     }
    });
  $("#radio").on('click','#rembtn',function(){
