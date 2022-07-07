@@ -193,6 +193,7 @@ $(document).ready(function(){
                
                   <button class="btn btn-danger btn-sm" type="submit" name="submit_Phase"><i class="fas fa-search"></i></button>
                 </form>
+                <div class="container" id="colorsidenavbar">
                   <a href="maindashboard.php" class="list-group-item list-group-item-action py-1 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
                   </a>
@@ -201,14 +202,17 @@ $(document).ready(function(){
                   </a>
                   <a href="usersinfo.php" class="list-group-item list-group-item-action py-1 ripple"><i
                       class="fas fa-chart-line fa-fw me-3"></i><span>Data Page</span></a>
-                      <form action="Next-home.php" method="post">
+                  <form action="Next-home.php" method="post">
                             <!-- <label class="list-group-item list-group-item-action py-1 ripple" for="student" name="ctp">Phase</label> -->
                             <select type="text" id="course" class="list-group-item list-group-item-action py-1 ripple" name="ctp" required>
                                 <option selected disabled value="">Phase</option>
                                 <?php echo $output2 ?>
                             </select>
-                        <button class="btn btn-success" type="submit" name="submit_Phase">Way To Phase</button>
-                        </form>
+                            <center>
+                        <button class="btn btn-success" type="submit" name="submit_Phase"><i class="fas fa-share"></i></button>
+                          </center>
+                          </form>
+                          </div>
             </nav>
                           </div>
                           </div>
