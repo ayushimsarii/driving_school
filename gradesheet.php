@@ -237,23 +237,30 @@ $classid=$_GET['id'];
 </div>  
       	<div class="row" style="width:100%;">
       		<div class="col-8">
+          <form method="get" action="submit_gradesheet.php" style="width:95%;">
       			<table>
                               <tr>
-                                <td><label>Id</label><input class="form-control" type="text" name="up" readonly value="<?php echo $fetchid?>"></td>
-                                <td><label>Name</label><input class="form-control" type="text" name="ride" readonly value="<?php echo $fetchname?>"></td>
+                              <input class="form-control" type="hidden" name="stud_db_id" value="<?php echo $fetchuser_id?>">
+                              <input class="form-control" type="hidden" name="class_name" value="<?php echo $class_name?>">
+                              <input type="hidden" name="phases_id" value="<?php echo $phase_id?>">
+                              <input type="hidden" name="course_id" value="<?php echo $phpcourse?>">
+                              <input type="hidden" name="class_id" value="<?php echo $classid?>">
+                              
+                            <td><label>Id</label><input class="form-control" type="text" name="stud_id" readonly value="<?php echo $fetchid?>"></td>
+                                <td><label>Name</label><input class="form-control" type="text" name="stud_name" readonly value="<?php echo $fetchname?>"></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchrole?>"></td>
-                                <td><label>Phone</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchphone?>"></td>
+                                <td><label>Role</label><input class="form-control" type="text" name="stud_role" readonly value="<?php echo $fetchrole?>"></td>
+                                <td><label>Phone</label><input class="form-control" type="text" name="stud_phone" readonly value="<?php echo $fetchphone?>"></td>
                               </tr>
                               <tr>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
-                                    <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
+                                    <select type="text" id="instructor" class="form-control form-control-md" name="instructor_id" required>
                                         <option selected disabled value="">-select instructor-</option>
                                         <?php echo $in?>
                                     </select></td>
                                     <td><label>Vehicle</label>
-							                     <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
+							                     <select type="text" class="form-control form-control-md" name="vechile_id" required>
                                         <option selected disabled value="">-select Number-</option>
                                         <?php echo $vehnum?>
                                     </select>
@@ -287,7 +294,7 @@ $classid=$_GET['id'];
   <div class="row" style="width:100%;">
     <div class="col-8">
       <center>
-       <form method="get" action="submit_gradesheet.php" style="width:95%;">
+  
 
 					<table class="table table-bordered target-table" id="radio">
 							<thead class="thead-dark" style="background-color:black;">
@@ -316,9 +323,10 @@ $classid=$_GET['id'];
                         <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
                               $q->execute([$item_id]);
                               $name = $q->fetchColumn();
-                              echo $name
-                           
+                              echo $name;
+                           $item_db_id=$row['id'];
                               ?>
+                                 <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
                                  <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
                                  <input type="hidden" name="std_sub[]" value="item">
                         </td>
@@ -353,8 +361,9 @@ $classid=$_GET['id'];
                         ?>
                         <tr>
                           <td><?php echo $sn1++ ;?></td>
-                          <td><?php echo $sub_value=$row1['subitem'];?>
-                        
+                          <td><?php echo $sub_value=$row1['subitem'];
+                          $subitem_db_id=$row1['id'];?>
+                          <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
                                  <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
                       <td style="display: flex;">
@@ -375,12 +384,10 @@ $classid=$_GET['id'];
                       
 							</tbody>
 						</table>
-						
-						<input type="submit" class="btn btn-primary" name="save" onclick="savegrades();">
 
 
 
-				</form>
+			
 </center>
     </div>
            <div class="col-4">
@@ -393,10 +400,10 @@ $classid=$_GET['id'];
         <div class="row" style="width:100%;">
             <div class="col-8">
               <center>
-                <form>
-                  <textarea style="width:90%;">Overall</textarea><br>
+                
+                  <textarea style="width:90%;" name="overall_data">Overall</textarea><br>
                   <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
-                </form>
+             
               </center>
             </div>
 
@@ -404,7 +411,7 @@ $classid=$_GET['id'];
             <table>
 				<center>
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
-                <tr>
+        <tr>
                    <td style="display: flex;">
                       
                          <input type="radio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
@@ -422,17 +429,29 @@ $classid=$_GET['id'];
                      
                    </td>
 				</tr>
+<<<<<<< HEAD
+        <tr><td><input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
+=======
                    <tr><td><input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
+>>>>>>> a50681fa3b2d0733d196c5521bc0fa0897ace55d
                    <tr><td>
                     <?php
                     if(isset($_GET['per'])){
                     echo $percentage=$_GET['per'];
                     }?></td>
                     </tr>
+<<<<<<< HEAD
+                    <tr>
+                      <td><input class="btn btn-success" type="submit" value="Save" name="save" /></td>
+                    </tr>
+
+=======
                     <!-- <tr>
                       <td><form><input class="btn btn-success" type="button" value="Save" name="save" hidden /></form></td>
                     </tr> -->
+>>>>>>> a50681fa3b2d0733d196c5521bc0fa0897ace55d
                 </table>
+                </form>
             </div>
         </div>
       </div>
