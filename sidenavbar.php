@@ -108,7 +108,7 @@ $(document).ready(function(){
                     <i class="fas fa-circle-notch"></i>
                     <i type="button" data-toggle="modal" data-target="#message" class="fas fa-comment" style="margin-left: 90px;"></i>
                   </div>
-                  <form class="form-control">
+                  <form action="actual.php">
                      <div class="list-group-item list-group-item-action py-1">
                     <label class="form-label" for="student">Course Name</label>
                     <select type="text" id="course" class="form-control form-control-md" name="course">
