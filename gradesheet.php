@@ -446,10 +446,12 @@ $classid=$_GET['id'];
                     </tr>
 
 
+
                     <tr>
                       <td><form><input class="btn btn-success" type="button" value="Save" name="save" hidden /></form></td>
                     </tr>
 
+   
                 </table>
                 </form>
             </div>
