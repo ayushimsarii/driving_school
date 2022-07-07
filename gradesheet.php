@@ -311,7 +311,7 @@ $classid=$_GET['id'];
                     $sn=1;
                     foreach($result as $row)
                     {?>
-                      <tr>
+                      <tr id="item">
                         <td><?php echo $sn++?></td>
                         <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
                               $q->execute([$item_id]);
@@ -324,12 +324,18 @@ $classid=$_GET['id'];
                         </td>
                         <td style="display: flex;">
                       
-                      <input type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>U
-                      <input type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>F
-                      <input type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>G
-                      <input type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>V
-                      <input type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>E
-                      <input type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>N
+                      <input id="item-U" type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-U">U</label>
+                      <input id="item-F" type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-F">F</label>
+                      <input id="item-G" type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-G">G</label>
+                      <input id="item-V" type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-V">V</label>
+                      <input id="item-E" type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-E">E</label>
+                      <input id="item-N" type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-N">N</label>
                       </td>
                        </tr>
                        <!-- fetch subitem -->
@@ -370,7 +376,7 @@ $classid=$_GET['id'];
 							</tbody>
 						</table>
 						
-						<input type="submit" class="btn btn-primary" name="save">
+						<input type="submit" class="btn btn-primary" name="save" onclick="savegrades();">
 
 
 
@@ -854,19 +860,20 @@ function item() {
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     }
   }
-   
-  // if (percentage.value <= 100 && percentage.value >= 80) {
-  //   alert("Excellent");
-  //   grades = "A";
-  // } else if (percentage.value <= 79 && percentage.value >= 60) {
-  //   grades = "B";
-  // } else if (percentage.value <= 59 && percentage.value >= 40) {
-  //   grades = "C";
-  // } else {
-  //   grades = "F";
-  // }
   
 };
+</script>
+
+<script>
+  function savegrades()
+  document.window("hello");
+  {
+    if(u=document.querySelector("item-U"))
+    {
+      document.window("hello");
+      document.querySelector("item").style.backgroundColor = "red";
+    }
+  };
 </script>
 </body>
 </html>
