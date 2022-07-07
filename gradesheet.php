@@ -433,7 +433,12 @@ $classid=$_GET['id'];
 
         
 
-                   <tr><td><input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
+                  <tr>
+                    <td>
+                      <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
+                      <input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                    </td>
+                  </tr>
 
                    <tr><td>
                     <?php
@@ -775,10 +780,15 @@ function item() {
     }
 }
 </script>
-
+<!-- <script>
+  function displayRadioValue(x)
+{
+ document.getElementById("slider_value").innerHTML=x;
+}
+</script> -->
 <script>
-  const displayRadioValue = () => {
-  
+  const displayRadioValue = (x) => {
+    document.getElementById("slider_value").innerHTML=x;
   let grades = "";
 
   let avg = document.querySelector("#gradesper").value;
