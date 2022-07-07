@@ -422,16 +422,16 @@ $classid=$_GET['id'];
                      
                    </td>
 				</tr>
-                   <tr><td><input class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
+                   <tr><td><input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue()"/></td></tr>
                    <tr><td>
                     <?php
                     if(isset($_GET['per'])){
                     echo $percentage=$_GET['per'];
                     }?></td>
                     </tr>
-                    <tr>
-                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" /></form></td>
-                    </tr>
+                    <!-- <tr>
+                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" hidden /></form></td>
+                    </tr> -->
                 </table>
             </div>
         </div>

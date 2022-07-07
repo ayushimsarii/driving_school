@@ -133,7 +133,9 @@ include_once 'header.php';
 				</td>
 			</tr>
 		</table>
-		<span>This container for accomplish task</span>
+		<center>
+			<button class="btn btn-danger" style="width:30%;">Save</button>
+        </center>
     </div>
 </div>
 
@@ -203,6 +205,9 @@ include_once 'header.php';
 				</td>
 			</tr>
 		</table>
+		<center>
+			<button class="btn btn-success" style="width:30%;">Save</button>
+        </center>
 		<span>
 			
 				<?php 

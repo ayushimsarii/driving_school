@@ -120,7 +120,7 @@ if($classcolorst->rowCount() > 0)
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Academic Files</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></h5>
         <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><i class="fas fa-times"></i></span>
         </button>
@@ -129,7 +129,7 @@ if($classcolorst->rowCount() > 0)
         <center>
           <table>
             <tr>
-              <td><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></td>
+              <!-- <td><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></td> -->
               <td><button class="btn btn-success"><a style="color:black;" href="upload/<?php echo $row1["file"]; ?>" target="_blank">view file</a></button></td>
             </tr>
           </table>
