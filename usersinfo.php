@@ -105,7 +105,6 @@ $(document).ready(function(){
       </li>
   </ul> <br><br>
 
-  <!-- Tab panes -->
   <!--Tab panel for user-->
   <div class="tab-content">
         <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
