@@ -881,10 +881,9 @@ thead
 {
 background-color: rgb(218, 214, 214);
 }
-#academictable
+#academicrow
 {
-  width: 130%;
-  margin-right: 80px;
+  width: 80%;
 }
 /* grade sheet radio of percentage */
 #u1
@@ -916,4 +915,16 @@ background-color: rgb(218, 214, 214);
 {
   color: black;
   font-size: 20px;
+}
+
+/* Phase page */
+.fa-times-circle
+{
+  font-size: 40px;
+}
+
+/* Classes page */
+#actualrow, #simrow
+{
+  width: 80%;
 }

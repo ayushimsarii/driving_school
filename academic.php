@@ -1,4 +1,4 @@
-
+<!--To fetch the instructor on modal of instructor-->
 <?php
 include('connect.php');
 $output="";
@@ -31,16 +31,18 @@ $st2->execute();
                    initial-scale=1" />
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<!-- JavaScript Bundle with Popper -->
-	<script src="js/jquery.mim.js"></script>
+	  <script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="sidestyle.css">
 </head>
 <body>
+<!--Head navbar-->
 <?php
 include_once 'header.php';
 ?>
+<!--Sidenavbar-->
 <?php
 include_once 'sidenavbar.php';
 $classcolor= "SELECT * FROM gradesheet where user_id='$student'";
@@ -72,6 +74,7 @@ if($classcolorst->rowCount() > 0)
                 }?>
 		<!-- <h1>Phase</h1> -->
 		<div class="col">
+      <!--Fetching phase name, class name, student name and acdemic class-->
 			<table id="table" class="center" style="border: 1px solid black;">
                     <?php
                     $query = "SELECT * FROM phase where ctp='$phpcourse'";
@@ -175,10 +178,10 @@ if($classcolorst->rowCount() > 0)
 </div>
 <!-- Next and Previous Button-->
 
- <div class="container-fluid" id="next-previous">
+ <!-- <div class="container-fluid" id="next-previous">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="sim.php">Next</a></button>
-    </div><br><br>
+    </div><br><br> -->
 
     <script>
  $('#myTable').margetable({
