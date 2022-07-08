@@ -18,9 +18,11 @@
 </head>
 
 <body>
+	<!--Head Navbar-->
 	<?php
 	include 'header.php';
 	?>
+	<!--side Navbar-->
 	<?php
 	if($role =='super admin'){
 	include_once 'sidenavbar.php';
@@ -40,6 +42,7 @@
                 echo $error;
                 }?>
 				<br><br>
+			<!--storing and fetching school name, department name, and type-->
 			<?php 
 			$q1 = "SELECT * FROM homepage where user_id=$user_id";
             $st1 = $connect->prepare($q1);
