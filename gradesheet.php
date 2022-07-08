@@ -272,9 +272,16 @@ $instr_name->execute([$std_in]);
 $name1 = $instr_name->fetchColumn();
 //fetch vechile   
 $vec_id=$value['vehicle']; 
-$vec_name= $connect->prepare("SELECT * FROM `vehicle` WHERE id=?"); 
+$vec_name= $connect->prepare("SELECT VehicleNumber FROM `vehicle` WHERE id=?"); 
 $vec_name->execute([$vec_id]);
-$name1 = $instr_name->fetchColumn();                      
+$name2 = $vec_name->fetchColumn(); 
+$vec_type= $connect->prepare("SELECT VehicleType FROM `vehicle` WHERE id=?"); 
+$vec_type->execute([$vec_id]);
+$name3 = $vec_type->fetchColumn();  
+$st_time=$value['time'];
+$st_date=$value['date']; 
+echo $st_date; 
+$st_date=strtotime($st_date);           
 }}
       ?>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
@@ -288,14 +295,18 @@ $name1 = $instr_name->fetchColumn();
                                     </select></td>
                                     <td><label>Vehicle</label>
 							                     <select type="text" class="form-control form-control-md" name="vechile_id" required>
-                                        <option selected disabled value="">-select Number-</option>
+                                       <?php if($vec_id != ""){?> 
+                                        <option selected disabled value="<?php echo $vec_id ?>"><?php echo 'Number: '.$name2.', Type: '.$name3?></option>
+                                    <?php }else{ ?> 
+                                   <option selected disabled value="">-select Number-</option>
+                                   <?php } ?>
                                         <?php echo $vehnum?>
                                     </select>
 							                 </td>
                               </tr>
                               <tr>
-                              <td><label>Time</label><input class="form-control" type="time" name="time"></td>
-                              <td><label>Date</label><input class="form-control" type="date" name="date"></td>
+                              <td><label>Time</label><input class="form-control" type="time" value="<?php if(isset($st_time)){$date = date("H:i", strtotime($st_time)); echo "$date";} ?>" name="time"></td>
+                              <td><label>Date</label><input class="form-control" type="date" value="<?php echo date('Y-m-d',$st_date);?>" name="date"></td>
                               </tr> 
                               </table>
       		</div>
