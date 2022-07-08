@@ -154,7 +154,7 @@ nav
                 <th>View</th>
                 </tr>
                 <?php
-$connect = new mysqli("localhost","root","","phase");
+$connect = new mysqli("localhost","root","","driving_school");
 
 // Check connection
 if ($connect->connect_errno) 

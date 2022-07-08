@@ -20,6 +20,7 @@ $course="select course";
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
+<!--Script for show tables-->
 <script>
 $(document).ready(function(){
   $("#actualbtn").click(function(){
@@ -102,8 +103,8 @@ $(document).ready(function(){
                         <center>
                             
                           <table style="width:100%;display:none;" class="table table-striped table-bordered" id="actualtable">
-                            <input style="width:50%; display: none;" class="form-control" type="text" id="actualsearch" onkeyup="actual()" placeholder="Search for Vehicle name.." title="Type in a name">
-                                <tr>
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="actualsearch" onkeyup="actual()" placeholder="Search for Actual Class.." title="Type in a name">
+                                <thead>
                                     <th>Sr No</th>
                                     <th>Class Name</th>
                                     <th>Symbol</th>
@@ -114,7 +115,7 @@ $(document).ready(function(){
                                     <th>item and subitem</th>
                                     <th>Action</th>
                                   
-                                </tr>
+                                </thead>
                                 <?php 
                                 $output ="";
                                 $query = "SELECT * FROM actual where ctp='$ctp' and phase='$phase_id'";
@@ -135,7 +136,7 @@ $(document).ready(function(){
                                             <td><?php echo $course ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>">Add</a></td>
+                                            <td><a style="color:blue;" href="add_item_subitem.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>&class=actual">Add</a></td>
                                             <td><a onclick="document.getElementById('id').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('actual1').value='<?php echo $row['actual'] ?>';
                                                document.getElementById('symbol').value='<?php echo $row['symbol'] ?>';
@@ -168,8 +169,8 @@ $(document).ready(function(){
                         <center>
                             
                           <table style="width:100%;display:none;" class="table table-striped table-bordered" id="simtable">
-                            <input style="width:50%; display: none;" class="form-control" type="text" id="simsearch" onkeyup="sim()" placeholder="Search for Vehicle name.." title="Type in a name">
-                                <tr>
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="simsearch" onkeyup="sim()" placeholder="Search for Simulation Class.." title="Type in a name">
+                                <thead>
                                     <th>Sr No</th>
                                     <th>Class Name</th>
                                     <th>Symbol</th>
@@ -180,7 +181,7 @@ $(document).ready(function(){
                                     <th>item and subitem</th>
                                     <th>Action</th>
                                   
-                                </tr>
+                                </thead>
                                 <?php 
                                 $output ="";
                                 $query = "SELECT * FROM sim where ctp='$ctp' and phase='$phase_id'";
@@ -201,8 +202,8 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php">Add</a></td>
-                                            <td><a onclick="document.getElementById('id1').value='<?php echo $id=$row['id'] ?>';
+                                            <td><a href="add_item_subitem.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>&class=sim">Add</a></td>
+                                            <td><a style="color:blue;" onclick="document.getElementById('id1').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('sim1').value='<?php echo $row['sim'] ?>';
                                                document.getElementById('shortsim1').value='<?php echo $row['shortsim'] ?>';
                                                document.getElementById('simphase').value='<?php echo $phase ?>';
@@ -232,9 +233,9 @@ $(document).ready(function(){
                          <div class="row" id="academicrow">
                         <center>
                             
-                          <table style="width:100%;display:none;" class="table table-striped table-bordered" id="academictable">
-                            <input style="width:50%; display: none;" class="form-control" type="text" id="academicsearch" onkeyup="academic()" placeholder="Search for Vehicle name.." title="Type in a name">
-                                <tr>
+                          <table style="display:none;" class="table table-striped table-bordered" id="academictable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="academicsearch" onkeyup="academic()" placeholder="Search for Academic Class.." title="Type in a name">
+                                <thead>
                                     <th>Sr No</th>
                                     <th>Class Name</th>
                                     <th>Symbol</th>
@@ -242,10 +243,11 @@ $(document).ready(function(){
                                     <th>CTP</th>
                                     <th>% Type</th>
                                     <th>Percentage</th>
-                                    <th>item and subitem</th>
+                                    <th>Choose Files</th>
+                                    
                                     <th>Action</th>
                                   
-                                </tr>
+                                </thead>
                                 <?php 
                                 $output ="";
                                 $query = "SELECT * FROM academic where ctp='$ctp' and phase='$phase_id'";
@@ -266,7 +268,12 @@ $(document).ready(function(){
                                             <td><?php echo $row['ctp'] ?></td>
                                             <td><?php echo $row['ptype'] ?></td>
                                             <td><?php echo $row['percentage'] ?></td>
-                                            <td><a href="add_item_subitem.php">Add</a></td>
+                                            <td><form method="post" action="upload.php" enctype="multipart/form-data">
+                                                <input class="form-control" type="file" name="file" />
+                                                <button class="btn btn-success" type="submit" name="upload">upload</button>
+                                                <input style="visibility:hidden;" type="text" id="id" name="id" value='<?php echo $id=$row['id'] ?>'> 
+                                                 
+                                                </form></td>
                                             <td><a onclick="document.getElementById('acaid').value='<?php echo $id=$row['id'] ?>';
                                                document.getElementById('academicname').value='<?php echo $row['academic'] ?>';
                                                document.getElementById('shortacademicname').value='<?php echo $row['shortacademic'] ?>';
@@ -292,9 +299,6 @@ $(document).ready(function(){
           </div>
 </center>
 
-
-
-
 			<div class="container">
 			<center>
 				<div class="row">
@@ -310,7 +314,7 @@ $(document).ready(function(){
                                </select>
                                <br>
 					<!--Adding actual Classes-->
-						<h3>Class : <span>Actual</span></h3>
+						<h3>Class : <span style="font-size:larger; color:green;">Actual</span></h3>
 							<form class="insert-phases" id="actual" method="post" action="actual_insert_data.php">
 									<div class="input-field">
 										<table class="table table-bordered" id="table-field-actual">
@@ -322,13 +326,11 @@ $(document).ready(function(){
 														<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>
                             <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
 														<td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
-														<td><input type="button" name="add_actual" value="Add" id="add_actual" class="btn btn-warning"></td>
+														<td><button type="button" name="add_actual" id="add_actual" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button></td>
 													</tr>
 										</table>
-										</div>
-										<center>
-											<button class="btn btn-success" type="submit" name="submit_actual">Save</button>
-										</center>
+                    <button class="btn btn-success" type="submit" name="submit_actual">Save</button>
+									</div>
 							</form>	
 				</div>
 			</center>
@@ -338,7 +340,7 @@ $(document).ready(function(){
 <div class="container">
   <center>
     <div class="row">
-    		<h3>Class : <span>Simulation</span></h3>
+    		<h3>Class : <span style="font-size:larger; color:green;">Simulation</span></h3>
 		    		<form class="insert-phases" id="sim" method="post" action="sim_insert_data.php">
 							<div class="input-field">
 								<table class="table table-bordered" id="table-field-sim">
@@ -350,13 +352,11 @@ $(document).ready(function(){
 										<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>
                     <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
 										<td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
-										<td><input type="button" name="add_sim" value="Add" id="add_sim" class="btn btn-warning"></td>
+										<td><button type="button" name="add_sim" id="add_sim" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button></td>
 									</tr>
 								</table>
-								</div>
-								<center>
-									<button class="btn btn-success" type="submit" name="submit_sim">Save</button>
-								</center>
+                <button class="btn btn-success" type="submit" name="submit_sim">Save</button>
+							</div>
 						</form>	
 	  </div>
 	</center>
@@ -366,7 +366,7 @@ $(document).ready(function(){
 <div class="container">
   <center>
     <div class="row">
-    		<h3>Class : <span>Academic</span></h3>
+    		<h3>Class : <span style="font-size:larger; color:green;">Academic</span></h3>
 		    	<form class="insert-phases" id="academic" method="post" action="academic_insert_data.php">
 						<div class="input-field">
 							<table class="table table-bordered" id="table-field-academic">
@@ -378,17 +378,15 @@ $(document).ready(function(){
 										<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>
                     <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
 										<td class="short"><input maxlength="10" type="number" readonly class="type_value" name="percentage[]" class="form-control" placeholder="Percentage"></td>
-										<td><input type="button" name="add_academic" value="Add" id="add_academic" class="btn btn-warning"></td>
+										<td><button type="button" name="add_academic" id="add_academic" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button></td>
 									</tr>
-								</table>
-							</div>
-							<center>
-								<button class="btn btn-success" type="submit" name="submit_academic">Save</button>
-							</center>
+							</table>
+                <button class="btn btn-success" type="submit" name="submit_academic">Save</button>
+						</div>		
 					</form>	
     </div>
   </center>
-</div>
+</div><br><br>
 <!--Edit actual class modal-->
 <div class="modal fade" id="editactual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -401,15 +399,15 @@ $(document).ready(function(){
               </div>
               <div class="modal-body">
                 <form method="post" action="edit_actual_class.php">
-                <input type="text" name="id" value="" id="id" readonly>
-              <input type="text" name="actual" value="" id="actual1">
-              <input type="text" name="symbol" value="" id="symbol">
-              <input type="text" name="phase" value="" id="phase">
-              <input type="text" name="ctp" value="" id="ctp">
-              <input type="text" name="ptype" value="" id="ptype1">
-              <input type="text" name="percentage" value="" id="percentage1">
-              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
-                                  </form>
+                    <input type="text" name="id" value="" id="id" readonly>
+                    <input type="text" name="actual" value="" id="actual1">
+                    <input type="text" name="symbol" value="" id="symbol">
+                    <input type="text" name="phase" value="" id="phase">
+                    <input type="text" name="ctp" value="" id="ctp">
+                    <input type="text" name="ptype" value="" id="ptype1">
+                    <input type="text" name="percentage" value="" id="percentage1">
+                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
             </div>
           </div>
         </div>
@@ -426,15 +424,15 @@ $(document).ready(function(){
               </div>
               <div class="modal-body">
                 <form method="post" action="edit_sim_class.php">
-                <input type="text" name="id" value="" id="id1" readonly>
-              <input type="text" name="sim" value="" id="sim1">
-              <input type="text" name="shortsim" value="" id="shortsim1">
-              <input type="text" name="phase" value="" id="simphase">
-              <input type="text" name="ctp" value="" id="simctp">
-              <input type="text" name="ptype" value="" id="ptype2">
-              <input type="text" name="percentage" value="" id="percentage2">
-              <input class="btn btn-primary" type="submit" name="submit" value="Submit">
-                                  </form>
+                    <input type="text" name="id" value="" id="id1" readonly>
+                    <input type="text" name="sim" value="" id="sim1">
+                    <input type="text" name="shortsim" value="" id="shortsim1">
+                    <input type="text" name="phase" value="" id="simphase">
+                    <input type="text" name="ctp" value="" id="simctp">
+                    <input type="text" name="ptype" value="" id="ptype2">
+                    <input type="text" name="percentage" value="" id="percentage2">
+                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
             </div>
           </div>
         </div>
@@ -451,25 +449,47 @@ $(document).ready(function(){
               </div>
               <div class="modal-body">
                 <form method="post" action="edit_academic_class.php">
-                <input type="text" name="id" value="" id="acaid" readonly>
-              <input type="text" name="academic" value="" id="academicname">
-              <input type="text" name="shortacademic" value="" id="shortacademicname">
-              <input type="text" name="ptype" value="" id="ptype3">
-              <input type="text" name="percentage" value="" id="percentage3">
-              <input type="text" name="phase" value="" id="academicphase">
-              <input type="text" name="ctp" value="" id="academicctp">
-              <input class="btn btn-primary" type="submit" name="submit1" value="Submit">
-                                  </form>
+                    <input type="text" name="id" value="" id="acaid" readonly>
+                    <input type="text" name="academic" value="" id="academicname">
+                    <input type="text" name="shortacademic" value="" id="shortacademicname">
+                    <input type="text" name="ptype" value="" id="ptype3">
+                    <input type="text" name="percentage" value="" id="percentage3">
+                    <input type="text" name="phase" value="" id="academicphase">
+                    <input type="text" name="ctp" value="" id="academicctp">
+                    <input class="btn btn-primary" type="submit" name="submit1" value="Submit">
+                </form>
             </div>
           </div>
         </div>
 </div><br><br>
+
+<!--Upload files for academic pop up box-->
+<div class="modal fade" id="upload-files" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     
+                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--Previous and Next Button-->
 
-    <div class="container" style="width:60%;">
+    <!-- <div class="container" style="width:60%;">
 			<button  class="btn btn-primary" type="submit"><a href="Next-home.php">Previous</a></button>
 			<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
-    </div><br><br><br><br><br><br>
+    </div><br><br><br><br><br><br> -->
 <?php
 include_once 'footer.php';
 ?>
@@ -487,7 +507,7 @@ include_once 'footer.php';
 									<td class="short"><input maxlength="10" type="text" name="actualsymbol[]" class="form-control" placeholder="Symbol"></td>\
                   <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
                   <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
-									<td><input type="button" name="remove_actual" value="Remove" id="remove_actual" class="btn btn-danger"></td>\
+									<td><button type="button" name="remove_actual" id="remove_actual" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></td>\
 								</tr>'
 				    var max = 5;
 					var a = 1;
@@ -517,7 +537,7 @@ include_once 'footer.php';
 								<td class="short"><input maxlength="10" type="text" name="shortsim[]" class="form-control" placeholder="Symbol"></td>\
                 <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
                 <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
-								<td><input type="button" name="remove_sim" value="Remove" id="remove_sim" class="btn btn-danger"></td>\
+								<td><button type="button" name="remove_sim" id="remove_sim" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></td>\
 							</tr>'
 			    var max1 = 5;
 				var b = 1;
@@ -548,7 +568,7 @@ include_once 'footer.php';
 								<td class="short"><input maxlength="10" type="text" name="shortacademic[]" class="form-control" placeholder="Symbol"></td>\
                 <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
                 <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
-								<td><input type="button" name="remove_academic" value="Remove" id="remove_academic" class="btn btn-danger"></td>\
+								<td><button type="button" name="remove_academic" id="remove_academic" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></td>\
 							</tr>'
 			    var max2 = 5;
 				var c = 1;
@@ -598,7 +618,7 @@ include_once 'footer.php';
           }
 
       </script>
-
+<!--Search for actual class-->
 <script>
 function actual() {
   var input, filter, table, tr, td, i, txtValue;
@@ -619,7 +639,7 @@ function actual() {
   }
 }
 </script>
-
+<!--Search for sim class-->
 <script>
 function sim() {
   var input, filter, table, tr, td, i, txtValue;
@@ -640,7 +660,7 @@ function sim() {
   }
 }
 </script>
-
+<!--search for academic class-->
 <script>
 function academic() {
   var input, filter, table, tr, td, i, txtValue;

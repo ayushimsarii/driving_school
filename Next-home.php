@@ -38,7 +38,7 @@ $output = '';
                     {
                         $output .= '<tr>
                         <td>'.$sn++.'</td>
-                            <td><a href="phase-view.php?phase_id='.$row["id"].'&phase='.$row["phasename"].'&ctp='.$ctp.'">'.$row["phasename"].'</a></td>
+                            <td><a style="color:black; text-decoration:underline;" href="phase-view.php?phase_id='.$row["id"].'&phase='.$row["phasename"].'&ctp='.$ctp.'">'.$row["phasename"].'</a></td>
                                 <td><a href="phase-update.php?id='.$row["id"].'&ctp='.$ctp.'"><i class="fas fa-edit"></i></a></td>
                                 <td><a href="phase-delete.php?id='.$row["id"].'&ctp='.$ctp.'"><i class="fas fa-trash"></i></a></td>
                             </td>
@@ -112,7 +112,7 @@ $output = '';
 											<input type="hidden" name="ctp" value="<?php echo $ctp ?>">
 											<?php } ?>
 											<td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>
-											<td><input type="button" name="add_phase" value="Add" id="add_phase" class="btn btn-warning"></td>
+											<td><button type="button" name="add_phase" id="add_phase" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button></td>
 										</tr>
 									</table>
 								</div>
@@ -130,11 +130,11 @@ $output = '';
 					<div class="row" style="width:60%;">
 						<center>
 							<table class="table table-striped table-bordered">
-								<tr>
+								<thead>
 									<th>Id</th>
 									<th>Phase</th>
 									<th colspan="2">Operations</th>
-								</tr>
+								</thead>
 									<?php
 										echo $output;
 									?>                
@@ -162,7 +162,7 @@ $output = '';
 	    {
 	        var html = '<tr>\
 	                        <td style="text-align: center;"><input type="text" placeholder="Enter Phase" name="phase[] " class="form-control" value="" required /> </td>\
-	                        <td><input type="button" name="remove_actual" value="Remove" id="remove_phase" class="btn btn-danger"></td>\
+	                        <td><button type="button" name="remove_actual" id="remove_phase" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></td>\
 	                    </tr>'
 	        var max = 5;
 	        var a = 1;

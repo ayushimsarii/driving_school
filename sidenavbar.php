@@ -1,8 +1,21 @@
-<?php 
-include_once 'connect.php';
+<?php
+include('connect.php');
 
-
+     $output2="";
+     $query2 = "SELECT * FROM ctppage  ORDER BY CTPid DESC";
+     $statement2 = $connect->prepare($query2);
+     $statement2->execute();
     
+     if($statement2->rowCount() > 0)
+         {
+             $result2 = $statement2->fetchAll();
+             
+             foreach($result2 as $row2)
+             {
+              $output2 .= '<option value="'.$row2['CTPid'].'">'.$row2['course'].'</option>';
+             }
+         
+         }
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +121,7 @@ $(document).ready(function(){
                     <i class="fas fa-circle-notch"></i>
                     <i type="button" data-toggle="modal" data-target="#message" class="fas fa-comment" style="margin-left: 90px;"></i>
                   </div>
-                  <form class="form-control">
+                  <form action="actual.php">
                      <div class="list-group-item list-group-item-action py-1">
                     <label class="form-label" for="student">Course Name</label>
                     <select type="text" id="course" class="form-control form-control-md" name="course">
@@ -180,22 +193,29 @@ $(document).ready(function(){
                
                   <button class="btn btn-danger btn-sm" type="submit" name="submit_Phase"><i class="fas fa-search"></i></button>
                 </form>
+                <div class="container" id="colorsidenavbar">
                   <a href="maindashboard.php" class="list-group-item list-group-item-action py-1 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
                   </a>
                   <a href="Home.php" class="list-group-item list-group-item-action py-1 ripple">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span>Start 0</span>
                   </a>
-                  <!-- <a href="ctp.php" class="list-group-item list-group-item-action py-1 ripple"><i
-                      class="fas fa-lock fa-fw me-3"></i><span>CTP Page</span></a> -->
                   <a href="usersinfo.php" class="list-group-item list-group-item-action py-1 ripple"><i
                       class="fas fa-chart-line fa-fw me-3"></i><span>Data Page</span></a>
-                  <!-- <a href="Next-home.php" class="list-group-item list-group-item-action py-1 ripple">
-                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>Phase</span>
-                  </a> -->
-                </div>
-              </div>
+                  <form action="Next-home.php" method="post">
+                            <!-- <label class="list-group-item list-group-item-action py-1 ripple" for="student" name="ctp">Phase</label> -->
+                            <select type="text" id="course" class="list-group-item list-group-item-action py-1 ripple" name="ctp" required>
+                                <option selected disabled value="">Phase</option>
+                                <?php echo $output2 ?>
+                            </select>
+                            <center>
+                        <button class="btn btn-success" type="submit" name="submit_Phase"><i class="fas fa-share"></i></button>
+                          </center>
+                          </form>
+                          </div>
             </nav>
+                          </div>
+                          </div>
           </header>
          
 </body>

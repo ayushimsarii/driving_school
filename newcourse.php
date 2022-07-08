@@ -121,6 +121,17 @@ include('connect.php');
                   </div>
 
                 </div>
+
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label" for="coursename">Date</label>
+                    <input class="form-control form-control-md" type="date" name="coursedate" required/> 
+                    
+                  </div>
+
+                  </div>
+
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
@@ -174,8 +185,9 @@ include('connect.php');
                   <?php echo  $std?>
                   </select> 
                 </div>
+                
 
-                <div class="col-md-12 mb-4">
+                <div class="col-md-6 mb-4">
                   <button class="btn btn-success" type="button" data-toggle="modal" data-target="#newuser"><i class="fas fa-user"></i>Add New User</button>
                   </select> 
                 </div>

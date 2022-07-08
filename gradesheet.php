@@ -1,5 +1,10 @@
 <?php
 include('connect.php');
+if(isset($_GET['class_name'])){
+$class_name=$_GET['class_name'];
+}
+$phase_id="";
+$phase_id=$_GET['Phase_id'];
 $actclass="";
 $simclass="";
 $academicclass="";
@@ -8,6 +13,7 @@ $vehtype="";
 $in="";
 $class="";
 $classid="";
+
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -112,6 +118,26 @@ $st2->execute();
          $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
        }
      }
+
+     $mysqli = new mysqli("localhost","root","","driving_school");
+
+     // Check connection
+     if ($mysqli->connect_errno) {
+       echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+       exit();
+     }
+
+     $sql = "SELECT * FROM  itembank";
+$st = $mysqli->query($sql);
+$students = array();
+if ($st->num_rows > 0) 
+{
+	// output data of each row
+	while($row = $st->fetch_assoc()) 
+	{
+		$students[] = $row;
+	}
+}
 ?>
 <?php
 /** database connection **/
@@ -154,6 +180,7 @@ if ($jb->num_rows > 0)
 $mysqli->close();
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -193,7 +220,7 @@ include_once 'sidenavbar.php';
                 echo $error;
                 }?>
 	<div>Student name : 
-    <?php echo $fetchname?><br>
+    <?php echo $phpcourse; echo $fetchname?><br>
 	Course name : 
   <?php echo $std_course.'<br>';
   if(isset($_GET['id'])){
@@ -204,28 +231,63 @@ $classid=$_GET['id'];
     }else{
       echo 'class :<span style="color:red">select class</span>';  
     }
+   
   ?>
+
   <br>
 </div>  
       	<div class="row" style="width:100%;">
       		<div class="col-8">
+          <form method="get" action="submit_gradesheet.php" style="width:95%;">
       			<table>
                               <tr>
-                                <td><label>Id</label><input class="form-control" type="text" name="up" readonly value="<?php echo $fetchid?>"></td>
-                                <td><label>Name</label><input class="form-control" type="text" name="ride" readonly value="<?php echo $fetchname?>"></td>
+                              <input class="form-control" type="hidden" name="stud_db_id" value="<?php echo $fetchuser_id?>">
+                              <input class="form-control" type="hidden" name="class_name" value="<?php echo $class_name?>">
+                              <input type="hidden" name="phases_id" value="<?php echo $phase_id?>">
+                              <input type="hidden" name="course_id" value="<?php echo $phpcourse?>">
+                              <input type="hidden" name="class_id" value="<?php echo $classid?>">
+                              
+                            <td><label>Id</label><input class="form-control" type="text" name="stud_id" readonly value="<?php echo $fetchid?>"></td>
+                                <td><label>Name</label><input class="form-control" type="text" name="stud_name" readonly value="<?php echo $fetchname?>"></td>
                               </tr>
                               <tr>
-                                <td><label>Role</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchrole?>"></td>
-                                <td><label>Phone</label><input class="form-control" type="text" name="status" readonly value="<?php echo $fetchphone?>"></td>
+                                <td><label>Role</label><input class="form-control" type="text" name="stud_role" readonly value="<?php echo $fetchrole?>"></td>
+                                <td><label>Phone</label><input class="form-control" type="text" name="stud_phone" readonly value="<?php echo $fetchphone?>"></td>
                               </tr>
                               <tr>
+                                <?php
+     $stu_grade="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+     $st = $connect->prepare($stu_grade);
+     $st->execute();
+     if($st->rowCount() > 0)
+     {
+       $re = $st->fetchAll();
+       
+       foreach($re as $value)
+       {
+        //fetch instructor of selected std if set
+$std_in=$value['instructor'];
+$instr_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
+$instr_name->execute([$std_in]);
+$name1 = $instr_name->fetchColumn();
+//fetch vechile   
+$vec_id=$value['vehicle']; 
+$vec_name= $connect->prepare("SELECT * FROM `vehicle` WHERE id=?"); 
+$vec_name->execute([$vec_id]);
+$name1 = $instr_name->fetchColumn();                      
+}}
+      ?>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
-                                    <select type="text" id="instructor" class="form-control form-control-md" name="Instructor" required>
-                                        <option selected disabled value="">-select instructor-</option>
+                                    <select type="text" id="instructor" class="form-control form-control-md" name="instructor_id" required>
+                                    <?php if($std_in != ""){?>  
+                                      <option selected disabled value="<?php echo $std_in ?>"><?php echo $name1?></option>
+                                    <?php }else{ ?>  
+                                    <option selected disabled value="">-select instructor-</option>
+                                    <?php } ?>
                                         <?php echo $in?>
                                     </select></td>
                                     <td><label>Vehicle</label>
-							                     <select type="text" class="form-control form-control-md" name="VehicleNumber" required>
+							                     <select type="text" class="form-control form-control-md" name="vechile_id" required>
                                         <option selected disabled value="">-select Number-</option>
                                         <?php echo $vehnum?>
                                     </select>
@@ -253,23 +315,13 @@ $classid=$_GET['id'];
       	</div>
       </div>
 
-      <!--Add Selected Item and fetch-->
-       <div class="container">
-         <div class="row" style="width:100%;">
-          <center>
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insert item" id="student_details">
-            <i class="fas fa-plus-hexagon"></i>ADD
-          </button>
-        </center>
-         </div>
-       </div>
-
+      
 <!--Comment box Container-->
 <div class="container">
   <div class="row" style="width:100%;">
     <div class="col-8">
       <center>
-       <form method="get" action="form_submit.php" style="width:95%;">
+  
 
 					<table class="table table-bordered target-table" id="radio">
 							<thead class="thead-dark" style="background-color:black;">
@@ -277,28 +329,92 @@ $classid=$_GET['id'];
 									<th>Id</th>
 									<th>Name</th>
 									<th>Grade</th>
-									<th>Actions</th>
+						
 								</tr>
 							</thead>
-							
-						
 							<tbody>
-								
+                <?php 
+                //fetch item
+                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+                $statement = $connect->prepare($allitem);
+                $statement->execute();
+                 
+                if($statement->rowCount() > 0)
+                  {
+                    $result = $statement->fetchAll();
+                    $sn=1;
+                    foreach($result as $row)
+                    {?>
+                      <tr id="item">
+                        <td><?php echo $sn++?></td>
+                        <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                              $q->execute([$item_id]);
+                              $name = $q->fetchColumn();
+                              echo $name;
+                           $item_db_id=$row['id'];
+                              ?>
+                                 <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
+                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="item">
+                        </td>
+                        <td style="display: flex;">
+                      
+                      <input id="item-U" type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-U">U</label>
+                      <input id="item-F" type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-F">F</label>
+                      <input id="item-G" type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-G">G</label>
+                      <input id="item-V" type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-V">V</label>
+                      <input id="item-E" type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-E">E</label>
+                      <input id="item-N" type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-N">N</label>
+                      </td>
+                       </tr>
+                       <!-- fetch subitem -->
+                       <?php
+                        $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name' AND item='$item_id'";
+                        $statement = $connect->prepare($allsubitem);
+                        $statement->execute();
+                         
+                        if($statement->rowCount() > 0)
+                          {
+                            $result1 = $statement->fetchAll();
+                            $sn1='A';
+                            foreach($result1 as $row1)
+                            {
+                        ?>
+                        <tr>
+                          <td><?php echo $sn1++ ;?></td>
+                          <td><?php echo $sub_value=$row1['subitem'];
+                          $subitem_db_id=$row1['id'];?>
+                          <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
+                                <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
+                      <td style="display: flex;">
+                      <input type="radio" value="U" name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      </td>
+                            </tr>
+                        <?php  
+                        }
+                        }
+                      }
+                    }
+                      ?>
+                      
 							</tbody>
 						</table>
-						
-						<input type="submit" class="btn btn-primary" name="save">
-
-						
-
-						<input type="text" name="users_id" value="<?php echo $fetchuser_id?>">
-            <input type="text" name="class_id" value="<?php echo $classid?>">
-
-            <input type="text" name="course_id" value="<?php echo $phpcourse?>">
-            <input type="text" name="ins_id" value="" id="ins_id">
 
 
-				</form>
+          
+			
 </center>
     </div>
            <div class="col-4">
@@ -311,10 +427,10 @@ $classid=$_GET['id'];
         <div class="row" style="width:100%;">
             <div class="col-8">
               <center>
-                <form>
-                  <textarea style="width:90%;">Overall</textarea><br>
+                
+                  <textarea style="width:90%;" name="overall_data">Overall</textarea><br>
                   <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
-                </form>
+             
               </center>
             </div>
 
@@ -322,25 +438,35 @@ $classid=$_GET['id'];
             <table>
 				<center>
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
-                <tr>
+        <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio" value="U" id="U"/><span style="font-weight:bold;" id="u1">U</span>
+                         <input type="radio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
                       
                       
-                         <input type="radio" value="F" id="F"/><span style="font-weight:bold;" id="f1">F</span>
+                         <input type="radio" value="F" id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
                     
-                         <input type="radio" value="G" id="G"/><span style="font-weight:bold;" id="g1">G</span>
+                         <input type="radio" value="G" id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
                       
-                         <input type="radio" value="V" id="V"/><span style="font-weight:bold;" id="v1">V</span>
+                         <input type="radio" value="V" id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
                      
-                         <input type="radio" value="E" id="E"/><span style="font-weight:bold;" id="e1">E</span>
+                         <input type="radio" value="E" id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
                       
-                         <input type="radio" value="N" id="N"/><span style="font-weight:bold;" id="n1">N</span>
+                         <input type="radio" value="N" id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
                      
                    </td>
 				</tr>
-                   <tr><td><input class="form-control" id="gradesper"/></td></tr>
+
+        
+
+                  <tr>
+                    <td>
+                      <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
+                      <input type="hidden" required name="overall_grade_per" id="silder_get_value">
+                      <input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                    </td>
+                  </tr>
+
                    <tr><td>
                     <?php
                     if(isset($_GET['per'])){
@@ -348,9 +474,12 @@ $classid=$_GET['id'];
                     }?></td>
                     </tr>
                     <tr>
-                      <td><form><input class="btn btn-success" type="button" value="Save" name="save" onclick="displayRadioValue()"/></form></td>
+                      <td><input class="btn btn-success" type="submit" value="Save" name="save" /></td>
                     </tr>
+
+   
                 </table>
+                </form>
             </div>
         </div>
       </div>
@@ -382,175 +511,7 @@ $classid=$_GET['id'];
           </div>
         </div>
     
-<!--Item Modal-->
-<div class="modal fade" id="insert item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Item Bank</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-					<div class="row">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#additem"><i class="fa-solid fa-octagon-plus"></i>Add item</button>
-                  </div>
-				
-						<table class="table table-bordered src-table1">
-							<thead>
-								<tr>
-									<th><input type="checkbox" id="select-all-item"></th>
-									<th>Id</th>
-									<th>Item</th>
-								    <th>Operations</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								$studentJobsArr = array();
-								if(count($students) > 0)
-								{
-									$studentJobsArr[] = 
-									$totalStudents = count($students);
-									$i = 0;
-									foreach($students as $student)
-									{
-										?>
-										<tr id="check_<?php echo $i;?>" data-total-record="<?php echo $totalStudents;?>" data-tr-id_<?php echo $i;?>="<?php echo $student['id'];?>" data-name-<?php echo $i;?>="<?php echo $student['item'];?>">
-											<td><input type="checkbox" name="itemcheck[]" id="<?php echo $student['id']; ?>" value="<?php echo $student['item'];?>" /></td>
-											<td><?php echo $student['id'];?></td>
-											<td><?php echo $student['item'];?></td>
-										    <td><a onclick="document.getElementById('item_id').value='<?php echo $student['id'] ?>';
-												  document.getElementById('item_name').value='<?php echo $student['item'] ?>';
-												" data-toggle="modal" data-target="#edititem"><i class="fas fa-edit"></i></a>
-												<a href="item_delete.php?id=<?php echo $student['id']?>"><i class="fas fa-trash"></a></i></td>
-										</tr>
-										<?php
-										$i++;
-									}
-								}
-								?>
-								      
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" id="submitstudent">Select</button>
-					</div>
-				</div>
-			</div>
-		</div>
 
-<!--Insert Item-->
-<div class="modal fade" id="additem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Item</h5>
-                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <center>
-                        <form action="insert_item.php" method="post">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="coursename">Item</label>
-                                <input type="text" id="course" name="item[]" class="form-control form-control-md" />
-                            </div><br>
-                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
-                        </form>
-                </center>
-              </div>
-            </div>
-          </div>
-        </div>   
-<!--Subitem modal-->
-<div class="modal fade" id="insert subitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel2">Subitem Bank</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						
-					</div>
-					<div class="modal-body">
-					<div class="row">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addsubitem"><i class="fa-solid fa-octagon-plus"></i>Add subitem</button>
-                  </div>
-						<table class="table table-bordered src-table2">
-							<thead>
-								<tr>
-									<th><input type="checkbox" id="select-all-subitem"></th>
-									<th>ID</th>
-									<th>Name</th>
-									<th>Operations</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								if(count($jobs) > 0)
-								{
-									$j = 1;
-									$totalJobs = count($jobs);
-									foreach($jobs as $job)
-									{
-										?>
-										<tr id="jobinfo_<?php echo $j;?>" data-total-record="<?php echo $totalJobs;?>" data-tr-id_<?php echo $j;?>="<?php echo $job['id'];?>" data-name-<?php echo $j;?>="<?php echo $job['subitem'];?>">
-											<td><input type="checkbox" name="subcheck[]"value="<?php echo $job['subitem'];?>" data-row-id="<?php echo $j;?>" /></td>
-											<td><?php echo $job['id'];?></td>
-											<td><?php echo $job['subitem'];?></td>
-											<td><a onclick="document.getElementById('subitem_id').value='<?php echo $job['id'] ?>';
-												  document.getElementById('subitem_name').value='<?php echo $job['subitem'] ?>';
-												" data-toggle="modal" data-target="#editsubitem"><i class="fas fa-edit"></i></a>
-												<a href="subitem_delete.php?id=<?php echo $job['id']?>"><i class="fas fa-trash"></a></i></td>
-										</tr>
-										<?php
-										$j++;
-									}
-								}
-								?>      
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" id="submitjob" data-studentid="" data-studendbtid="">Select</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-<!--Insert Sub Item-->
-<div class="modal fade" id="addsubitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sub Item</h5>
-                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <center>
-                        <form action="insert_subitem.php" method="post">
-
-                            <div class="form-outline">
-                                <label class="form-label" for="coursename">Sub Item</label>
-                                <input type="text" id="course" name="subitem" class="form-control form-control-md" />
-                            </div><br>
-                                <input class="btn btn-primary btn-md" type="submit" value="Submit" name="Insert_item" />
-                        </form>
-                </center>
-              </div>
-            </div>
-          </div>
-        </div>
 <!--Additional Training modal-->
 
 <div class="modal fade" id="additional-training" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -588,7 +549,7 @@ $classid=$_GET['id'];
 										<tr>
 											<td><input type="checkbox" id="itemchecklist" name="itemchecklist[]" value="<?php echo $student['item']?>"></td>
                       <td>
-                        <input type="text" name="class" value="<?php echo $class ?>">
+                        <input type="hidden" name="class" value="<?php echo $class ?>">
                       <?php echo $student['id'];?></td>
 											<td><?php echo $student['item'];?></td>
 										</tr>
@@ -776,10 +737,11 @@ $classid=$_GET['id'];
 
 <script>
 $(document).ready(function(){
-  $('#instructor').on('change', function(){
+  $('#gradesper').on('change', function(){
     var inst_id = $(this).val();
+    console.log(inst_id);
     if(inst_id){
-    $('#ins_id').val(inst_id);
+    $('#silder_get_value').val(inst_id);
     }
    });
  $("#radio").on('click','#rembtn',function(){
@@ -846,10 +808,15 @@ function item() {
     }
 }
 </script>
-
+<!-- <script>
+  function displayRadioValue(x)
+{
+ document.getElementById("slider_value").innerHTML=x;
+}
+</script> -->
 <script>
-  const displayRadioValue = () => {
-  
+  const displayRadioValue = (x) => {
+    document.getElementById("slider_value").innerHTML=x;
   let grades = "";
 
   let avg = document.querySelector("#gradesper").value;
@@ -946,19 +913,20 @@ function item() {
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
     }
   }
-   
-  // if (percentage.value <= 100 && percentage.value >= 80) {
-  //   alert("Excellent");
-  //   grades = "A";
-  // } else if (percentage.value <= 79 && percentage.value >= 60) {
-  //   grades = "B";
-  // } else if (percentage.value <= 59 && percentage.value >= 40) {
-  //   grades = "C";
-  // } else {
-  //   grades = "F";
-  // }
   
 };
+</script>
+
+<script>
+  function savegrades()
+  document.window("hello");
+  {
+    if(u=document.querySelector("item-U"))
+    {
+      document.window("hello");
+      document.querySelector("item").style.backgroundColor = "red";
+    }
+  };
 </script>
 </body>
 </html>

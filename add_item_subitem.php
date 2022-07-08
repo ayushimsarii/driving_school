@@ -1,6 +1,64 @@
 
 <?php
 include('connect.php');
+$class_id="";
+$phase_id="";
+$ctp="";
+$class="";
+if(isset($_GET['class_id']) && isset($_GET['class'])){$class_id=$_GET['class_id'];
+	$class=$_GET['class'];
+	$class_data = "SELECT * FROM $class where id='$class_id'";
+	$statement = $connect->prepare($class_data);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+				if($class=='actual'){
+				$symbol=$row['symbol'];
+			}else{
+				$symbol=$row['shortsim'];	
+			}
+			}
+		}
+
+}else{$class_id="class not selected";}
+if(isset($_GET['phase_id'])){$phase_id=$_GET['phase_id'];
+
+	$phase= "SELECT * FROM phase where id='$phase_id'";
+	$statement = $connect->prepare($phase);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+			$phase_name=$row['phasename'];
+			}
+		}
+}else{$phase_id="phase not selected";}
+if(isset($_GET['ctp'])){$ctp=$_GET['ctp'];
+	$ctp_value= "SELECT * FROM ctppage where CTPid='$ctp'";
+	$statement = $connect->prepare($ctp_value);
+	$statement->execute();
+   
+	if($statement->rowCount() > 0)
+		{
+			$result = $statement->fetchAll();
+			$sn=1;
+			foreach($result as $row)
+			{
+			$ctp_name=$row['course'];
+			}
+		}
+}else{$ctp="ctp not selected";}
+
+
 ?>
 <?php
 /** database connection **/
@@ -69,10 +127,12 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Item And Subitem</h3>
-	<div>Student name : <?php echo $fetchname?><br>
-	Course name : <?php echo $std_course?>
+	<div>
+        Class : <?php echo $symbol?><br>
+        Phase : <?php echo $phase_name?><br>
+        Course : <?php echo $ctp_name?><br>
 </div>
-<br><br>
+<br>
 	<div class="row" style="width:100%;">
 		
 		<!-- <h1>Phase</h1> -->
@@ -92,9 +152,94 @@ include_once 'sidenavbar.php';
                     </tr>
                 </thead>
                 <tbody>
+				<?php 
+                //fetch item
+                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$class_id' AND phase_id='$phase_id' AND class='$class'";
+                $statement = $connect->prepare($allitem);
+                $statement->execute();
+                 
+                if($statement->rowCount() > 0)
+                  {
+                    $result = $statement->fetchAll();
+                    $sn=1;
+                    foreach($result as $row)
+                    {?>
+                      <tr id="item">
+                        <td><?php echo $sn++?></td>
+                        <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                              $q->execute([$item_id]);
+                              $name = $q->fetchColumn();
+                              echo $name;
+                           $item_db_id=$row['id'];
+                              ?>
+                                 <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
+                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="item">
+                        </td>
+                        <td style="display: flex;">
+                      
+                      <input id="item-U" type="radio" disabled value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-U">U</label>
+                      <input id="item-F" type="radio" disabled value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-F">F</label>
+                      <input id="item-G" type="radio" disabled value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-G">G</label>
+                      <input id="item-V" type="radio" disabled value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-V">V</label>
+                      <input id="item-E" type="radio" disabled value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-E">E</label>
+                      <input id="item-N" type="radio" disabled value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <label for="item-N">N</label>
+                      </td>
+					  <td>
+					  <button class="btn btn-danger" id="rembtn">Delete</button>
+					  </td>
+                       </tr>
+                       <!-- fetch subitem -->
+                       <?php
+                        $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$class_id' AND phase_id='$phase_id' AND class='$class' AND item='$item_id'";
+                        $statement = $connect->prepare($allsubitem);
+                        $statement->execute();
+                         
+                        if($statement->rowCount() > 0)
+                          {
+                            $result1 = $statement->fetchAll();
+                            $sn1='A';
+                            foreach($result1 as $row1)
+                            {
+                        ?>
+                        <tr>
+                          <td><?php echo $sn1++ ;?></td>
+                          <td><?php echo $sub_value=$row1['subitem'];
+                          $subitem_db_id=$row1['id'];?>
+                          <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
+                                <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                 <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
+                      <td style="display: flex;">
+                      <input type="radio" value="U" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" disabled name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      </td>
+					  <td>
+					  <button class="btn btn-danger" id="rembtn">Delete</button>
+					  </td>
+                            </tr>
+                        <?php  
+                        }
+                        }
+                      }
+                    }
+                      ?>
                 </tbody>
             </table>
             <input type="submit" class="btn btn-primary" name="save">
+			<input type="hidden" value="<?php echo $class_id?>" name="class_id">
+			<input type="hidden" value="<?php echo $phase_id?>" name="phase_id">
+			<input type="hidden" value="<?php echo $ctp?>" name="ctp_id1">
+			<input type="hidden" value="<?php echo $class?>" name="class">
         </form>
     </div>
     <!-- fetch item -->
@@ -265,8 +410,54 @@ include_once 'sidenavbar.php';
             </div>
           </div>
         </div>
-	</div>
+		<!--edit item modal-->
+<div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit item</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_item.php">
+					<input type="hidden" name="id" value="" id="item_id">
+					<input type="text" name="item" value="" id="item_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--edit subitem modal-->
+<div class="modal fade" id="editsubitem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Subitem</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="edit_subitem.php">
+					<input type="hidden" name="id" value="" id="subitem_id">
+					<input type="text" name="item" value="" id="subitem_name">
+					<input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div><br>
+
+<div class="container-fluid" id="next-previous">
+		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
+		<button style="float: right;" class="btn btn-primary" type="submit"><a href="actual.php">Next</a></button>
+</div>
 
 
     <?php
@@ -302,12 +493,12 @@ include_once 'footer.php';
       <button type="button" class="btn btn-primary mybutton" data-toggle="modal" data-target="#insert subitem" data-db-id="'+arr[i]['ides']+'" data-student="'+sid+'"><i class="fas fa-plus"></i>Subitem</button>\
       <input style="display:none;" type="text" id="std_db_id" value="'+arr[i]['ides']+'" name="std_idies[]">\
       <input style="display:none;"  type="text" name="std_sub[]" value="item"></td>\
-      <td style="display:flex;"><input type="radio" name="grade[item'+arr[i]['ides']+']"  value="U"/> U\
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="F"/> F \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="G"/> G \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="V"/> V \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="E"/> E \
-       <input type="radio" name="grade[item'+arr[i]['ides']+']" value="N"/> N \
+      <td style="display:flex;" ><input type="radio" disabled name="grade[item'+arr[i]['ides']+']"  value="U"/> U\
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="F"/> F \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="G"/> G \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="V"/> V \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="E"/> E \
+       <input type="radio" disabled name="grade[item'+arr[i]['ides']+']" value="N"/> \
         </td><td><button class="btn btn-danger" id="rembtn">Remove</button></td></tr>\
         <tr id="job_description_'+sid+'"></tr>';
 		}
@@ -340,12 +531,12 @@ include_once 'footer.php';
 			rows+= '<tr><td style="width:100px;" class="td">'+alphabet[0].toUpperCase()+'</td><td>'+arr[0]+'\
       <input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'"> \
       <input style="display:none;" type="text" name="std_sub[]" value="'+arr[0]+'"> </td> \
-      <td style="display:flex;"><input type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="F"/> F \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="G"/> G \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="V"/> V \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="E"/> E \
-      <input type="radio" name="grade['+arr[0]+stdbId+']" value="N"/> N \
+      <td style="display:flex;" disabled><input disabled type="radio" name="grade['+arr[0]+stdbId+']" value="U"/> U \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="F"/> F \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="G"/> G \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="V"/> V \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="E"/> E \
+      <input type="radio" disabled name="grade['+arr[0]+stdbId+']" value="N"/> N \
       </td><td style="width:100px;"><button class="btn btn-danger" id="rembtn2">Remove</button></td></tr><br>';
 					$("#job_description_"+stId).before(rows);
 		}
@@ -358,12 +549,12 @@ include_once 'footer.php';
 				rows+= '<tr><td>'+alphabet[j].toUpperCase()+'</td>\
 				<td>'+arr[j]+'<input style="display:none;" type="text" name="std_idies[]" value="'+stdbId+'">\
 				<input style="display:none;" type="text" name="std_sub[]" value="'+arr[j]+'"> </td>\
-				 <td style="display:flex;"><input type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="F"/> F\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="G"/> G\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="V"/> V\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="E"/> E\
-				 <input type="radio" name="grade['+arr[j]+stdbId+']" value="N"/> N\
+				 <td style="display:flex;"><input disabled type="radio" name="grade['+arr[j]+stdbId+']" value="U"/> U\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="F"/> F\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="G"/> G\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="V"/> V\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="E"/> E\
+				 <input type="radio" disabled name="grade['+arr[j]+stdbId+']" value="N"/> N\
 				 </td><td><button class="btn btn-danger" id="rembtn1">Remove</button></td></tr>';
 				$("#job_description_"+stId).before(rows);	
 			}

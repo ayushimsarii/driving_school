@@ -81,7 +81,8 @@ include_once 'header.php';
 <?php
 	include_once 'sidenavbar.php';
 ?>
-<div class="container" id="taskcontainer">
+<center>
+<div class="container" id="unaccomplishcontainer">
 	<?php
     if(isset($_GET['id'])){
    $classid=$_GET['id'];
@@ -90,7 +91,6 @@ include_once 'header.php';
     echo 'class : '.$class=$_GET['class'];
     }
   ?>
-	<center>
 	<div class="row" id="accrow">
         <h4 id="acctask">Unaccomplish Task</h4>
 		<table>
@@ -133,21 +133,31 @@ include_once 'header.php';
 				</td>
 			</tr>
 		</table>
-		<span>This container for accomplish task</span>
+		<center>
+			<button class="btn btn-danger" style="width:30%;">Save</button>
+        </center>
     </div>
-	<hr>
+</div>
+
+<div class="container" id="additioncontainer">
 	<div class="row" id="adrow">
 		<h4 id="addtask">Additional Task</h4>
-	    <center>
+	    
+		<tr style="text-align:left;">
 		<?php
 		$item=$_REQUEST['itemchecklist'];
 		foreach($item as $items)
 		{
-			echo "<button class='btn btn-success' style='width:10%;'>$items</button>";
+			echo "<button class='btn btn-warning' style='width:10%;'>$items</button>";
 		?>
-		</center>
+		</tr>
+		
 		<table>
 			<tr>
+				<td>
+					<label class="form-label" for="Task">Task</label>
+					<input class="form-control" value="<?php echo $class?>"/>
+		        </td>
 				<td>
 				    <label class="form-label" for="Class">Class</label>
 					<input class="form-control" value="<?php echo $class?>"/>
@@ -195,6 +205,9 @@ include_once 'header.php';
 				</td>
 			</tr>
 		</table>
+		<center>
+			<button class="btn btn-success" style="width:30%;">Save</button>
+        </center>
 		<span>
 			
 				<?php 
@@ -203,8 +216,7 @@ include_once 'header.php';
 			?>
         </span>
     </div>
-    </center>
 </div>
-
+</center>
 </body>
 </html>
