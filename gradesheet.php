@@ -255,9 +255,35 @@ $classid=$_GET['id'];
                                 <td><label>Phone</label><input class="form-control" type="text" name="stud_phone" readonly value="<?php echo $fetchphone?>"></td>
                               </tr>
                               <tr>
+                                <?php
+     $stu_grade="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+     $st = $connect->prepare($stu_grade);
+     $st->execute();
+     if($st->rowCount() > 0)
+     {
+       $re = $st->fetchAll();
+       
+       foreach($re as $value)
+       {
+        //fetch instructor of selected std if set
+$std_in=$value['instructor'];
+$instr_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
+$instr_name->execute([$std_in]);
+$name1 = $instr_name->fetchColumn();
+//fetch vechile   
+$vec_id=$value['vehicle']; 
+$vec_name= $connect->prepare("SELECT * FROM `vehicle` WHERE id=?"); 
+$vec_name->execute([$vec_id]);
+$name1 = $instr_name->fetchColumn();                      
+}}
+      ?>
                                 <td><label class="form-label" for="Instructor">Instructor</label>
                                     <select type="text" id="instructor" class="form-control form-control-md" name="instructor_id" required>
-                                        <option selected disabled value="">-select instructor-</option>
+                                    <?php if($std_in != ""){?>  
+                                      <option selected disabled value="<?php echo $std_in ?>"><?php echo $name1?></option>
+                                    <?php }else{ ?>  
+                                    <option selected disabled value="">-select instructor-</option>
+                                    <?php } ?>
                                         <?php echo $in?>
                                     </select></td>
                                     <td><label>Vehicle</label>
@@ -387,7 +413,7 @@ $classid=$_GET['id'];
 						</table>
 
 
-
+          
 			
 </center>
     </div>
