@@ -82,26 +82,13 @@ if($classcolorst->rowCount() > 0)
 <?php }?>
                     </table>
 		</div>
-
-		<!-- <div class="col">
-			<div style="margin-left:90px;">
-				<p></p>
-				<input type="date" name="date">
-			</div>
-			<div style="border: 1px solid black; width: 70%; text-align: center; margin: 5px;
-			padding: 5px; float:right;">
-				<textarea>Student Haves</textarea><br>
-				<textarea>Class # Select</textarea><br>
-				<textarea>Send A Message</textarea>
-			</div>
-		</div>
- -->	</div>
+</div>
 </div><br>
 
- <div class="container-fluid" id="simbutton"
-		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
+ <!-- <div class="container-fluid" id="simbutton"
+		<button class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
-    </div><br>
+    </div><br> -->
     <?php
     include_once 'footer.php';
     ?>

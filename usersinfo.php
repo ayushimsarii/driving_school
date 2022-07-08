@@ -1,3 +1,4 @@
+<!--Fethching ctp name-->
 <?php
 include('connect.php');
 
@@ -32,6 +33,7 @@ include('connect.php');
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<link rel="stylesheet" type="text/css" href="sidestyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--Script for showing tables-->
   <script>
 $(document).ready(function(){
   $("#vehiclebtn").click(function(){
@@ -59,10 +61,11 @@ $(document).ready(function(){
 </head>
 <body class="bodyuser">
 
-    
+<!--Head Navbar-->   
 	<?php
 	include_once 'header.php';
 	?>
+<!--Sidenavbar-->
 	<?php
 	include_once 'sidenavbar.php';
 	?>
@@ -103,15 +106,19 @@ $(document).ready(function(){
   </ul> <br><br>
 
   <!-- Tab panes -->
+  <!--Tab panel for user-->
   <div class="tab-content">
         <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
             <button class="btn btn-success" id="btn-success"><a href="roles.php">Manage Roles</a></button>
             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#newuser">Register User</button>
             <button class="btn btn-warning" id="btn-warning" type="button" data-toggle="modal" data-target="#user_list">User List</button>
         </div>
+<!--Tab panel for percentage-->
         <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
             <button class="btn btn-info" type="button" data-toggle="modal" data-target="#addpercentage">Insert Percentage</button>
             <button class="btn btn-success" id="scorebtn" type="button">Percentage</button>
+            <button class="btn btn-primary" id="permissionbtn" type="button">Permission</button>
+            <!--Table for percentage-->
             <div class="container">
                         <br>
                          <div class="row">
@@ -160,6 +167,7 @@ $(document).ready(function(){
                           </div>
                       </div>
         </div>
+<!--Tab panel for vehicle-->
           <div class="tab-pane fade" id="vehicle" role="tabpanel" aria-labelledby="vehicle-tab">
               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addvehicle">Add Vehicle</button>
               <button class="btn btn-primary">Manage Vehicles</button>
@@ -219,11 +227,13 @@ $(document).ready(function(){
                           </div>
                       </div>
           </div>
+<!-- Tab Panel for New course-->
           <div class="tab-pane fade" id="newcourse" role="tabpanel" aria-labelledby="newcourse-tab">
               <button class="btn btn-success"><a href="newcourse.php">Add New Course</a></button>
               <button class="btn btn-warning" type="button" id="newcoursebtn">New Course List</button>
               <div class="container">
                         <br>
+              <!--New course table-->
                          <div class="row" style="width:80%;">
                         <center>
                           <table style="display:none;" class="table table-striped" id="newcoursetable">
@@ -283,12 +293,14 @@ $(document).ready(function(){
                           </div>
                       </div>
             </div>
+<!--Tab panel for Ctp-->
           <div class="tab-pane fade" id="ctp" role="tabpanel" aria-labelledby="ctp-tab">
               <button class="btn btn-success"><a href="ctp.php">Add New CTP</a></button>
               <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#select_ctp">Phase</button>
               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#ctp_list" id="ctpbtn">CTP List</button>
               <div class="container">
                         <br>
+              <!--CTP table-->
                          <div class="row" style="width:90%;">
                         <center>
                           <table style="display:none;" class="table table-striped" id="ctptable">
@@ -356,10 +368,12 @@ $(document).ready(function(){
          
          
             </div>
+<!-- Tab panel for setting-->
           <div class="tab-pane fade" id="setting" role="tabpanel" aria-labelledby="setting-tab">
               <button class="btn btn-primary" id="departmentbtn">Department</button>
               <div class="container">
                         <br>
+                        <!--Table for home page data-->
                          <div class="row">
                         <center>
 
@@ -820,6 +834,7 @@ $output ="";
  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script src="datapage.js"></script>
+<!--Search Bar for user table-->
 <script>
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -840,7 +855,7 @@ function myFunction() {
   }
 }
 </script>
-
+<!--Search bar for ctp table-->
 <script>
 function ctp() {
   var input, filter, table, tr, td, i, txtValue;
@@ -861,7 +876,7 @@ function ctp() {
   }
 }
 </script>
-
+<!--Search Bar for New course table-->
 <script>
 function newcourse() {
   var input, filter, table, tr, td, i, txtValue;
@@ -882,7 +897,7 @@ function newcourse() {
   }
 }
 </script>
-
+<!--Search Bar for Vehicle table-->
 <script>
 function vehicle() {
   var input, filter, table, tr, td, i, txtValue;
@@ -903,7 +918,7 @@ function vehicle() {
   }
 }
 </script>
-
+<!--Search Bar for home pafe table-->
 <script>
 function department() {
   var input, filter, table, tr, td, i, txtValue;
@@ -924,7 +939,7 @@ function department() {
   }
 }
 </script>
-
+<!--search bar for percentage table-->
 <script>
 function score() {
   var input, filter, table, tr, td, i, txtValue;
