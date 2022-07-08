@@ -23,9 +23,11 @@ $course="select course";
     <link rel="stylesheet" href="sidestyle.css">
 </head>
 <body>
+<!--Head Navbar-->
 <?php
 include_once 'header.php';
 ?>
+<!--Side navbar-->
 <?php
 include_once 'sidenavbar.php';
 $classcolor= "SELECT * FROM gradesheet where user_id='$student'";
@@ -43,6 +45,7 @@ if($classcolorst->rowCount() > 0)
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Actual</h3>
+<!--Fetch student name and course name-->
 	<div>Student name : <?php echo $fetchname?><br>
 	Course name : <?php echo $std_course?>
 </div>
@@ -56,6 +59,7 @@ if($classcolorst->rowCount() > 0)
                 }?>
 		<!-- <h1>Phase</h1> -->
 		<div class="col">
+<!--Fetch actual class according to the phase and ctp-->
 			<table id="table" class="center" style="border: 1px solid black;">
                     <?php
                     $query = "SELECT * FROM phase where ctp='$phpcourse'";
@@ -86,36 +90,32 @@ if($classcolorst->rowCount() > 0)
 
                                }
                                 ?>
-                    
                                 </tr><hr>
-                 
-                         </div>      
-<?php }?>
-                    </table>
+                            </div>      
+                     <?php }?>
+                </table>
         </div>
-
-	</div>
+</div>
 </div><br>
 
 <!-- Next and Previous Button-->
 
- <div class="container-fluid" id="next-previous">
+ <!-- <div class="container-fluid" id="next-previous">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="sim.php">Next</a></button>
-    </div><br><br>
+    </div><br><br> -->
 
-    <script>
- $('#myTable').margetable({
-  type: 1,
-  colindex: [{
-    index: 1, 
-    dependent: [0]
-  }]
-});
+<script>
+    $('#myTable').margetable({
+    type: 1,
+    colindex: [{
+        index: 1, 
+        dependent: [0]
+    }]
+    });
+</script>
 
-
-    </script>
-    <?php
+<?php
 include_once 'footer.php';
 ?>
 </body>
