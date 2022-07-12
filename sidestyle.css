@@ -12,9 +12,9 @@ padding-left: 240px;
 {
   background-color: #04aa6d00;
 }
-#colorsidenavbar
+#form-side
 {
-  background-color: #04aa6d91;
+  background-color: white;
 }
 /* Sidebar */
 .sidebar {
@@ -49,9 +49,9 @@ padding-top: 0.2rem;
 overflow-x: hidden;
 overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
-#sidebarMenu
+.position-sticky
 {
-  background-color: #04aa6d91;
+  background-color: aquamarine;
 }
 /*users page*/
 

@@ -370,17 +370,17 @@ $st_date=strtotime($st_date);
                         </td>
                         <td style="display: flex;">
                       
-                      <input id="item-U" type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemU();" type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-U">U</label>
-                      <input id="item-F" type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemF();" type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-F">F</label>
-                      <input id="item-G" type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemG();" type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-G">G</label>
-                      <input id="item-V" type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemV();" type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-V">V</label>
-                      <input id="item-E" type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemE();" type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-E">E</label>
-                      <input id="item-N" type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemN();" type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-N">N</label>
                       </td>
                        </tr>
@@ -929,15 +929,48 @@ function item() {
 </script>
 
 <script>
-  function savegrades()
-  document.window("hello");
+  function itemU()
   {
-    if(u=document.querySelector("item-U"))
+    var x = document.getElementById("item");
     {
-      document.window("hello");
-      document.querySelector("item").style.backgroundColor = "red";
+      x.style.backgroundColor="red";
     }
-  };
+  }
+  function itemF()
+  {
+    var x = document.getElementById("item");
+    {
+      x.style.backgroundColor="yellow";
+    }
+  }
+  function itemG()
+  {
+    var x = document.getElementById("item");
+    {
+      x.style.backgroundColor="green";
+    }
+  }
+  function itemV()
+  {
+    var x = document.getElementById("item");
+    {
+      x.style.backgroundColor="Blue";
+    }
+  }
+  function itemE()
+  {
+    var x = document.getElementById("item");
+    {
+      x.style.backgroundColor="pink";
+    }
+  }
+  function itemN()
+  {
+    var x = document.getElementById("item");
+    {
+      x.style.backgroundColor="white";
+    }
+  }
 </script>
 </body>
 </html>

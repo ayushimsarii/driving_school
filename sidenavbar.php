@@ -117,12 +117,12 @@ $(document).ready(function(){
             <nav id="sidebarMenu" class="collapse d-sm-block sidebar collapse bg-white">
               <div class="position-sticky">
                 <div class="list-group list-group-flush mx-2 mt-2">
-                  <div class="list-group-item list-group-item-action py-1">
+                  <div class="list-group-item list-group-item-action py-1" style="background-color:white;">
                     <i class="fas fa-circle-notch"></i>
                     <i type="button" data-toggle="modal" data-target="#message" class="fas fa-comment" style="margin-left: 90px;"></i>
                   </div>
-                  <form action="actual.php">
-                     <div class="list-group-item list-group-item-action py-1">
+                  <form action="actual.php" id="form-side">
+                     <div class="list-group-item list-group-item-action py-1" style="background-color:white;">
                     <label class="form-label" for="student">Course Name</label>
                     <select type="text" id="course" class="form-control form-control-md" name="course">
                    <?php 
@@ -142,7 +142,7 @@ $(document).ready(function(){
                          } ?>
                     </select>
                   </div>
-                  <div class="list-group-item list-group-item-action">
+                  <div class="list-group-item list-group-item-action" style="background-color:white;">
                     <label class="form-label" for="student">Student Name</label>
                     <select id="state" class="form-control form-control-md" name="student">
                   <?php  echo $allstudent= $_COOKIE['allstudent']; ?>
