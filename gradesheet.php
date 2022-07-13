@@ -474,7 +474,7 @@ $st_date=strtotime($st_date);
                     <td>
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
-                      <input type="range" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/>
                     </td>
                   </tr>
 
