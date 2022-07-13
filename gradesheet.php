@@ -356,7 +356,7 @@ $st_date=strtotime($st_date);
                     $sn=1;
                     foreach($result as $row)
                     {?>
-                      <tr id="item">
+                      <tr class="item">
                         <td><?php echo $sn++?></td>
                         <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
                               $q->execute([$item_id]);
@@ -931,28 +931,28 @@ function item() {
 <script>
   function itemU()
   {
-    var x = document.getElementById("item");
+    var x = document.getElementById(".item");
     {
       x.style.backgroundColor="red";
     }
   }
   function itemF()
   {
-    var x = document.getElementById("item");
+    var x = document.getElementByClassName("item");
     {
       x.style.backgroundColor="yellow";
     }
   }
   function itemG()
   {
-    var x = document.getElementById("item");
+    var x = document.getElementById(".item");
     {
       x.style.backgroundColor="green";
     }
   }
   function itemV()
   {
-    var x = document.getElementById("item");
+    var x = document.getElementById(".item");
     {
       x.style.backgroundColor="Blue";
     }

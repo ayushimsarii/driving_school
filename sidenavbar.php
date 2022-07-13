@@ -83,33 +83,6 @@ $(document).ready(function(){
 </head>
 
 <body id="bodynav">
-<!--Message Modal-->
-<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
-        <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><i class="fas fa-times"></i></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <center>
-          <form>
-            <label>Comment</label><br>
-            <textarea></textarea><br>
-            <label>Write Message</label><br>
-            <textarea></textarea>
-          </form>
-        </center>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send Message</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!--Main Navigation-->
           <header>
             <!-- Sidebar -->
@@ -174,6 +147,7 @@ $(document).ready(function(){
                                         $fetchid=$rowname2['studid'];                                 }
                                         $fetchrole=$rowname2['role'];
                                         $fetchphone=$rowname2['phone'];
+                                        $fetchemail=$rowname2['email'];
                                         $fetchuser_id=$rowname2['id'];}
                                     }
                                     $cr_name= "SELECT * FROM ctppage where CTPid='$phpcourse'";
@@ -217,6 +191,35 @@ $(document).ready(function(){
                           </div>
                           </div>
           </header>
+
+          <!--Message Modal-->
+<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+        <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>
+          <form>
+            <label>To</label><input style="width:70%;" value="<?php echo $fetchname ?>"/><br>
+            <label>Email</label><input style="width:70%;" value="<?php echo $fetchemail ?>"/><br>
+            <label>Write Message</label><br>
+            <textarea></textarea><br>
+            <button class="btn btn-success">Send<i class="fas fa-paper-plane"></i></button>
+          </form>
+        </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Send Message</button> -->
+      </div>
+    </div>
+  </div>
+</div>
          
 </body>
 </html>
