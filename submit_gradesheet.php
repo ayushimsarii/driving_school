@@ -13,8 +13,8 @@ echo $date=$_REQUEST['date'];
 $overall_grade=$_REQUEST['overall_grade'];
 $overall_grade_per=$_REQUEST['overall_grade_per'];
 var_dump($overall_grade_per);
-$sql1 = "INSERT INTO gradesheet (user_id,phase_id,course_id,class_id,class,instructor,vehicle,time,date,over_all_grade,over_all_grade_per)
- VALUES ('$stud_db_id','$phases_id','$course_id','$class_id','$class_name','$instructor_id','$vechile_id','$time','$date','$overall_grade','$overall_grade_per')";
+$sql1 = "INSERT INTO gradesheet (user_id,phase_id,course_id,class_id,class,instructor,vehicle,time,date,over_all_grade,over_all_grade_per,status)
+ VALUES ('$stud_db_id','$phases_id','$course_id','$class_id','$class_name','$instructor_id','$vechile_id','$time','$date','$overall_grade','$overall_grade_per','1')";
   $statement1 = $connect->prepare($sql1);
   $statement1->execute();
 $value=array();
