@@ -280,7 +280,7 @@ $vec_type->execute([$vec_id]);
 $name3 = $vec_type->fetchColumn();  
 $st_time=$value['time'];
 $st_date=$value['date']; 
-echo $st_date; 
+
 $st_date=strtotime($st_date);           
 }}
       ?>
@@ -370,17 +370,17 @@ $st_date=strtotime($st_date);
                         </td>
                         <td style="display: flex;">
                       
-                      <input onclick="itemU();" type="radio" value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemU();" type="radio" class="myRadio" value="U" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-U">U</label>
-                      <input onclick="itemF();" type="radio" value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemF();" type="radio" class="myRadio" value="F" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-F">F</label>
-                      <input onclick="itemG();" type="radio" value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemG();" type="radio" class="myRadio" value="G" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-G">G</label>
-                      <input onclick="itemV();" type="radio" value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemV();" type="radio" class="myRadio" value="V" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-V">V</label>
-                      <input onclick="itemE();" type="radio" value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemE();" type="radio" class="myRadio" value="E" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-E">E</label>
-                      <input onclick="itemN();" type="radio" value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemN();" type="radio" class="myRadio" value="N" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-N">N</label>
                       </td>
                        </tr>
@@ -405,12 +405,12 @@ $st_date=strtotime($st_date);
                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
                                  <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
                       <td style="display: flex;">
-                      <input type="radio" value="U" name="grade[<?php echo $sub_value.$item_id?>]"/>U
-                      <input type="radio" value="F" name="grade[<?php echo $sub_value.$item_id?>]"/>F
-                      <input type="radio" value="G" name="grade[<?php echo $sub_value.$item_id?>]"/>G
-                      <input type="radio" value="V" name="grade[<?php echo $sub_value.$item_id?>]"/>V
-                      <input type="radio" value="E" name="grade[<?php echo $sub_value.$item_id?>]"/>E
-                      <input type="radio" value="N" name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      <input type="radio" value="U" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>N
                       </td>
                             </tr>
                         <?php  
@@ -452,18 +452,18 @@ $st_date=strtotime($st_date);
         <tr>
                    <td style="display: flex;">
                       
-                         <input type="radio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
+                         <input type="radio" class="myRadio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
                       
                       
-                         <input type="radio" value="F" id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
+                         <input type="radio" class="myRadio" value="F" id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
                     
-                         <input type="radio" value="G" id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
+                         <input type="radio" class="myRadio" value="G" id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
                       
-                         <input type="radio" value="V" id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
+                         <input type="radio" class="myRadio" value="V" id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
                      
-                         <input type="radio" value="E" id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
+                         <input type="radio" class="myRadio" value="E" id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
                       
-                         <input type="radio" value="N" id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
+                         <input type="radio" class="myRadio" value="N" id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
                      
                    </td>
 				</tr>
@@ -474,7 +474,11 @@ $st_date=strtotime($st_date);
                     <td>
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
+
+                      <input type="range" class="myRadio" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+
                       <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/>
+
                     </td>
                   </tr>
 
@@ -625,13 +629,30 @@ $st_date=strtotime($st_date);
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+ 
   $(".multiple-select").select2({
  // maximumSelectionLength: 2
  
 });
 </script>
 
-
+<?php 
+  $lock="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+  $lockst = $connect->prepare($lock);
+  $lockst->execute();
+  if($lockst->rowCount() > 0)
+  { 
+   $re = $lockst->fetchAll();
+       foreach($re as $row)
+       {
+        if($row['status'] == '1'){?>
+   <script>
+    $(document).ready(function(){
+     $(".myRadio").attr('disabled', true);
+    });
+    </script>
+ <?php } }}
+?>
 <script>
 	function genCharArray(charA, charZ) {
 	var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
@@ -748,6 +769,7 @@ $st_date=strtotime($st_date);
 
 <script>
 $(document).ready(function(){
+ 
   $('#gradesper').on('change', function(){
     var inst_id = $(this).val();
     console.log(inst_id);
