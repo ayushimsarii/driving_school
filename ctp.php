@@ -20,12 +20,11 @@ $q6="SELECT * FROM vehicle";
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CTP Page</title>
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<!-- JavaScript Bundle with Popper -->
+	<!-- <link href="css/bootstrap.css" rel="stylesheet">
 	<script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
 	<link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
 <body>

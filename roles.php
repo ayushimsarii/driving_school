@@ -6,18 +6,19 @@
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1" />
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<!-- JavaScript Bundle with Popper -->
+	<!-- <link href="css/bootstrap.css" rel="stylesheet">
 	<script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+  <link rel="stylesheet" type="text/css" href="sidestyle.css">
 </head>
 <body>
 <?php
 include('connect.php');
 $output="";
 include_once 'header.php';
+include_once 'sidenavbar.php';
 $query = "SELECT * FROM roles ORDER BY id ASC";
 $statement = $connect->prepare($query);
 $statement->execute();
@@ -47,21 +48,22 @@ if($statement->rowCount() > 0)
     }
 ?>
 <br>
-<div class="container">
-
+<div class="container" id="rolecontainer">
+<center>
         <div class="row">
     		
             <form action="save_role.php" method="post">
             <div class="mb-3">
                 <label class="form-label">Add Role:</label>
                 <!-- <input type="text" class="form-control" name="role" required Placeholder="Add Roles.."> -->
-           <select name="role" id="role" class="form-control">
-               <option value="student">Student</option>
-               <option value="Course Manager">Course Manager</option>
-               <option value="Phase Manager">Phase Manager</option>
-               <option value="instructor">Instructor</option>
-           </select>
-            </div>
+                  <select name="role" id="role" class="form-control">
+                      <option value="student">Student</option>
+                      <option value="Course Manager">Course Manager</option>
+                      <option value="Phase Manager">Phase Manager</option>
+                      <option value="instructor">Instructor</option>
+                  </select>
+            </div><hr><br>
+            <div class="col">
             <h5>Pages Permission : </h5>
                         <div class="custom-control custom-checkbox mb-3">
                           <input class="custom-control-input" name="show_p" id="show_p" value="1" type="checkbox">
@@ -118,10 +120,13 @@ if($statement->rowCount() > 0)
                         </div>
                 <br>        
             <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 </form>
 
 </div>
+  </center>
 <br>
+<center>
 <div class="row">
 			<center>
 				<table class="table table-striped table-bordered">
@@ -136,6 +141,7 @@ if($statement->rowCount() > 0)
 		        </table>
 		    </center>
 		</div>
+  </center>
 </div>
 </body>
 </html>

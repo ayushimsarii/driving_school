@@ -29,12 +29,11 @@ $st2->execute();
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1" />
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<!-- JavaScript Bundle with Popper -->
+	<!-- <link href="css/bootstrap.css" rel="stylesheet">
 	  <script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
     <link rel="stylesheet" href="sidestyle.css">
 </head>
 <body>
@@ -60,7 +59,7 @@ if($classcolorst->rowCount() > 0)
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Academic</h3>
-  <button><a href="academic-user.php">Study</a></button>
+  <button style="display:none;"><a href="academic-user.php">Study</a></button>
 	<div>Student name : <?php echo $fetchname?><br>
 	Course name : <?php echo $std_course?>
 </div>
@@ -123,7 +122,7 @@ if($classcolorst->rowCount() > 0)
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></h5>
+        <h5 class="modal-title" id="exampleModalLabel"><input style="width:350px; background-color:white; color:orange; font-weight:bold; text-align:left; text-decoration:underline;" readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></h5>
         <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><i class="fas fa-times"></i></span>
         </button>
@@ -134,10 +133,9 @@ if($classcolorst->rowCount() > 0)
             <tr>
               <!-- <td><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></td> -->
               <td><button class="btn btn-success"><a style="color:black;" href="upload/<?php echo $row1["file"]; ?>" target="_blank">view file</a></button></td>
+              <td><button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">Instructor</button></td>
             </tr>
           </table>
-          <!-- <button type="submit" class="btn btn-success" readonly id="file_name" value="<?php echo $row1['file'] ?>">Self Study</button> -->
-          <button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">Instructor</button>
         </center>
       </div>
       <div class="modal-footer">
