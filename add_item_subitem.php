@@ -5,6 +5,9 @@ $class_id="";
 $phase_id="";
 $ctp="";
 $class="";
+$actclass="";
+$simclass="";
+$academicclass="";
 if(isset($_GET['class_id']) && isset($_GET['class'])){$class_id=$_GET['class_id'];
 	$class=$_GET['class'];
 	$class_data = "SELECT * FROM $class where id='$class_id'";
@@ -58,6 +61,43 @@ if(isset($_GET['ctp'])){$ctp=$_GET['ctp'];
 		}
 }else{$ctp="ctp not selected";}
 
+$q3="SELECT * FROM actual";
+     $st3 = $connect->prepare($q3);
+     $st3->execute();
+     if($st3->rowCount() > 0)
+     {
+       $re3 = $st3->fetchAll();
+       foreach($re3 as $row3)
+       {
+         $actclass.='<option value="'.$row3['symbol'].'">'.$row3['symbol'].'</option>';
+       }
+     }
+     
+     $q4="SELECT * FROM sim";
+     $st4 = $connect->prepare($q4);
+     $st4->execute();
+     if($st4->rowCount() > 0)
+     {
+       $re4 = $st4->fetchAll();
+       foreach($re4 as $row4)
+       {
+         $simclass.='<option value="'.$row4['shortsim'].'">'.$row4['shortsim'].'</option>';
+       }
+     }
+     
+     $q5="SELECT * FROM academic";
+     $st5 = $connect->prepare($q5);
+     $st5->execute();
+     if($st5->rowCount() > 0)
+     {
+       $re5 = $st5->fetchAll();
+       foreach($re5 as $row5)
+       {
+         $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
+       }
+     }
+
+
 
 ?>
 <?php
@@ -109,11 +149,11 @@ $mysqli->close();
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1" />
-	<!-- <link href="css/bootstrap.css" rel="stylesheet">
+	<!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
 	<script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="sidestyle.css">
 </head>
 <body>
@@ -126,11 +166,26 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container" id="actualcontainer">
 	<h3>Item And Subitem</h3>
-	<div>
-        Class : <?php echo $symbol?><br>
-        Phase : <?php echo $phase_name?><br>
-        Course : <?php echo $ctp_name?><br>
-</div>
+	<div class="row">
+		<div class="col-4">
+				Class : <?php echo $symbol?><br>
+				Phase : <?php echo $phase_name?><br>
+				Course : <?php echo $ctp_name?><br>
+       </div>
+	   <div class="col-8">
+	   		<div class="dropdown" style="margin-left:400px;">
+                  <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
+                    <select style="width:300px;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
+                      <option style="font-size:larger;" selected disabled value="">Add</option>
+                      <?php echo $actclass?>
+                      <?php echo $academicclass?> 
+                      <?php echo $simclass?>
+                    </select>
+            </div>
+       </div>
+
+    </div>
+
 <br>
 	<div class="row" style="width:100%;">
 		
@@ -462,6 +517,15 @@ include_once 'sidenavbar.php';
     <?php
 include_once 'footer.php';
 ?>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- <script>
+ 
+  $(".multiple-select").select2({
+ // maximumSelectionLength: 2
+ 
+});
+</script> -->
 <script>
 	function genCharArray(charA, charZ) {
 	var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);

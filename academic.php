@@ -132,8 +132,8 @@ if($classcolorst->rowCount() > 0)
           <table>
             <tr>
               <!-- <td><input readonly id="file_name" value="<?php echo $row1["file"]; ?>"/></td> -->
-              <td><button class="btn btn-success"><a style="color:black;" href="upload/<?php echo $row1["file"]; ?>" target="_blank">view file</a></button></td>
-              <td><button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">Instructor</button></td>
+              <td><button class="btn btn-success"><a style="color:black;" href="upload/<?php echo $row1["file"]; ?>" target="_blank">Self Study</a></button></td>
+              <td><button data-toggle="modal" data-target="#send-instructor" class="btn btn-primary">With Instructor</button></td>
             </tr>
           </table>
         </center>
