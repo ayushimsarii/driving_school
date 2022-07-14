@@ -356,7 +356,7 @@ $st_date=strtotime($st_date);
                     $sn=1;
                     foreach($result as $row)
                     {?>
-                      <tr class="item">
+                      <tr class="Myitem">
                         <td><?php echo $sn++?></td>
                         <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
                               $q->execute([$item_id]);
@@ -475,9 +475,9 @@ $st_date=strtotime($st_date);
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
 
-                      <input type="range" class="myRadio" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <input style="color:blue;" type="range" class="myRadio" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
 
-                      <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <!-- <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/> -->
 
                     </td>
                   </tr>
@@ -816,6 +816,15 @@ function item() {
 </script>
 
 <script>
+  document.getElementById('itemU').onclick = function() {
+    var item = document.querySelectorAll('item');
+    for (var item of items) {
+        $(this).style.backgroundColor = "red";
+    }
+}
+</script>
+
+<script>
   document.getElementById('select-all').onclick = function() {
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     for (var checkbox of checkboxes) {
@@ -953,42 +962,42 @@ function item() {
 <script>
   function itemU()
   {
-    var x = document.getElementById(".item");
+    var x = document.querySelector(".Myitem");
     {
       x.style.backgroundColor="red";
     }
   }
   function itemF()
   {
-    var x = document.getElementByClassName("item");
+    var y = document.querySelector(".Myitem");
     {
-      x.style.backgroundColor="yellow";
+      y.style.backgroundColor="yellow";
     }
   }
   function itemG()
   {
-    var x = document.getElementById(".item");
+    var z = document.querySelector(".Myitem");
     {
-      x.style.backgroundColor="green";
+      z.style.backgroundColor="green";
     }
   }
   function itemV()
   {
-    var x = document.getElementById(".item");
+    var x = document.querySelector(".Myitem");
     {
       x.style.backgroundColor="Blue";
     }
   }
   function itemE()
   {
-    var x = document.getElementById("item");
+    var x = document.querySelector(".Myitem");
     {
       x.style.backgroundColor="pink";
     }
   }
   function itemN()
   {
-    var x = document.getElementById("item");
+    var x = document.querySelector(".Myitem");
     {
       x.style.backgroundColor="white";
     }
