@@ -64,7 +64,7 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
 </style> -->
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <div class="container-fluid">
     <?php if(isset($department)){?>
   <a class="navbar-brand" href="#" style="color:yellow"><?php echo $institute.'/'.$department?></a>

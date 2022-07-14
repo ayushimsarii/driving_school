@@ -864,12 +864,50 @@ function item() {
     }
 }
 </script>
-<!-- <script>
-  function displayRadioValue(x)
-{
- document.getElementById("slider_value").innerHTML=x;
+
+<!--check uncheck code for item grades-->
+<script>
+  document.querySelectorAll(
+    'input[type=radio][name=grade[item<?php echo $item_id?>]]').forEach((elem) => {
+  elem.addEventListener('click', allowUncheck);
+  // only needed if elem can be pre-checked
+  elem.previous = elem.checked;
+});
+
+function allowUncheck(e) {
+  if (this.previous) {
+    this.checked = false;
+  }
+  // need to update previous on all elements of this group
+  // (either that or store the id of the checked element)
+  document.querySelectorAll(
+      `input[type=radio][name=${this.name}]`).forEach((elem) => {
+    elem.previous = elem.checked;
+  });
 }
-</script> -->
+</script>
+
+<!--Check uncheck radio button code for percentage grades-->
+<script>
+  document.querySelectorAll(
+    'input[type=radio][name=overall_grade]').forEach((elem) => {
+  elem.addEventListener('click', allowUncheck);
+  // only needed if elem can be pre-checked
+  elem.previous = elem.checked;
+});
+
+function allowUncheck(e) {
+  if (this.previous) {
+    this.checked = false;
+  }
+  // need to update previous on all elements of this group
+  // (either that or store the id of the checked element)
+  document.querySelectorAll(
+      `input[type=radio][name=${this.name}]`).forEach((elem) => {
+    elem.previous = elem.checked;
+  });
+}
+</script>
 <script>
   const displayRadioValue = (x) => {
     document.getElementById("slider_value").innerHTML=x;

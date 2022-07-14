@@ -18,7 +18,7 @@
 <body>
 
 
-<div class="footer">
+<div class="footer bg-success">
   <p>Footer</p>
 </div>
 
