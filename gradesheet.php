@@ -375,17 +375,17 @@ $st_date=strtotime($st_date);
                         </td>
                         <td style="display: flex;">
                       
-                      <input onclick="itemU();" type="radio" class="myRadio" <?php if($grade=="U") {echo "checked";}?> value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemU" type="radio" class="myRadio" <?php if($grade=="U") {echo "checked";}?> value="U" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-U">U</label>
-                      <input onclick="itemF();" type="radio" class="myRadio" <?php if($grade=="F") {echo "checked";}?> value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemF" type="radio" class="myRadio" <?php if($grade=="F") {echo "checked";}?> value="F" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-F">F</label>
-                      <input onclick="itemG();" type="radio" class="myRadio" <?php if($grade=="G") {echo "checked";}?> value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemG" type="radio" class="myRadio" <?php if($grade=="G") {echo "checked";}?> value="G" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-G">G</label>
-                      <input onclick="itemV();" type="radio" class="myRadio" <?php if($grade=="V") {echo "checked";}?> value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemV" type="radio" class="myRadio" <?php if($grade=="V") {echo "checked";}?> value="V" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-V">V</label>
-                      <input onclick="itemE();" type="radio" class="myRadio" <?php if($grade=="E") {echo "checked";}?> value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemE" type="radio" class="myRadio" <?php if($grade=="E") {echo "checked";}?> value="E" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-E">E</label>
-                      <input onclick="itemN();" type="radio" class="myRadio" <?php if($grade=="N") {echo "checked";}?> value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <input id="itemN" type="radio" class="myRadio" <?php if($grade=="N") {echo "checked";}?> value="N" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-N">N</label>
                       </td>
                        </tr>
@@ -829,14 +829,64 @@ function item() {
 }
 </script>
 
-<script>
-  document.getElementById('itemU').onclick = function() {
-    var item = document.querySelectorAll('item');
-    for (var item of items) {
-        $(this).style.backgroundColor = "red";
-    }
-}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#itemU").click(function(){
+            var rVal = $("#itemU:checked").val();
+            if(rVal){
+              $(".Myitem").css("background-color", "red");
+            }
+        });
+
+        $("#itemF").click(function(){
+            var rVal1 = $("#itemF:checked").val();
+            if(rVal1){
+              $(".Myitem").css("background-color", "yellow");
+            }
+        });
+
+        $("#itemG").click(function(){
+            var rVal2 = $("#itemG:checked").val();
+            if(rVal2){
+              $(".Myitem").css("background-color", "#3EC70B");
+            }
+        });
+
+        $("#itemV").click(function(){
+            var rVal3 = $("#itemV:checked").val();
+            if(rVal3){
+              $(".Myitem").css("background-color", "green");
+            }
+        });
+
+        $("#itemE").click(function(){
+            var rVal4 = $("#itemE:checked").val();
+            if(rVal4){
+              $(".Myitem").css("background-color", "blue");
+            }
+        });
+
+        $("#itemN").click(function(){
+            var rVal5 = $("#itemN:checked").val();
+            if(rVal5){
+              $(".Myitem").css("background-color", "white");
+            }
+        });
+         
+    });
 </script>
+
+
+ <!-- <script>
+$(document).ready(function()
+{
+  if($("input[type='radio']#itemU").is(':checked'));
+  {
+    $(".Myitem").css("background-color", "yellow");
+  });
+});
+</script> -->
+
 
 <script>
   document.getElementById('select-all').onclick = function() {
@@ -991,7 +1041,7 @@ function allowUncheck(e) {
 };
 </script>
 
-<script>
+<!-- <script>
   function itemU()
   {
     var x = document.querySelector(".Myitem");
@@ -1034,6 +1084,6 @@ function allowUncheck(e) {
       x.style.backgroundColor="white";
     }
   }
-</script>
+</script> -->
 </body>
 </html>
