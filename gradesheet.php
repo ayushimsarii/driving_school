@@ -309,6 +309,23 @@ $st_date=strtotime($st_date);
                               <td><label>Date</label><input class="form-control" type="date" value="<?php echo date('Y-m-d',$st_date);?>" name="date"></td>
                               </tr> 
                               </table>
+                              <?php
+
+
+$lock="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+$lockst = $connect->prepare($lock);
+$lockst->execute();
+if($lockst->rowCount() > 0)
+{ 
+ $re = $lockst->fetchAll();
+     foreach($re as $row)
+     {
+      if($row['status'] == '1' && $role =='super admin'){?>
+    <button onclick="document.getElementById('gradesheetid').value='<?php echo $row['id'] ?>';" class="btn btn-warning" type="button" data-toggle="modal" data-target="#unlock" id="ctpbtn">Unlock</button>
+<?php } }}
+?>
+
+
       		</div>
 <!--Prereuisites container-->
       		<div class="col-4">
@@ -321,11 +338,15 @@ $st_date=strtotime($st_date);
                       <?php echo $simclass?>
                     </select>
             </div>
-
+  
       		</div>
+        
+
+			
+			
       	</div>
       </div>
-
+     
       
 <!--Comment box Container-->
 <div class="container">
@@ -512,7 +533,36 @@ $st_date=strtotime($st_date);
             </div>
         </div>
       </div>
+      <div class="modal fade" id="unlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       <H3>Unlock gradesheet</h3>
+        <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>
+          <form action="unlock_sheet.php" method="GET">
+            <input type="text" value="" id="gradesheetid" name="gradesheetid">
+            <input class="form-control" type="text" class="login-input" name="username" placeholder="Admin Username" autofocus="true"/>
 
+                        <input class="form-control" type="password" id="password" class="login-input" name="password" placeholder="Admin Password"/>
+                       
+                         <input class="btn btn-primary" type="submit" value="Login" name="login" class="login-button"/>
+          </form>
+
+
+        </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 <!--modal for percentage info-->
 <div class="modal fade" id="detailsper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
