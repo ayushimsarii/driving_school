@@ -363,6 +363,11 @@ $st_date=strtotime($st_date);
                               $name = $q->fetchColumn();
                               echo $name;
                            $item_db_id=$row['id'];
+
+                              $fetch_grade= $connect->prepare("SELECT grade FROM `item_gradesheet` WHERE item_id=? AND user_id=?");
+                              $fetch_grade->execute([$item_db_id,$fetchuser_id]);
+                              $grade = $fetch_grade->fetchColumn();
+                             
                               ?>
                                  <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
                                  <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
@@ -370,17 +375,17 @@ $st_date=strtotime($st_date);
                         </td>
                         <td style="display: flex;">
                       
-                      <input onclick="itemU();" type="radio" class="myRadio" value="U" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemU();" type="radio" class="myRadio" <?php if($grade=="U") {echo "checked";}?> value="U" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-U">U</label>
-                      <input onclick="itemF();" type="radio" class="myRadio" value="F" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemF();" type="radio" class="myRadio" <?php if($grade=="F") {echo "checked";}?> value="F" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-F">F</label>
-                      <input onclick="itemG();" type="radio" class="myRadio" value="G" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemG();" type="radio" class="myRadio" <?php if($grade=="G") {echo "checked";}?> value="G" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-G">G</label>
-                      <input onclick="itemV();" type="radio" class="myRadio" value="V" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemV();" type="radio" class="myRadio" <?php if($grade=="V") {echo "checked";}?> value="V" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-V">V</label>
-                      <input onclick="itemE();" type="radio" class="myRadio" value="E" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemE();" type="radio" class="myRadio" <?php if($grade=="E") {echo "checked";}?> value="E" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-E">E</label>
-                      <input onclick="itemN();" type="radio" class="myRadio" value="N" name="grade[item<?php echo $item_id?>]"/>
+                      <input onclick="itemN();" type="radio" class="myRadio" <?php if($grade=="N") {echo "checked";}?> value="N" name="grade[item<?php echo $item_id?>]"/>
                       <label for="item-N">N</label>
                       </td>
                        </tr>
@@ -400,17 +405,21 @@ $st_date=strtotime($st_date);
                         <tr>
                           <td><?php echo $sn1++ ;?></td>
                           <td><?php echo $sub_value=$row1['subitem'];
-                          $subitem_db_id=$row1['id'];?>
+                          $subitem_db_id=$row1['id'];
+                          $fetch_subgrade= $connect->prepare("SELECT grade FROM `subitem_gradesheet` WHERE subitem_id=? AND user_id=?");
+                          $fetch_subgrade->execute([$subitem_db_id,$fetchuser_id]);
+                          $grade1 = $fetch_subgrade->fetchColumn();
+                         ?>
                           <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
                                  <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
                       <td style="display: flex;">
-                      <input type="radio" value="U" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>U
-                      <input type="radio" value="F" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>F
-                      <input type="radio" value="G" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>G
-                      <input type="radio" value="V" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>V
-                      <input type="radio" value="E" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>E
-                      <input type="radio" value="N" class="myRadio" name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                      <input type="radio" value="U" class="myRadio" <?php if($grade1=="U") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                      <input type="radio" value="F" class="myRadio" <?php if($grade1=="F") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                      <input type="radio" value="G" class="myRadio" <?php if($grade1=="G") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                      <input type="radio" value="V" class="myRadio" <?php if($grade1=="V") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                      <input type="radio" value="E" class="myRadio" <?php if($grade1=="E") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                      <input type="radio" value="N" class="myRadio" <?php if($grade1=="N") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>N
                       </td>
                             </tr>
                         <?php  
@@ -450,20 +459,25 @@ $st_date=strtotime($st_date);
 				<center>
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
         <tr>
+          <?php 
+          $overall_grade= $connect->prepare("SELECT over_all_grade FROM `gradesheet` WHERE user_id=? and course_id=? AND class_id=? AND phase_id=? AND class=?");
+          $overall_grade->execute([$fetchuser_id,$phpcourse,$classid,$phase_id,$class_name]);
+          $fetch_overall_grade = $overall_grade->fetchColumn();
+  ?>
                    <td style="display: flex;">
                       
-                         <input type="radio" class="myRadio" value="U" id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
+                         <input type="radio" class="myRadio" value="U" <?php if($fetch_overall_grade=="U") {echo "checked";}?> id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
                       
                       
-                         <input type="radio" class="myRadio" value="F" id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
+                         <input type="radio" class="myRadio" value="F" <?php if($fetch_overall_grade=="F") {echo "checked";}?> id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
                     
-                         <input type="radio" class="myRadio" value="G" id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
+                         <input type="radio" class="myRadio" value="G" <?php if($fetch_overall_grade=="G") {echo "checked";}?> id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
                       
-                         <input type="radio" class="myRadio" value="V" id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
+                         <input type="radio" class="myRadio" value="V" <?php if($fetch_overall_grade=="V") {echo "checked";}?> id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
                      
-                         <input type="radio" class="myRadio" value="E" id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
+                         <input type="radio" class="myRadio" value="E" <?php if($fetch_overall_grade=="E") {echo "checked";}?> id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
                       
-                         <input type="radio" class="myRadio" value="N" id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
+                         <input type="radio" class="myRadio" value="N" <?php if($fetch_overall_grade=="N") {echo "checked";}?> id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
                      
                    </td>
 				</tr>
