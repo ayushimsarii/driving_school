@@ -219,15 +219,16 @@ include_once 'sidenavbar.php';
                 $error=$_REQUEST['error'];
                 echo $error;
                 }?>
-	<div>Student name : 
-    <?php echo $phpcourse; echo $fetchname?><br>
-	Course name : 
+	<div>
+    <!-- Student name :  -->
+    <!-- <?php echo $phpcourse; echo $fetchname?><br> -->
+	<h5>Course name : <span><?php echo $std_course.'<br>'?></span> </h5>
   <?php echo $std_course.'<br>';
   if(isset($_GET['id'])){
 $classid=$_GET['id'];
   }
   if(isset($_GET['class'])){
-    echo 'class : '.$class=$_GET['class'];
+    echo '<h5>class : </h5>'.$class=$_GET['class'];
     }else{
       echo 'class :<span style="color:red">select class</span>';  
     }
@@ -481,7 +482,7 @@ if($lockst->rowCount() > 0)
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
         <tr>
           <?php 
-          $overall_grade= $connect->prepare("SELECT over_all_grade FROM `gradesheet` WHERE user_id=? and course_id=? AND class_id=? AND phase_id=? AND class=?");
+          $overall_grade= $connect->prepare("SELECT over_all_grade, over_all_grade_per FROM `gradesheet` WHERE user_id=? and course_id=? AND class_id=? AND phase_id=? AND class=?");
           $overall_grade->execute([$fetchuser_id,$phpcourse,$classid,$phase_id,$class_name]);
           $fetch_overall_grade = $overall_grade->fetchColumn();
   ?>
@@ -504,10 +505,10 @@ if($lockst->rowCount() > 0)
 
                   <tr>
                     <td>
-                      <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
+                      <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder; display:none;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
 
-                      <input style="color:blue;" type="number" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <input maxlength="5" size="3" style="color:blue;" type="number" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
 
                       <!-- <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/> -->
 

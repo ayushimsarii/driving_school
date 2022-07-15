@@ -132,14 +132,69 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
       </ul>
       <h3><span style="color:white">
         Hello <?php echo $username;?>
-        <button class="btn btn-warning"><i class="fas fa-bell"></i></button>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"><i class="fas fa-bell"></i></a>
+          <ul class="dropdown-menu"></ul>
+        </li>
         <a href="logout.php" class="btn btn-warning">logout</a>
       </span></h3>
     </div>
   </div>
 </nav>
 
-
+<script type = "text/javascript">
+$(document).ready(function(){
+	
+	function load_unseen_notification(view = '')
+	{
+		$.ajax({
+			url:"fetch.php",
+			method:"POST",
+			data:{view:view},
+			dataType:"json",
+			success:function(data)
+			{
+			$('.dropdown-menu').html(data.notification);
+			if(data.unseen_notification > 0){
+			$('.count').html(data.unseen_notification);
+			}
+			}
+		});
+	}
+ 
+	load_unseen_notification();
+ 
+	$('#add_form').on('submit', function(event){
+		event.preventDefault();
+		if($('#firstname').val() != '' && $('#lastname').val() != ''){
+		var form_data = $(this).serialize();
+		$.ajax({
+			url:"addnew.php",
+			method:"POST",
+			data:form_data,
+			success:function(data)
+			{
+			$('#add_form')[0].reset();
+			load_unseen_notification();
+			}
+		});
+		}
+		else{
+			alert("Enter Data First");
+		}
+	});
+ 
+	$(document).on('click', '.dropdown-toggle', function(){
+	$('.count').html('');
+	load_unseen_notification('yes');
+	});
+ 
+	setInterval(function(){ 
+		load_unseen_notification();; 
+	}, 5000);
+ 
+});
+</script>
 
 </body>
 </html>
