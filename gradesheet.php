@@ -489,7 +489,6 @@ if($lockst->rowCount() > 0)
                       
                          <input type="radio" class="myRadio" value="U" <?php if($fetch_overall_grade=="U") {echo "checked";}?> id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
                       
-                      
                          <input type="radio" class="myRadio" value="F" <?php if($fetch_overall_grade=="F") {echo "checked";}?> id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
                     
                          <input type="radio" class="myRadio" value="G" <?php if($fetch_overall_grade=="G") {echo "checked";}?> id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
@@ -503,14 +502,12 @@ if($lockst->rowCount() > 0)
                    </td>
 				</tr>
 
-        
-
                   <tr>
                     <td>
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
 
-                      <input style="color:blue;" type="range" class="myRadio" maxlength="100" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <input style="color:blue;" type="number" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
 
                       <!-- <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/> -->
 
