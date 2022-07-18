@@ -329,7 +329,7 @@ if($lockst->rowCount() > 0)
 
       		</div>
 <!--Prereuisites container-->
-      		<div class="col-4">
+      		<!-- <div class="col-4">
             <div class="dropdown">
                   <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
                     <select style="width:100%;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
@@ -340,7 +340,7 @@ if($lockst->rowCount() > 0)
                     </select>
             </div>
   
-      		</div>
+      		</div> -->
         
 
 			

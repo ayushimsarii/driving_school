@@ -148,7 +148,7 @@ $(document).ready(function(){
 	function load_unseen_notification(view = '')
 	{
 		$.ajax({
-			url:"fetch.php",
+			url:"notification_fetch.php",
 			method:"POST",
 			data:{view:view},
 			dataType:"json",
@@ -164,17 +164,17 @@ $(document).ready(function(){
  
 	load_unseen_notification();
  
-	$('#add_form').on('submit', function(event){
+	$('#add_user_fetch').on('submit', function(event){
 		event.preventDefault();
-		if($('#firstname').val() != '' && $('#lastname').val() != ''){
+		if($('#name').val() != '' && $('#role').val() != ''){
 		var form_data = $(this).serialize();
 		$.ajax({
-			url:"addnew.php",
+			url:"admin_register_user.php",
 			method:"POST",
 			data:form_data,
 			success:function(data)
 			{
-			$('#add_form')[0].reset();
+			$('#add_user_fetch')[0].reset();
 			load_unseen_notification();
 			}
 		});

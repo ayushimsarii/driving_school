@@ -65,6 +65,13 @@ $(document).ready(function(){
 	<?php
 	include_once 'header.php';
 	?>
+  <center>
+  <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;">
+          <i style="color:black;" class="fas fa-bell"></i></a>
+          <ul class="dropdown-menu"></ul>
+        </li>
+</center>
 <!--Sidenavbar-->
 	<?php
 	include_once 'sidenavbar.php';
@@ -666,7 +673,7 @@ $(document).ready(function(){
               </div>
               <div class="modal-body">
                 <center>
- <form style="width: 80%; border: 2 px solid black;" class="form form-border" action="admin_register_user.php" novalidate>
+ <form id="add_user_fetch" method="post" style="width: 80%; border: 2 px solid black;" class="form form-border" action="admin_register_user.php" novalidate>
  <?php 
                 if(isset($_REQUEST['error']))
                 {
@@ -680,7 +687,7 @@ $(document).ready(function(){
                             </div> -->
 
                             <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="text" name="name" placeholder="Full Name" required>
+                               <input class="form-control" class="login-input" type="text" name="name" id="nameuser" placeholder="Full Name" required>
                                <div class="valid-feedback">Name field is valid!</div>
                                <div class="invalid-feedback">Name field cannot be blank!</div>
                             </div>
@@ -723,7 +730,7 @@ $(document).ready(function(){
                             </div>
 
                             <div class="col-md-12">
-                               <input class="form-control" type="text" class="login-input" name="email" placeholder="Email Adress">
+                               <input class="form-control" type="text" class="login-input" name="email" id="useremail" placeholder="Email Adress">
                                <div class="valid-feedback">email field is valid!</div>
                                <div class="invalid-feedback">email field cannot be blank!</div>
                             </div>
@@ -958,6 +965,61 @@ function score() {
     }       
   }
 }
+</script>
+
+
+<script type = "text/javascript">
+$(document).ready(function(){
+	
+	function load_unseen_notification(view = '')
+	{
+		$.ajax({
+			url:"notification_fetch.php",
+			method:"POST",
+			data:{view:view},
+			dataType:"json",
+			success:function(data)
+			{
+			$('.dropdown-menu').html(data.notification);
+			if(data.unseen_notification > 0){
+			$('.count').html(data.unseen_notification);
+			}
+			}
+		});
+	}
+ 
+	load_unseen_notification();
+ 
+	$('#add_user_fetch').on('submit', function(event){
+		event.preventDefault();
+		if($('#nameuser').val() != '' && $('#useremail').val() != ''){
+		var form_data = $(this).serialize();
+		$.ajax({
+			url:"admin_register_user.php",
+			method:"POST",
+			data:form_data,
+			success:function(data)
+			{
+			$('#add_user_fetch')[0].reset();
+			load_unseen_notification();
+			}
+		});
+		}
+		else{
+			alert("Enter Data First");
+		}
+	});
+ 
+	$(document).on('click', '.dropdown-toggle', function(){
+	$('.count').html('');
+	load_unseen_notification('yes');
+	});
+ 
+	setInterval(function(){ 
+		load_unseen_notification();; 
+	}, 5000);
+ 
+});
 </script>
 
    <!--  <?php
