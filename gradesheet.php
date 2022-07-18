@@ -508,7 +508,7 @@ if($lockst->rowCount() > 0)
                       <span id="slider_value" style="color:red; font-size:20px; font-weight:bolder; display:none;"></span>
                       <input type="hidden" required name="overall_grade_per" id="silder_get_value">
 
-                      <input maxlength="5" size="3" style="color:blue;" type="number" class="form-control" id="gradesper" onchange="displayRadioValue(this.value);"/>
+                      <input maxlength="5" size="3" style="color:blue;" type="number" class="form-control" id="gradesper" onkeyup="displayRadioValue(this.value);"/>
 
                       <!-- <input type="range" maxlength="100" class="form-range" id="gradesper" onchange="displayRadioValue(this.value);"/> -->
 
@@ -522,7 +522,7 @@ if($lockst->rowCount() > 0)
                     }?></td>
                     </tr>
                     <tr>
-                      <td><input class="btn btn-success" type="submit" value="Save" name="save" /></td>
+                      <td><input type="submit" class="btn btn-success" onclick="return confirm('Are you sure?')" /></td>
                     </tr>
 
    
