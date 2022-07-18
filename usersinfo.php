@@ -116,12 +116,14 @@ $(document).ready(function(){
         <div class="tab-pane fade" id="score" role="tabpanel" aria-labelledby="score-tab">
             <button class="btn btn-info" type="button" data-toggle="modal" data-target="#addpercentage">Insert Percentage</button>
             <button class="btn btn-success" id="scorebtn" type="button">Percentage</button>
-            <button class="btn btn-primary" id="permissionbtn" type="button">Permission</button>
+            <button class="btn btn-primary" id="permissionbtn" type="button" data-toggle="modal" data-target="#per_list">Permission</button>
+            
             <!--Table for percentage-->
             <div class="container">
                         <br>
                          <div class="row">
                           <center>
+                      
                           <table style="width:100%;display:none;" class="table table-striped" id="scoretable">
                             <input style="width:50%; display: none;" class="form-control" type="text" id="scoresearch" onkeyup="score()" placeholder="Search for name.." title="Type in a name">
                           <thead>
@@ -137,7 +139,7 @@ $(document).ready(function(){
                                $query6 = "SELECT * FROM percentage  ORDER BY id ASC";
                                $statement6 = $connect->prepare($query6);
                                $statement6->execute();
-                               if($statement1->rowCount() > 0)
+                               if($statement6->rowCount() > 0)
                                {
                                    $result6 = $statement6->fetchAll();
                                    $sn6=1;
@@ -162,7 +164,9 @@ $(document).ready(function(){
                                     }        
        ?>      
                             </table>
-                         </center>
+                           
+                         
+                          </center>
                           </div>
                       </div>
         </div>
@@ -762,6 +766,63 @@ $(document).ready(function(){
         <!-- <p class="link"><a href="login.php">Click to Login</a></p> -->
                             </div>
                         </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="per_list" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document"> 
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Grade List</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <form method="get" action="update_grade_per.php">
+              <table class="table table-striped">
+               
+                          <thead>
+                        <th>Sr No</th>
+                        <th>Type</th>
+                        
+                        <th>Action</th>
+                      
+                    </thead>
+                                <?php 
+                               $grade_per="";
+                               $que = "SELECT * FROM grade_per ORDER BY id ASC";
+                               $stat = $connect->prepare($que);
+                               $stat->execute();
+                               if($stat->rowCount() > 0)
+                               {
+                                   $result6 = $stat->fetchAll();
+                                   $sn7=1;
+                                   foreach($result6 as $row6)
+                                   {
+                                        ?>
+                                         <tr>
+                                        <td><?php echo $sn7++;?></td>
+                                        <td><?php echo $row6['grade'];?></td>
+                                        <td>
+                                        <input type="hidden" name="grade_name[]" value="<?php echo $row6['grade']?>">
+                                          <input type="checkbox" value="1" <?php if ($row6['permission'] == "1") {
+                                            echo 'checked';
+                                        } ?> name="grade[<?php echo $row6['grade'];?>]">
+                                        </td>
+             
+                                       </tr>
+              <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+       
+                            </table>
+                            <button class="btn btn-success" type="submit" name="savephase">Submit</button>
+                            </form>
               </div>
             </div>
           </div>
