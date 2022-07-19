@@ -985,3 +985,9 @@ background-color: rgb(218, 214, 214);
   transform: translate(0%, -50%);
   pointer-events: none;
 }
+
+/* add ques page */
+#que-form
+{
+  border-radius: 1px solid black;
+}
