@@ -1,3 +1,12 @@
+/* First Navbar */
+#mainnavbar
+{
+  height:70px;
+}
+#lightnavbar
+{
+  height: 60px;
+}
 /*sidenavbar*/
 
 #bodynav {
@@ -5,7 +14,7 @@ background-color: #fbfbfb;
 }
 @media (min-width: 200px) {
 main {
-padding-left: 240px;
+padding-left: 280px;
 }
 }
 .list-group-item
@@ -19,13 +28,14 @@ padding-left: 240px;
 /* Sidebar */
 .sidebar {
 position: fixed;
-top: 95px;
+top: 135px;
 bottom: 120px;
 left: 0;
 padding: 5px 0 0; /* Height of navbar */
 box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
 width: 190px;
 z-index: 400;
+line-height: normal;
 }
 .list-group-item
 {
@@ -52,6 +62,7 @@ overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 .position-sticky
 {
   background-color: aquamarine;
+  margin-top: -12px;
 }
 /*users page*/
 

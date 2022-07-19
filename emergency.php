@@ -1,3 +1,21 @@
+<?php
+include('connect.php');
+$item="";
+$q3="SELECT * FROM itembank";
+     $st3 = $connect->prepare($q3);
+     $st3->execute();
+     if($st3->rowCount() > 0)
+     {
+       $re3 = $st3->fetchAll();
+       foreach($re3 as $row3)
+       {
+         $item.='<option value="'.$row3['id'].'">'.$row3['item'].'</option>';
+       }
+     }
+     
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +38,39 @@ include_once 'header.php';
 ?>
 <?php
 	include_once 'sidenavbar.php';
-	?>
+?>
+<!--Fetching item info in this container-->
 <div class="container">
-	<h4>Emergency Log</h4>
+	<center>
+		<div class="row">
+			<h4>Emergency Log</h4>
+			<form>
+				<table>
+					<tr>
+						<td>
+							<label class="form-label" for="Item">Item</label>
+							<select type="text" id="item" class="form-control" name="Item" required>
+                               <option selected disabled value="">-select item-</option>
+                                <?php echo $item?>
+                            </select>
+						</td>
+						<td>
+							<label class="form-label" for="Class">Class</label>
+							<input class="form-control"/>
+						</td>
+						<td>
+							<label class="form-label" for="Date">Date</label>
+							<input class="form-control"/>
+						</td>
+						<td>
+							<button type="button" name="add_phase" id="add_phase" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+    </center>
 </div>
-<?php 
-include_once 'studentinfo.php';
-	?>
+
 </body>
 </html>
