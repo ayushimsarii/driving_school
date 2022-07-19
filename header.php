@@ -63,12 +63,23 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
 }
 </style> -->
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-  <div class="container-fluid">
-    <?php if(isset($department)){?>
-  <a class="navbar-brand" href="#" style="color:yellow"><?php echo $institute.'/'.$department?></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="lightnavbar">
+<div class="container-fluid">
+<?php if(isset($department)){?>
+  <a class="navbar-brand" href="#" style="color:green;"><?php echo $institute.'/'.$department?></a>
   <?php }?>
+
+  <h3><span style="color:green;">
+        Hello <?php echo $username;?>
+        <a href="logout.php" class="btn btn-outline-success">logout</a>
+      </span></h3>
+</div>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success" id="mainnavbar">
+  <div class="container-fluid">
+    <!-- <?php if(isset($department)){?>
+  <a class="navbar-brand" href="#" style="color:yellow"><?php echo $institute.'/'.$department?></a>
+  <?php }?> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -100,27 +111,32 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Student'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="stdactlog.php">Student</a>
+              <a class="nav-link" href="stdactlog.php">Student Activity Log</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="emergency.php">Emergeny</a>
+              <a class="nav-link" href="emergency.php">Emergeny Log</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Testing'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="testing.php">Testing</a>
+              <a class="nav-link" href="testing.php">Testing Log</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Qual'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="qual.php">Qual</a>
+              <a class="nav-link" href="qual.php">Qual Log</a>
+            </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['CAP'] == "1"){?>
+            <li class="nav-item">
+              <a class="nav-link" href="CAP.php">CAP</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="clearance.php">Clearance</a>
+              <a class="nav-link" href="clearance.php">Clearance Log</a>
             </li>
             <?php } ?>
            
@@ -129,15 +145,25 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
               <a class="nav-link" href="memo.php">Memo Record</a>
                </li>
                <?php } ?>
+               <?php if(!isset($_SESSION['permission']) || $permission['Class Report'] == "1"){?>
+            <li class="nav-item">
+              <a class="nav-link" href="classreport.php">Class Report</a>
+            </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['discipline'] == "1"){?>
+            <li class="nav-item">
+              <a class="nav-link" href="discipline.php">Discipline</a>
+            </li>
+            <?php } ?>
       </ul>
-      <h3><span style="color:white">
+      <!-- <h3><span style="color:white">
         Hello <?php echo $username;?>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"><i class="fas fa-bell"></i></a>
           <ul class="dropdown-menu"></ul>
         </li>
         <a href="logout.php" class="btn btn-warning">logout</a>
-      </span></h3>
+      </span></h3> -->
     </div>
   </div>
 </nav>
