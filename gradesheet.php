@@ -484,6 +484,8 @@ if($lockst->rowCount() > 0)
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
         <tr>
           <?php 
+
+          //fetch overall garde 
           $overall_grade= $connect->prepare("SELECT over_all_grade, over_all_grade_per FROM `gradesheet` WHERE user_id=? and course_id=? AND class_id=? AND phase_id=? AND class=?");
           $overall_grade->execute([$fetchuser_id,$phpcourse,$classid,$phase_id,$class_name]);
           $fetch_overall_grade = $overall_grade->fetchColumn();
