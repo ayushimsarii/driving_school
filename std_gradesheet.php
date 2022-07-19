@@ -311,7 +311,10 @@ $st_date=strtotime($st_date);
                               <td><label>Date</label><input class="form-control" type="date" value="<?php echo date('Y-m-d',$st_date);?>" name="date"></td>
                               </tr> 
                               </table>
-                             
+                              
+                              <input class="btn btn-primary" type="submit" name="other_sub" value="Submit">
+                                    </form>
+                              <br>
                               <?php
 
 
@@ -330,19 +333,7 @@ if($lockst->rowCount() > 0)
 
 
       		</div>
-<!--Prereuisites container-->
-      		<!-- <div class="col-4">
-            <div class="dropdown">
-                  <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-                    <select style="width:100%;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
-                      <option style="font-size:larger;" selected disabled value="">Add</option>
-                      <?php echo $actclass?>
-                      <?php echo $academicclass?> 
-                      <?php echo $simclass?>
-                    </select>
-            </div>
-  
-      		</div> -->
+
         
 
 			
@@ -473,7 +464,7 @@ if($lockst->rowCount() > 0)
               <center>
                 
                   <textarea style="width:90%;" name="overall_data" placeholder="overall"></textarea><br>
-                  <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
+ 
              
               </center>
             </div>
@@ -524,7 +515,7 @@ if($lockst->rowCount() > 0)
                     }?></td>
                     </tr>
                     <tr>
-                      <td><input type="submit" class="btn btn-success" name="ins_sub" onclick="return confirm('Are you sure?')" /></td>
+                    
                     </tr>
 
    
