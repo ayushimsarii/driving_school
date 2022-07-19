@@ -74,7 +74,9 @@ if($classcolorst->rowCount() > 0)
 		<!-- <h1>Phase</h1> -->
 		<div class="col">
       <!--Fetching phase name, class name, student name and acdemic class-->
-			<table id="table" class="center" style="border: 1px solid black;">
+      
+			<table id="academicclasstable" class="center" style="border: 1px solid black;">
+      <input style="width:50%;" class="form-control" type="text" id="academicclasssearch" onkeyup="academic()" placeholder="Search for Academic Class.." title="Type in a name">
                     <?php
                     $query = "SELECT * FROM phase where ctp='$phpcourse'";
                     $statement = $connect->prepare($query);
@@ -93,6 +95,7 @@ if($classcolorst->rowCount() > 0)
                                 ?>
                                 </tr>
                                 <tr>
+                                <td>
                                 <?php
                                 $query1 = "SELECT * FROM academic where phase='$phase'";
                                 $statement1 = $connect->prepare($query1);
@@ -102,13 +105,13 @@ if($classcolorst->rowCount() > 0)
                                        ?>
                                   <!-- <a onclick="document.getElementById('value').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" id="cl_sy" class="btn btn-primary" ><?php echo $row1['shortacademic']?></a> -->
 
-
                                   <a href="upload/<?php echo $row1['file'] ?>" target="_blank" onclick="document.getElementById('file_name').value='<?php echo $row1['file'] ?>';" data-toggle="modal" data-target="#open-files" class="btn btn-primary"><?php echo $row1['shortacademic']?></a>
+
 <?php
                                }
                                 ?>
                     
-                                </tr><hr>
+                              </td> </tr><hr>
                  
                          </div>      
 <?php }?>
@@ -192,6 +195,27 @@ if($classcolorst->rowCount() > 0)
 
 
     </script>
+
+<script>
+function academic() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("academicclasssearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("academicclasstable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
     <?php
 include_once 'footer.php';
 ?>

@@ -38,12 +38,27 @@ include_once 'header.php';
 ?>
 <?php
 	include_once 'sidenavbar.php';
+	$classcolor= "SELECT * FROM gradesheet where user_id='$student'";
+$classcolorst= $connect->prepare($classcolor);
+$classcolorst->execute();
+
+if($classcolorst->rowCount() > 0)
+    {
+        $class="btn btn-success";
+    }
+    else{
+        $class="btn btn-dark"; 
+    }
 ?>
 <!--Fetching item info in this container-->
 <div class="container">
 	<center>
 		<div class="row">
 			<h4>Emergency Log</h4>
+			<div>
+			Student name : <?php echo $fetchname?><br>
+			Course name : <?php echo $std_course?>
+		</div>
 			<form class="insert-emerge" id="" method="post" action=".php">
 				<table id="table-field">
 					<tr>

@@ -36,15 +36,16 @@ include_once 'header.php';
 	include_once 'sidenavbar.php';
 	?>
 <div class="container">
-	<h4>Qual Log</h4>
+    <center>
+		<div class="row">
+			<h4>Qual Log</h4>
+			<div>
+				Student name : <?php echo $fetchname?><br>
+				Course name : <?php echo $std_course?>
+			</div>
+		</div>
+	</center>
 </div>
 
-<div class="container">
-	<form>
-	<label>Name</label> : <br>
-	<label>Course Name</label> : <br>
-	<label>Send A Message</label> : <br> <textarea></textarea><br>
-</form>
-</div>
 </body>
 </html>

@@ -99,10 +99,10 @@ if($classcolorst->rowCount() > 0)
 
 <!-- Next and Previous Button-->
 
- <!-- <div class="container-fluid" id="next-previous">
+ <div class="container-fluid" id="next-previous">
 		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
 		<button style="float: right;" class="btn btn-primary" type="submit"><a href="sim.php">Next</a></button>
-    </div><br><br> -->
+    </div><br><br>
 
 <script>
     $('#myTable').margetable({
