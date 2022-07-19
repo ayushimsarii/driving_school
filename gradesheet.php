@@ -503,9 +503,15 @@ if($lockst->rowCount() > 0)
               $sn7=1;
               foreach($result6 as $row6)
               {
-          $grade=$row6['grade'];?>
+          $grade=$row6['grade'];
+          if($row6['permission'] =='1'){?>
+          
                          <input type="radio" onclick="document.getElementById('gradeid').value='<?php echo $grade ?>';document.getElementById('gradeuserid').value='<?php echo $fetchuser_id ?>';document.getElementById('ins_id').value='<?php echo $user_id ?>';" class="myRadio" value="<?php echo $grade?>" <?php if($fetch_overall_grade==$grade) {echo "checked";}?> id="<?php echo $grade?>" name="overall_grade" data-toggle="modal" data-target="#confrim"><span style="font-weight:bold;" id="<?php echo $grade.'1';?>"><?php echo $grade?></span>
-                         <?PHP 
+                         <?PHP }else{
+                          ?>
+                           <input type="radio" class="myRadio" value="<?php echo $grade?>" <?php if($fetch_overall_grade==$grade) {echo "checked";}?> id="<?php echo $grade?>" name="overall_grade"><span style="font-weight:bold;" id="<?php echo $grade.'1';?>"><?php echo $grade?></span>
+                          <?php
+                         }
                       }
                     }?>
                         </td>
