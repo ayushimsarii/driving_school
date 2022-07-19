@@ -19,13 +19,23 @@
 include_once 'header.php';
 ?>
 <?php
-	include_once 'sidenavbar.php';
-	?>
+include_once 'sidenavbar.php';
+?>
 <div class="container">
-	<h4>Testing Log</h4>
+	<center>
+		<div class="row">
+			<h4>Testing Log</h4>
+			<div>
+				Student name : <?php echo $fetchname?><br>
+				Course name : <?php echo $std_course?>
+			</div>
+			<div class="col">
+				<button class="btn btn-outline-primary">Test</button>
+				<button class="btn btn-outline-success">Quiz</button>
+            </div>
+		</div>
+    </center>
 </div>
-<?php 
-include_once 'studentinfo.php';
-	?>
+
 </body>
 </html>

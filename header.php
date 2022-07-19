@@ -103,6 +103,7 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
               </div>
             </li>
             <?php } ?>
+            
          
             <?php if(!isset($_SESSION['permission']) || $permission['Task'] == "1"){?>
             <li class="nav-item">

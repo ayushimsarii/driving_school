@@ -84,10 +84,10 @@ if($classcolorst->rowCount() > 0)
 </div>
 </div><br>
 
- <!-- <div class="container-fluid" id="simbutton"
-		<button class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
-		<button style="float: right;" class="btn btn-primary" type="submit"><a href="">Next</a></button>
-    </div><br> -->
+ <div class="container-fluid" id="simbutton"
+		<button class="btn btn-primary" type="submit"><a href="actual.php">Previous</a></button>
+		<button style="float: right;" class="btn btn-primary" type="submit"><a href="academic.php">Next</a></button>
+    </div><br>
     <?php
     include_once 'footer.php';
     ?>

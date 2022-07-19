@@ -692,7 +692,7 @@ input
 		padding: 5px;
 		text-align: center;
 	}
-  #actualrow, #simrow, #academicrow
+  #actualrow, #simrow, #academicrow, #testrow
   {
     width: 70%;
   }

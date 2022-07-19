@@ -34,6 +34,10 @@ $(document).ready(function(){
     $("#academictable").show();
     $("#academicsearch").show();
   });
+  $("#testbtn").click(function(){
+    $("#testtable").show();
+    $("#testsearch").show();
+  });
   $('#mark_type').on('change', function(){
           
           var type = $(this).val();
@@ -92,6 +96,7 @@ $(document).ready(function(){
 				<button type="button" class="btn btn-warning" id="actualbtn">Actual</button>
 				<button class="btn btn-primary" type="button" id="simbtn">Simulation</button>
 				<button class="btn btn-warning" type="button" id="academicbtn">Academic</button>
+        <button class="btn btn-warning" type="button" id="testbtn">Test</button>
 			</div>
         </div>
 		</center>
@@ -298,6 +303,72 @@ $(document).ready(function(){
           </div>
 </center>
 
+<!--fetch test table-->
+<center>
+<div class="container">
+                         <div class="row" id="testrow">
+                        <center>
+                            
+                          <table style="display:none;" class="table table-striped table-bordered" id="testtable">
+                            <input style="width:50%; display: none;" class="form-control" type="text" id="testsearch" onkeyup="test()" placeholder="Search for Test Class.." title="Type in a name">
+                                <thead>
+                                    <th>Sr No</th>
+                                    <th>Class Name</th>
+                                    <th>Symbol</th>
+                                    <th>Phase</th>
+                                    <th>CTP</th>
+                                    <th>% Type</th>
+                                    <th>Percentage</th>
+                                    <th>item and subitem</th>
+                                    <th>Action</th>
+                                  
+                                </thead>
+                                <?php 
+                                $output ="";
+                                $query = "SELECT * FROM test where ctp='$ctp' and phase='$phase_id'";
+                                $statement = $connect->prepare($query);
+                                $statement->execute();
+                                if($statement->rowCount() > 0)
+                                    {
+                                        $result = $statement->fetchAll();
+                                        $sn=1;
+                                        foreach($result as $row)
+                                        { ?>
+                                           
+                                            <tr>
+                                            <td><?php echo $sn++;$id=$row['id'] ?></td>
+                                            <td><?php echo $row['test'] ?></td>
+                                            <td><?php echo $row['shorttest'] ?></td>
+                                            <td><?php echo $phase ?></td>
+                                            <td><?php echo $row['ctp'] ?></td>
+                                            <td><?php echo $row['ptype'] ?></td>
+                                            <td><?php echo $row['percentage'] ?></td>
+                                            <td><a style="color:blue;" href="add_que.php?class_id=<?php echo $id?>&phase_id=<?php echo $phase_id?>&ctp=<?php echo $ctp?>&class=test">Add</a></td>
+                                            <td><a onclick="document.getElementById('testid').value='<?php echo $id=$row['id'] ?>';
+                                               document.getElementById('testname').value='<?php echo $row['test'] ?>';
+                                               document.getElementById('shorttestname').value='<?php echo $row['shorttest'] ?>';
+                                               document.getElementById('ptype4').value='<?php echo $row['ptype'] ?>';
+                                               document.getElementById('percentage4').value='<?php echo $row['percentage'] ?>';
+                                               document.getElementById('testphase').value='<?php echo $phase ?>';
+                                               document.getElementById('testctp').value='<?php echo $row['ctp'] ?>';
+                                            " data-toggle="modal" data-target="#edittest"><i class="fas fa-edit"></i></a>
+                                            </a>
+                                            <a href="test-delete.php?id=<?php echo $id?>"><i class="fas fa-trash"></i></a>
+                                           
+                                          </td>
+                                        </tr>
+                                            <?php
+                                        }
+                                    
+                                    }        
+       ?>      
+                            </table>
+								</center>
+                          </div>
+                      </div>
+          </div>
+</center>
+
 			<div class="container">
 			<center>
 				<div class="row">
@@ -385,6 +456,32 @@ $(document).ready(function(){
 					</form>	
     </div>
   </center>
+</div>
+
+<!--Adding test classes-->
+<div class="container">
+  <center>
+    <div class="row">
+    		<h3>Class : <span style="font-size:larger; color:green;">Test</span></h3>
+		    		<form class="insert-phases" id="test" method="post" action="test_insert_data.php">
+							<div class="input-field">
+								<table class="table table-bordered" id="table-field-test">
+									<tr>
+									<input type="hidden" name="phase_id" class="form-control" value="<?php echo $phase_id ?>">
+									<input type="hidden" name="phase" class="form-control" value="<?php echo $phase ?>">
+									<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>">
+										<td class="short"><input type="text" name="test[]" class="form-control" placeholder="Enter How many Test Classes you want?"></td>
+										<td class="short"><input maxlength="10" type="text" name="shorttest[]" class="form-control" placeholder="Symbol"></td>
+                    <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>
+										<td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>
+										<td><button type="button" name="add_test" id="add_test" class="btn btn-warning"><i class="fas fa-plus-circle"></i></button></td>
+									</tr>
+								</table>
+                <button class="btn btn-success" type="submit" name="submit_test">Save</button>
+							</div>
+						</form>	
+	  </div>
+	</center>
 </div><br><br>
 <!--Edit actual class modal-->
 <div class="modal fade" id="editactual" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -460,7 +557,33 @@ $(document).ready(function(){
             </div>
           </div>
         </div>
-</div><br><br>
+</div>
+
+<!--Edit test class modal-->
+<div class="modal fade" id="edittest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Test Class</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="edit_test_class.php">
+                    <input type="text" name="id" value="" id="testid" readonly>
+                    <input type="text" name="actual" value="" id="testname">
+                    <input type="text" name="symbol" value="" id="shorttestname">
+                    <input type="text" name="phase" value="" id="testphase">
+                    <input type="text" name="ctp" value="" id="testctp">
+                    <input type="text" name="ptype" value="" id="ptype4">
+                    <input type="text" name="percentage" value="" id="percentage4">
+                    <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+                </form>
+            </div>
+          </div>
+        </div>
+</div> <br><br>
 
 <!--Upload files for academic pop up box-->
 <div class="modal fade" id="upload-files" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -587,6 +710,36 @@ include_once 'footer.php';
 				});
 	 	});
  </script>
+
+ <!--Script for addinf test-->
+ <script type="text/javascript">
+	 	$(document).ready(function()
+	 	{
+		 		var html2 = '<tr>\
+								<td style="text-align: center;"><input type="text" name="test[]" class="form-control" placeholder="Enter How many academic Classes you want?"></td>\
+								<td class="short"><input maxlength="10" type="text" name="shorttest[]" class="form-control" placeholder="Symbol"></td>\
+                <td class="short"><input maxlength="10" type="hidden" class="type" name="ptype[]" class="form-control" placeholder="% Type"></td>\
+                <td class="short"><input maxlength="10" readonly class="type_value" type="number" name="percentage[]" class="form-control" placeholder="Percentage"></td>\
+								<td><button type="button" name="remove_test" id="remove_test" class="btn btn-danger"><i class="fas fa-times-circle"></i></button></td>\
+							</tr>'
+			    var max2 = 5;
+				var c = 1;
+
+				$("#add_test").click(function()
+				{
+					if(c <= max2)
+					{
+						$("#table-field-test").append(html2);
+						c++;
+					}
+				});
+				$("#table-field-test").on('click','#remove_test',function()
+				{
+					$(this).closest('tr').remove();
+					c--;
+				});
+	 	});
+ </script>
  
 <!--Script for search classes-->
 
@@ -666,6 +819,28 @@ function academic() {
   input = document.getElementById("academicsearch");
   filter = input.value.toUpperCase();
   table = document.getElementById("academictable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+<!--search for test class-->
+<script>
+function test() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("testsearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("testtable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];

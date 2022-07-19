@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Critical Action Page</title>
+	<title>Question Bank</title>
 	<meta charset="utf-8" />
     <meta name="viewport" 
           content="width=device-width, 
@@ -23,14 +23,10 @@ include_once 'sidenavbar.php';
 ?>
 <div class="container">
     <center>
-			<div class="row">
-				<h4>Critical Action Page</h4>
-				<div>
-					Student name : <?php echo $fetchname?><br>
-					Course name : <?php echo $std_course?>
-				</div>
-			</div>
-    </center>     
+        <div class="row">
+            <h4>Question Bank</h4>
+        </div>
+    </center>
 </div>
 
 </body>
