@@ -815,9 +815,7 @@ $(document).ready(function(){
                                         <td><?php echo $row6['grade'];?></td>
                                         <td>
                                         <input type="hidden" name="grade_name[]" value="<?php echo $row6['grade']?>">
-                                          <input type="checkbox" value="<?php if ($row6['permission'] == "1") {
-                                            echo '1';
-                                        }else{echo '0';} ?>" <?php if ($row6['permission'] == "1") {
+                                          <input type="checkbox" value="1" <?php if ($row6['permission'] == "1") {
                                             echo 'checked';
                                         } ?> name="grade[<?php echo $row6['grade'];?>]">
                                         </td>
