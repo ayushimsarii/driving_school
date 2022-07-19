@@ -484,27 +484,32 @@ if($lockst->rowCount() > 0)
 				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
         <tr>
           <?php 
-
+ 
+     
           //fetch overall garde 
           $overall_grade= $connect->prepare("SELECT over_all_grade, over_all_grade_per FROM `gradesheet` WHERE user_id=? and course_id=? AND class_id=? AND phase_id=? AND class=?");
           $overall_grade->execute([$fetchuser_id,$phpcourse,$classid,$phase_id,$class_name]);
           $fetch_overall_grade = $overall_grade->fetchColumn();
+          
   ?>
                    <td style="display: flex;">
-                      
-                         <input type="radio" class="myRadio" value="U" <?php if($fetch_overall_grade=="U") {echo "checked";}?> id="U" name="overall_grade"/><span style="font-weight:bold;" id="u1">U</span>
-                      
-                         <input type="radio" class="myRadio" value="F" <?php if($fetch_overall_grade=="F") {echo "checked";}?> id="F" name="overall_grade"/><span style="font-weight:bold;" id="f1">F</span>
+                      <?php $grade_per="";
+          $que = "SELECT * FROM grade_per";
+          $stat = $connect->prepare($que);
+          $stat->execute();
+          if($stat->rowCount() > 0)
+          {
+              $result6 = $stat->fetchAll();
+              $sn7=1;
+              foreach($result6 as $row6)
+              {
+          $grade=$row6['grade'];?>
+                         <input type="radio" onclick="document.getElementById('gradeid').value='<?php echo $grade ?>';document.getElementById('gradeuserid').value='<?php echo $fetchuser_id ?>';document.getElementById('ins_id').value='<?php echo $user_id ?>';" class="myRadio" value="<?php echo $grade?>" <?php if($fetch_overall_grade==$grade) {echo "checked";}?> id="<?php echo $grade?>" name="overall_grade" data-toggle="modal" data-target="#confrim"><span style="font-weight:bold;" id="<?php echo $grade.'1';?>"><?php echo $grade?></span>
+                         <?PHP 
+                      }
+                    }?>
+                        </td>
                     
-                         <input type="radio" class="myRadio" value="G" <?php if($fetch_overall_grade=="G") {echo "checked";}?> id="G" name="overall_grade"/><span style="font-weight:bold;" id="g1">G</span>
-                      
-                         <input type="radio" class="myRadio" value="V" <?php if($fetch_overall_grade=="V") {echo "checked";}?> id="V" name="overall_grade"/><span style="font-weight:bold;" id="v1">V</span>
-                     
-                         <input type="radio" class="myRadio" value="E" <?php if($fetch_overall_grade=="E") {echo "checked";}?> id="E" name="overall_grade"/><span style="font-weight:bold;" id="e1">E</span>
-                      
-                         <input type="radio" class="myRadio" value="N" <?php if($fetch_overall_grade=="N") {echo "checked";}?> id="N" name="overall_grade"/><span style="font-weight:bold;" id="n1">N</span>
-                     
-                   </td>
 				</tr>
 
                   <tr>
@@ -651,7 +656,30 @@ if($lockst->rowCount() > 0)
 				</div>
 			</div>
 		</div>
-
+    
+  </div>
+<!-- add notification for permission of grade -->
+<div class="modal fade" id="confrim" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ask for permission?</h5>
+                <button class="btn btn-warning" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+              <div class="modal-body">
+                <form method="post" action="grade_notification.php">
+             
+					<input type="hidden" name="id" value="" id="gradeid">
+					<input type="hidden" name="id" value="" id="gradeuserid">
+          <input type="hidden" name="id" value="" id="ins_id">
+          <button class="btn btn-success" type="submit" name="savephase">Yes</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!--edit item modal-->
 <div class="modal fade" id="edititem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -835,7 +863,9 @@ if($lockst->rowCount() > 0)
 
 <script>
 $(document).ready(function(){
- 
+  $('#U').change(function() {
+    $('#dummyModal').modal('show');
+  });
   $('#gradesper').on('change', function(){
     var inst_id = $(this).val();
     console.log(inst_id);
@@ -1007,8 +1037,8 @@ function allowUncheck(e) {
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
-        document.querySelector('#u1').style.color = 'red';
-        document.querySelector('#u1').style.fontSize = 'larger';
+        document.querySelector('#U1').style.color = 'red';
+        document.querySelector('#U1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'red';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
@@ -1022,8 +1052,8 @@ function allowUncheck(e) {
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
-        document.querySelector('#f1').style.color = 'yellow';
-        document.querySelector('#f1').style.fontSize = 'larger';
+        document.querySelector('#F1').style.color = 'yellow';
+        document.querySelector('#F1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'yellow';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
@@ -1037,8 +1067,8 @@ function allowUncheck(e) {
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
-        document.querySelector('#g1').style.color = 'green';
-        document.querySelector('#g1').style.fontSize = 'larger';
+        document.querySelector('#G1').style.color = 'green';
+        document.querySelector('#G1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'green';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
@@ -1052,8 +1082,8 @@ function allowUncheck(e) {
         document.querySelector('#F').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#N').disabled = true;
-        document.querySelector('#v1').style.color = '#6fea7c';
-        document.querySelector('#v1').style.fontSize = 'larger';
+        document.querySelector('#V1').style.color = '#6fea7c';
+        document.querySelector('#V1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = '#6fea7c';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
@@ -1067,8 +1097,8 @@ function allowUncheck(e) {
         document.querySelector('#V').disabled = true;
         document.querySelector('#F').disabled = true;
         document.querySelector('#N').disabled = true;
-        document.querySelector('#e1').style.color = 'blue';
-        document.querySelector('#e1').style.fontSize = 'larger';
+        document.querySelector('#E1').style.color = 'blue';
+        document.querySelector('#E1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'blue';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
@@ -1082,8 +1112,8 @@ function allowUncheck(e) {
         document.querySelector('#V').disabled = true;
         document.querySelector('#E').disabled = true;
         document.querySelector('#F').disabled = true;
-        document.querySelector('#n1').style.color = 'black';
-        document.querySelector('#n1').style.fontSize = 'larger';
+        document.querySelector('#N1').style.color = 'black';
+        document.querySelector('#N1').style.fontSize = 'larger';
         document.querySelector("#gradesper").style.backgroundColor = 'black';
         document.querySelector("#gradesper").style.fontSize = 'larger';
         document.querySelector("#gradesper").style.fontWeight = 'bolder';
