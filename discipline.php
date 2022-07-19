@@ -65,5 +65,9 @@ if($classcolorst->rowCount() > 0)
     </center>
 </div>
 
+
+<?php
+ include_once 'footer.php';
+ ?>
 </body>
 </html>

@@ -47,5 +47,9 @@ include_once 'header.php';
 	</center>
 </div>
 
+
+<?php
+ include_once 'footer.php';
+ ?>
 </body>
 </html>

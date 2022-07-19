@@ -33,5 +33,9 @@ include_once 'sidenavbar.php';
     </center>     
 </div>
 
+
+<?php
+ include_once 'footer.php';
+ ?>
 </body>
 </html>
