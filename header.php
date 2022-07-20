@@ -1,7 +1,8 @@
 <?php
 include('connect.php');
+// if($role=="super admin"){
 
-
+ //   }
    $query1 = "SELECT * FROM lock_manage";
    $statement1 = $connect->prepare($query1);
    $statement1->execute();
@@ -72,7 +73,7 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
 
   <h3><span style="color:green;">
         Hello <?php echo $username;?>
-        <button class="btn btn-warning"><i class="fas fa-bell"></i></button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#notification"><i class="fas fa-bell"></i></button>
         <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
       </span></h3>
 </div>
@@ -169,7 +170,61 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
     </div>
   </div>
 </nav>
+<div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       <H3>Notifications</h3>
+        <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+        <table>
+          <thead></thead>
+          <?php 
+          $fetched_per="";
+$fetch_noti= "SELECT * FROM grade_per_notifications where is_read='0'";
+$fetch_notist2 = $connect->prepare($fetch_noti);
+$fetch_notist2->execute();
 
+ if($fetch_notist2->rowCount() > 0)
+     {
+         $re2 = $fetch_notist2->fetchAll();
+       foreach($re2 as $row2)
+         {
+          
+          $ask_userid=$row2['user_id'];
+          $fetch_ins_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
+          $fetch_ins_name->execute([$ask_userid]);
+          $ins_name = $fetch_ins_name->fetchColumn();
+
+         $for_userid=$row2['to_userid']; 
+         $fetch_std_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
+         $fetch_std_name->execute([$for_userid]);
+         $std_name = $fetch_std_name->fetchColumn();
+           $grade=$row2['data'];
+
+          $fetched_per='<tr>
+          <td>'.$ins_name.' Asking For '.$row2['type'].' To Give Grade '.$grade.' For '.$std_name.'</td>
+          </tr>';
+          echo $fetched_per;
+         }
+     
+     }     ?>        
+							</table>
+
+
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 <script type = "text/javascript">
 $(document).ready(function(){
 	

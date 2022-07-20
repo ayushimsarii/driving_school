@@ -1,39 +1,35 @@
 <?php
-//fetch.php;
+include('connect.php');
 
-include("connect.php");
-if(isset($_POST["view"])){
-	if($_POST["view"] != ''){
-		mysqli_query($connect,"update `users` set seen_status='1' where seen_status='0'");
-	}
-	
-	$query=mysqli_query($connect,"select * from `users` order by id desc limit 10");
-	$output = '';
- 
-	if(mysqli_num_rows($query) > 0){
-	while($row = mysqli_fetch_array($query)){
-	$output .= '
-	<li>
-		<a href="#">
-		name: <strong>'.$row['name'].'</strong><br />
-		email: <strong>'.$row['email'].'</strong>
-		</a>
-	</li>
-	
-	';
-	}
-	}
-	else{
-	$output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
-	}
-	
-	$query1=mysqli_query($connect,"select * from `users` where seen_status='0'");
-	$count = mysqli_num_rows($query1);
-	$data = array(
-		'notification'   => $output,
-		'unseen_notification' => $count
-	);
-	echo json_encode($data);
-	
+
+$query = "SELECT * FROM grade_per_notifications";
+$result = mysqli_query($con, $query);
+$output = '';
+if(mysqli_num_rows($result) > 0)
+{
+while($row = mysqli_fetch_array($result))
+{
+  $fetch .= '
+  <li>
+  <a href="#">
+  <strong>'.$row["type"].'</strong><br />
+  <small><em>'.$row["data"].'</em></small>
+  </a>
+  </li>
+  ';
+  echo $fetch;
 }
+}
+else{
+    $fetch .= '<li><a href="#" class="text-bold text-italic">No Noti Found</a></li>';
+}
+$status_query = "SELECT * FROM grade_per_notifications";
+$result_query = mysqli_query($con, $status_query);
+$count = mysqli_num_rows($result_query);
+$data = array(
+   'notification' => $fetch,
+   'unseen_notification'  => $count
+);
+echo json_encode($data);
+
 ?>
