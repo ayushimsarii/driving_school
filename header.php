@@ -54,8 +54,9 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
   <script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> 
-</head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> 
+    <link rel="stylesheet" type="text/css" href="sidestyle.css">
+  </head>
 <!-- <style type="text/css">
   .navbar-dark .navbar-nav .nav-link 
   {
@@ -71,7 +72,8 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
 
   <h3><span style="color:green;">
         Hello <?php echo $username;?>
-        <a href="logout.php" class="btn btn-outline-success">logout</a>
+        <button class="btn btn-warning"><i class="fas fa-bell"></i></button>
+        <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
       </span></h3>
 </div>
 </nav>
@@ -87,13 +89,13 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
       <li class="nav-item active">
-              <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="Home.php"><i class="fas fa-home-alt"></i>Home<span class="sr-only">(current)</span></a>
             </li>
             
             <?php if(!isset($_SESSION['permission']) || $permission['show_c'] == "1"){?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="phase-view.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Class
+              <i class="fas fa-users-class"></i>Class
               </a>
        
               <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -107,52 +109,52 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
          
             <?php if(!isset($_SESSION['permission']) || $permission['Task'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="tasklog.php">Task</a>
+              <a class="nav-link" href="tasklog.php"><i class="fas fa-tasks"></i>Task</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Activity'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="stdactlog.php">Activity</a>
+              <a class="nav-link" href="stdactlog.php"><i class="fas fa-user-graduate"></i>Activity</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Testing'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="testing.php">Testing</a>
+              <a class="nav-link" href="testing.php"><i class="fas fa-vial"></i>Testing</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="emergency.php">Emergeny</a>
+              <a class="nav-link" href="emergency.php"><i class="fas fa-hospital"></i>Emergeny</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Qual'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="qual.php">Qual</a>
+              <a class="nav-link" href="qual.php"><i class="fas fa-graduation-cap"></i>Qual</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="clearance.php">Clearance</a>
+              <a class="nav-link" href="clearance.php"><i class="fas fa-cloud-sun"></i>Clearance</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['CAP'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="CAP.php">CAP</a>
+              <a class="nav-link" href="CAP.php"><i class="fas fa-grip-vertical"></i>CAP</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Memo'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="memo.php">Memo</a>
+              <a class="nav-link" href="memo.php"><i class="fas fa-memory"></i>Memo</a>
                </li>
                <?php } ?>
                <?php if(!isset($_SESSION['permission']) || $permission['Report'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="classreport.php">Report</a>
+              <a class="nav-link" href="classreport.php"><i class="fas fa-file-chart-line"></i>Report</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Discipline'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="discipline.php">Discipline</a>
+              <a class="nav-link" href="discipline.php"><i class="fas fa-dice-d6"></i>Discipline</a>
             </li>
             <?php } ?>
       </ul>

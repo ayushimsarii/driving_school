@@ -7,6 +7,10 @@
 {
   height: 60px;
 }
+.fa-home-alt, .fa-users-class, .fa-tasks, .fa-user-graduate, .fa-vial, .fa-hospital, .fa-graduation-cap, .fa-cloud-sun, .fa-grip-vertical, .fa-memory, .fa-file-chart-line, .fa-dice-d6
+{
+  color: white;
+}
 /*sidenavbar*/
 
 #bodynav {
