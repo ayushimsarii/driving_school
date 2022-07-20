@@ -183,7 +183,7 @@ $(document).ready(function(){
                                 <?php echo $output2 ?>
                             </select>
                             <center>
-                        <button class="btn btn-success" type="submit" name="submit_Phase"><i class="fas fa-share"></i></button>
+                        <button style="font-weight:small;" class="btn btn-outline-success" type="submit" name="submit_Phase"><i class="fas fa-share"></i></button>
                           </center>
                           </form>
                           </div>
