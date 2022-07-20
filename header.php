@@ -72,7 +72,14 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
   <?php }?>
 
   <h3><span style="color:green;">
-        Hello <?php echo $username;?>
+  
+  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Hello <?php echo $username;?>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="profile.php">Update Profile</a>
+    </div>
+        
         <button class="btn btn-warning" data-toggle="modal" data-target="#notification"><i class="fas fa-bell"></i></button>
         <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
       </span></h3>
