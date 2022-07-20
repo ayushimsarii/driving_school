@@ -72,7 +72,10 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
   <?php }?>
 
   <h3><span style="color:green;">
-  
+  <!-- <span class="avatar avatar-sm rounded-circle">
+                  
+                  <img alt="Photo" class="rounded-circle" src="upload/images.png">
+                </span> -->
   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   Hello <?php echo $username;?>
   </button>
