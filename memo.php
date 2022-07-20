@@ -24,7 +24,7 @@ include_once 'header.php';
 <div class="container">
 	<center>
 			<div class="row">
-				<h4>Memo Log</h4>
+				<h4>Memorandum For Records</h4>
 				<div>
 					Student name : <?php echo $fetchname?><br>
 					Course name : <?php echo $std_course?>

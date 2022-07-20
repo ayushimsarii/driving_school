@@ -22,7 +22,7 @@ include_once 'header.php';
 <div class="container">
     <center>
 			<div class="row">
-				<h4>Class Report</h4>
+				<h4>Class Summary Report</h4>
 				<div>
 					Student name : <?php echo $fetchname?><br>
 					Course name : <?php echo $std_course?>

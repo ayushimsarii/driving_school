@@ -110,24 +110,29 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
               <a class="nav-link" href="tasklog.php">Task</a>
             </li>
             <?php } ?>
-            <?php if(!isset($_SESSION['permission']) || $permission['Student'] == "1"){?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Activity'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="stdactlog.php">Student Activity Log</a>
-            </li>
-            <?php } ?>
-            <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
-            <li class="nav-item">
-              <a class="nav-link" href="emergency.php">Emergeny Log</a>
+              <a class="nav-link" href="stdactlog.php">Activity</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Testing'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="testing.php">Testing Log</a>
+              <a class="nav-link" href="testing.php">Testing</a>
+            </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
+            <li class="nav-item">
+              <a class="nav-link" href="emergency.php">Emergeny</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Qual'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="qual.php">Qual Log</a>
+              <a class="nav-link" href="qual.php">Qual</a>
+            </li>
+            <?php } ?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
+            <li class="nav-item">
+              <a class="nav-link" href="clearance.php">Clearance</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['CAP'] == "1"){?>
@@ -135,23 +140,17 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
               <a class="nav-link" href="CAP.php">CAP</a>
             </li>
             <?php } ?>
-            <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Memo'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="clearance.php">Clearance Log</a>
-            </li>
-            <?php } ?>
-           
-            <?php if(!isset($_SESSION['permission']) || $permission['Class'] == "1"){?>
-            <li class="nav-item">
-              <a class="nav-link" href="memo.php">Memo Record</a>
+              <a class="nav-link" href="memo.php">Memo</a>
                </li>
                <?php } ?>
-               <?php if(!isset($_SESSION['permission']) || $permission['Class Report'] == "1"){?>
+               <?php if(!isset($_SESSION['permission']) || $permission['Report'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="classreport.php">Class Report</a>
+              <a class="nav-link" href="classreport.php">Report</a>
             </li>
             <?php } ?>
-            <?php if(!isset($_SESSION['permission']) || $permission['discipline'] == "1"){?>
+            <?php if(!isset($_SESSION['permission']) || $permission['Discipline'] == "1"){?>
             <li class="nav-item">
               <a class="nav-link" href="discipline.php">Discipline</a>
             </li>
