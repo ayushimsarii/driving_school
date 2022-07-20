@@ -358,7 +358,7 @@ if($lockst->rowCount() > 0)
       <center>
   
 
-					<table class="table table-bordered target-table" id="radio">
+					<table class="table table-bordered target-table" id="radio" style="width:90%; margin-left:100px;">
 							<thead class="thead-dark" style="background-color:black;">
 								<tr>
 									<th>Id</th>
@@ -472,7 +472,7 @@ if($lockst->rowCount() > 0)
             <div class="col-8">
               <center>
                 
-                  <textarea style="width:90%;" name="overall_data" placeholder="overall"></textarea><br>
+                  <textarea style="width:80%;" name="overall_data" placeholder="overall"></textarea><br>
                   <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
              
               </center>
