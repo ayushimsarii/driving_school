@@ -462,9 +462,9 @@ if($lockst->rowCount() > 0)
 </center>
     </div>
            <div class="col-4">
-              <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br>
+              <!-- <textarea name="parking" rows="4" cols="50" id="parking"></textarea><br> -->
 
-              <textarea style="height: 400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
+              <textarea style="height: 200px; width:400px;" name="comment" rows="4" cols="50" id="comment"></textarea>
           </div>
         </div>
 
@@ -472,8 +472,9 @@ if($lockst->rowCount() > 0)
             <div class="col-8">
               <center>
                 
-                  <textarea style="width:80%;" name="overall_data" placeholder="overall"></textarea><br>
-                  <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-success">Additional Training</button>
+                  <textarea style="width:80%; margin-left:100px;" name="overall_data" placeholder="overall"></textarea><br>
+                  <button type="button" data-toggle="modal" data-target="#additional-training" class="btn btn-outline-success">Additional Task</button>
+                  <button type="button" data-toggle="modal" data-target="#unaccomplish-training" class="btn btn-outline-success">Unaccomplish Task</button>
              
               </center>
             </div>
@@ -481,7 +482,8 @@ if($lockst->rowCount() > 0)
             <div class="col-4">
             <table>
 				<center>
-				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button></center>
+				<button class="btn btn-info" type="button" data-toggle="modal" data-target="#detailsper"><i class="fas fa-info-circle"></i></button>
+      </center>
         <tr>
           <?php 
  
@@ -588,15 +590,54 @@ if($lockst->rowCount() > 0)
               </div>
               <div class="modal-body">
                 <center>
-                <table class="table table-striped table-bordered">
-								<tr>
-									<th>Id</th>
-									<th>Type</th>
-									<th>Percentage</th>
-                  <th>Color</th>
-								</tr>
-								<?php echo $per_table_data?>
-							</table>
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Percentage</th>
+                        <th scope="col">Color</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="color:red;">
+                        <th scope="row" style="color:black; font-weight:bold;">1</th>
+                        <td>U-Unsatisfied</td>
+                        <td>Less Than 60%</td>
+                        <td>Red</td>
+                      </tr>
+                      <tr style="color:yellow;">
+                        <th scope="row" style="color:black; font-weight:bold;">2</th>
+                        <td>F-Fair</td>
+                        <td>Less Than 70%</td>
+                        <td>Yellow</td>
+                      </tr>
+                      <tr style="color:green;">
+                        <th scope="row" style="color:black; font-weight:bold;">3</th>
+                        <td>G-Good</td>
+                        <td>Less Than 80%</td>
+                        <td>green</td>
+                      </tr>
+                      <tr style="color:lightgreen;">
+                        <th scope="row" style="color:black; font-weight:bold;">4</th>
+                        <td>V-Very Good</td>
+                        <td>Less Than 90%</td>
+                        <td>lightgreen</td>
+                      </tr>
+                      <tr style="color:blue;">
+                        <th scope="row" style="color:black; font-weight:bold;">5</th>
+                        <td>E-Excellent</td>
+                        <td>Less Than 100%</td>
+                        <td>Blue</td>
+                      </tr>
+                      <tr style="color:black;">
+                        <th scope="row" style="color:black; font-weight:bold;">6</th>
+                        <td>N-None</td>
+                        <td>0</td>
+                        <td>Black</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </center>
               </div>
             </div>
