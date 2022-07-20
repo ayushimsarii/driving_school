@@ -34,15 +34,19 @@ $query = "SELECT * FROM users where id='$id'";
                        
                         <form method="post" action="update_user.php">
                         <input type="hidden" value="'.$id.'" name="user_dbid" class="form-control">
+                        <label class="form-label">Image :</label>
+                        <input type="file" value="'.$row['image'].'" name="user_image" class="form-control">
                         <label class="form-label">Name :</label>
                         <input type="text" value="'.$row['name'].'" name="user_name" class="form-control">
+                        <label class="form-label">NickName :</label>
+                        <input type="text" value="'.$row['nickname'].'" name="user_nickname" class="form-control">
                         <label class="form-label">Role :</label>
                         <select name="user_role" class="form-control">
                         <option value="'.$row['role'].'" selected>'.$row['role'].'</option>
                         '.$output1.'
                         </select>
                         <label class="form-label">Std Id :</label>
-                        <input type="text" value="'.$row['std_id'].'" name="user_id" class="form-control">
+                        <input type="text" value="'.$row['studid'].'" name="user_id" class="form-control">
                         <label class="form-label">Phone Number :</label>
                         <input type="text" value="'.$row['phone'].'" name="user_ph" class="form-control">
                         <label class="form-label">Email id :</label>
@@ -82,9 +86,11 @@ $query = "SELECT * FROM users where id='$id'";
 
        <br> 
 <div class="container">   
+    <center>
   <div class="row">
 
    <?php echo $output ?>
+</center>
             </div>
             </div>
 </body>
