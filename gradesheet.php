@@ -677,9 +677,9 @@ if($lockst->rowCount() > 0)
               <div class="modal-body">
                 <form method="post" action="grade_notification.php">
              
-					<input type="hidden" name="id" value="" id="gradeid">
-					<input type="hidden" name="id" value="" id="gradeuserid">
-          <input type="hidden" name="id" value="" id="ins_id">
+					<input type="hidden" name="grade" value="" id="gradeid">
+					<input type="hidden" name="gradeuserid" value="" id="gradeuserid">
+          <input type="hidden" name="ins_id" value="" id="ins_id">
           <button class="btn btn-success" type="submit" name="savephase">Yes</button>
               </form>
             </div>
