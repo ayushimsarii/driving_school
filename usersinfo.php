@@ -684,34 +684,29 @@ $(document).ready(function(){
                 $error=$_REQUEST['error'];
                 echo $error;
                 }?>         
-                            <!-- <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="file" name="image" placeholder="Upload Photo" required>
-                               <div class="valid-feedback">Name field is valid!</div>
-                               <div class="invalid-feedback">Name field cannot be blank!</div>
-                            </div> -->
-
                             <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="text" name="name" id="nameuser" placeholder="Full Name" required>
-                               <div class="valid-feedback">Name field is valid!</div>
-                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                            <input type="file" name="image" class="form-control" required>
+                               
                             </div>
 
                             <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="text" name="studid" placeholder="Student Id" required>
-                               <div class="valid-feedback">Name field is valid!</div>
-                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                               <input class="form-control" type="text" name="name" id="nameuser" placeholder="Full Name" required>
+                              
                             </div>
 
                             <div class="col-md-12">
-                               <input class="form-control" class="login-input" type="text" name="nickname" placeholder="Nick Name" required>
-                               <div class="valid-feedback">Name field is valid!</div>
-                               <div class="invalid-feedback">Name field cannot be blank!</div>
+                               <input class="form-control" type="text" name="studid" placeholder="Student Id" required>
+                               
                             </div>
 
                             <div class="col-md-12">
-                                <input class="form-control" type="tel" class="login-input" name="phone" placeholder="Enter Your Phone Number" required>
-                                 <div class="valid-feedback">Email field is valid!</div>
-                                 <div class="invalid-feedback">Email field cannot be blank!</div>
+                               <input class="form-control" type="text" name="nickname" placeholder="Nick Name" required>
+                               
+                            </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" type="tel" name="phone" placeholder="Enter Your Phone Number" required>
+                                 
                             </div>
 
                            <div class="col-md-12">
@@ -723,26 +718,22 @@ $(document).ready(function(){
                                       <option value="Instructor">Instructor</option>
                                       <option value="student">Student</option>
                                </select>
-                                <div class="valid-feedback">You selected a position!</div>
-                                <div class="invalid-feedback">Please select a position!</div>
+                                
                            </div>
 
                            <div class="col-md-12">
-                               <input class="form-control" type="text" class="login-input" name="username" placeholder="Username" required />
-                               <div class="valid-feedback">username field is valid!</div>
-                               <div class="invalid-feedback">username field cannot be blank!</div>
+                               <input class="form-control" type="text" name="username" placeholder="Username" required />
+                               
                             </div>
 
                             <div class="col-md-12">
-                               <input class="form-control" type="text" class="login-input" name="email" id="useremail" placeholder="Email Adress">
-                               <div class="valid-feedback">email field is valid!</div>
-                               <div class="invalid-feedback">email field cannot be blank!</div>
+                               <input class="form-control" type="text" name="email" id="useremail" placeholder="Email Adress">
+                             
                             </div>
 
                            <div class="col-md-12">
                               <input class="form-control" type="password" name="password" placeholder="Password" required>
-                               <div class="valid-feedback">Password field is valid!</div>
-                               <div class="invalid-feedback">Password field cannot be blank!</div>
+                               
                            </div>
 
 
@@ -757,10 +748,9 @@ $(document).ready(function(){
 
                             <input type="radio" class="btn-check" name="gender" value="secret" autocomplete="off" required>
                             <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label>
-                               <div class="valid-feedback mv-up">You selected a gender!</div>
-                                <div class="invalid-feedback mv-up">Please select a gender!</div>
+                              
                             </div>
-
+                            <input class="btn btn-primary" type="submit" name="upload" value="Register">
                         <!-- <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                           <label class="form-check-label">I confirm that all data are correct</label>
@@ -768,10 +758,10 @@ $(document).ready(function(){
                         </div> -->
                   
 
-                            <div class="form-button mt-2">
-                                <input class="btn btn-primary" type="submit" name="submit" value="Register" class="login-button">
-        <!-- <p class="link"><a href="login.php">Click to Login</a></p> -->
-                            </div>
+                            <!-- <div class="form-button mt-2">
+                                <input class="btn btn-primary" type="submit" name="upload" value="Register">
+         <p class="link"><a href="login.php">Click to Login</a></p>
+                            </div> -->
                         </form>
               </div>
             </div>
