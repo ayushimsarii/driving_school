@@ -72,8 +72,17 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
   <?php }?>
 
   <h3><span style="color:green;">
-
-  <img alt="Photo" class="rounded-circle" src="upload/images.jfif" style="height:50px;width:50px">
+<?php  
+$profile= $connect->prepare("SELECT file_name FROM `users` WHERE id=?");
+$profile->execute([$user_id]);
+$prof_pic = $profile->fetchColumn();
+if($prof_pic!=null){
+  $pic= 'upload/'.$prof_pic;
+}else{
+  $pic= 'upload/';
+}
+?>
+  <img alt="Photo" class="rounded-circle" src="<?php echo $pic ?>" style="height:50px;width:50px">
         
   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   Hello <?php echo $username;?>

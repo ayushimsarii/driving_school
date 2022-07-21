@@ -2,7 +2,7 @@
 // Include the database configuration file
 include 'connect.php';
 $statusMsg = '';
-
+$id=$_REQUEST['id'];
 // File upload path
 $targetDir = "upload/";
 $fileName = basename($_FILES["file"]["name"]);
@@ -11,27 +11,30 @@ $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
 if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
     // Allow certain file formats
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
+    $allowTypes = array('jpg','png','jpeg','gif');
     if(in_array($fileType, $allowTypes)){
         // Upload file to server
         if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
             // Insert image file name into database
-            $insert = $connect->query("INSERT into users (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
+            
+            $insert = $connect->query("UPDATE `users` SET `file_name` = '$fileName',`uploaded_on` = NOW() WHERE `id`='$id'");
             if($insert){
-                $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+                $statusMsg = "<div class='alert alert-success'>The file ".$fileName. " has been uploaded successfully.</div>";
             }else{
-                $statusMsg = "File upload failed, please try again.";
+                $statusMsg = "<div class='alert alert-danger'>File upload failed, please try again.</div>";
             } 
         }else{
-            $statusMsg = "Sorry, there was an error uploading your file.";
+            $statusMsg = "<div class='alert alert-danger'>Sorry, there was an error uploading your file.</div>";
         }
     }else{
-        $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
+        $statusMsg = "<div class='alert alert-danger'>Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.</div>";
     }
 }else{
-    $statusMsg = 'Please select a file to upload.';
+    $statusMsg = "<div class='alert alert-danger'>Please select a file to upload.</div>";
 }
+//$error="<div class='alert alert-success'>Data edited successfully..</div>";
 
+header('Location:profile.php?error='.$statusMsg);
 // Display status message
-echo $statusMsg;
+//echo $statusMsg;
 ?>

@@ -61,6 +61,7 @@
                             <label>Role : </label>
                             <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['role'] ?>">
                             <form action="profile_update.php" method="post" enctype="multipart/form-data">
+                            <input type="hidden" class="form-control" name="id" readonly value="<?php echo $row2['id'] ?>">    
     Select Image File to Upload:
     <input type="file" name="file">
     <input type="submit" name="submit" value="Upload">
