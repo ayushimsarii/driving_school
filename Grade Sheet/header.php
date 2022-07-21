@@ -54,7 +54,7 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
   <link href="css/bootstrap.css" rel="stylesheet">
   <script src="js/jquery.mim.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> 
     <link rel="stylesheet" type="text/css" href="sidestyle.css">
   </head>
@@ -73,8 +73,7 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
 
   <h3><span style="color:green;">
 
-                  
-                  <img alt="Photo" class="rounded-circle" src="upload/images.jpg" style="height:50px;width:50px">
+  <img alt="Photo" class="rounded-circle" src="upload/images.jfif" style="height:50px;width:50px">
         
   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   Hello <?php echo $username;?>
@@ -85,6 +84,8 @@ $q1 = "SELECT * FROM homepage where user_id=$user_id";
         
         <button class="btn btn-warning" data-toggle="modal" data-target="#notification"><i class="fas fa-bell"></i></button>
         <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
+
+        
       </span></h3>
 </div>
 </nav>
@@ -235,59 +236,6 @@ $fetch_notist2->execute();
     </div>
   </div>
 </div>
-<script type = "text/javascript">
-$(document).ready(function(){
-	
-	function load_unseen_notification(view = '')
-	{
-		$.ajax({
-			url:"notification_fetch.php",
-			method:"POST",
-			data:{view:view},
-			dataType:"json",
-			success:function(data)
-			{
-			$('.dropdown-menu').html(data.notification);
-			if(data.unseen_notification > 0){
-			$('.count').html(data.unseen_notification);
-			}
-			}
-		});
-	}
- 
-	load_unseen_notification();
- 
-	$('#add_user_fetch').on('submit', function(event){
-		event.preventDefault();
-		if($('#name').val() != '' && $('#role').val() != ''){
-		var form_data = $(this).serialize();
-		$.ajax({
-			url:"admin_register_user.php",
-			method:"POST",
-			data:form_data,
-			success:function(data)
-			{
-			$('#add_user_fetch')[0].reset();
-			load_unseen_notification();
-			}
-		});
-		}
-		else{
-			alert("Enter Data First");
-		}
-	});
- 
-	$(document).on('click', '.dropdown-toggle', function(){
-	$('.count').html('');
-	load_unseen_notification('yes');
-	});
- 
-	setInterval(function(){ 
-		load_unseen_notification();; 
-	}, 5000);
- 
-});
-</script>
 
 </body>
 </html>
