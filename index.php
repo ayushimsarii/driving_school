@@ -35,11 +35,14 @@
           DOC's
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="Grade sheet/login.php">Grade Sheet</a><hr>
-          <a class="dropdown-item" href="Library/index.php">Library</a><hr>
-          <a class="dropdown-item" href="BRI/index.php">BRI</a><hr>
-          <a class="dropdown-item" href="Scheduling/index.php">Scheduling</a>
-          
+                  <a class="dropdown-item" href="Grade sheet/login.php">
+                    <img style="height:30px; width:30px;" src="https://scontent-bom1-2.xx.fbcdn.net/v/t1.15752-9/294080692_808155873681163_6144744364441515217_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=f3MGfVKhO-IAX_2A65q&tn=eR9FI7sl91lqpvbS&_nc_ht=scontent-bom1-2.xx&uss=b4c5c457d12bd681&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FFF8DA&oh=03_AVL5Aq5P5blDtYGn1fJINWPRHJkJ1D7teb9hQioXm-c53Q&oe=62D92246" alt="images not found">Grade Sheet</a><hr>
+               
+                  <a class="dropdown-item" href="Library/index.php">Library</a><hr>
+
+                  <a class="dropdown-item" href="BRI/index.php">BRI</a><hr>
+                  <a class="dropdown-item" href="Scheduling/index.php">Scheduling</a>
+            
         </div>
       </li>
     </ul>
@@ -49,7 +52,7 @@
     </form> -->
   </div>
 </nav>
-    <h1>Welcome To The Training Operation System</h1>
+    <h1 style="text-align:center; color:yellowgreen;">Welcome To The Training Operation System</h1>
 </div>
 </body>
 </html>
