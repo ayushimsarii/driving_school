@@ -62,8 +62,8 @@
                             <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['role'] ?>">
                             <label>Profile Pic : </label>
                             <form method="get" action="profile_update.php">
-                            <input type="file" name="fileToUpload" id="fileToUpload">
-                            <input type="submit" value="Upload Image" name="submit" class="btn btn-success">
+                            <input type="file" name="image" id="fileToUpload">
+                            <input type="submit" value="Upload Image" name="upload" class="btn btn-success">
                            </form>
                             <?php } } ?>
                         </center>

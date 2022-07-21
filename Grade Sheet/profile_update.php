@@ -1,49 +1,45 @@
 <?php
-$target_dir = "upload/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+include_once 'connect.php';
+if(isset($_POST["upload"])){ 
+		
+		$error = false;
+		$status = "";
 
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  if($check !== false) {
-    echo "File is an image - " . $check["mime"] . ".";
-    $uploadOk = 1;
-  } else {
-    echo "File is not an image.";
-    $uploadOk = 0;
-  }
-}
+		//check if file is not empty
+		if(!empty($_FILES["image"]["name"])) { 
 
-// Check if file already exists
-if (file_exists($target_file)) {
-  echo "Sorry, file already exists.";
-  $uploadOk = 0;
-}
+			//file info 
+	        $file_name = basename($_FILES["image"]["name"]); 
+	        $file_type = pathinfo($file_name, PATHINFO_EXTENSION);
 
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-  echo "Sorry, your file is too large.";
-  $uploadOk = 0;
-}
+	        //make an array of allowed file extension
+	        $allowed_file_types = array('jpg','jpeg','png','gif');
 
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-  $uploadOk = 0;
-}
 
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-  } else {
-    echo "Sorry, there was an error uploading your file.";
-  }
-}
+	        //check if upload file is an image
+	        if( in_array($file_type, $allowed_file_types) ){ 
+
+            	$image = $_FILES['image']['tmp_name']; 
+            	$img_content = addslashes(file_get_contents($image)); 
+            	$title = $_POST['title'];
+
+            	//Now run insert query
+            	$query = $db->query("INSERT into users (image, title) VALUES ('$img_content', '$title')"); 
+
+             
+             	//check if successfully inserted
+            	if($query){ 
+                	$status = "Image has been successfully uploaded."; 
+	            }else{ 
+	            	$error = true;
+	                $status = "Something went wrong when uploading image!!!"; 
+	            }  
+	        }else{ 
+	        	$error = true;
+	            $status = 'Only support jpg, jpeg, png, gif format'; 
+	        } 
+
+		}
+
+	}
 ?>

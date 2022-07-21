@@ -19,9 +19,11 @@
 </script>
 </head>
 <body>
-
+<center>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <h1 style="color:white; text-align:center; margin:5px;">TOS/LIBRARY</h1>
+    </nav>
 <div class="heading">
-        <h1>TOS/LIBRARY</h1>
         <h3>
             <span class="text-slider-items">
                 We Are Coming Soon...!
@@ -30,6 +32,7 @@
   
         </h3>
     </div>
+</center>
     <!-- Import typed.min.js file from typed.js folder -->
     <script src=
         "./typed.js-master/lib/typed.min.js">
@@ -57,22 +60,8 @@
             });
         }
     </script>
-<!--Head Navbar-->
-<?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/DRIVING_SCHOOL/header.php';
-?>
-<!--Coming Soon-->
 
 
-<!-- Next and Previous Button-->
 
- <!-- <div class="container-fluid" id="next-previous">
-		<button  class="btn btn-primary" type="submit"><a href="phase-view.php">Previous</a></button>
-		<button style="float: right;" class="btn btn-primary" type="submit"><a href="sim.php">Next</a></button>
-    </div><br><br> -->
-
-<?php
-include_once 'footer.php';
-?>
 </body>
 </html>

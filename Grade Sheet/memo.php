@@ -85,7 +85,7 @@ if($classcolorst->rowCount() > 0)
 										<input type="hidden" name="ctp" class="form-control" value="<?php echo $ctp ?>"> -->
 											<td><input type="date" name="date[]" class="form-control" placeholder="Enter Date"></td>
 											<td><input maxlength="20" type="text" name="topic[]" class="form-control" placeholder="Topic"></td>
-											<td><textarea style="height:20px;" maxlength="100" type="text" name="comment[]" class="form-control" placeholder="Comment"></textarea></td>
+											<td style="width:50%;"><textarea style="height:20px; width:100%;" maxlength="100" type="text" name="comment[]" class="form-control" placeholder="Comment"></textarea></td>
 											<td><button type="button" name="add_memo" id="add_memo" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i></button></td>
 									</tr>
 								</table>
