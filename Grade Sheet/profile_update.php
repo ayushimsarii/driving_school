@@ -1,45 +1,37 @@
 <?php
-include_once 'connect.php';
-if(isset($_POST["upload"])){ 
-		
-		$error = false;
-		$status = "";
+// Include the database configuration file
+include 'connect.php';
+$statusMsg = '';
 
-		//check if file is not empty
-		if(!empty($_FILES["image"]["name"])) { 
+// File upload path
+$targetDir = "upload/";
+$fileName = basename($_FILES["file"]["name"]);
+$targetFilePath = $targetDir . $fileName;
+$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
-			//file info 
-	        $file_name = basename($_FILES["image"]["name"]); 
-	        $file_type = pathinfo($file_name, PATHINFO_EXTENSION);
+if(isset($_POST["submit"]) && !empty($_FILES["file"]["name"])){
+    // Allow certain file formats
+    $allowTypes = array('jpg','png','jpeg','gif','pdf');
+    if(in_array($fileType, $allowTypes)){
+        // Upload file to server
+        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){
+            // Insert image file name into database
+            $insert = $connect->query("INSERT into users (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
+            if($insert){
+                $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
+            }else{
+                $statusMsg = "File upload failed, please try again.";
+            } 
+        }else{
+            $statusMsg = "Sorry, there was an error uploading your file.";
+        }
+    }else{
+        $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
+    }
+}else{
+    $statusMsg = 'Please select a file to upload.';
+}
 
-	        //make an array of allowed file extension
-	        $allowed_file_types = array('jpg','jpeg','png','gif');
-
-
-	        //check if upload file is an image
-	        if( in_array($file_type, $allowed_file_types) ){ 
-
-            	$image = $_FILES['image']['tmp_name']; 
-            	$img_content = addslashes(file_get_contents($image)); 
-            	$title = $_POST['title'];
-
-            	//Now run insert query
-            	$query = $db->query("INSERT into users (image, title) VALUES ('$img_content', '$title')"); 
-
-             
-             	//check if successfully inserted
-            	if($query){ 
-                	$status = "Image has been successfully uploaded."; 
-	            }else{ 
-	            	$error = true;
-	                $status = "Something went wrong when uploading image!!!"; 
-	            }  
-	        }else{ 
-	        	$error = true;
-	            $status = 'Only support jpg, jpeg, png, gif format'; 
-	        } 
-
-		}
-
-	}
+// Display status message
+echo $statusMsg;
 ?>
