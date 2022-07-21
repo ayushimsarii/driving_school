@@ -900,6 +900,10 @@ background-color: rgb(218, 214, 214);
 {
   width: 80%;
 }
+#user-tab, #vehicle-tab, #newcourse-tab, #ctp-tab, #score-tab, #setting-tab
+{
+  color: #eeb302;
+}
 /* grade sheet radio of percentage */
 #u1
 {

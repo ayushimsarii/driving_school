@@ -60,11 +60,11 @@
                             <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['email'] ?>">
                             <label>Role : </label>
                             <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['role'] ?>">
-                            <label>Profile Pic : </label>
-                            <form method="get" action="profile_update.php">
-                            <input type="file" name="fileToUpload" id="fileToUpload">
-                            <input type="submit" value="Upload Image" name="submit" class="btn btn-success">
-                           </form>
+                            <form action="profile_update.php" method="post" enctype="multipart/form-data">
+    Select Image File to Upload:
+    <input type="file" name="file">
+    <input type="submit" name="submit" value="Upload">
+</form>
                             <?php } } ?>
                         </center>
                
