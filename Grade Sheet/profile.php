@@ -14,7 +14,9 @@
 
     <body>
     <?php
+  
 		include 'header.php';
+        
 		?>
 		<?php
 			if($role =='super admin'){
@@ -32,26 +34,40 @@
                 echo $error;
                 }?>
              
-          	<form method="post" action="edit_phase.php">
+          
               
                         
                         	<center>
                             <h5>Update Profile:</h5>
+                            <?php 
+                            $fetch_details= "SELECT * FROM users where id='$user_id'";
+                            $fetch_detailsst2 = $connect->prepare($fetch_details);
+                            $fetch_detailsst2->execute();
+                            
+                             if($fetch_detailsst2->rowCount() > 0)
+                                 {
+                                     $re2 = $fetch_detailsst2->fetchAll();
+                                   foreach($re2 as $row2)
+                                     {
+                                     
+                                    
+                            ?>
                             <label>Name : </label>
-                            <input type="text" class="form-control" name="name" readonly value="<?php echo $fetchname ?>">
+                            <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['name'] ?>">
                             <label>phone : </label>
-                            <input type="text" class="form-control" name="name" readonly value="<?php echo $fetchphone ?>">
+                            <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['phone'] ?>">
                             <label>Email id : </label>
-                            <input type="text" class="form-control" name="name" readonly value="<?php echo $fetchemail ?>">
+                            <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['email'] ?>">
                             <label>Role : </label>
-                            <input type="text" class="form-control" name="name" readonly value="<?php echo $fetchrole ?>">
+                            <input type="text" class="form-control" name="name" readonly value="<?php echo $row2['role'] ?>">
                             <label>Profile Pic : </label>
+                            <form method="get" action="profile_update.php">
                             <input type="file" name="fileToUpload" id="fileToUpload">
-                           <br />
-                        
-                            <input type="submit" name="saveit" class="btn btn-primary" value="submit" />
+                            <input type="submit" value="Upload Image" name="submit" class="btn btn-success">
+                           </form>
+                            <?php } } ?>
                         </center>
-                </form>
+               
           </div>
     
         </div>
