@@ -1,7 +1,7 @@
 <?php
 include('connect.php');
 $item="";
-$q3="SELECT * FROM itembank";
+$q3="SELECT * FROM itembank ORDER BY `id` ASC";
      $st3 = $connect->prepare($q3);
      $st3->execute();
      if($st3->rowCount() > 0)
@@ -31,6 +31,46 @@ $q3="SELECT * FROM itembank";
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script>
+	$(document).ready(function(){
+	 $('#item').on('change', function(){
+          
+          var item = $(this).val();
+          //console.log(item);
+          if(item){
+          
+            $.ajax({
+                      type:'POST',
+                      url:'selec_class.php',
+                      data:'id='+item,
+					  
+                      success:function(html){
+						document.cookie = "allclass = " + html;
+						//console.log(html); 
+                       $('#class').html(html);
+                        }
+                  }); 
+              }
+            
+        });
+		$('#class').on('change', function(){
+          
+		  var classname = $(this).val();
+		  console.log(classname);   
+			if(classname){
+				$.ajax({
+                      type:'POST',
+                      url:'selec_date.php',
+                      data:'id='+classname,
+					  
+                      success:function(html){
+						
+                        }
+                  });
+			  }
+		});
+		});
+</script>
 </head>
 <body>
 <?php
@@ -71,7 +111,9 @@ if($classcolorst->rowCount() > 0)
 						</td>
 						<td>
 							<label class="form-label" for="Class">Class</label>
-							<input type="text" name="class[] " class="form-control" value="" required />
+							<select id="class" class="form-control" name="class[]" value="" required>
+							<?php  echo $allclass= $_COOKIE['allclass']; ?> 
+                            </select>
 						</td>
 						<td>
 							<label class="form-label" for="Date">Date</label>
