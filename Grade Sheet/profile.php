@@ -64,7 +64,7 @@
                             <input type="hidden" class="form-control" name="id" readonly value="<?php echo $row2['id'] ?>">    
     Select Image File to Upload:
     <input type="file" name="file">
-    <input type="submit" name="submit" value="Upload">
+    <input type="submit" name="submit" value="Upload" class="btn btn-info">
 </form>
                             <?php } } ?>
                         </center>
