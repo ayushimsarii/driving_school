@@ -1,5 +1,6 @@
 <?php
 include('connect.php');
+//if class name if set
 if(isset($_GET['class_name'])){
 $class_name=$_GET['class_name'];
 }
@@ -13,7 +14,7 @@ $vehtype="";
 $in="";
 $class="";
 $classid="";
-
+//fetch ins for form
 $q2= "SELECT * FROM users where role='Instructor'";
 $st2 = $connect->prepare($q2);
 $st2->execute();
@@ -28,42 +29,7 @@ $st2->execute();
      
      }
 
-     $q3="SELECT * FROM actual";
-     $st3 = $connect->prepare($q3);
-     $st3->execute();
-     if($st3->rowCount() > 0)
-     {
-       $re3 = $st3->fetchAll();
-       foreach($re3 as $row3)
-       {
-         $actclass.='<option value="'.$row3['symbol'].'">'.$row3['symbol'].'</option>';
-       }
-     }
-     
-     $q4="SELECT * FROM sim";
-     $st4 = $connect->prepare($q4);
-     $st4->execute();
-     if($st4->rowCount() > 0)
-     {
-       $re4 = $st4->fetchAll();
-       foreach($re4 as $row4)
-       {
-         $simclass.='<option value="'.$row4['shortsim'].'">'.$row4['shortsim'].'</option>';
-       }
-     }
-     
-     $q5="SELECT * FROM academic";
-     $st5 = $connect->prepare($q5);
-     $st5->execute();
-     if($st5->rowCount() > 0)
-     {
-       $re5 = $st5->fetchAll();
-       foreach($re5 as $row5)
-       {
-         $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
-       }
-     }
-
+//fetch all vechile for form
 	 $q6="SELECT * FROM vehicle";
      $st6 = $connect->prepare($q6);
      $st6->execute();
@@ -75,20 +41,8 @@ $st2->execute();
          $vehnum.='<option value="'.$row7['id'].'">Number: '.$row7['VehicleNumber'].', Type: '.$row7['VehicleType'].'</option>';
        }
      }
-
-	 $q7="SELECT * FROM vehicle";
-     $st7 = $connect->prepare($q7);
-     $st7->execute();
-     if($st7->rowCount() > 0)
-     {
-       $re7 = $st7->fetchAll();
-       foreach($re7 as $row8)
-       {
-         $vehtype.='<option value="'.$row8['VehicleType'].'">'.$row8['VehicleType'].'</option>';
-       }
-     }
-
-     $per_table_data="";
+//fetch percentage details
+	   $per_table_data="";
      $per="SELECT * FROM percentage";
      $per5 = $connect->prepare($per);
      $per5->execute();
@@ -107,17 +61,7 @@ $st2->execute();
          </tr>';
        }
      }
-	 $q5="SELECT * FROM academic";
-     $st5 = $connect->prepare($q5);
-     $st5->execute();
-     if($st5->rowCount() > 0)
-     {
-       $re5 = $st5->fetchAll();
-       foreach($re5 as $row5)
-       {
-         $academicclass.='<option value="'.$row5['shortacademic'].'">'.$row5['shortacademic'].'</option>';
-       }
-     }
+	
 
      $mysqli = new mysqli("localhost","root","","driving_school");
 
@@ -210,251 +154,235 @@ include_once 'sidenavbar.php';
 ?>
   <!--Username dashboard info-->
   <div class="container">
-
-	<!--User info fetched in the input box-->
+      <!--User info fetched in the input box-->
       <div class="container" id="std-info">
-      <h3>Gradesheet</h3><?php 
+                <h3>Gradesheet</h3><?php 
+                // error message 
                 if(isset($_REQUEST['error']))
                 {
                 $error=$_REQUEST['error'];
                 echo $error;
                 }?>
-	<div>
-    <!-- Student name :  -->
-    <!-- <?php echo $phpcourse; echo $fetchname?><br> -->
-	<h5>Course name : <span><?php echo $std_course.'<br>'?></span> </h5>
-  <?php echo $std_course.'<br>';
-  if(isset($_GET['id'])){
-$classid=$_GET['id'];
-  }
-  if(isset($_GET['class'])){
-    echo '<h5>class : </h5>'.$class=$_GET['class'];
-    }else{
-      echo 'class :<span style="color:red">select class</span>';  
-    }
-   
-  ?>
-
-  <br>
-</div>  
-      	<div class="row" style="width:100%;">
-      		<div class="col-8">
-          <form method="get" action="submit_gradesheet.php" style="width:95%;">
-          
-      			<table>
-                              <tr>
-                              <input class="form-control" type="hidden" name="stud_db_id" value="<?php echo $fetchuser_id?>">
-                              <input class="form-control" type="hidden" name="class_name" value="<?php echo $class_name?>">
-                              <input type="hidden" name="phases_id" value="<?php echo $phase_id?>">
-                              <input type="hidden" name="course_id" value="<?php echo $phpcourse?>">
-                              <input type="hidden" name="class_id" value="<?php echo $classid?>">
-                              
-                            <td><label>Id</label><input class="form-control" type="text" name="stud_id" readonly value="<?php echo $fetchid?>"></td>
-                                <td><label>Name</label><input class="form-control" type="text" name="stud_name" readonly value="<?php echo $fetchname?>"></td>
-                              </tr>
-                              <tr>
-                                <td><label>Role</label><input class="form-control" type="text" name="stud_role" readonly value="<?php echo $fetchrole?>"></td>
-                                <td><label>Phone</label><input class="form-control" type="text" name="stud_phone" readonly value="<?php echo $fetchphone?>"></td>
-                              </tr>
-                              <tr>
-                                <?php
-     $stu_grade="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
-     $st = $connect->prepare($stu_grade);
-     $st->execute();
-     if($st->rowCount() > 0)
-     {
-       $re = $st->fetchAll();
-       
-       foreach($re as $value)
-       {
-        //fetch instructor of selected std if set
-$std_in=$value['instructor'];
-$instr_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
-$instr_name->execute([$std_in]);
-$name1 = $instr_name->fetchColumn();
-//fetch vechile   
-$vec_id=$value['vehicle']; 
-$vec_name= $connect->prepare("SELECT VehicleNumber FROM `vehicle` WHERE id=?"); 
-$vec_name->execute([$vec_id]);
-$name2 = $vec_name->fetchColumn(); 
-$vec_type= $connect->prepare("SELECT VehicleType FROM `vehicle` WHERE id=?"); 
-$vec_type->execute([$vec_id]);
-$name3 = $vec_type->fetchColumn();  
-$st_time=$value['time'];
-$st_date=$value['date']; 
-
-$st_date=strtotime($st_date);           
-}}
-      ?>
-                                <td><label class="form-label" for="Instructor">Instructor</label>
-                                    <select type="text" id="instructor" class="form-control form-control-md" name="instructor_id" required>
-                                    <?php if($std_in != ""){?>  
-                                      <option selected disabled value="<?php echo $std_in ?>"><?php echo $name1?></option>
-                                    <?php }else{ ?>  
-                                    <option selected disabled value="">-select instructor-</option>
-                                    <?php } ?>
-                                        <?php echo $in?>
-                                    </select></td>
-                                    <td><label>Vehicle</label>
-							                     <select type="text" class="form-control form-control-md" name="vechile_id" required>
-                                       <?php if($vec_id != ""){?> 
-                                        <option selected disabled value="<?php echo $vec_id ?>"><?php echo 'Number: '.$name2.', Type: '.$name3?></option>
-                                    <?php }else{ ?> 
-                                   <option selected disabled value="">-select Number-</option>
-                                   <?php } ?>
-                                        <?php echo $vehnum?>
-                                    </select>
-							                 </td>
-                              </tr>
-                              <tr>
-                              <td><label>Time</label><input class="form-control" type="time" value="<?php if(isset($st_time)){$date = date("H:i", strtotime($st_time)); echo "$date";} ?>" name="time"></td>
-                              <td><label>Date</label><input class="form-control" type="date" value="<?php echo date('Y-m-d',$st_date);?>" name="date"></td>
-                              </tr> 
-                              </table>
-                             
-                              <?php
-
-
-$lock="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
-$lockst = $connect->prepare($lock);
-$lockst->execute();
-if($lockst->rowCount() > 0)
-{ 
- $re = $lockst->fetchAll();
-     foreach($re as $row)
-     {
-      if($row['status'] == '1' && $role =='super admin'){?>
-    <button onclick="document.getElementById('gradesheetid').value='<?php echo $row['id'] ?>';" class="btn btn-warning" type="button" data-toggle="modal" data-target="#unlock" id="ctpbtn">Unlock</button>
-<?php } }}
-?>
-
-
-      		</div>
-<!--Prereuisites container-->
-      		<!-- <div class="col-4">
-            <div class="dropdown">
-                  <label style="font-size:20px; font-weight:bolder;">Prereuisites</label>
-                    <select style="width:100%;" type="text" id="country" class="form-control multiple-select" name="class[]" searchable="Search here.." multiple>
-                      <option style="font-size:larger;" selected disabled value="">Add</option>
-                      <?php echo $actclass?>
-                      <?php echo $academicclass?> 
-                      <?php echo $simclass?>
-                    </select>
-            </div>
+	            <div>
   
-      		</div> -->
-        
-
-			
-			
-      	</div>
-      </div>
-     
-      
-<!--Comment box Container-->
-<div class="container">
-  <div class="row" style="width:100%;">
-    <div class="col-8">
-      <center>
-  
-
-					<table class="table table-bordered target-table" id="radio" style="width:90%; margin-left:100px;">
-							<thead class="thead-dark" style="background-color:black;">
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Grade</th>
-						
-								</tr>
-							</thead>
-							<tbody>
-                <?php 
-                //fetch item
-                $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
-                $statement = $connect->prepare($allitem);
-                $statement->execute();
-                 
-                if($statement->rowCount() > 0)
-                  {
-                    $result = $statement->fetchAll();
-                    $sn=1;
-                    foreach($result as $row)
-                    {?>
-                      <tr class="Myitem">
-                        <td><?php echo $sn++?></td>
-                        <td><?php $item_id=$row['item'];$q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
-                              $q->execute([$item_id]);
-                              $name = $q->fetchColumn();
-                              echo $name;
-                           $item_db_id=$row['id'];
-
-                              $fetch_grade= $connect->prepare("SELECT grade FROM `item_gradesheet` WHERE item_id=? AND user_id=?");
-                              $fetch_grade->execute([$item_db_id,$fetchuser_id]);
-                              $grade = $fetch_grade->fetchColumn();
-                             
-                              ?>
-                                 <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
-                                 <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
-                                 <input type="hidden" name="std_sub[]" value="item">
-                        </td>
-                        <td style="display: flex;">
-                      
-                      <input id="itemU" type="radio" class="myRadio" <?php if($grade=="U") {echo "checked";}?> value="U" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-U">U</label>
-                      <input id="itemF" type="radio" class="myRadio" <?php if($grade=="F") {echo "checked";}?> value="F" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-F">F</label>
-                      <input id="itemG" type="radio" class="myRadio" <?php if($grade=="G") {echo "checked";}?> value="G" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-G">G</label>
-                      <input id="itemV" type="radio" class="myRadio" <?php if($grade=="V") {echo "checked";}?> value="V" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-V">V</label>
-                      <input id="itemE" type="radio" class="myRadio" <?php if($grade=="E") {echo "checked";}?> value="E" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-E">E</label>
-                      <input id="itemN" type="radio" class="myRadio" <?php if($grade=="N") {echo "checked";}?> value="N" name="grade[item<?php echo $item_id?>]"/>
-                      <label for="item-N">N</label>
-                      </td>
-                       </tr>
-                       <!-- fetch subitem -->
-                       <?php
-                        $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name' AND item='$item_id'";
-                        $statement = $connect->prepare($allsubitem);
-                        $statement->execute();
-                         
-                        if($statement->rowCount() > 0)
-                          {
-                            $result1 = $statement->fetchAll();
-                            $sn1='A';
-                            foreach($result1 as $row1)
-                            {
-                        ?>
-                        <tr>
-                          <td><?php echo $sn1++ ;?></td>
-                          <td><?php echo $sub_value=$row1['subitem'];
-                          $subitem_db_id=$row1['id'];
-                          $fetch_subgrade= $connect->prepare("SELECT grade FROM `subitem_gradesheet` WHERE subitem_id=? AND user_id=?");
-                          $fetch_subgrade->execute([$subitem_db_id,$fetchuser_id]);
-                          $grade1 = $fetch_subgrade->fetchColumn();
-                         ?>
-                          <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
-                                <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
-                                 <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
-                      <td style="display: flex;">
-                      <input type="radio" value="U" class="myRadio" <?php if($grade1=="U") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>U
-                      <input type="radio" value="F" class="myRadio" <?php if($grade1=="F") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>F
-                      <input type="radio" value="G" class="myRadio" <?php if($grade1=="G") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>G
-                      <input type="radio" value="V" class="myRadio" <?php if($grade1=="V") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>V
-                      <input type="radio" value="E" class="myRadio" <?php if($grade1=="E") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>E
-                      <input type="radio" value="N" class="myRadio" <?php if($grade1=="N") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>N
-                      </td>
-                            </tr>
-                        <?php  
-                        }
-                        }
-                      }
+                <h5>Course name :  </h5>
+                <!-- display corse name -->
+                <?php echo $std_course.'<br>';
+                  // if class id is set
+                    if(isset($_GET['id'])){
+                      $classid=$_GET['id'];
                     }
+                      // if class name is set
+                      if(isset($_GET['class'])){
+                      echo '<h5>class : </h5>'.$class=$_GET['class'];
+                      }else{
+                        echo 'class :<span style="color:red">select class</span>';  
+                      }
                       ?>
-                      
-							</tbody>
-						</table>
+
+                 <br>
+        </div>  
+      	<div class="row" style="width:100%;">
+      		    <div class="col-8">
+                <!-- form starts here -->
+                  <form method="get" action="submit_gradesheet.php" style="width:95%;">
+                    <table>
+                        <tr>
+                          <input class="form-control" type="hidden" name="stud_db_id" value="<?php echo $fetchuser_id?>">
+                          <input class="form-control" type="hidden" name="class_name" value="<?php echo $class_name?>">
+                          <input type="hidden" name="phases_id" value="<?php echo $phase_id?>">
+                          <input type="hidden" name="course_id" value="<?php echo $phpcourse?>">
+                          <input type="hidden" name="class_id" value="<?php echo $classid?>">
+                          <td><label>Id</label>
+                          <input class="form-control" type="text" name="stud_id" readonly value="<?php echo $fetchid?>"></td>
+                          <td><label>Name</label><input class="form-control" type="text" name="stud_name" readonly value="<?php echo $fetchname?>"></td>
+                          </tr>
+                          <tr>
+                          <td><label>Role</label><input class="form-control" type="text" name="stud_role" readonly value="<?php echo $fetchrole?>"></td>
+                          <td><label>Phone</label><input class="form-control" type="text" name="stud_phone" readonly value="<?php echo $fetchphone?>"></td>
+                          </tr>
+                        <tr>
+                            <?php
+                            //fetch selected student details
+                            $stu_grade="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+                            $st = $connect->prepare($stu_grade);
+                            $st->execute();
+                            if($st->rowCount() > 0)
+                            {
+                              $re = $st->fetchAll();
+                              foreach($re as $value)
+                             {
+                                //fetch instructor of selected std if set
+                                $std_in=$value['instructor'];
+                                $instr_name= $connect->prepare("SELECT name FROM `users` WHERE id=?");
+                                $instr_name->execute([$std_in]);
+                                $name1 = $instr_name->fetchColumn();
+                                //fetch vechile   
+                                $vec_id=$value['vehicle']; 
+                                $vec_name= $connect->prepare("SELECT VehicleNumber FROM `vehicle` WHERE id=?"); 
+                                $vec_name->execute([$vec_id]);
+                                $name2 = $vec_name->fetchColumn(); 
+                                $vec_type= $connect->prepare("SELECT VehicleType FROM `vehicle` WHERE id=?"); 
+                                $vec_type->execute([$vec_id]);
+                                $name3 = $vec_type->fetchColumn();  
+                                $st_time=$value['time'];
+                                $st_date=$value['date']; 
+
+                                $st_date=strtotime($st_date);           
+                              }}
+                                ?>
+                                  <td><label class="form-label" for="Instructor">Instructor</label>
+                                      <select type="text" id="instructor" class="form-control form-control-md" name="instructor_id" required>
+                                      <!-- inserted instructor -->
+                                      <?php if($std_in != ""){?>  
+                                        <option selected disabled value="<?php echo $std_in ?>"><?php echo $name1?></option>
+                                      <?php }else{ ?>  
+                                      <option selected disabled value="">-select instructor-</option>
+                                      <?php } ?>
+                                          <?php echo $in?>
+                                      </select>
+                                  </td>
+                                  <td><label>Vehicle</label>
+                                    <select type="text" class="form-control form-control-md" name="vechile_id" required>
+                                      <!-- inserted vechile number -->
+                                    <?php if($vec_id != ""){?> 
+                                          <option selected disabled value="<?php echo $vec_id ?>"><?php echo 'Number: '.$name2.', Type: '.$name3?></option>
+                                      <?php }else{ ?> 
+                                    <option selected disabled value="">-select Number-</option>
+                                    <?php } ?>
+                                          <?php echo $vehnum?>
+                                    </select>
+							                    </td>
+                                  </tr>
+                                    <tr>
+                                      <!-- set inserted value of time -->
+                                    <td><label>Time</label><input class="form-control" type="time" value="<?php if(isset($st_time)){$date = date("H:i", strtotime($st_time)); echo "$date";} ?>" name="time"></td>
+                                   <!-- set inserted value of date -->
+                                    <td><label>Date</label><input class="form-control" type="date" value="<?php echo date('Y-m-d',$st_date);?>" name="date"></td>
+                                    </tr> 
+                              </table>
+                             <?php
+                                //  unlock the gradesheet
+                                $lock="SELECT * FROM gradesheet where user_id='$fetchuser_id' and course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+                                $lockst = $connect->prepare($lock);
+                                $lockst->execute();
+                                if($lockst->rowCount() > 0)
+                                { 
+                                $re = $lockst->fetchAll();
+                                    foreach($re as $row)
+                                    {
+                                      // if role is super admin and gradesheet table value is 1
+                                      if($row['status'] == '1' && $role =='super admin'){?>
+                                    <button onclick="document.getElementById('gradesheetid').value='<?php echo $row['id'] ?>';" class="btn btn-warning" type="button" data-toggle="modal" data-target="#unlock" id="ctpbtn">Unlock</button>
+                                <?php
+                                } }}
+                                ?>
+                            </div>
+                           </div>
+                          </div>
+                      <!--Comment box Container-->
+                        <div class="container">
+                            <div class="row" style="width:100%;">
+                              <div class="col-8">
+                            <center>
+  
+                        <!-- fetch item and subitem add from class page for particular class -->
+                        <table class="table table-bordered target-table" id="radio" style="width:90%; margin-left:100px;">
+                            <thead class="thead-dark" style="background-color:black;">
+                              <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Grade</th>
+                             </tr>
+                            </thead>
+                            <tbody>
+                              <?php 
+                              //fetch item
+                              $allitem = "SELECT * FROM item where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name'";
+                              $statement = $connect->prepare($allitem);
+                              $statement->execute();
+                              
+                              if($statement->rowCount() > 0)
+                                {
+                                  $result = $statement->fetchAll();
+                                  $sn=1;
+                                  foreach($result as $row)
+                                  {?>
+                                    <tr class="Myitem">
+                                      <td><?php echo $sn++?></td>
+                                      <td><?php $item_id=$row['item'];
+                                      //select name of item of item id
+                                                $q= $connect->prepare("SELECT item FROM `itembank` WHERE id=?");
+                                                $q->execute([$item_id]);
+                                                $name = $q->fetchColumn();
+                                                echo $name;
+                                                $item_db_id=$row['id'];
+                                                $fetch_grade= $connect->prepare("SELECT grade FROM `item_gradesheet` WHERE item_id=? AND user_id=?");
+                                                $fetch_grade->execute([$item_db_id,$fetchuser_id]);
+                                                $grade = $fetch_grade->fetchColumn();
+                                                ?>
+                                              <input type="hidden" name="items_id[]" value="<?php echo $item_db_id?>">
+                                              <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                              <input type="hidden" name="std_sub[]" value="item">
+                                      </td>
+                                      <td style="display: flex;">
+                                    
+                                    <input id="itemU" type="radio" class="myRadio" <?php if($grade=="U") {echo "checked";}?> value="U" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-U">U</label>
+                                    <input id="itemF" type="radio" class="myRadio" <?php if($grade=="F") {echo "checked";}?> value="F" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-F">F</label>
+                                    <input id="itemG" type="radio" class="myRadio" <?php if($grade=="G") {echo "checked";}?> value="G" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-G">G</label>
+                                    <input id="itemV" type="radio" class="myRadio" <?php if($grade=="V") {echo "checked";}?> value="V" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-V">V</label>
+                                    <input id="itemE" type="radio" class="myRadio" <?php if($grade=="E") {echo "checked";}?> value="E" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-E">E</label>
+                                    <input id="itemN" type="radio" class="myRadio" <?php if($grade=="N") {echo "checked";}?> value="N" name="grade[item<?php echo $item_id?>]"/>
+                                    <label for="item-N">N</label>
+                                    </td>
+                                    </tr>
+                                    <!-- fetch subitem -->
+                                    <?php
+                                      $allsubitem = "SELECT * FROM subitem where course_id='$phpcourse' AND class_id='$classid' AND phase_id='$phase_id' AND class='$class_name' AND item='$item_id'";
+                                      $statement = $connect->prepare($allsubitem);
+                                      $statement->execute();
+                                      
+                                      if($statement->rowCount() > 0)
+                                        {
+                                          $result1 = $statement->fetchAll();
+                                          $sn1='A';
+                                          foreach($result1 as $row1)
+                                          {
+                                      ?>
+                                      <tr>
+                                        <td><?php echo $sn1++ ;?></td>
+                                        <td><?php echo $sub_value=$row1['subitem'];
+                                        $subitem_db_id=$row1['id'];
+                                        $fetch_subgrade= $connect->prepare("SELECT grade FROM `subitem_gradesheet` WHERE subitem_id=? AND user_id=?");
+                                        $fetch_subgrade->execute([$subitem_db_id,$fetchuser_id]);
+                                        $grade1 = $fetch_subgrade->fetchColumn();
+                                      ?>
+                                        <input type="hidden" name="items_id[]" value="<?php echo $subitem_db_id?>">
+                                              <input type="hidden" name="std_idies[]" value="<?php echo $item_id?>">
+                                              <input type="hidden" name="std_sub[]" value="<?php echo $sub_value?>"></td>
+                                    <td style="display: flex;">
+                                    <input type="radio" value="U" class="myRadio" <?php if($grade1=="U") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>U
+                                    <input type="radio" value="F" class="myRadio" <?php if($grade1=="F") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>F
+                                    <input type="radio" value="G" class="myRadio" <?php if($grade1=="G") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>G
+                                    <input type="radio" value="V" class="myRadio" <?php if($grade1=="V") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>V
+                                    <input type="radio" value="E" class="myRadio" <?php if($grade1=="E") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>E
+                                    <input type="radio" value="N" class="myRadio" <?php if($grade1=="N") {echo "checked";}?> name="grade[<?php echo $sub_value.$item_id?>]"/>N
+                                    </td>
+                                          </tr>
+                                      <?php  
+                                      }
+                                      }
+                                    }
+                                  }
+                                    ?>
+                                    
+                            </tbody>
+                          </table>
 
 
           
