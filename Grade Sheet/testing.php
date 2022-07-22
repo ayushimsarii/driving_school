@@ -54,7 +54,8 @@ if($classcolorst->rowCount() > 0)
 				Course name : <?php echo $std_course?>
 			</div>
 			<center>
-			<ul class="nav nav-tabs nav-justified" role="tablist" id="slidertab" style="width: 70%;">
+            
+			<ul class="nav nav-pills nav-justified mb-7" role="tablist" id="slidertab" style="width: 70%;">
     <!-- <div class="slider"></div> -->
 				<li class="nav-item">
 					<a class="nav-link active" id="test-tab" data-toggle="tab" href="#test" role="tab" aria-controls="test" aria-selected="true"><i class="fas fa-user"></i></i>Test</a>
@@ -119,4 +120,5 @@ if($classcolorst->rowCount() > 0)
  include_once 'footer.php';
  ?>
 </body>
+
 </html>

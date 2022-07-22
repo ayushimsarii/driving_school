@@ -88,12 +88,17 @@ if($prof_pic!=null){
   Hello <?php echo $username;?>
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="profile.php">Update Profile</a>
+    <ul>
+      <li style="display:block;">
+        <a class="btn btn-outline-success" href="profile.php">Update Profile<i class="fas fa-user-circle"></i></a>
+      </li>
+      <li style="display:block;">
+        <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
+      </li>
+    </ul>
     </div>
         
         <button class="btn btn-warning" data-toggle="modal" data-target="#notification"><i class="fas fa-bell"></i></button>
-        <a href="logout.php" class="btn btn-outline-success">logout<i class="fas fa-sign-out"></i></a>
-
         
       </span></h3>
 </div>
@@ -108,15 +113,14 @@ if($prof_pic!=null){
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
       <li class="nav-item active">
-              <a class="nav-link" href="Home.php"><i class="fas fa-home-alt"></i>Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="Home.php">Home<span class="sr-only">(current)</span></a>
             </li>
             
             <?php if(!isset($_SESSION['permission']) || $permission['show_c'] == "1"){?>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="phase-view.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-users-class"></i>Class
+              Class
               </a>
        
               <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
@@ -130,63 +134,80 @@ if($prof_pic!=null){
          
             <?php if(!isset($_SESSION['permission']) || $permission['Task'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="tasklog.php"><i class="fas fa-tasks"></i>Task</a>
+              <a class="nav-link" href="tasklog.php">Task</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Activity'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="stdactlog.php"><i class="fas fa-user-graduate"></i>Activity</a>
+              <a class="nav-link" href="stdactlog.php">Activity</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Testing'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="testing.php"><i class="fas fa-vial"></i>Testing</a>
+              <a class="nav-link" href="testing.php">Testing</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Emergency'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="emergency.php"><i class="fas fa-hospital"></i>Emergeny</a>
+              <a class="nav-link" href="emergency.php">Emergeny</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Qual'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="qual.php"><i class="fas fa-graduation-cap"></i>Qual</a>
+              <a class="nav-link" href="qual.php">Qual</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Clearance'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="clearance.php"><i class="fas fa-cloud-sun"></i>Clearance</a>
+              <a class="nav-link" href="clearance.php">Clearance</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['CAP'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="CAP.php"><i class="fas fa-grip-vertical"></i>CAP</a>
+              <a class="nav-link" href="CAP.php">CAP</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Memo'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="memo.php"><i class="fas fa-memory"></i>Memo</a>
+              <a class="nav-link" href="memo.php">Memo</a>
                </li>
                <?php } ?>
                <?php if(!isset($_SESSION['permission']) || $permission['Report'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="classreport.php"><i class="fas fa-file-chart-line"></i>Report</a>
+              <a class="nav-link" href="classreport.php">Report</a>
             </li>
             <?php } ?>
             <?php if(!isset($_SESSION['permission']) || $permission['Discipline'] == "1"){?>
             <li class="nav-item">
-              <a class="nav-link" href="discipline.php"><i class="fas fa-dice-d6"></i>Discipline</a>
+              <a class="nav-link" href="discipline.php">Discipline</a>
             </li>
             <?php } ?>
       </ul>
-      <!-- <h3><span style="color:white">
-        Hello <?php echo $username;?>
-        <li class="dropdown">
-          <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"><i class="fas fa-bell"></i></a>
-          <ul class="dropdown-menu"></ul>
-        </li>
-        <a href="logout.php" class="btn btn-warning">logout</a>
-      </span></h3> -->
+      <h3><span style="color:white">
+        
+      <li class="dropdown">
+        <a class="btn btn-outline-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          DOC's
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="driving_school-4/Grade sheet/login.php">
+                    <img style="height:30px; width:30px;" src="https://scontent.fbom3-1.fna.fbcdn.net/v/t1.15752-9/289931610_5375057919199729_6209599937355654461_n.png?stp=dst-webp&_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=3FEMhRMYD4cAX-cfbyO&_nc_ht=scontent.fbom3-1.fna&uss=214070531a663c06&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FF5A23&oh=03_AVIHuZe4y2m6MH1OYrDeZbNpyRS_VBEcRfEV92qO6sCk-A&oe=62D92F0B" alt="images not found">
+                    Grade Sheet</a><hr>
+               
+                  <a class="dropdown-item" href="driving_school-4/Library/index.php">
+                  <img style="height:30px; width:30px;" src="https://scontent.fbom3-1.fna.fbcdn.net/v/t1.15752-9/293439227_1909777142555207_4704971287545370848_n.png?stp=dst-webp&_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=tmIWfqqsTloAX_-JnUN&_nc_ht=scontent.fbom3-1.fna&uss=eb41407c36c5920c&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FCCFD6&oh=03_AVKtIsfl40bQj7rb01VQzJ4OUzY_ynT80BECPenfoaz6pg&oe=62D92DF6" alt="images not found">
+                    Library</a><hr>
+
+                  <a class="dropdown-item" href="BRI/index.php">
+                  <img style="height:30px; width:30px;" src="https://scontent.fbom3-2.fna.fbcdn.net/v/t1.15752-9/290657372_886572016078640_5349877994475500086_n.png?stp=dst-webp&_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=nT8yKHobNZAAX-la1jV&_nc_ht=scontent.fbom3-2.fna&uss=34f921510ea6bc9a&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FF56E2&oh=03_AVKqJ9mOMuP110_bWiLchvm-XSZ7OzHziNeTcaVJgu4eJA&oe=62D929D6" alt="images not found">
+                    BRI</a><hr>
+                  <a class="dropdown-item" href="Scheduling/index.php">
+                  <img style="height:30px; width:30px;" src="https://scontent.fbom3-1.fna.fbcdn.net/v/t1.15752-9/294788057_607249490742959_6423593224146955433_n.png?stp=dst-webp&_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DsCO3COkBbUAX-D1d18&_nc_ht=scontent.fbom3-1.fna&uss=28b587553124be11&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FE6992&oh=03_AVKWmm07emK9_OrtumDjeEegsOg7kN7jxz40ZSh5Jt-50Q&oe=62D929A2" alt="images not found">
+                    Scheduling</a>
+            
+        </div>
+      </li>
+      </span></h3>
     </div>
   </div>
 </nav>

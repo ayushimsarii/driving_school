@@ -21,7 +21,9 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
-        <h1 style="color:white; text-align:center; margin:5px;">TOS/BRIEF INTRACTOR</h1>
+        <h1 style="color:white; text-align:center; margin:5px;">
+        <img src="https://scontent.fbom3-2.fna.fbcdn.net/v/t1.15752-9/290657372_886572016078640_5349877994475500086_n.png?stp=dst-webp&_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=nT8yKHobNZAAX-la1jV&_nc_ht=scontent.fbom3-2.fna&uss=34f921510ea6bc9a&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FF56E2&oh=03_AVKqJ9mOMuP110_bWiLchvm-XSZ7OzHziNeTcaVJgu4eJA&oe=62D929D6" alt="Girl in a jacket" width="50" height="50">
+        TOS/BRIEF INTRACTOR</h1>
     </nav>
 <div class="heading">
     <center>
