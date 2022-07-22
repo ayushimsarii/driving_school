@@ -30,7 +30,9 @@
 <body>
 <center>
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
-        <h1 style="color:white; text-align:center; margin:5px;">TOS/LIBRARY</h1>
+        <h1 style="color:white; text-align:center; margin:5px;">
+        <img src="https://scontent.fbom3-1.fna.fbcdn.net/v/t1.15752-9/293439227_1909777142555207_4704971287545370848_n.png?stp=dst-webp&_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=tmIWfqqsTloAX_-JnUN&_nc_ht=scontent.fbom3-1.fna&uss=eb41407c36c5920c&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FCCFD6&oh=03_AVKtIsfl40bQj7rb01VQzJ4OUzY_ynT80BECPenfoaz6pg&oe=62D92DF6" alt="Girl in a jacket" width="50" height="50">
+        TOS/LIBRARY</h1>
     </nav>
 </center>
 

@@ -30,7 +30,9 @@
 <body>
 <center>
 <nav class="navbar navbar-expand-lg navbar-light bg-success">
-        <h1 style="color:white; text-align:center; margin:5px;">TOS/SCHEDULING</h1>
+        <h1 style="color:white; text-align:center; margin:5px;">
+        <img src="https://scontent.fbom3-1.fna.fbcdn.net/v/t1.15752-9/294788057_607249490742959_6423593224146955433_n.png?stp=dst-webp&_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DsCO3COkBbUAX-D1d18&_nc_ht=scontent.fbom3-1.fna&uss=28b587553124be11&odm=bXNhcmlpLndvcmtwbGFjZS5jb20&oe2=62FE6992&oh=03_AVKWmm07emK9_OrtumDjeEegsOg7kN7jxz40ZSh5Jt-50Q&oe=62D929A2" alt="Girl in a jacket" width="50" height="50">
+        TOS/SCHEDULING</h1>
     </nav>
 </center>
 
